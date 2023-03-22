@@ -1,9 +1,7 @@
-# BNERCR02A16H501X codice fiscale di riccardo
-# HO FINALMENTE IL POTERE
 # ProgettoLTW
 
-## Decidere il progetto
-
-## Realizzare il progetto
-
-## Presentare il progetto
+## individuare gli attori
+## prototipare tutte le pagine dell'applicazione
+### in che modo possiamo accedere ad una database?
+### pagine che dovrebbero esserci per forza (greve zi)
+#### login e register(?) possiamo fare che gli account sono
