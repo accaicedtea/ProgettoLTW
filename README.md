@@ -4,15 +4,18 @@
 ## individuare gli attori
     un utente può:
 	    account:
+            
             registrare un account
             accedere un account
             eliminare un account
             modificare un account
 	
 	    gestione delle risorse:
+            
             aggiungere spese
             rimuovere spese
             modificare spese
+
             aggiungere entrate
             rimuovere entrate
             modificare entrate
@@ -30,3 +33,17 @@
 # provaprova
 ## prova prova 2
 ### prova 4
+
+
+hommmme 
+
+nuova transazione
+
+lista transazioni
+
+scadenze
+
+statistiche
+
+
+
