@@ -1,4 +1,5 @@
-<?php include '../head.html';?>
+<?php include './head.html';
+?>
 <style>
 
 </style>
@@ -20,7 +21,7 @@
                                             <p class="h6 text-primary m-0 fw-bold ">Crea la tua fantastiche utenze</p>
                                         </div>
                                         <div class="card-body">
-                                            <form>
+                                            <form action="./register_user.php" method="post" name="formreg">
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="nome utente" name="username"></div>
@@ -38,7 +39,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="cognome"><strong >Sesso</strong></label>
+                                                        <div class="mb-3"><label class="form-label" for="sesso"><strong >Sesso</strong></label>
                                                             <input type="radio" class="btn-check" name="sesso" id="option2" autocomplete="off" checked>
                                                             <label class="btn btn-outline-secondary btn-sm shadow-sm" for="option2">Donna</label>
                                                             <input type="radio" class="btn-check" name="sesso" id="option3" autocomplete="off">
@@ -49,7 +50,7 @@
                                                 
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataB"></div>
+                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -63,7 +64,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="passowrd"></div>
+                                                        <div class="mb-5"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="passwordC"></div>
                                                     </div>
                                                 
                                                     <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Registrati</button></div>
