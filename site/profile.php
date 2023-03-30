@@ -7,10 +7,11 @@
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <div class="container-fluid">
-                    <p class= "text-center text-dark mb-4 h3 mt-3">Profile</p>
+                    
                     <div class="row mb-3">
                         <div class="col-lg-3"></div>
                         <div class="col-lg-6">
+                        <p class= "text-center text-dark mb-4 h3 mt-3">Profile</p>
                             <div class="card mb-3">
                                 <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="./EEUy6MCU0AErfve.png" width="160" height="160">
                                     <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change</button></div>
