@@ -1,12 +1,5 @@
 <?php include '../head.html';?>
-<style>
-    .ombra{
-        text-shadow: 1px 1px 1px #ababab;
-    }
-    .ombra-3{
-        text-shadow: 3px 3px 3px #ababab;
-    }
-</style>
+
 <body id="page-top" style="background-color:#90EE90;">
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -19,7 +12,7 @@
                                 <div class="col">
                                     <div class="card shadow mb-3">
                                         <div class="row-lg-3">
-                                            <p class="h3 text-center mb-3 mt-3 ombra-3" style="font-family: Audiowide, sans-serif; font-size: 30px;">Registrati</p>
+                                            <p class="h3 text-center mb-3 mt-3">Registrati</p>
                                         </div>
                                         <div class="card-header py-3">
                                             <p class="h6 text-primary m-0 fw-bold ombra">Crea la tua fantastiche utenze</p>

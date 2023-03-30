@@ -9,10 +9,12 @@
                 <div class="container-fluid">
                     
                     <div class="row mb-3">
-                        <div class="col-lg-3"></div>
-                        <div class="col-lg-6">
-                        <p class= "text-center text-dark mb-4 h3 mt-3">Profile</p>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
                             <div class="card mb-3">
+                                        <div class="row-md-3">
+                                            <p class="h3 text-center mb-3 mt-3">Profilo</p>
+                                        </div>
                                 <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="./EEUy6MCU0AErfve.png" width="160" height="160">
                                     <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change</button></div>
                                 </div>
