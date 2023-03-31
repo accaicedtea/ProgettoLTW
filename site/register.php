@@ -1,7 +1,5 @@
-<?php include '../head.html';?>
-<style>
+<?php include './head.html';?>
 
-</style>
 <body id="page-top" style="background-color:#e9e9e9;">
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -20,7 +18,7 @@
                                             <p class="h6 text-primary m-0 fw-bold ">Crea la tua fantastiche utenze</p>
                                         </div>
                                         <div class="card-body">
-                                            <form>
+                                            <form action="./register_user.php" method="post" name="formreg">
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="nome utente" name="username"></div>
@@ -38,10 +36,10 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="cognome"><strong >Sesso</strong></label>
-                                                            <input type="radio" class="btn-check" name="sesso" id="option2" autocomplete="off" checked>
+                                                        <div name="radioSesso" class="mb-3"><label class="form-label" for="sesso"><strong >Sesso</strong></label>
+                                                            <input type="radio" class="btn-check" name="sesso" id="option2" value="0" autocomplete="off" checked>
                                                             <label class="btn btn-outline-secondary btn-sm shadow-sm" for="option2">Donna</label>
-                                                            <input type="radio" class="btn-check" name="sesso" id="option3" autocomplete="off">
+                                                            <input type="radio" class="btn-check" name="sesso" id="option3" value="1" autocomplete="off">
                                                             <label class="btn btn-outline-secondary btn-sm shadow-sm" for="option3">Uomo</label></div>
                                                         </div>
                                                 </div>
@@ -49,7 +47,7 @@
                                                 
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataB"></div>
+                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -63,7 +61,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="passowrd"></div>
+                                                        <div class="mb-5"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="passwordC"></div>
                                                     </div>
                                                 
                                                     <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Registrati</button></div>

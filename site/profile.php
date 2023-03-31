@@ -1,8 +1,16 @@
-<?php include '../head.html';?> 
+<?php include './head.html';?> 
 
 <body id="page-top" >
     
-    <?php include './navLogin copy 2.html';?>  
+    <?php include './navLogin copy 2.html';
+        // Create connection
+        $conn = new mysqli("localhost", "root", "");
+
+        // Check connection
+        if ($conn->connect_error) 
+            die("Connection failed: " . $conn->connect_error);
+    ?>  
+
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
