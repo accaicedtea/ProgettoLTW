@@ -1,5 +1,8 @@
-<?php include './head.html';?>
-
+<?php 
+$pagina = 'Registrazione';
+  include './head.php';
+  
+?>
 <body id="page-top">
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">

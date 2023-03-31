@@ -1,7 +1,9 @@
 <?php 
-
-$_SESSION['pagina'] = 'Login';
-include './head.php';?>
+  $pagina = 'Accesso';
+  include './head.php';
+  $log = 'no';
+  include './navBar.php';
+?>
 <body id="page-top">
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -22,10 +24,18 @@ include './head.php';?>
                                             <p class="h3 text-center mb-3 mt-3">Accedi</p>
                                         </div>
                                         <div class="card-body">
+                                          <!-- form -->
+                                          <?php if(isset($_GET['error'])){ ?>
+                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong>Cavolini! </strong><?php echo $_GET['error']; ?>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                          <?php }?> 
+
                                             <form action="./login_user.php" method="post" name="form-signin" class="form-signin">
-                                                <div class="row">
+                                                  <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Inidirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder="example@email.com" name="email"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Username</strong></label><input class="form-control" type="text" id="username" placeholder="pippo" name="username"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">

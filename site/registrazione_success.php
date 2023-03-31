@@ -1,2 +1,2 @@
-<?php include './head.html';?>
-<?php include './navLogin copy 2.html';?>
+<?php include './head.php';?>
+<?php include './navBar.php';?>
