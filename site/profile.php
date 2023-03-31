@@ -1,16 +1,9 @@
-<?php include '../head.html';?> 
+<?php include './head.html';?> 
 
-<body id="page-top" >
-    
-    <?php include './navLogin copy 2.html';
-        // Create connection
-        $conn = new mysqli("localhost", "root", "");
-
-        // Check connection
-        if ($conn->connect_error) 
-            die("Connection failed: " . $conn->connect_error);
+<body id="page-top">
+    <?php 
+        include './navBar.php';
     ?>  
-
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
@@ -23,7 +16,8 @@
                                         <div class="row-md-3">
                                             <p class="h3 text-center mb-3 mt-3">Profilo</p>
                                         </div>
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="./EEUy6MCU0AErfve.png" width="160" height="160">
+                                        <!-- qui sicuramente andrà fatto in php tutto quanto-->
+                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="./assets/img/avatars/base.png" width="160" height="160">
                                     <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change</button></div>
                                 </div>
                             </div>
@@ -78,9 +72,6 @@
             </div>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/theme.js"></script>
 </body>
 
 </html>
