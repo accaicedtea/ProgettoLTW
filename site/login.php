@@ -1,4 +1,8 @@
-<?php include '../head.html';?>
+<?php include './head.html';?>
+
+<?php 
+session_start();
+?>
 <body>
   <div class="row mb-3">
     <div class="col-lg-3"></div>
@@ -10,7 +14,7 @@
               <div class="container-fluid">
                 <form class="form-signin">
                   <div row class="text-center">
-                    <img class="mt-3 text-center" src="./4M.svg" alt="" width="200" height="200">
+                    <img class="mt-3 text-center" src="./assets/brand/4M-cropped.svg" alt="" width="200" height="200">
                   </div>
                   <p class="h3 text-dark mb-4 mt-3 text-center">Accedi</p>
                   <div class="text-start"><label class="form-label" for="inputEmail"><strong>Indirizzo email</strong></label></div>
