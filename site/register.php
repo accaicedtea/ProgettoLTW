@@ -39,10 +39,10 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="sesso"><strong >Sesso</strong></label>
-                                                            <input type="radio" class="btn-check" name="sesso" id="option2" autocomplete="off" checked>
+                                                        <div name="radioSesso" class="mb-3"><label class="form-label" for="sesso"><strong >Sesso</strong></label>
+                                                            <input type="radio" class="btn-check" name="sesso" id="option2" value="0" autocomplete="off" checked>
                                                             <label class="btn btn-outline-secondary btn-sm shadow-sm" for="option2">Donna</label>
-                                                            <input type="radio" class="btn-check" name="sesso" id="option3" autocomplete="off">
+                                                            <input type="radio" class="btn-check" name="sesso" id="option3" value="1" autocomplete="off">
                                                             <label class="btn btn-outline-secondary btn-sm shadow-sm" for="option3">Uomo</label></div>
                                                         </div>
                                                 </div>

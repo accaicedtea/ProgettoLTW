@@ -1,5 +1,5 @@
 <?php
-    $conn = mysqli_connect("localhost", "root", "", "4Money");
+    $conn = mysqli_connect("localhost", "root", "", "cd");
          
     // Check connection
     if($conn === false){
