@@ -23,7 +23,7 @@
                                             <form action="./register_user.php" method="post" name="formreg">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="nome utente" name="username" onfocus="show_requirements_username()" onblur="remove_requirements_username()" onSubmit="error_requirements_username()"></div>
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="nome utente" name="username" onfocus="show_requirements_username()" onblur="remove_requirements_username()" onchange="return error_requirements_username()"></div>
                                                         <div id=requirements_username></div>
                                                     </div>
                                                 </div>
@@ -60,12 +60,12 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="password" onfocus="show_requirements_password()" onblur="remove_requirements_password()" onsubmit="error_requirements_password()"></div>
+                                                        <div class="mb-5"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="password" onfocus="show_requirements_password()" onblur="remove_requirements_password()" onchange="return error_requirements_password()"></div>
                                                         <div id="requirements_password"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="passwordC" onsubmit="error_confirm_password()"></div>
+                                                        <div class="mb-5"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="passwordC" onchange="return error_confirm_password()"></div>
                                                         <div id="confirm_password"></div>
                                                     </div>
                                                 
