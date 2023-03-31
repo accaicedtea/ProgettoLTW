@@ -1,40 +1,45 @@
 function show_requirements_username() {
     document.getElementById("requirements_username").innerHTML = "L'username deve essere lungo al massimo 50 caratteri"
 }
+
 function remove_requirements_username() {
     document.getElementById("requirements_username").innerHTML = "";
 }
+
 function show_requirements_password() {
-    document.getElementById("requirements_password").innerHTML = "La password deve contenere:<br>1 carattere maiscolo;<br>1 carattere minuscolo;<br>Almeno 12 caratteri;<br>1 numero;<br>1 caratterespeciale"
+    document.getElementById("requirements_password").innerHTML = "La password deve contenere:<br>1 carattere maiscolo;<br>1 carattere minuscolo;<br>Almeno 12 caratteri;<br>1 numero;<br>1 caratterespeciale (!@#$%^&*)"
 }
+
 function remove_requirements_password() {
     document.getElementById("requirements_password").innerHTML = "";
 }
-function error_requirements_password() {
-    if(document.formreg.password.value=="") {
-        document.getElementById("requirements_password").innerHTML = "Errore! Inserisci password";
-        alert("password non data");
-        return false;
-    }
-    return true;
+
+function show_requirements_dataN() {
+    document.getElementById("requirements_dataN").innerHTML = "Devi avere più di 14 anni";
 }
-function error_confirm_password() {
-    if(document.formreg.password.value != document.formreg.passwordC.value) {
-        document.getElementById("confirm_password").innerHTML = "Errore! Le password non coincidono";
-        alert("Password diverse");
-        return false;
-    }
-    return true;
+
+function remove_requirements_dataN() {
+    document.getElementById("requirements_dataN").innerHTML = "";
 }
+
 function validaForm() {
+    var password_regex = RegExp("(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,20}")
+    var password = document.formreg.password.value;
     if(document.formreg.username.value=="") {
         document.getElementById("requirements_username").innerHTML = "Errore! Inserisci username";
         return false;
     }
-    if (document.formreg.password.value==""){
+    if (password==""){
         document.getElementById("requirements_password").innerHTML = "Errore! Inserisci una password";
         return false;
     }
-    if (document.formreg.password.value)
-
+    if (!password.match(password_regex)) {
+        document.getElementById("requirements_password").innerHTML = "Formato password non valido";
+        return false;
+    }
+    if (document.formreg.password.value != document.formreg.passwordC.value) {
+        document.getElementById("confirm_password").innerHTML = "Errore! Le password non coincidono";
+        return false;
+    }
+    return true;
 }

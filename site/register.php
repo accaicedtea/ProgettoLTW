@@ -20,7 +20,7 @@
                                             <p class="h6 text-primary m-0 fw-bold ">Crea la tua fantastiche utenze</p>
                                         </div>
                                         <div class="card-body">
-                                            <form action="./register_user.php" method="post" name="formreg">
+                                            <form action="./register_user.php" method="post" name="formreg" onsubmit="return validaForm();">
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="nome utente" name="username" onfocus="show_requirements_username()" onblur="remove_requirements_username()" onchange="return error_requirements_username()"></div>
@@ -50,7 +50,8 @@
                                                 
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN"></div>
+                                                        <div id="requirements_dataN"></div>
+                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" onfocus="show_requirements_dataN()" onblur="remove_requirements_dataN()"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -60,7 +61,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="password" onfocus="show_requirements_password()" onblur="remove_requirements_password()" onchange="return error_requirements_password()"></div>
+                                                        <div class="mb-3"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="password" onfocus="show_requirements_password()" onblur="remove_requirements_password()" onchange="return error_requirements_password()"></div>
                                                         <div id="requirements_password"></div>
                                                     </div>
                                                 </div>
