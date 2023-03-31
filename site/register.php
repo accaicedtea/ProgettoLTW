@@ -1,5 +1,7 @@
 <?php include './head.html';?>
 
+<script src="./register_controlli.js"></script>
+
 <body id="page-top" style="background-color:#e9e9e9;">
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -21,7 +23,8 @@
                                             <form action="./register_user.php" method="post" name="formreg">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="nome utente" name="username"></div>
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="nome utente" name="username" onfocus="show_requirements_username()" onblur="remove_requirements_username()" onSubmit="error_requirements_username()"></div>
+                                                        <div id=requirements_username></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -57,11 +60,13 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="passord" placeholder="*****" name="password"></div>
+                                                        <div class="mb-5"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="password" onfocus="show_requirements_password()" onblur="remove_requirements_password()" onsubmit="error_requirements_password()"></div>
+                                                        <div id="requirements_password"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="passwordC"></div>
+                                                        <div class="mb-5"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="passwordC" onsubmit="error_confirm_password()"></div>
+                                                        <div id="confirm_password"></div>
                                                     </div>
                                                 
                                                     <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Registrati</button></div>
