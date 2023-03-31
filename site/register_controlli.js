@@ -4,14 +4,6 @@ function show_requirements_username() {
 function remove_requirements_username() {
     document.getElementById("requirements_username").innerHTML = "";
 }
-function error_requirements_username() {
-    if(document.formreg.username.value=="") {
-        document.getElementById("requirements_username").innerHTML = "Errore! Inserisci username";
-        alert("username non dato");
-        return false;
-    }
-    return true;
-}
 function show_requirements_password() {
     document.getElementById("requirements_password").innerHTML = "La password deve contenere:<br>1 carattere maiscolo;<br>1 carattere minuscolo;<br>Almeno 12 caratteri;<br>1 numero;<br>1 caratterespeciale"
 }
@@ -34,4 +26,15 @@ function error_confirm_password() {
     }
     return true;
 }
+function validaForm() {
+    if(document.formreg.username.value=="") {
+        document.getElementById("requirements_username").innerHTML = "Errore! Inserisci username";
+        return false;
+    }
+    if (document.formreg.password.value==""){
+        document.getElementById("requirements_password").innerHTML = "Errore! Inserisci una password";
+        return false;
+    }
+    if (document.formreg.password.value)
 
+}
