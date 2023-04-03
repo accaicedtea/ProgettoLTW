@@ -1,5 +1,5 @@
 <?php 
-  $pagina = 'Accesso';
+  $pagina = 'Accedi';
   include './head.php';
   $log = 'no';
   include './navBar.php';
@@ -30,7 +30,13 @@
                                             <strong>Cavolini! </strong><?php echo $_GET['error']; ?>
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
-                                          <?php }?> 
+                                          <?php }else if(isset($_GET['msg'])){?>
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <strong>Nuovo utente! </strong><?php echo $_GET['msg']; ?>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                            
+                                            <?php }?> 
 
                                             <form action="./login_user.php" method="post" name="form-signin" class="form-signin">
                                                   <div class="row">

@@ -1,7 +1,7 @@
 <?php 
 $pagina = 'Registrazione';
   include './head.php';
-  
+  include './navBar.php';
 ?>
 <body id="page-top">
     <div id="wrapper">
@@ -13,7 +13,7 @@ $pagina = 'Registrazione';
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col">
-                                    <div class="card shadow mb-3">
+                                    <div class="card shadow mb-3 mt-5">
                                         <div class="row-md-3">
                                             <p class="h3 text-center mb-3 mt-3">Registrati</p>
                                         </div>
@@ -21,6 +21,7 @@ $pagina = 'Registrazione';
                                             <p class="h6 text-primary m-0 fw-bold ">Crea la tua fantastiche utenze</p>
                                         </div>
                                         <div class="card-body">
+                                            <!-- inzio form che manda a register user-->
                                             <form action="./register_user.php" method="post" name="formreg">
                                                 <div class="row">
                                                     <div class="col">
@@ -41,7 +42,7 @@ $pagina = 'Registrazione';
                                                     <div class="col">
                                                         <div name="radioSesso" class="mb-3"><label class="form-label" for="sesso"><strong >Sesso</strong></label>
                                                             <input type="radio" class="btn-check" name="sesso" id="option2" value="0" autocomplete="off" checked>
-                                                            <label class="btn btn-outline-secondary btn-sm shadow-sm" for="option2">Donna</label>
+                                                            <label class="btn btn-outline-secondary btn-sm shadow-sm ms-2" for="option2">Donna</label>
                                                             <input type="radio" class="btn-check" name="sesso" id="option3" value="1" autocomplete="off">
                                                             <label class="btn btn-outline-secondary btn-sm shadow-sm" for="option3">Uomo</label></div>
                                                         </div>
@@ -60,11 +61,11 @@ $pagina = 'Registrazione';
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="passord" placeholder="*****" name="password"></div>
+                                                        <div class="mb-3"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="passord" placeholder="*****" name="password"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="passwordC"></div>
+                                                        <div class="mb-3"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="passwordC"></div>
                                                     </div>
                                                 
                                                     <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Registrati</button></div>
