@@ -35,6 +35,8 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['dataN'] = $row['dataNascita'];
                 $_SESSION['pfp'] = $row['pfp'];
+                $_SESSION['password'] = $row['password'];
+                
                 $_SESSION['log'] = 'on';
                 
                 header("Location: profile.php");
