@@ -1,12 +1,13 @@
 <?php 
-  $pagina = 'Profilo';
-  include './head.php';
+    $pagina = 'Profilo';
+    include './head.php';
 
 ?>
 <body id="page-top">
     <?php 
         session_start();
-        include './navBar.php';
+        include_once './navBar.php';
+        if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>  
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -93,6 +94,9 @@
             </div>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+    <?php }else{ header("Location: home.php");}?>
+
+
 </body>
 
 </html>

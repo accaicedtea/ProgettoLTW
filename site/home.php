@@ -1,7 +1,13 @@
 <?php 
+session_start();
+
 $pagina='Home';
+
 include './head.php';
-include './navBar.php';?>
+
+include './navBar.php';
+
+?>
 
 <main>
 
