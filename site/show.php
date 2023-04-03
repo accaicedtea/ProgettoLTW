@@ -1,6 +1,6 @@
-<?php include './head.html';?>
+<?php include './head.php';?>
 
-<link rel="stylesheet" href="./show_style.css">
+<link rel="stylesheet" href="./assets/css/show_style.css">
 
 <body id="page-top" style="background-color:#e9e9e9;">
     <div id="wrapper">

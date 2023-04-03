@@ -1,4 +1,5 @@
 <?php
+// controlli su dati
 
 include './db_conn.php';
 $username = $_REQUEST['username'];
@@ -13,18 +14,19 @@ $encrypted_pwd = md5($password);
 $dataN = $_REQUEST['dataN'];
  
 // Performing insert query execution
+// here our table name is college
 $sql = "INSERT INTO utente  VALUES ('$username', '$nome',
-    '$cognome','$dataN','$sesso','$email', '$encrypted_pwd', '')";
+    '$cognome','$dataN','$sesso','$email', '$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg')";
 
 
-$registazione_daje = './r_success.php';
+
 
 if(mysqli_query($conn, $sql)){
-    include $registazione_daje;
-} 
-else{
-    echo "ERROR: Hush! Sorry $sql. "
-    . mysqli_error($conn);
+    
+    header("Location: login.php?msg=Grazie per la registazione");
+} else{
+    header("Location: register.php?error=Credenziali errate");
 }
+$conn.close();
  
 ?>

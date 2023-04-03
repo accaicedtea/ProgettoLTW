@@ -1,9 +1,11 @@
-<?php include './head.html';?>
-
-<script src="./register_controlli.js"></script>
-<link rel="stylesheet" href="./register_errors.css">
-<body id="page-top" style="background-color:#e9e9e9;">
-    <div id="wrapper">
+<?php 
+    $pagina = 'Registrazione';
+    include './head.php';
+    include './navBar.php';
+  
+?>
+<body id="page-top">
+<div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <div class="container">
@@ -12,7 +14,7 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col">
-                                    <div class="card shadow mb-3">
+                                    <div class="card shadow mb-3 mt-4">
                                         <div class="row-md-3">
                                             <p class="h3 text-center mb-3 mt-3">Registrati</p>
                                         </div>
@@ -24,19 +26,22 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="nome utente" name="username" onfocus="show_requirements_username()" onblur="remove_requirements_username()" onchange="remove_error_username()"></div>
-                                                        <div class="mb-3" id=requirements_username></div>
+                                                            <!-- waring msg per username-->
+                                                            <div class="mb-3"  id="requirements_username"></div>
                                                         <div class="errors mb-3" id="errors_username"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="nome"><strong >Nome</strong></label><input class="form-control" type="text" id="nome" placeholder="solo nome" name="nome" onchange="remove_error_name()"></div>
+                                                        <!-- waring msg per nome-->
                                                         <div class="errors mb-3" id="errors_name"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="cognome"><strong >Cognome</strong></label><input class="form-control" type="text" id="cognome" placeholder="cognome" name="cognome" onchange="remove_error_cognome()"></div>
+                                                        <!-- waring msg per cognome-->
                                                         <div class="errors mb-3" id="errors_cognome"></div>
                                                     </div>
                                                 </div>
@@ -53,26 +58,30 @@
                                                 
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="requirements mb-3" id="requirements_dataN"></div>
                                                         <div class="errors mb-3" id="errors_dataN"></div>
                                                         <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" onfocus="show_requirements_dataN()" onblur="remove_requirements_dataN()" onchange="remove_error_dataN()"></div>
+                                                        <!-- waring msg per data nascita-->
+                                                        <div class="requirements" id="requirements_dataN"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Indirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder="example@email.com" name="email" onchange="remove_error_email()"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Inidirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder="example@email.com" name="email" onchange="remove_error_email()"></div>
+                                                        <!-- waring msg per indirizzo email-->
                                                         <div class="errors mb-3" id="errors_email"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="password" placeholder="*****" name="password" onfocus="show_requirements_password()" onblur="remove_requirements_password()" onchange="remove_error_password()"></div>
+                                                        <!-- waring msg per password-->
                                                         <div class="mb-3" id=requirements_password></div>
                                                         <div class="errors mb-3" id="errors_password"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="passwordC"><strong >Conferma password</strong></label><input class="form-control" type="password" id="passwordC" placeholder="*****" name="passwordC" onchange="remove_error_passwordC()"></div>
+                                                        <!-- waring msg per conferma password-->
                                                         <div class="errors mb-3" id="errors_confirm_password"></div>
                                                     </div>
                                                     <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Registrati</button></div>

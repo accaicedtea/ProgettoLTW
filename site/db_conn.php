@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 mysqli_report(MYSQLI_REPORT_OFF);
 /* @ is used to suppress warnings */
 $conn = @mysqli_connect('localhost', 'root', '', '4Money');
