@@ -22,14 +22,79 @@
                                         </div>
                                         <!-- qui sicuramente andrà fatto in php tutto quanto-->
                                 <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src=<?php echo $_SESSION['pfp'];?> width="160" height="160">
-                                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change</button></div>
+                                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Cambia icona profilo</button>
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    Cambia icona profilo
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="" method="post" name="edit_form">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="mb-3">
+                                                                        <table class="tg text-center">
+                                                                            <tr>
+                                                                                <td class="tg-0lax"><div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                                                    <button type="button" class="btn btn-outline-primary">Left</button>
+                                                                                    <button type="button" class="btn btn-outline-primary">Middle</button>
+                                                                                    <button type="button" class="btn btn-outline-primary">Right</button>
+                                                                                  </div>
+                                                                                  </td>
+                                                                              
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tg-0lax"><div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                                                    <button type="button" class="btn btn-outline-primary">Left</button>
+                                                                                    <button type="button" class="btn btn-outline-primary">Middle</button>
+                                                                                    <button type="button" class="btn btn-outline-primary">Right</button>
+                                                                                  </div>
+                                                                                  </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tg-0lax"><div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                                                    <button type="button" class="btn btn-outline-primary">Left</button>
+                                                                                    <button type="button" class="btn btn-outline-primary">Middle</button>
+                                                                                    <button type="button" class="btn btn-outline-primary">Right</button>
+                                                                                  </div>
+                                                                                  </td>
+                                                                            <tr>
+                                                                                <td class="tg-0lax"><div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                                                    <button type="button" class="btn btn-outline-primary">Left</button>
+                                                                                    <button type="button" class="btn btn-outline-primary">Middle</button>
+                                                                                    <button type="button" class="btn btn-outline-primary">Right</button>
+                                                                                  </div>
+                                                                                  </td>
+                                                                            </tr>
+
+                                                                        </table>                                                       
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                
+                                
+                                </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Change user settings</p>
+                                            <p class="text-primary m-0 fw-bold">Cambia informazioni utente</p>
                                         </div>
                                         <div class="card-body">
                                             <?php if(isset($_GET['msg'])){ ?>

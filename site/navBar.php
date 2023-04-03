@@ -12,15 +12,18 @@
                 <a class="navbar-brand " href="#">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Nuova transazione
+                    <a class="nav-link active" aria-current="page" href="./show.php">Nuova transazione
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Lista transazioni
+                    <a class="nav-link " href="./show.php">Lista transazioni
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="#">Scadenze</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Statistiche</a>
                 </li>
                 </ul>
                 <a class=" h5 text-white me-3 mt-1" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION['username'];?>

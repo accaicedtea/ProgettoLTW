@@ -1,8 +1,17 @@
-<?php include './head.html';?>
+<?php 
+    $pagina="I tuoi movimenti";
+    include './head.php';
+    
+?>
 
 <link rel="stylesheet" href="./show_style.css">
 
-<body id="page-top" style="background-color:#e9e9e9;">
+<body id="page-top">
+    <?php 
+        session_start();
+        include_once './navBar.php';
+        if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
+    ?>  
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
@@ -131,4 +140,5 @@
             </div>
         </div>
     </div>
+    <?php }else{ header("Location: home.php");}?>
 </body>
