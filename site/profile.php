@@ -1,5 +1,7 @@
 <?php include './head.html';?> 
 
+<script src="./register_controlli.js"></script>
+
 <body id="page-top">
     <?php 
         include './navBar.php';
@@ -18,20 +20,20 @@
                                         </div>
                                         <!-- qui sicuramente andrà fatto in php tutto quanto-->
                                 <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="./assets/img/avatars/base.png" width="160" height="160">
-                                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change</button></div>
+                                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Cambia</button></div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Change user settings</p>
+                                            <p class="text-primary m-0 fw-bold">Modifica informazioni utente</p>
                                         </div>
                                         <div class="card-body">
                                             <form>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" placeholder="ricky_sniper_asr" name="username"></div>
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" placeholder="ricky_sniper_asr" name="username" ></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -41,25 +43,25 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Email address</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Indirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Name</strong></label><input class="form-control" type="text" id="first_name" placeholder="Ambrogio" name="first_name" readonly></div>
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Nome</strong></label><input class="form-control" type="text" id="first_name" placeholder="Ambrogio" name="first_name" readonly></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Surname</strong></label><input class="form-control" type="text" id="last_name" placeholder="Suddetto" name="last_name" readonly></div>
+                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Cognome</strong></label><input class="form-control" type="text" id="last_name" placeholder="Suddetto" name="last_name" readonly></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="birth"><strong>Birth date</strong></label><input class="form-control" type="text" id="birthdate" placeholder="16/01/2002" name="birthdate" readonly></div>
+                                                        <div class="mb-5"><label class="form-label" for="birth"><strong>Data di nascita</strong></label><input class="form-control" type="text" id="birthdate" placeholder="16/01/2002" name="birthdate" readonly></div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3 cnt-b"><button class="btn btn-primary btn-sm" type="submit">Save changes</button></div>
+                                                <div class="mb-3 cnt-b"><button class="btn btn-primary btn-sm" type="submit">Salva modifiche</button></div>
                                             </form>
                                         </div>
                                     </div>

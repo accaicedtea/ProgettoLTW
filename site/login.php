@@ -27,7 +27,7 @@ session_start();
                   <p></p>
                   <div class="mb-4">
                     Non hai un account?
-                    <a href="./register.html">Registrati</a>
+                    <a href="./register.php">Registrati</a>
                   </div>
                 </form>
               </div>
