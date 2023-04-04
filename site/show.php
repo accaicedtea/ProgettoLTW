@@ -1,6 +1,8 @@
 <?php 
     $pagina = 'Visualizza transazioni';
     include './head.php';
+    $sql = "SELECT * FROM categoria";
+    $categories = mysqli_query($conn,$sql);
 ?>
 
 
@@ -34,11 +36,13 @@
                                 </div>
                                 <div class="col-md-3 text-nowrap">
                                     <div id="category_filter" class="category_filter" aria-controls="dataTable"><label class="form-label">Categoria&nbsp;<select class="d-inline-block form-select form-select-sm">
-                                                <option value="uscite" selected="">Categoria1</option>
-                                                <option value="entrate">Categoria2</option>
-                                                <option value="entrate">Categoria3</option>
-                                                <option value="entrate">Categoria4</option>
-                                                <option value="entrate">Categoria5</option>
+                                                <?php for ($i=0; $i<count($categories); $i++) {
+                                                    if ($i == 0)
+                                                        echo <option> value="categoria$i" selected="">$categories[$i]</option>
+                                                    else 
+                                                        echo <option value="categoria$i">$categories[$i]</option>
+                                                    }
+                                                ?>
                                                 </select>&nbsp;</label>
                                     </div>
                                 </div>
