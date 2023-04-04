@@ -1,6 +1,8 @@
-<?php include './head.php';?>
+<?php 
+    $pagina = 'Visualizza transazioni';
+    include './head.php';
+?>
 
-<link rel="stylesheet" href="./assets/css/show_style.css">
 
 <body id="page-top" style="background-color:#e9e9e9;">
     <div id="wrapper">
@@ -72,14 +74,14 @@
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form action="" method="post" name="edit_form">
                                                                 <div class="row">
                                                                     <div class="col">
-                                                                        <div class="mb-3">
-                                                                        <label class="form-label">Categoria&nbsp;<select class="d-inline-block form-select form-select-sm">
+                                                                        <div class="mb-0">
+                                                                        <label class="form-label"><strong>Categoria&nbsp;</strong><select class="d-inline-block form-select form-select-sm">
                                                                             <option value="uscite" selected="">Categoria1</option>
                                                                             <option value="entrate">Categoria2</option>
                                                                             <option value="entrate">Categoria3</option>
@@ -89,11 +91,26 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description" placeholder="poi vediamo" name="description"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date" name="date"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount" name="amount" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                                    </div>
+                                                                </div>
                                                             </form>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                                            <button type="button" class="btn btn-primary">Salva modifiche</button>
                                                         </div>
                                                     </div>
                                                 </div>
