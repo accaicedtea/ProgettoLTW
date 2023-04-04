@@ -7,7 +7,7 @@
 <body id="page-top" style="background-color:#e9e9e9;">
     <?php 
         include './db_conn.php';
-        include_once './navBar.php';
+        include './navBar.php';
         // if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>
     <div id="wrapper">
@@ -54,47 +54,47 @@
                                 <div class="modal fade" id="modalNewEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="./register_entry.php" method="post" name="insert_form">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label><select class="d-inline-block form-select form-select-sm" name="cat">
-                                                                <option>Seleziona categoria</option>
-                                                                        <?php 
-                                                                        foreach ($options as $option) {
-                                                                        ?>
-                                                                            <option><?php echo $option['nome']; ?> </option>
+                                            <form action="./register_entry.php" method="post" name="insert_form">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                            <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_new">
+                                                                    <option>Seleziona categoria</option>
                                                                             <?php 
-                                                                            }
-                                                                        ?>
-                                                                </select>&nbsp;
+                                                                            foreach ($options as $option) {
+                                                                            ?>
+                                                                                <option><?php echo $option['nome']; ?> </option>
+                                                                                <?php 
+                                                                                }
+                                                                            ?>
+                                                                    </select>&nbsp;
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description" placeholder="poi vediamo" name="description"></div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description" placeholder="poi vediamo" name="description_new"></div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date" name="date"></div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date" name="date_new"></div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount" name="amount" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount" name="amount_new" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                                <button type="button" class="btn btn-primary">Salva modifiche</button>
-                                            </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                                    <input type="submit" class="btn btn-primary" value="Salva transazione"></button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -116,6 +116,7 @@
                                         <?php
                                             $user = $_SESSION['username']; 
                                             $result = $conn->query("SELECT * FROM spesa WHERE utente = '$user'");
+                                            $tuples = array();
                                             if($result->num_rows> 0){
                                                 $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
                                             }

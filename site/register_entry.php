@@ -1,26 +1,20 @@
 <?php
 
-// controlli
-$username = $_REQUEST['username'];
-$nome =  $_REQUEST['nome'];
-$cognome = $_REQUEST['cognome'];
-$sesso =  $_POST['sesso'];
+include './db_conn.php';
+$utente = $_SESSION['username'];
+$descrizione =  $_POST['description_new'];
+$data =  $_POST['date_new'];
+$importo =  $_POST['amount_new'];
+$id = rand(); // deve essere diverso dagli altri id
+$categoria = $_POST['cat_new'];
 
-$email = $_REQUEST['email'];
-$password = $_REQUEST['password'];
-//passw criptata
-$encrypted_pwd = md5($password);
-$dataN = $_REQUEST['dataN'];
- 
 // Performing insert query execution
-// here our table name is college
-$sql = "INSERT INTO utente  VALUES ('$username', '$nome',
-    '$cognome','$dataN','$sesso','$email', '$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg')";
+$sql = "INSERT INTO spesa VALUES ('$id', '$utente', '$importo', '$descrizione', '$data', '$categoria')";
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+$query = mysqli_query($conn, $sql);
 
-
-
-if(mysqli_query($conn, $sql)){
+if($query){
     
     header("Location: show.php?msg=Transazione inserita correttamente");
 } else{
