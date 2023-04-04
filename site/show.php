@@ -18,16 +18,27 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-2 text-nowrap">
+                                    <?php 
+                                        include './db_conn.php';
+                                        $query ="SELECT nome FROM categoria";
+                                        $result = $conn->query($query);
+                                        if($result->num_rows> 0){
+                                        $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                        }
+                                    ?>
+                                <div class="col-md-2 text-nowrap me-5">
                                     <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Mostra&nbsp;<select class="d-inline-block form-select form-select-sm">
-                                                <option value="10" selected="">10</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                                </select>&nbsp;</label>
+                                        <option>Select Course</option>
+                                                <?php 
+                                                foreach ($options as $option) {
+                                                ?>
+                                                    <option><?php echo $option['nome']; ?> </option>
+                                                    <?php 
+                                                    }
+                                                ?>
                                     </div>
                                 </div>
-                                <div class="col-md-2 text-nowrap">
+                                <div class="ms-4 col-md-2 text-nowrap">
                                     <div id="type_filter" class="type_filter" aria-controls="dataTable"><label class="form-label">Tipo&nbsp;<select class="d-inline-block form-select form-select-sm">
                                                 <option value="uscite" selected="">Uscite</option>
                                                 <option value="entrate">Entrate</option>
