@@ -3,6 +3,25 @@
     include './head.php';
 
 ?>
+<style>
+  /* HIDE RADIO */
+  [type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* IMAGE STYLES */
+  [type=radio] + img {
+    cursor: pointer;
+  }
+
+  /* CHECKED STYLES */
+  [type=radio]:checked + img {
+    outline: 4px solid #0275d8;
+  }
+</style>
 <body id="page-top">
     <?php 
         session_start();
@@ -16,14 +35,20 @@
                     <div class="row mb-3">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
-                            <div class="card mb-3">
+                            <div class="card mb-3 mt-4">
+                                    <?php if(isset($_GET['msg'])){ ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    <?php }?>
                                         <div class="row-md-3">
                                             <p class="h3 text-center mb-3 mt-3">Profilo</p>
                                         </div>
                                         <!-- qui sicuramente andrà fatto in php tutto quanto-->
                                 <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src=<?php echo $_SESSION['pfp'];?> width="160" height="160">
-                                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Cambia icona profilo</button>
-                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    <div class="mb-3">
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                                     Cambia icona profilo
                                             </button>
                                             <!-- Modal -->
@@ -34,53 +59,82 @@
                                                             <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="" method="post" name="edit_form">
+                                                            <form action="./change_icona.php" method="post" name="form-change-icon" class="form-change-icon">
                                                                 <div class="row">
                                                                     <div class="col">
                                                                         <div class="mb-3">
-                                                                        <table class="tg text-center">
-                                                                            <tr>
-                                                                                <td class="tg-0lax"><div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                                                    <button type="button" class="btn btn-outline-primary">Left</button>
-                                                                                    <button type="button" class="btn btn-outline-primary">Middle</button>
-                                                                                    <button type="button" class="btn btn-outline-primary">Right</button>
-                                                                                  </div>
-                                                                                  </td>
-                                                                              
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="tg-0lax"><div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                                                    <button type="button" class="btn btn-outline-primary">Left</button>
-                                                                                    <button type="button" class="btn btn-outline-primary">Middle</button>
-                                                                                    <button type="button" class="btn btn-outline-primary">Right</button>
-                                                                                  </div>
-                                                                                  </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="tg-0lax"><div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                                                    <button type="button" class="btn btn-outline-primary">Left</button>
-                                                                                    <button type="button" class="btn btn-outline-primary">Middle</button>
-                                                                                    <button type="button" class="btn btn-outline-primary">Right</button>
-                                                                                  </div>
-                                                                                  </td>
-                                                                            <tr>
-                                                                                <td class="tg-0lax"><div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                                                    <button type="button" class="btn btn-outline-primary">Left</button>
-                                                                                    <button type="button" class="btn btn-outline-primary">Middle</button>
-                                                                                    <button type="button" class="btn btn-outline-primary">Right</button>
-                                                                                  </div>
-                                                                                  </td>
-                                                                            </tr>
-
-                                                                        </table>                                                       
+                                                                            <label>
+                                                                                <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-anime-sama.svg" checked >
+                                                                                <img src="./assets/img/avatars/icons8-anime-sama.svg" alt="Option 1" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-futurama-bender.svg">
+                                                                                <img src="./assets/img/avatars/icons8-futurama-bender.svg" alt="Option 2" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-genshin-impact-xiao.svg">
+                                                                                <img src="./assets/img/avatars/icons8-genshin-impact-xiao.svg" alt="Option 3" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-hello-kitty.svg">
+                                                                                <img src="./assets/img/avatars/icons8-hello-kitty.svg" alt="Option 4" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-homer-simpson.svg" >
+                                                                                <img src="./assets/img/avatars/icons8-homer-simpson.svg" alt="Option 5" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-impero.svg">
+                                                                                <img src="./assets/img/avatars/icons8-impero.svg" alt="Option 6" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-iron-man.svg">
+                                                                                <img src="./assets/img/avatars/icons8-iron-man.svg" alt="Option 7" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-jake.svg">
+                                                                                <img src="./assets/img/avatars/icons8-jake.svg" alt="Option 8" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-kaedehara-kazuha.svg" >
+                                                                                <img src="./assets/img/avatars/icons8-kaedehara-kazuha.svg" alt="Option 9" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-koya-bt21.svg">
+                                                                                <img src="./assets/img/avatars/icons8-koya-bt21.svg" alt="Option 10" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-maschera-anonimo.svg">
+                                                                                <img src="./assets/img/avatars/icons8-maschera-anonimo.svg" alt="Option 11" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-mummia.svg">
+                                                                                <img src="./assets/img/avatars/icons8-mummia.svg" alt="Option 12" width="50" height="50">
+                                                                            </label>                                                        
+                                                                            <label>
+                                                                                <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-walter-white.svg" >
+                                                                                <img src="./assets/img/avatars/icons8-walter-white.svg" alt="Option 13" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-super-mario.svg">
+                                                                                <img src="./assets/img/avatars/icons8-super-mario.svg" alt="Option 14" width="50" height="50" >
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-rebel.svg">
+                                                                                <img src="./assets/img/avatars/icons8-rebel.svg" alt="Option 15" width="50" height="50">
+                                                                            </label>
+                                                                            <label>
+                                                                                <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-pokemon.svg">
+                                                                                <img src="./assets/img/avatars/icons8-pokemon.svg" alt="Option 16" width="50" height="50">
+                                                                            </label>  
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                                                    <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                                                </div>
                                                             </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Save changes</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -97,12 +151,6 @@
                                             <p class="text-primary m-0 fw-bold">Cambia informazioni utente</p>
                                         </div>
                                         <div class="card-body">
-                                            <?php if(isset($_GET['msg'])){ ?>
-                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            <?php }?>
                                             <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
                                                 <div class="row">
                                                     <div class="col">
