@@ -1,9 +1,11 @@
 <?php
-
-    $conn = mysqli_connect("localhost", "root", "", "cd");
-    // Check connection
-    if($conn === false){
-        die("ERROR: Could not connect. "
-            . mysqli_connect_error());
+session_start();
+mysqli_report(MYSQLI_REPORT_OFF);
+/* @ is used to suppress warnings */
+$conn = @mysqli_connect('localhost', 'root', '', '4Money');
+    if (!$conn) {
+    /* Use your preferred error logging method here */
+        header("Location: ./error.php?error=405");
+        exit();   
     }
 ?>
