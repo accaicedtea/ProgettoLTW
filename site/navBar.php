@@ -16,7 +16,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Lista transazioni
+                    <a class="nav-link " href="./show.php">Lista transazioni
                     </a>
                 </li>
                 <li class="nav-item">
