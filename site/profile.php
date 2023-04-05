@@ -1,18 +1,18 @@
 <?php 
-  $pagina = 'Profilo';
-  include './head.php';
+    $pagina = 'Profilo';
+    include './head.php';
 
 ?>
 <body id="page-top">
     <?php 
         session_start();
-        include './navBar.php';
+        include_once './navBar.php';
+        if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>  
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <div class="container-fluid">
-                    
                     <div class="row mb-3">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
@@ -32,7 +32,13 @@
                                             <p class="text-primary m-0 fw-bold">Change user settings</p>
                                         </div>
                                         <div class="card-body">
-                                            <form>
+                                            <?php if(isset($_GET['msg'])){ ?>
+                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            <?php }?>
+                                            <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" value=<?php echo $_SESSION['username']?> name="username" readonly></div>
@@ -62,25 +68,25 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Email address</strong></label><input class="form-control" type="email" id="email" placeholder=<?php echo $_SESSION['email']?> name="email"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Indirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder=<?php echo $_SESSION['email']?> name="email"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Name</strong></label><input class="form-control" type="text" id="first_name" placeholder=<?php echo $_SESSION['nome']?> name="first_name"></div>
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" placeholder=<?php echo $_SESSION['nome']?> name="nome"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Surname</strong></label><input class="form-control" type="text" id="last_name" placeholder=<?php echo $_SESSION['cognome']?> name="last_name"></div>
+                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Cognome</strong></label><input class="form-control" type="text" id="cognome" placeholder=<?php echo $_SESSION['cognome']?> name="cognome"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="birth"><strong>Birth date</strong></label><input class="form-control" type="date" id="birthdate" value=<?php echo $_SESSION['dataN']?> name="birthdate"></div>
+                                                        <div class="mb-5"><label class="form-label" for="birth"><strong>Data di nascita</strong></label><input class="form-control" type="date" id="dataN" value=<?php echo $_SESSION['dataN']?> name="dataN"></div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3 cnt-b"><button class="btn btn-primary btn-sm" type="submit">Save changes</button></div>
+                                                <div class="mb-3 cnt-b"><button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button></div>
                                             </form>
                                         </div>
                                     </div>
@@ -91,8 +97,11 @@
                     </div>
                 </div>
             </div>
-        </div><a class="border rounded d-inline scroll-to-top" href="#top"><i class="fas fa-angle-up"></i></a>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+    <?php }else{ header("Location: home.php");}?>
+
+
 </body>
 
 </html>

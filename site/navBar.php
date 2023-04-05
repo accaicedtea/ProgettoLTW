@@ -1,6 +1,6 @@
 <?php 
     
-    if(isset($_SESSION['log']) && $_SESSION['log']=='on' ){
+    if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
 ?>
 <div id="topheader">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -16,17 +16,17 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Lista transazioni
+                    <a class="nav-link " href="./show.php">Lista transazioni
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="#">Scadenze</a>
                 </li>
                 </ul>
-                <span class="navbar-brand mb-0"><?php echo $_SESSION['username'];?>
-                </span>
+                <a class=" h5 text-white me-3 mt-1" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION['username'];?>
+                </a>
                 
-                <a class="btn btn-sm btn-outline-danger" href="#" role="button">Logout</a>
+                <a class="btn btn-sm btn-outline-danger" href="./logout.php" role="button">Logout</a>
             </div>
             </div>
         </nav>
@@ -34,7 +34,7 @@
 
 
 
-<?php }else if(!(isset($_SESSION['log']))){ ?>
+<?php }else if(!(isset($_SESSION['log'])) ){ ?>
     <div id="topheader">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
@@ -62,11 +62,5 @@
 
 
 
-<?php }else {?>
-    
-    header("Location: error.php?error=400");
-<?php }?>    
-
-
-
-
+<?php }
+    ?>

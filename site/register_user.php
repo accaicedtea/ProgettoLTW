@@ -27,5 +27,6 @@ if(mysqli_query($conn, $sql)){
 } else{
     header("Location: register.php?error=Credenziali errate");
 }
+$conn.close();
  
 ?>
