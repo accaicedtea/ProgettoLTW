@@ -5,10 +5,7 @@
     $dataN = $_POST['dataN'];
     $email = $_POST['email'];
     
-    echo  $nome;
-    echo  $cognome;
-    echo  $dataN;
-    echo  $email;
+   
     if($_SESSION['username']==$_POST['username'] && isset($_SESSION['password'])){
         $sus = $_SESSION['username'];
         $spw = $_SESSION['password'];
@@ -41,7 +38,7 @@
             $sql = "UPDATE utente SET password='$password' WHERE username='$sus' AND password='$spw'";
             if((mysqli_query($conn, $sql))){
                 $_SESSION['password']=$password;
-            }
+            }   
         }
         header('Location: profile.php?msg=Profilo aggiornato correttamente');
         $conn->close();

@@ -4,7 +4,9 @@ include './db_conn.php';
 $utente = $_SESSION['username'];
 $descrizione =  $_POST['description_new'];
 $data =  $_POST['date_new'];
-$importo =  $_POST['amount_new'];
+if ($_POST['tipo'] == 'entrata')
+    $importo =  $_POST['amount_new'];
+else $importo = -1 * $_POST['amount_new'];
 $id = rand(); // deve essere diverso dagli altri id
 $categoria = $_POST['cat_new'];
 
