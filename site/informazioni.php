@@ -1,5 +1,5 @@
 <?php 
-$pagina='Home';
+$pagina='Informazioni';
 include './head.php';
 include './navBar.php';?>
 
