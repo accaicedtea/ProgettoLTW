@@ -8,7 +8,7 @@
     <?php 
         include './db_conn.php';
         include './navBar.php';
-        // if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
+        if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -43,12 +43,14 @@
                                 </div>
                                 <div class="col-md-4 text-nowrap">
                                     <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Tipo&nbsp;<select class="d-inline-block form-select form-select-sm">
-                                        <option value="entrate" selected="">Entrate</option>
+                                        <option value="tutte" selected="">Tutte</option>
+                                        <option value="entrate">Entrate</option>
                                         <option value="uscite">Uscite</option>
                                         </select>&nbsp;</label></div>
                                 </div>
                                 <div class="col-md-2 text-nowrap">
                                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNewEntry">Aggiungi</button>
+                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNewEntry">rimuovi</button>
                                 </div>
                                 <!-- Modal -->
                                 <div class="modal fade" id="modalNewEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -138,7 +140,10 @@
                                                                     <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                                                 </div>
                                                                 <div class="modal-body">
+
+                                                                    <!-- INIZIO FORM -->
                                                                     <form action="" method="post" name="edit_form">
+                                                                        <div class="hidden"><input type="" name="id" value=<?php echo $tuple['id']?>></div>
                                                                         <div class="row">
                                                                             <?php 
                                                                                 /*$user = $_SESSION['username'];
@@ -209,3 +214,9 @@
         </div>
     </div>
 </body>
+<?php 
+}
+else{
+    header("Location: login.php?msg=E tu chi cazzo sei");
+}
+?>

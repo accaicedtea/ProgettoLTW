@@ -18,3 +18,7 @@ body {
 .buttons {
     text-align: right;
 }
+
+.hidden {
+    display: none;
+}
