@@ -4,7 +4,7 @@ include './db_conn.php';
 $utente = $_SESSION['username'];
 $descrizione =  $_POST['description_new'];
 $data =  $_POST['date_new'];
-if ($_POST['tipo'] == 'entrata')
+if ($_POST['tipo_new'] == 'entrata')
     $importo =  $_POST['amount_new'];
 else $importo = -1 * $_POST['amount_new'];
 $id = rand(); // deve essere diverso dagli altri id
@@ -22,5 +22,6 @@ if($query){
 } else{
     header("Location: show.php?error=Qualcosa è andato storto :(");
 }
+$conn.close();
 
 ?>
