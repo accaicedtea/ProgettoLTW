@@ -204,7 +204,7 @@
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                                                     </div>
-                                                                    <div class="modal-body">
+                                                                    <div class="modal-body left-labels">
                                                                         <div class="row">
                                                                             <div class="col">
                                                                                 <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_edit">
