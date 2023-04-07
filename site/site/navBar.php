@@ -1,6 +1,4 @@
-<?php 
-    
-    if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
+<?php if(isset($_SESSION['log']) && $_SESSION['log']=='on' && $_SESSION['username']=='admin'){ 
 ?>
 <div id="topheader">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -9,14 +7,44 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand " href="#">4Money</a>
+                <a class="navbar-brand " href="./home.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./show.php">Nuova transazione
+                    <a class="nav-link " href="#">Utenti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-3" href="./informazioni.php">Informazioni
+                    </a>
+                </li>
+                </ul>
+                
+                <a class=" h5 text-white me-3 mt-1" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION['username'];?>
+                </a>
+                
+                <a class="btn btn-sm btn-outline-danger" href="./logout.php" role="button">Logout</a>
+            </div>
+            </div>
+        </nav>
+    </div>
+
+
+<?php }else if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
+?>
+<div id="topheader">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand " href="./home.php">4Money</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link <?php if($pagina=='Dashboard') echo 'active'?>" aria-current="page" href="./dashboard.php">Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="./show.php">Lista transazioni
+                    <a class="nav-link <?php if($pagina=='Transazioni') echo 'active'?>" aria-current="page" href="./transazioni.php">Transazioni
                     </a>
                 </li>
                 <li class="nav-item">
@@ -25,7 +53,12 @@
                 <li class="nav-item">
                     <a class="nav-link " href="#">Statistiche</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-3" href="./informazioni.php">Informazioni
+                    </a>
+                </li>
                 </ul>
+                
                 <a class=" h5 text-white me-3 mt-1" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION['username'];?>
                 </a>
                 
@@ -37,7 +70,7 @@
 
 
 
-<?php }else if(!(isset($_SESSION['log'])) ){ ?>
+<?php }if(!(isset($_SESSION['log'])) ){ ?>
     <div id="topheader">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
@@ -52,7 +85,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Informazioni
+                    <a class="nav-link " href="./informazioni.php">Informazioni
                     </a>
                 </li>
                 </ul>

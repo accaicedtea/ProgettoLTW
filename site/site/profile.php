@@ -1,31 +1,13 @@
 <?php 
     $pagina = 'Profilo';
-    include './head.php';
+    include './funzioni/head.php';
 
 ?>
-<style>
-  /* HIDE RADIO */
-  [type=radio] { 
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
 
-  /* IMAGE STYLES */
-  [type=radio] + img {
-    cursor: pointer;
-  }
-
-  /* CHECKED STYLES */
-  [type=radio]:checked + img {
-    outline: 4px solid #0275d8;
-  }
-</style>
 <body id="page-top">
     <?php 
         session_start();
-        include_once './navBar.php';
+        include_once './funzioni/navBar.php';
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>  
     <div id="wrapper">

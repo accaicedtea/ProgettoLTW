@@ -38,8 +38,11 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 $_SESSION['password'] = $row['password'];
                 
                 $_SESSION['log'] = 'on';
-                
-                header("Location: profile.php");
+                if($_SESSION['username']=='admin'){
+                    header("Location: view.php");
+                }else{
+                header("Location: dashboard.php");
+                }
                 exit();
             }else{
                 header("Location: login.php?error=Username o password incorretti");
