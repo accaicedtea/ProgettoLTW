@@ -13,8 +13,14 @@
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <div class="container fluid mt-5">
+                <div class="container fluid mt-5 mb-5">
                     <div class="card shadow">
+                        <?php if(isset($_GET['msg'])){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php }?>
                         <p class="h3 text-center mb-3 mt-3">Gestione entrate e uscite</p>
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">I tuoi movimenti</p>
@@ -189,12 +195,15 @@
                                                     <td><?php echo abs($tuple['importo'])." €";?></td>
                                                     <td><?php if ($tuple['importo']>0) echo "Entrata"; else echo "Uscita";?></td>
                                                     <td class="buttons">
-                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry<?php echo $i?>">
-                                                        Modifica
-                                                    </button>
+                                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry<?php echo $i?>">
+                                                            Modifica
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry<?php echo $i?>">
+                                                            Elimina
+                                                        </button>
 
                                                     <!-- Modal per MODIFICA-->
-                                                    <div class="modal fade" id="modalEditEntry<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal fade" id="modalEditEntry<?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <!-- INIZIO FORM -->
@@ -243,7 +252,15 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <button type="button" class="btn btn-danger btn-sm">Elimina</button>
+
+                                                    <!-- Modal per ELIMINA-->
+                                                    <div class="modal fade" id="modalDeleteEntry<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                ELIMINA
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     </td>
                                                 </tr>
                                             <?php 
