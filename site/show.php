@@ -182,7 +182,7 @@
                                             }
                                             $i=0;
                                             foreach ($tuples as $tuple) { ?>
-                                                <tr class=<?php if ($tuple['importo'] > 0) echo "enc"; else echo "usc"; ?>>  <!-- QUESTO NON FUNZIONA (LA SELEZIONE DELL CLASSE) RIP -->
+                                                <tr class="table-<?php echo ($tuple['importo']<0)? 'danger' : 'success';?>">  <!-- QUESTO NON FUNZIONA (LA SELEZIONE DELL CLASSE) RIP -->
                                                     <td><?php echo $tuple['data'];?></td>
                                                     <td><?php echo $tuple['categoria'];?></td>
                                                     <td><?php echo $tuple['descrizione'];?></td>
