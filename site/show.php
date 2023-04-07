@@ -1,13 +1,13 @@
 <?php 
     $pagina = 'Transazioni';
-    include './funzioni/head.php';
+    include './head.php';
 ?>
 
 
 <body id="page-top">
     <?php 
-        include './funzioni/db_conn.php';
-        include './funzioni/navBar.php';
+        include './db_conn.php';
+        include './navBar.php';
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>
     <div id="wrapper">
@@ -29,7 +29,7 @@
                                         }
                                     ?>
                                 <div class="col-md-4 text-nowrap">
-                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Mostra&nbsp;<select class="d-inline-block form-select form-select-sm">
+                                    <div id="menu_categoria" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Mostra&nbsp;<select class="d-inline-block form-select form-select-sm">
                                         <option>Seleziona categoria</option>
                                                 <?php 
                                                 foreach ($options as $option) {
