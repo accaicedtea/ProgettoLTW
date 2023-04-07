@@ -257,7 +257,19 @@
                                                     <div class="modal fade" id="modalDeleteEntry<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
-                                                                ELIMINA
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteModalLongTitle">Elimina transazione</h5>
+                                                                </div>
+                                                                <div class="modal-body left-labels">
+                                                                    Sei sicuro di voler eliminare la transazione?
+                                                                </div>
+                                                                <form action="./delete_entry.php" method="post" name="delete_form">
+                                                                    <div class="hidden"><input type="" name="id_delete" value=<?php echo $tuple['id']?>></div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                                        <input type="submit" class="btn btn-danger" value="Si">
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
