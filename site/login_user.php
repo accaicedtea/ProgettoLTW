@@ -4,6 +4,7 @@ include 'db_conn.php';
 if(isset($_POST['username']) && isset($_POST['password'])){
     
     function validate($data){
+        //da vedere
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
@@ -11,6 +12,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     }
     $uname = validate($_POST['username']);
     $passw = validate($_POST['password']);
+    //controlli per credenziali
     if(empty($uname)){
         header("Location: login.php?error=Inserisci un username per accedere");
         exit();
@@ -23,6 +25,19 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         //cifro la password
         $passw = md5($passw);
         
+        //controllare se l'utente non è bloccato
+        $sql = "SELECT password FROM utente WHERE username='$uname'";
+        
+        $result = mysqli_query($conn,$sql);
+        if(mysqli_num_rows($result) === 1){
+            $row = mysqli_fetch_assoc($result);
+            $passw = $row['password'];
+            if(substr($passw, -10)=='adminBlock'){
+                header("Location: login.php?error=Non puoi accedere sei stato bloccato da Dio");
+                die();
+            }
+        }
+
         $sql = "SELECT * FROM utente WHERE username='$uname' AND password='$passw'";
         
         $result = mysqli_query($conn,$sql);
