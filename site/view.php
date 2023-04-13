@@ -1,5 +1,5 @@
 <?php 
-    $pagina='admin';
+    $pagina='Utenti';
     include './head.php';
     ?>   
 <body id="page-top">
@@ -71,7 +71,7 @@
                                                     <p><?php echo $tuple['dataNascita'];?></p>
                                                 </td>
                                                 <td >
-                                                    <p><?php echo $tuple['sesso'];?></p>
+                                                    <p><?php echo ($tuple['sesso']==1) ? "Uomo" : "Donna";?></p>
                                                 </td>
                                                 <td >
                                                     <p><?php echo $tuple['email'];?></p>
@@ -138,5 +138,5 @@
     </div>
 </body>
 <?php }else{
-        header("Location: ../../login.php?error=ma che stavi a provà a fa limortaaaaa");
+    header("Location: login.php?error=ma che stavi a provà a fa limortaaaaa");
     } ?>
