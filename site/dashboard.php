@@ -2,11 +2,15 @@
 $pagina = "Dashboard";
 include './head.php';
 include './db_conn.php';
+$json_data = include ('./con_db_to_dashboard.php');
 $_SESSION['data_oggi'] = date("Y:m:d");
 if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
 ?>
-
 <html>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <body id="page-top">
         <?php include_once './navBar.php';?>
         <div id="wrapper">
@@ -61,6 +65,52 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                     echo $row['somma'].'€';
                                 }
                                 ?>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col lg-3 cardshadow">
+
+                            </div>
+                            <div class="col lg-3 card shadow">
+                            <figure class="highcharts-figure">
+                                <div id="container">
+                                <script>
+                                    Highcharts.chart('container', {
+                                        chart: {
+                                            plotBackgroundColor: null,
+                                            plotBorderWidth: null,
+                                            plotShadow: false,
+                                            type: 'pie'
+                                        },
+                                        title: {
+                                            text: 'Percentuali uscite di <?php setlocale(LC_TIME, 'it_IT'); echo date('F'); ?>',
+                                            align: 'left'
+                                        },
+                                        tooltip: {
+                                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                        },
+                                        accessibility: {
+                                            point: {
+                                                valueSuffix: '%'
+                                            }
+                                        },
+                                        plotOptions: {
+                                            pie: {
+                                                allowPointSelect: true,
+                                                cursor: 'pointer',
+                                                dataLabels: {
+                                                    enabled: true,
+                                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                                }
+                                            }
+                                        },
+                                        series: [{ 
+                                            data: <?=$json_data?>,
+                                        }]
+                                        });
+</script>
+                                </div>
+                            </figure>
                             </div>
                         </div>
                     </div>
