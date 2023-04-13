@@ -10,7 +10,7 @@
                 <a class="navbar-brand " href="./home.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Utenti</a>
+                    <a class="nav-link " href="./view.php">Utenti</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link ms-3" href="./informazioni.php">Informazioni
@@ -80,10 +80,6 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="navbar-brand " href="./home.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./home.php">Home
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link " href="./informazioni.php">Informazioni
                     </a>
