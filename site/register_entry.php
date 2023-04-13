@@ -18,9 +18,9 @@ $query = mysqli_query($conn, $sql);
 
 if($query){
     
-    header("Location: show.php?msg=Transazione inserita correttamente");
+    header("Location: transazioni.php?msg=Transazione inserita correttamente");
 } else{
-    header("Location: show.php?error=Qualcosa è andato storto :(");
+    header("Location: transazioni.php?error=Qualcosa è andato storto :(");
 }
 $conn.close();
 
