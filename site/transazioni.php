@@ -10,13 +10,45 @@
         include './navBar.php';
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>
+    <script>
+        function applicaFiltroCat(){
+            var e = document.getElementById("selectCat");
+            var chosen = e.options[e.selectedIndex].text; 
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = gestisciCat;
+            httpRequest.open("GET", "filtered_table.php"+"?categoria="+chosen+"&tipo=", true);
+            httpRequest.send();
+        }
+
+        function gestisciCat(e){
+            if (e.target.readyState == XMLHttpRequest.DONE && e.target.status == 200){
+                document.getElementById("tableBody").innerHTML = e.target.responseText;
+            }
+        }
+
+        function applicaFiltroTipo(){
+            var e = document.getElementById("selectTipo");
+            var chosen = e.options[e.selectedIndex].text; 
+            console.log(chosen);
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = gestisciCat;
+            httpRequest.open("GET", "filtered_table.php"+"?tipo="+chosen+"&categoria=", true);
+            httpRequest.send();
+        }
+
+        function gestisciCat(e){
+            if (e.target.readyState == XMLHttpRequest.DONE && e.target.status == 200){
+                document.getElementById("tableBody").innerHTML = e.target.responseText;
+            }
+        }
+    </script>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <div class="container fluid mt-5 mb-5">
                     <div class="card shadow">
                         <?php if(isset($_GET['msg'])){ ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
                             <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
@@ -34,9 +66,9 @@
                                             $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
                                         }
                                     ?>
-                                <div class="col-md-4 text-nowrap">
-                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Mostra&nbsp;<select class="d-inline-block form-select form-select-sm">
-                                        <option>Seleziona categoria</option>
+                                <div class="col-md-8 text-nowrap">
+                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Mostra&nbsp;<select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
+                                        <option>Tutte le categorie</option>
                                                 <?php 
                                                 foreach ($options as $option) {
                                                 ?>
@@ -46,19 +78,21 @@
                                                 ?>
                                         </select>&nbsp;</label>
                                     </div>
-                                </div>
-                                <div class="col-md-3 text-nowrap">
-                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Tipo&nbsp;<select class="d-inline-block form-select form-select-sm">
-                                        <option value="tutte" selected="">Tutte</option>
+                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Tipo&nbsp;<select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
+                                        <option value="tutte" selected="">Tutti i tipi</option>
                                         <option value="entrate">Entrate</option>
                                         <option value="uscite">Uscite</option>
                                         </select>&nbsp;</label></div>
                                 </div>
-                                <div class="col-md-3 text-nowrap">
+                                <div class="col-md-4 text-nowrap">
                                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
                                 </div>
-                                <div class="col-md-2 text-nowrap">
+                            </div>
+                            <div class="row float-right">
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6 text-nowrap">
                                     <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
                                 </div>
                             </div>
@@ -177,7 +211,7 @@
                                             <th>Tipo</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tableBody">
                                         <!-- Prendo dal database tutte le spese -->
                                         <?php
                                             $user = $_SESSION['username']; 
