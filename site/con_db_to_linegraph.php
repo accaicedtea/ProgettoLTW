@@ -5,40 +5,116 @@ $_SESSION['data_oggi'] = date("Y:m:d");
 $data_oggi = $_SESSION['data_oggi'];
 $_SESSION['giorni_mese'] = date("t");
 $giorni_mese = $_SESSION['giorni_mese'];
-$i = 1;
-$array_dati = array();
-$array_giorni = array();
-$array_valori = array();
-$sql = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as uscite 
+$array_dati_uscite = array();
+$array_giorni_uscite = array();
+$array_valori_uscite = array();
+$array_dati_entrate = array();
+$array_giorni_entrate = array();
+$array_valori_entrate = array();
+$array_dati_differenza = array();
+$array_giorni_differenza = array();
+$array_valori_differenza = array();
+$sql_uscite = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as uscite 
 from spesa 
 where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and spesa.utente = '$username'
 group by DAY(spesa.data)
 order by DAY(spesa.data)";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        array_push($array_giorni, intval($row['giorno']));
-    }
-    $result2 = $conn->query($sql);
-    while($row2 = $result2->fetch_assoc()) {
-        array_push($array_valori, doubleval($row2['uscite']));
-    }
+$result_uscite = $conn->query($sql_uscite);
+if ($result_uscite->num_rows > 0) {
+    $i = 1;
     $j = 0;
+    while($row_uscite = $result_uscite->fetch_assoc()) {
+        array_push($array_giorni_uscite, intval($row_uscite['giorno']));
+    }
+    $result2_uscite = $conn->query($sql_uscite);
+    while($row2_uscite = $result2_uscite->fetch_assoc()) {
+        array_push($array_valori_uscite, doubleval($row2_uscite['uscite']));
+    }
     while($i <= $giorni_mese) {
-        if (!in_array($i, $array_giorni,false)) {
-                array_push($array_dati, doubleval('0'));
+        if (!in_array($i, $array_giorni_uscite,false)) {
+                array_push($array_dati_uscite, doubleval('0'));
         }
         else {
-            array_push($array_dati, doubleval($array_valori[$j]));
+            array_push($array_dati_uscite, doubleval($array_valori_uscite[$j]));
             $j++;
         }
         $i++;
     }
 }
-$arr = array(
+$sql_entrate = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as entrate
+from spesa 
+where importo > 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and spesa.utente = '$username'
+group by DAY(spesa.data)
+order by DAY(spesa.data)";
+$result_entrate = $conn->query($sql_entrate);
+if ($result_entrate->num_rows > 0) {
+    $i = 1;
+    $j = 0;
+    while($row_entrate = $result_entrate->fetch_assoc()) {
+        array_push($array_giorni_entrate, intval($row_entrate['giorno']));
+    }
+    $result2_entrate = $conn->query($sql_entrate);
+    while($row2_entrate = $result2_entrate->fetch_assoc()) {
+        array_push($array_valori_entrate, doubleval($row2_entrate['entrate']));
+    }
+
+    while($i <= $giorni_mese) {
+        if (!in_array($i, $array_giorni_entrate,false)) {
+                array_push($array_dati_entrate, doubleval('0'));
+        }
+        else {
+            array_push($array_dati_entrate, doubleval($array_valori_entrate[$j]));
+            $j++;
+        }
+        $i++;
+    }
+}
+$sql_differenza = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as differenza
+from spesa 
+where MONTH(spesa.data) = MONTH('$data_oggi') and spesa.utente = '$username'
+group by DAY(spesa.data)
+order by DAY(spesa.data)";
+$result_differenza = $conn->query($sql_differenza);
+if ($result_differenza->num_rows > 0) {
+    $i = 1;
+    $j = 0;
+    while($row_differenza = $result_differenza->fetch_assoc()) {
+        array_push($array_giorni_differenza, intval($row_differenza['giorno']));
+    }
+    $result2_differenza = $conn->query($sql_differenza);
+    while($row2_differenza = $result2_differenza->fetch_assoc()) {
+        array_push($array_valori_differenza, doubleval($row2_differenza['differenza']));
+    }
+
+    while($i <= $giorni_mese) {
+        if (!in_array($i, $array_giorni_differenza,false)) {
+                array_push($array_dati_differenza, doubleval('0'));
+        }
+        else {
+            array_push($array_dati_differenza, doubleval($array_valori_differenza[$j]));
+            $j++;
+        }
+        $i++;
+    }
+}
+$arr_uscite = array(
             'name' => 'Uscite',
-            'data' => $array_dati
+            'data' => $array_dati_uscite,
+            'color' => '#E65C4F'
+           
 );
-$series_array_linegraph[] = $arr;
-return json_encode($series_array_linegraph);
+$arr_entrate = array(
+            'name' => 'Entrate',
+            'data' => $array_dati_entrate,
+            'color' => '#46A094'
+);
+$arr_differenza = array (
+            'name' => 'Differenza',
+            'data' => $array_dati_differenza,
+            'color' => '#4A8DB7'
+);
+$series_array_linegraph_uscite[] = $arr_uscite;
+$series_array_linegraph_entrate[] = $arr_entrate;
+$serie_array_linegraph_differenza[] = $arr_differenza;
+return json_encode(array_merge($series_array_linegraph_uscite, $series_array_linegraph_entrate, $serie_array_linegraph_differenza));
 ?>

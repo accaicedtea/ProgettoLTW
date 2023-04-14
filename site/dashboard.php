@@ -4,6 +4,7 @@ include './head.php';
 include './db_conn.php';
 $json_data_piechart = include ('./con_db_to_piechart.php');
 $json_data_linegraph = include ('./con_db_to_linegraph.php');
+$json_giorni_mese = include ('./giorni_mese.php');
 $_SESSION['data_oggi'] = date("Y:m:d");
 if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
 ?>
@@ -69,7 +70,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col lg-3 card shadow me-2">
+                            <div class="row mt-3 card shadow me-2">
                                 <figure class="highcharts-figure">
                                     <div id="line graph">
                                         <script>
@@ -84,7 +85,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                                     enabled: false
                                                 },
                                                 xAxis: {
-                                                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                                                    categories: <?=$json_giorni_mese?>
                                                 },
                                                 yAxis: {
                                                     title: {
@@ -99,21 +100,14 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                                         enableMouseTracking: false
                                                     }
                                                 },
-                                                series: [{
-                                                    name: 'Reggane',
-                                                    data: [16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2,
-                                                        22.0, 17.8]
-                                                    }, {
-                                                    name: 'Tallinn',
-                                                    data: [-2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5,
-                                                        2.0, -0.9]
-                                                    }]
+                                                series: 
+                                                    <?=$json_data_linegraph?>,
                                                 });
                                         </script>
                                     </div>
                                 </figure>
                             </div>
-                            <div class="col lg-3 card shadow me-2">
+                            <div class="row mt-3 card shadow me-2">
                                 <figure class="highcharts-figure">
                                     <div id="pie chart">
                                         <script>
