@@ -8,19 +8,18 @@
     $sesso =  $_POST['sesso'];
 
     $email = $_REQUEST['email'];
+    $nazionalita = $_REQUEST['nazionalita'];
     $password = $_REQUEST['password'];
     //passw criptata
     $encrypted_pwd = md5($password);
     $dataN = $_REQUEST['dataN'];
-    
-    // Performing insert query execution
-    // here our table name is college
+
     $sql = "INSERT INTO utente  VALUES ('$username', '$nome',
-        '$cognome','$dataN','$sesso','$email', '$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg')";
+        '$cognome','$sesso','$nazionalita','$dataN', '$email' ,'$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg')";
 
 
 
-
+    
     if(mysqli_query($conn, $sql)){
         
         header("Location: login.php?msg=Grazie per la registazione");

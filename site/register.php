@@ -28,6 +28,7 @@
                                             <p class="h6 text-primary m-0 fw-bold ">Crea la tua fantastiche utenze</p>
                                         </div>
                                         <div class="card-body">
+                                            <!-- inizio form-->
                                             <form action="./register_user.php" method="post" name="formreg" onsubmit="return validaForm();">
                                                 <div class="row">
                                                     <div class="col">
@@ -66,6 +67,14 @@
                                                     <div class="col">
                                                         <div class="errors mb-3" id="errors_dataN"></div>
                                                         <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" onfocus="show_requirements_dataN()" onblur="remove_requirements_dataN()" onchange="remove_error_dataN()"></div>
+                                                        <!-- waring msg per data nascita-->
+                                                        <div class="requirements" id="requirements_dataN"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="errors mb-3" id="errors_nazionalità"></div>
+                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Nazionalità</strong></label><input class="form-control" type="text" id="nazionalita" name="nazionalita" onfocus="show_requirements_nazionalita()" onblur="remove_requirements_nazionalita()" onchange="remove_error_nazionalita()" placeholder="paese di nascita"></div>
                                                         <!-- waring msg per data nascita-->
                                                         <div class="requirements" id="requirements_dataN"></div>
                                                     </div>

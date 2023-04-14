@@ -71,12 +71,12 @@
                                     <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
                                 </div>
                             </div>
-
-                            <!-- Modal NUOVA ENTRATA-->
+<!--
+                             Modal NUOVA ENTRATA
                             <div class="modal fade" id="modalNuovaEntrata" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <!-- INIZIO FORM -->
+                                         INIZIO FORM 
                                         <form action="./register_entry.php" method="post" name="insert_form">
                                             <div class="hidden"><input type="" name="tipo_new" value="entrata"></div>
                                             <div class="modal-header">
@@ -123,11 +123,11 @@
                                 </div>
                             </div>
 
-                            <!-- Modal NUOVA USCITA-->
+                            Modal NUOVA USCITA
                             <div class="modal fade" id="modalNuovaUscita" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <!-- INIZIO FORM -->
+                                         INIZIO FORM 
                                         <form action="./register_entry.php" method="post" name="insert_form">
                                             <div class="hidden"><input type="" name="tipo_new" value="uscita"></div>
                                             <div class="modal-header">
@@ -174,29 +174,29 @@
                                 </div>
                             </div>
 
-                            <!-- Inizio tabella -->
+                             Inizio tabella -->
                             <div class="table-responsive table mt-2" id="pagination_data" role="grid" aria-describedby="dataTable_info">
 
                             </div>
-                            <script>  
- $(document).ready(function(){  
-      load_data();  
-      function load_data(page)  
-      {  
-           $.ajax({  
-                url:"pagination.php",  
-                method:"POST",  
-                data:{page:page},  
-                success:function(data){  
-                     $('#pagination_data').html(data);  
-                }  
-           })  
-      }  
-      $(document).on('click', '.pagination_link', function(){  
-           var page = $(this).attr("id");  
-           load_data(page);  
-      });  
- });  
+<script>  
+$(document).ready(function(){  
+    load_data();  
+    function load_data(page)  
+    {  
+        $.ajax({  
+            url:"pagination.php",  
+            method:"GET",  
+            data:{page:page},  
+            success:function(data){  
+                    $('#pagination_data').html(data);  
+            }  
+        })  
+    }  
+    $(document).on('click', '.pagination_link', function(){  
+        var page = $(this).attr("id");  
+        load_data(page);  
+    });  
+});  
  </script>  
 
                         </div>
@@ -209,6 +209,6 @@
 <?php 
 }
 else{
-    header("Location: login.php?error=E tu chi cazzo sei");
+    header("Location: login.php?error=E tu chi ca**zzo sei");
 }
 ?>
