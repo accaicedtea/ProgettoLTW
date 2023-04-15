@@ -6,6 +6,11 @@
     $categoria = ((!isset($_GET["categoria"]) || $_GET["categoria"]=="") ? $categoria_prec : $_GET["categoria"]);
     $tipo = ((!isset($_GET["tipo"]) || $_GET["tipo"]=="") ? $tipo_prec : $_GET["tipo"]);
 
+    $catQuery = $conn->query("SELECT nome FROM categoria");
+    if($catQuery->num_rows> 0){
+        $options= mysqli_fetch_all($catQuery, MYSQLI_ASSOC);
+    }
+
     $_SESSION['categoria'] = $categoria;
     $_SESSION['tipo'] = $tipo;
 
