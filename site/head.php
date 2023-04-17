@@ -16,4 +16,5 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong"> 
     <link rel="stylesheet" href="./assets/css/style.css">
     <script src="./assets/js/register_controlli.js"></script>
+    <link rel="stylesheet" href="https://code.highcharts.com/css/highcharts.css">
 </head>
