@@ -53,6 +53,8 @@
                                                 if($result->num_rows> 0){
                                                     $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
                                                 }
+
+                                                $i=0;
                                                 foreach ($tuples as $tuple) { 
                                                     ?>
                                             <tr class="table-<?php if($tuple['sesso']==0) echo 'dark';?>">
@@ -96,8 +98,10 @@
                                                     <?php }?>
                                                 </td>
                                                 <td class="text-center ">
-                                                    <button type="button" name="<?php echo $tuple['username'];?>" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry">Elimina utente</button>
-                                                    <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <button type="button" name="<?php echo $tuple['username'];?>" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteUser<?php echo $i?>">Elimina utente</button>
+
+                                                    <!-- Modal elimina utente -->
+                                                    <div class="modal fade" id="modalDeleteUser<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
