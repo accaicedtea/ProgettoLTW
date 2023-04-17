@@ -194,7 +194,34 @@
             </div>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <?php }else{ header("Location: login.php?error=Credo tu debba accedere prima");}?>
+    <?php }elseif($_SESSION['adminLog']=='daje'){?> 
+    
+        <div id="wrapper">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="row mb-3">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="card mb-3 mt-4">
+                                    <?php if(isset($_GET['msg'])){ ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    <?php }?>
+                                        <div class="row-md-3">
+                                            <p class="h3 text-center mb-3 mt-3">Profilo amministratore</p>
+                                        </div>
+                                        <!-- qui sicuramente andrà fatto in php tutto quanto-->
+                                <div class="card-body text-center shadow">
+<?php
+    }else{
+        header("Location: login.php?error=Credo tu debba accedere prima");
+    }
+
+    
+    ?>
 
 
 </body>

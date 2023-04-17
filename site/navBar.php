@@ -13,6 +13,10 @@
                     <a class="nav-link <?php if($pagina=='Utenti') echo 'active'?>" href="./view.php">Utenti</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?php if($pagina=='Categorie') echo 'active'?>" href="./categorie.php">Categorie</a>
+                </li>
+                
+                <li class="nav-item">
                     <a class="nav-link ms-3" href="./informazioni.php">Informazioni
                     </a>
                 </li>
