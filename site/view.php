@@ -6,7 +6,7 @@
     <?php 
         include './db_conn.php';
         include './navBar.php';
-        if(isset($_SESSION['log']) && $_SESSION['log']== 'on' && $_SESSION['username']=='admin'){
+        if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
         ?>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -46,8 +46,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $user = $_SESSION['username'];
-                                                if($user=='admin'){ 
+                                                if($_SESSION['adminLog']=='daje'){ 
                                                     $result = $conn->query("SELECT * FROM utente ");
                                                 }
                                                 $tuples = array();
@@ -55,7 +54,6 @@
                                                     $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
                                                 }
                                                 foreach ($tuples as $tuple) { 
-                                                    if($tuple['username']!='admin'){
                                                     ?>
                                             <tr class="table-<?php if($tuple['sesso']==0) echo 'dark';?>">
                                                 <td scope="row">
@@ -109,7 +107,7 @@
                                                                     <!-- INIZIO FORM -->
                                                                     <form action="./elimina_utente.php" method="post" name="edit_form">
                                                                         <div class="row">
-                                                                            <input class="visually-hidden" type="text" id="username" name="sblockthis" value="<?php echo $tuple['username'];?>" readonly>
+                                                                            <input class="visually" type="text" id="username" name="dropThis" value="<?php echo $tuple['username'];?>" readonly>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rinuncio</button>
@@ -123,7 +121,7 @@
                                                 </td>
                                             </tr>
                                             <?php 
-                                                }
+                                                
                                                 }
                                                 ?>
                                         </tbody>

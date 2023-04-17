@@ -323,9 +323,5 @@
         </div>
     </div>
 </body>
-<?php 
-}
-else{
-    header("Location: login.php?error=E tu chi cazzo sei");
-}
+<?php }else{ header("Location: login.php?error=Credo tu debba accedere prima");}
 ?>

@@ -194,7 +194,7 @@
             </div>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <?php }else{ header("Location: home.php");}?>
+    <?php }else{ header("Location: login.php?error=Credo tu debba accedere prima");}?>
 
 
 </body>

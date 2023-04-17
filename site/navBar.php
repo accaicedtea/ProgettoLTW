@@ -1,4 +1,4 @@
-<?php if(isset($_SESSION['log']) && $_SESSION['log']=='on' && $_SESSION['username']=='admin'){ 
+<?php if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){ 
 ?>
 <div id="topheader">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php if($pagina=='Transazioni') echo 'active'?>" aria-current="page" href="./transazioni.php">Transazioni
+                    <a class="nav-link <?php if($pagina=='Visualizza transazioni') echo 'active'?>" aria-current="page" href="./transazioni.php">Transazioni
                     </a>
                 </li>
                 <li class="nav-item">
@@ -59,7 +59,7 @@
                 </li>
                 </ul>
                 
-                <a class=" h5 text-white me-3 mt-1" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION['username'];?>
+                <a class="h5 text-white me-3 mt-1 <?php if($pagina!='Profilo') echo 'fw-normal';?>" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION['username'];?>
                 </a>
                 
                 <a class="btn btn-sm btn-outline-danger" href="./logout.php" role="button">Logout</a>
@@ -70,7 +70,7 @@
 
 
 
-<?php }if(!(isset($_SESSION['log'])) ){ ?>
+<?php }else if(!(isset($_SESSION['adminLog']))|| !(isset($_SESSION['log']))){ ?>
     <div id="topheader">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">

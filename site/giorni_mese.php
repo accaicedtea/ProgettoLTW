@@ -1,5 +1,4 @@
 <?php
-$pagina = 'giorni_mese';
 $_SESSION['giorni'] = date("t");
 $giorni = $_SESSION['giorni'];
 $i = 1;
