@@ -68,7 +68,7 @@
                                                     <p><?php echo $tuple['cognome'];?></p>
                                                 </td>
                                                 <td >
-                                                    <p><?php echo $tuple['dataNascita'];?></p>
+                                                    <p><?php echo $tuple['dataN'];?></p>
                                                 </td>
                                                 <td >
                                                     <p><?php echo ($tuple['sesso']==1) ? "Uomo" : "Donna";?></p>

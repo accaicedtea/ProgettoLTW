@@ -1,13 +1,13 @@
 <?php 
     $pagina = 'Profilo';
-    include './funzioni/head.php';
+    include './head.php';
 
 ?>
 
 <body id="page-top">
     <?php 
         session_start();
-        include_once './funzioni/navBar.php';
+        include_once './navBar.php';
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>  
     <div id="wrapper">

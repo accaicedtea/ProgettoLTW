@@ -215,7 +215,7 @@
                                         <!-- Prendo dal database tutte le spese -->
                                         <?php
                                             $user = $_SESSION['username']; 
-                                            $data = date("Y-m.g");
+                                            $data = date("Y-m-g");
                                             $result = $conn->query("SELECT s.id,s.utente,s.importo,s.data,s.descrizione,c.nome as categoria FROM spesa as s join categoria as c on c.id=s.categoria WHERE s.utente = '$user' and s.data<'$data' Order by s.data Desc");
                                             $tuples = array();
                                             if($result->num_rows> 0){
