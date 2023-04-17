@@ -108,7 +108,9 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                 </figure>
                             </div>
                             <div class="row mt-3">
-                                <div class="col-6 card shadow">
+                               
+                            
+                                <div class="col-md-6 col-xs-12 card shadow">
                                 <figure class="highcharts-figure">
                                     <div id="pie chart" class="container">
                                         <script>
@@ -151,8 +153,10 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                         </script>
                                     </div>
                                 </figure>
+                                            
                                 </div>
-                                <div class="col card shadow mw-2">
+                                
+                                <div class="col-md-6 col-xs-12 card shadow">
                                     <figure class="highcharts-figure">
                                         <div id="histogram">
                                             <script>
@@ -475,6 +479,7 @@ Highcharts.chart('histogram', {
   </script>
                                         </div>
                                     </figure>
+
                                 </div>
                             </div>
                         </div>
