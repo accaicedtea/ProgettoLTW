@@ -66,8 +66,10 @@
                                             $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
                                         }
                                     ?>
-                                <div class="col-md-8 text-nowrap">
-                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Mostra&nbsp;<select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
+                                <div class="container">
+                                    <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+                                    <div class="row">
+                                        <div class="col-auto"><select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
                                         <option>Tutte le categorie</option>
                                                 <?php 
                                                 foreach ($options as $option) {
@@ -76,27 +78,19 @@
                                                     <?php 
                                                     }
                                                 ?>
-                                        </select>&nbsp;</label>
-                                    </div>
-                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Tipo&nbsp;<select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
+                                        </select> </div>
+                                        <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
                                         <option value="tutte" selected="">Tutti i tipi</option>
                                         <option value="entrate">Entrate</option>
                                         <option value="uscite">Uscite</option>
-                                        </select>&nbsp;</label></div>
-                                </div>
-                                <div class="col-md-4 text-nowrap">
-                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
-                                </div>
-                            </div>
-                            <div class="row float-right">
-                                <div class="col-md-6">
-                                </div>
-                                <div class="col-md-6 text-nowrap">
-                                    <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
-                                </div>
-                            </div>
-
+                                        </select></div>
+                                        <div class="col-1"></div>
+                                        
+                                        <div class="col-auto ms-auto"><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button></div>
+                                        <div class="col-auto "><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button></div>
+                                        <div class="col-auto ms-auto"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></div>
+                                    </div>
+                                    </div>
                             <!-- Modal NUOVA ENTRATA-->
                             <div class="modal fade" id="modalNuovaEntrata" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -215,8 +209,7 @@
                                         <!-- Prendo dal database tutte le spese -->
                                         <?php
                                             $user = $_SESSION['username']; 
-                                            $data = date("Y-m-g");
-                                            $result = $conn->query("SELECT s.id,s.utente,s.importo,s.data,s.descrizione,c.nome as categoria FROM spesa as s join categoria as c on c.id=s.categoria WHERE s.utente = '$user' and s.data<'$data' Order by s.data Desc");
+                                            $result = $conn->query("SELECT * FROM spesa WHERE utente = '$user'");
                                             $tuples = array();
                                             if($result->num_rows> 0){
                                                 $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -243,8 +236,8 @@
                                                             <div class="modal-content">
                                                                 <!-- INIZIO FORM -->
                                                                 <form action="./edit_entry.php" method="post" name="edit_form">
-                                                                    <div class="visually-hidden"><input type="" name="id_edit" value=<?php echo $tuple['id']?>></div>
-                                                                    <div class="visually-hidden"><input type="" name="tipo_edit" value=<?php if ($tuple['importo']>=0) echo "entrata"; else echo "uscita";?>></div>
+                                                                    <div class="hidden"><input type="" name="id_edit" value=<?php echo $tuple['id']?>></div>
+                                                                    <div class="hidden"><input type="" name="tipo_edit" value=<?php if ($tuple['importo']>=0) echo "entrata"; else echo "uscita";?>></div>
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                                                     </div>
@@ -275,7 +268,7 @@
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value=<?php echo abs($tuple['importo']);?> name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                                                <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value=<?php echo abs($tuple['importo'])?> name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -323,5 +316,9 @@
         </div>
     </div>
 </body>
-<?php }else{ header("Location: login.php?error=Credo tu debba accedere prima");}
+<?php 
+}
+else{
+    header("Location: login.php?error=E tu chi cazzo sei");
+}
 ?>
