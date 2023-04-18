@@ -111,7 +111,8 @@
                                                                     <!-- INIZIO FORM -->
                                                                     <form action="./elimina_utente.php" method="post" name="edit_form">
                                                                         <div class="row">
-                                                                            <input class="visually" type="text" id="username" name="dropThis" value="<?php echo $tuple['username'];?>" readonly>
+                                                                            <p>Vuoi davvero eliminare <strong><?php echo $tuple['username'];?></strong>?</p>
+                                                                            <input class="visually-hidden" type="text" id="username" name="dropThis" value="<?php echo $tuple['username'];?>" readonly>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rinuncio</button>

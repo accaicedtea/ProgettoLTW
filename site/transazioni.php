@@ -243,8 +243,8 @@
                                                             <div class="modal-content">
                                                                 <!-- INIZIO FORM -->
                                                                 <form action="./edit_entry.php" method="post" name="edit_form">
-                                                                    <div class="hidden"><input type="" name="id_edit" value=<?php echo $tuple['id']?>></div>
-                                                                    <div class="hidden"><input type="" name="tipo_edit" value=<?php if ($tuple['importo']>=0) echo "entrata"; else echo "uscita";?>></div>
+                                                                    <div class="visually-hidden"><input type="" name="id_edit" value=<?php echo $tuple['id']?>></div>
+                                                                    <div class="visually-hidden"><input type="" name="tipo_edit" value=<?php if ($tuple['importo']>=0) echo "entrata"; else echo "uscita";?>></div>
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                                                     </div>
@@ -275,7 +275,7 @@
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value=<?php echo abs($tuple['importo'])?> name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                                                <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value=<?php echo abs($tuple['importo']);?> name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
                                                                             </div>
                                                                         </div>
                                                                     </div>

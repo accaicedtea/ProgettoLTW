@@ -136,7 +136,7 @@
                                             <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" value=<?php echo $_SESSION['username']?> name="username" readonly></div>
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" value=<?php echo $_SESSION['username'];?> name="username" readonly></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -163,22 +163,22 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Indirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder=<?php echo $_SESSION['email']?> name="email"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Indirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder=<?php echo $_SESSION['email'];?> name="email"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" placeholder=<?php echo $_SESSION['nome']?> name="nome"></div>
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" placeholder=<?php echo $_SESSION['nome'];?> name="nome"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Cognome</strong></label><input class="form-control" type="text" id="cognome" placeholder=<?php echo $_SESSION['cognome']?> name="cognome"></div>
+                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Cognome</strong></label><input class="form-control" type="text" id="cognome" placeholder=<?php echo $_SESSION['cognome'];?> name="cognome"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="birth"><strong>Data di nascita</strong></label><input class="form-control" type="date" id="dataN" value=<?php echo $_SESSION['dataN']?> name="dataN"></div>
+                                                        <div class="mb-5"><label class="form-label" for="birth"><strong>Data di nascita</strong></label><input class="form-control" type="date" id="dataN" value="<?php echo $_SESSION['dataN'];?>" name="dataN"></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 cnt-b"><button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button></div>
@@ -196,25 +196,7 @@
     </div>
     <?php }elseif($_SESSION['adminLog']=='daje'){?> 
     
-        <div id="wrapper">
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <div class="container-fluid">
-                    <div class="row mb-3">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-6">
-                            <div class="card mb-3 mt-4">
-                                    <?php if(isset($_GET['msg'])){ ?>
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
-                                    <?php }?>
-                                        <div class="row-md-3">
-                                            <p class="h3 text-center mb-3 mt-3">Profilo amministratore</p>
-                                        </div>
-                                        <!-- qui sicuramente andrà fatto in php tutto quanto-->
-                                <div class="card-body text-center shadow">
+       
 <?php
     }else{
         header("Location: login.php?error=Credo tu debba accedere prima");

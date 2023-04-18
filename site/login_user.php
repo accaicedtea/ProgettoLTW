@@ -33,7 +33,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 $_SESSION['nome'] = $row['nome'];
                 $_SESSION['cognome'] = $row['cognome'];
                 $_SESSION['email'] = $row['email'];
-                $_SESSION['dataN'] = $row['dataNascita'];
+                $_SESSION['dataN'] = $row['dataN'];
                 $_SESSION['pfp'] = $row['pfp'];
                 $_SESSION['password'] = $row['password'];
                 $_SESSION['log'] = 'on';
