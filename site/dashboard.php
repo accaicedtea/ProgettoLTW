@@ -2,11 +2,12 @@
 $pagina = "Dashboard";
 include './head.php';
 include './db_conn.php';
-$json_data_piechart = include ('./con_db_to_piechart.php');
-$json_data_linegraph = include ('./con_db_to_linegraph.php');
-$json_giorni_mese = include ('./giorni_mese.php');
+
 $_SESSION['data_oggi'] = date("Y:m:d");
 if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
+  $json_data_piechart = include ('./con_db_to_piechart.php');
+  $json_data_linegraph = include ('./con_db_to_linegraph.php');
+  $json_giorni_mese = include ('./giorni_mese.php');
 ?>
 <html>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -490,5 +491,7 @@ Highcharts.chart('histogram', {
     </body>
 </html>
 
-<?php } else( header("Locacion: login.php"));
+<?php }else{
+    header("Location: login.php?error=ma che stavi a provà a fa limortaaaaa");
+    } 
 ?>

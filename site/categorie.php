@@ -30,6 +30,56 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                <div class="col">
+                                <button type="button" class="btn btn-success mb-3 " data-bs-toggle="modal" data-bs-target="#modalAddCat">
+                                                            Aggiungi categoria
+                                                        </button>
+                                                        
+
+                                                    <!-- Modal per Aggiungi-->
+                                                    <div class="modal fade" id="modalAddCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <!-- INIZIO FORM -->
+                                                                <form class="text-start" action="aggiungi_categoria.php" method="post" name="edit_form">
+                                                                    <div class="visually-hidden"><input type="" name="id_edit" value=""></div>
+                                                                    
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLongTitle">Aggiungi categoria</h5>
+                                                                    </div>
+                                                                    <div class="modal-body left-labels">
+
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <div class="mb-3"><label class="form-label" for="nome"><strong >Nome</strong></label><input class="form-control" type="text" id="nome_add"  name="nome_add"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <div class="mb-3"><label class="form-label" for="color"><strong>Colore</strong></label><input class="form-control form-control-color" type="color" id="colore_add"  name="colore_add" ></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label" for="immagine">
+                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_add" name="img_add">
+                                                                                        <a href="https://icons.getbootstrap.com/" target="_blank">Info <i class="bi bi-info-circle-fill"></i></a>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                                                        <input type="submit" class="btn btn-primary" value="Salva modifiche">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table  table-bordered">
                                         <thead class="table-secondary">
@@ -66,12 +116,10 @@
                                                         <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry<?php echo $i?>">
                                                             Modifica
                                                         </button>
-                                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry<?php echo $i?>">
-                                                            Elimina
-                                                        </button>
+                                                        
 
                                                     <!-- Modal per MODIFICA-->
-                                                    <div class="modal fade" id="modalEditEntry<?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal fade" id="modalEditEntry<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <!-- INIZIO FORM -->
@@ -90,7 +138,7 @@
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="color"><strong>Colore</strong></label><input class="form-control form-control-color" type="color" id="colore_edit" value=<?php echo $tuple['colore'];?> name="colore_edit" ></div>
+                                                                                <div class="mb-3"><label class="form-label" for="color"><strong>Colore</strong></label><input class="form-control form-control-color" type="color" id="colore_edit" value="<?php echo $tuple['colore'];?>" name="colore_edit" ></div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
@@ -101,7 +149,6 @@
                                                                                         <a href="https://icons.getbootstrap.com/" target="_blank">Info <i class="bi bi-info-circle-fill"></i></a>
                                                                                 </div>
                                                                             </div>
-
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -113,27 +160,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Modal per ELIMINA-->
-                                                    <div class="modal fade" id="modalDeleteEntry<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="deleteModalLongTitle">Elimina Categoria</h5>
-                                                                </div>
-                                                                <div class="modal-body left-labels alert alert-danger">
-                                                                    <p class="fst-italic fs-4">Sei sicuro di voler eliminare la categoria?</p>
-                                                                </div>
-                                                                <!-- inizio form -->
-                                                                <form action="elimina_cetegoria.php" method="post" name="delete_form">
-                                                                    <div class="visually-hidden"><input type="text" name="id_delete" value=<?php echo $tuple['id']?>></div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                                                        <input type="submit" class="btn btn-danger" value="Si">
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                
                                                     </td>
                                             </tr>
                                             <?php 

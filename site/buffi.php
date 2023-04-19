@@ -1,5 +1,5 @@
 <?php 
-    $pagina = 'Visualizza transazioni';
+    $pagina = 'Buffe e buffetti';
     include './head.php';
 ?>
 
@@ -11,8 +11,7 @@
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>
     <script>
-        function applicaFiltroCat(mimmo){
-            
+        function applicaFiltroCat(){
             var e = document.getElementById("selectCat");
             var chosen = e.options[e.selectedIndex].text; 
             var httpRequest = new XMLHttpRequest();
@@ -61,7 +60,7 @@
                         <div class="card-body">
                             <div class="row">
                                     <?php 
-                                        $query ="SELECT nome FROM categoria";
+                                        $query ="SELECT nome FROM categoria ";
                                         $result = $conn->query($query);
                                         if($result->num_rows> 0){
                                             $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -69,20 +68,22 @@
                                     ?>
                                 <div class="container">
                                     <!-- Stack the columns on mobile by making one full-width and the other half-width -->
-                                   
                                     <div class="row">
-                                        <div class="col-auto">
-                                            <!--The SELECT element.-->
-                                            <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat(this);" >
-                                                <option value="Tutte Le Categorie">Tutte le categorie</option>
-                                            </select>
-                                        </div>
-
+                                        <div class="col-auto"><select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
+                                        <option>Tutte le categorie</option>
+                                                <?php 
+                                                foreach ($options as $option) {
+                                                ?>
+                                                    <option><?php echo $option['nome']; ?> </option>
+                                                    <?php 
+                                                    }
+                                                ?>
+                                        </select> </div>
                                         <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
-                                            <option value="tutte" selected="">Tutti i tipi</option>
-                                            <option value="entrate">Entrate</option>
-                                            <option value="uscite">Uscite</option>
-                                            </select></div>
+                                        <option value="tutte" selected="">Tutti i tipi</option>
+                                        <option value="entrate">Entrate</option>
+                                        <option value="uscite">Uscite</option>
+                                        </select></div>
                                         <div class="col-1"></div>
                                         
                                         <div class="col-auto ms-auto"><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button></div>
@@ -119,11 +120,6 @@
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description" placeholder="Inserisci descrizione" name="description_new"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date" name="date_new"></div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -208,7 +204,7 @@
                                         <!-- Prendo dal database tutte le spese -->
                                         <?php
                                             $user = $_SESSION['username']; 
-                                            $result = $conn->query("SELECT * FROM spesa WHERE utente = '$user'");
+                                            $result = $conn->query("SELECT * FROM spesa WHERE utente = '$user' and data IS NULL ");
                                             $tuples = array();
                                             if($result->num_rows> 0){
                                                 $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -315,20 +311,6 @@
         </div>
     </div>
 </body>
-<script>
-    window.onafterprint = populateSelect();
-    function populateSelect() {
-        // THE JSON ARRAY.
-        let birds = <?= include ('./test_buffi_json.php');?>;
-        
-        let ele = document.getElementById('selectCat');
-        for (let i = 0; i < birds.length; i++) {
-            // POPULATE SELECT ELEMENT WITH JSON.
-            ele.innerHTML = ele.innerHTML +
-                '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
-        }
-    }
-</script>
 <?php 
 }
 else{

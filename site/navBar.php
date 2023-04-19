@@ -44,11 +44,11 @@
                 <a class="navbar-brand " href="./home.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link <?php if($pagina=='Dashboard') echo 'active'?>" aria-current="page" href="./dashboard.php">Dashboard
+                    <a class="nav-link <?php if($pagina=='Dashboard') echo 'active';?>" aria-current="page" href="./dashboard.php">Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php if($pagina=='Visualizza transazioni') echo 'active'?>" aria-current="page" href="./transazioni.php">Transazioni
+                    <a class="nav-link <?php if($pagina=='Visualizza transazioni') echo 'active';?>" aria-current="page" href="./transazioni.php">Transazioni
                     </a>
                 </li>
                 <li class="nav-item">
@@ -56,6 +56,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="#">Statistiche</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if($pagina=='Buffe e buffetti') echo 'active';?>" href="./buffi.php">Buffi e buffetti</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link ms-3" href="./informazioni.php">Informazioni

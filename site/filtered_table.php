@@ -112,6 +112,20 @@
             </div>
             </td>
         </tr>
+<script> 
+            window.onload = populateSelect();           
+            function populateSelect() {
+                    // THE JSON ARRAY.
+                    let birds = <?= include ('./test_buffi_json.php');?>;
+                    
+                    let ele = document.getElementById('sel');
+                    for (let i = 0; i < birds.length; i++) {
+                        // POPULATE SELECT ELEMENT WITH JSON.
+                        ele.innerHTML = ele.innerHTML +
+                            '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
+                    }
+                }              
+</script>
     <?php 
     }
 ?>
