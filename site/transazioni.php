@@ -221,6 +221,8 @@
                                                 $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
                                             }
                                             $i=0;
+                                            $_SESSION['categoria'] = "Tutte le categorie";
+                                            $_SESSION['tipo'] = "Tutti i tipi";
                                             foreach ($tuples as $tuple) { ?>
                                                 <tr class="table-<?php echo ($tuple['importo']<0)? 'danger' : 'success';?>">  <!-- QUESTO NON FUNZIONA (LA SELEZIONE DELL CLASSE) RIP -->
                                                     <td><?php echo $tuple['data'];?></td>
