@@ -39,7 +39,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 
                 $_SESSION['log'] = 'on';
                 
-                header("Location: profile.php");
+                header("Location: dashboard.php");
                 exit();
             }else{
                 header("Location: login.php?error=Username o password incorretti");

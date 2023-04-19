@@ -2,11 +2,12 @@
 $pagina = "Dashboard";
 include './head.php';
 include './db_conn.php';
-$json_data_piechart = include ('./con_db_to_piechart.php');
-$json_data_linegraph = include ('./con_db_to_linegraph.php');
-$json_giorni_mese = include ('./giorni_mese.php');
 $_SESSION['data_oggi'] = date("Y:m:d");
 if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
+$json_data_piechart = include ('./con_db_to_piechart.php');
+$json_data_linegraph = include ('./con_db_to_linegraph.php');
+$json_data_histogram = include('./con_db_to_histogram.php');
+$json_giorni_mese = include ('./giorni_mese.php');
 ?>
 <html>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -30,7 +31,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                 $result = $conn->query($query);
                                 if ($result->num_rows>0) {
                                     $row = mysqli_fetch_assoc($result);
-                                    echo round($row['somma'],2).'€';
+                                    echo $row['somma'].'€';
                                 }
                                 ?>
                             </div>
@@ -41,7 +42,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                 $result = $conn->query($query);
                                 if ($result->num_rows>0) {
                                     $row = mysqli_fetch_assoc($result);
-                                    echo round($row['somma'],2).'€';
+                                    echo $row['somma'].'€';
                                 }
                                 ?>
                             </div>
@@ -52,7 +53,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                 $result = $conn->query($query);
                                 if ($result->num_rows>0) {
                                     $row = mysqli_fetch_assoc($result);
-                                    echo round($row['somma'],2).'€';
+                                    echo $row['somma'].'€';
                                 }
                                 ?>
                             </div>
@@ -64,7 +65,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                 $result = $conn->query($query);
                                 if ($result->num_rows>0) {
                                     $row = mysqli_fetch_assoc($result);
-                                    echo round($row['somma'],2).'€';
+                                    echo $row['somma'].'€';
                                 }
                                 ?>
                             </div>
@@ -95,7 +96,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                                 plotOptions: {
                                                     line: {
                                                         dataLabels: {
-                                                            enabled: true
+                                                            enabled: true,
                                                         },
                                                         enableMouseTracking: false
                                                     }
@@ -107,9 +108,12 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                     </div>
                                 </figure>
                             </div>
-                            <div class="row mt-3 card shadow me-2">
+                            <div class="row mt-3">
+                               
+                            
+                                <div class="col-md-6 col-xs-12 card">
                                 <figure class="highcharts-figure">
-                                    <div id="pie chart">
+                                    <div id="pie chart" class="container">
                                         <script>
                                             Highcharts.chart('pie chart', {
                                                 chart: {
@@ -150,6 +154,74 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                         </script>
                                     </div>
                                 </figure>
+                                            
+                                </div>
+                                
+                                <div class="col-md-6 col-xs-12 card">
+                                    <figure class="highcharts-figure">
+                                        <div id="histogram">
+                                            <script>
+                                    <?php $title = "Spese durante l'anno";
+                                    $title = addslashes($title);
+                                    ?>  
+Highcharts.chart('histogram', {
+    chart: {
+      type: 'column'
+    },
+    credits: {
+      enabled:false
+    },
+    title: {
+      align: 'left',
+      text: '<?php echo $title?>'
+    },
+    accessibility: {
+      announceNewData: {
+        enabled: true
+      }
+    },
+    xAxis: {
+      type: 'category',
+      labels: {
+                style: {
+                    fontWeight: 'bold'
+                }
+            }
+    },
+    yAxis: {
+      title: {
+        text: '€'
+      }
+  
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+      series: {
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true,
+        }
+      }
+    },
+  
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}€<br/>'
+    },
+  
+    series: [{
+      name: 'Spesa del mese',
+      colorByPoint:true,
+      data: <?=$json_data_histogram?>,
+    }]
+  });
+  </script>
+                                        </div>
+                                    </figure>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -159,5 +231,6 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     </body>
 </html>
 
-<?php } else( header("Location: login.php"));
-?>
+<?php }else{
+    header("Location: login.php?error=ma che stavi a provà a fa limortaaaaa");
+    } ?>
