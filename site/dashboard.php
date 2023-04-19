@@ -30,7 +30,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                 $result = $conn->query($query);
                                 if ($result->num_rows>0) {
                                     $row = mysqli_fetch_assoc($result);
-                                    echo $row['somma'].'€';
+                                    echo round($row['somma'],2).'€';
                                 }
                                 ?>
                             </div>
@@ -41,7 +41,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                 $result = $conn->query($query);
                                 if ($result->num_rows>0) {
                                     $row = mysqli_fetch_assoc($result);
-                                    echo $row['somma'].'€';
+                                    echo round($row['somma'],2).'€';
                                 }
                                 ?>
                             </div>
@@ -52,7 +52,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                 $result = $conn->query($query);
                                 if ($result->num_rows>0) {
                                     $row = mysqli_fetch_assoc($result);
-                                    echo $row['somma'].'€';
+                                    echo round($row['somma'],2).'€';
                                 }
                                 ?>
                             </div>
@@ -64,7 +64,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                 $result = $conn->query($query);
                                 if ($result->num_rows>0) {
                                     $row = mysqli_fetch_assoc($result);
-                                    echo $row['somma'].'€';
+                                    echo round($row['somma'],2).'€';
                                 }
                                 ?>
                             </div>
@@ -159,5 +159,5 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     </body>
 </html>
 
-<?php } else( header("Locacion: login.php"));
+<?php } else( header("Location: login.php"));
 ?>

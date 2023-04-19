@@ -58,16 +58,17 @@
                             <p class="text-primary m-0 fw-bold">I tuoi movimenti</p>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                    <?php 
-                                        $query ="SELECT nome FROM categoria";
-                                        $result = $conn->query($query);
-                                        if($result->num_rows> 0){
-                                            $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
-                                        }
-                                    ?>
-                                <div class="col-md-8 text-nowrap">
-                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Mostra&nbsp;<select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
+                            <?php 
+                                $query ="SELECT nome FROM categoria";
+                                $result = $conn->query($query);
+                                if($result->num_rows> 0){
+                                    $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                }
+                            ?>
+                            <div class="container">
+                                <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+                                <div class="row">
+                                    <div class="col-auto"><select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
                                         <option>Tutte le categorie</option>
                                                 <?php 
                                                 foreach ($options as $option) {
@@ -76,24 +77,25 @@
                                                     <?php 
                                                     }
                                                 ?>
-                                        </select>&nbsp;</label>
+                                        </select> 
                                     </div>
-                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Tipo&nbsp;<select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
+                                    <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
                                         <option value="tutte" selected="">Tutti i tipi</option>
                                         <option value="entrate">Entrate</option>
                                         <option value="uscite">Uscite</option>
-                                        </select>&nbsp;</label></div>
-                                </div>
-                                <div class="col-md-4 text-nowrap">
-                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
-                                </div>
-                            </div>
-                            <div class="row float-right">
-                                <div class="col-md-6">
-                                </div>
-                                <div class="col-md-6 text-nowrap">
-                                    <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
+                                        </select>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-auto ms-auto">
+                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
+                                    </div>
+                                    <div class="col-auto ">
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
+                                    </div>
+                                    <div class="col-auto ms-auto">
+                                        <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search">
+                                    </div>
                                 </div>
                             </div>
 
@@ -224,7 +226,7 @@
                                             $_SESSION['categoria'] = "Tutte le categorie";
                                             $_SESSION['tipo'] = "Tutti i tipi";
                                             foreach ($tuples as $tuple) { ?>
-                                                <tr class="table-<?php echo ($tuple['importo']<0)? 'danger' : 'success';?>">  <!-- QUESTO NON FUNZIONA (LA SELEZIONE DELL CLASSE) RIP -->
+                                                <tr class="table-<?php echo ($tuple['importo']<0)? 'danger' : 'success';?>">
                                                     <td><?php echo $tuple['data'];?></td>
                                                     <td><?php echo $tuple['categoria'];?></td>
                                                     <td><?php echo $tuple['descrizione'];?></td>
@@ -317,6 +319,18 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <nav class="pagination-container">
+                                <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
+                                    &lt;
+                                </button>
+                                
+                                <div id="pagination-numbers">
+                                </div>
+                                
+                                <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
+                                    &gt;
+                                </button>
+                            </nav>
                         </div>
                     </div>
                 </div>
