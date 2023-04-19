@@ -11,8 +11,7 @@
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>
     <script>
-        function applicaFiltroCat(mimmo){
-            
+        function applicaFiltroCat(){
             var e = document.getElementById("selectCat");
             var chosen = e.options[e.selectedIndex].text; 
             var httpRequest = new XMLHttpRequest();
@@ -59,37 +58,47 @@
                             <p class="text-primary m-0 fw-bold">I tuoi movimenti</p>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                    <?php 
-                                        $query ="SELECT nome FROM categoria";
-                                        $result = $conn->query($query);
-                                        if($result->num_rows> 0){
-                                            $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
-                                        }
-                                    ?>
-                                <div class="container">
-                                    <!-- Stack the columns on mobile by making one full-width and the other half-width -->
-                                   
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <!--The SELECT element.-->
-                                            <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat(this);" >
-                                                <option value="Tutte Le Categorie">Tutte le categorie</option>
-                                            </select>
-                                        </div>
+                            <?php 
+                                $query ="SELECT nome FROM categoria";
+                                $result = $conn->query($query);
+                                if($result->num_rows> 0){
+                                    $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                }
+                            ?>
+                            <div class="container">
+                                <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+                                <div class="row">
+                                    <div class="col-auto"><select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
+                                        <option>Tutte le categorie</option>
+                                                <?php 
+                                                foreach ($options as $option) {
+                                                ?>
+                                                    <option><?php echo $option['nome']; ?> </option>
+                                                    <?php 
+                                                    }
+                                                ?>
+                                        </select> 
+                                    </div>
+                                    <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
+                                        <option value="tutte" selected="">Tutti i tipi</option>
+                                        <option value="entrate">Entrate</option>
+                                        <option value="uscite">Uscite</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-auto ms-auto">
+                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
+                                    </div>
+                                    <div class="col-auto ">
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
+                                    </div>
+                                    <div class="col-auto ms-auto">
+                                        <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search">
+                                    </div>
+                                </div>
+                            </div>
 
-                                        <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
-                                            <option value="tutte" selected="">Tutti i tipi</option>
-                                            <option value="entrate">Entrate</option>
-                                            <option value="uscite">Uscite</option>
-                                            </select></div>
-                                        <div class="col-1"></div>
-                                        
-                                        <div class="col-auto ms-auto"><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button></div>
-                                        <div class="col-auto "><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button></div>
-                                        <div class="col-auto ms-auto"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></div>
-                                    </div>
-                                    </div>
                             <!-- Modal NUOVA ENTRATA-->
                             <div class="modal fade" id="modalNuovaEntrata" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -214,8 +223,10 @@
                                                 $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
                                             }
                                             $i=0;
+                                            $_SESSION['categoria'] = "Tutte le categorie";
+                                            $_SESSION['tipo'] = "Tutti i tipi";
                                             foreach ($tuples as $tuple) { ?>
-                                                <tr class="table-<?php echo ($tuple['importo']<0)? 'danger' : 'success';?>">  <!-- QUESTO NON FUNZIONA (LA SELEZIONE DELL CLASSE) RIP -->
+                                                <tr class="table-<?php echo ($tuple['importo']<0)? 'danger' : 'success';?>">
                                                     <td><?php echo $tuple['data'];?></td>
                                                     <td><?php echo $tuple['categoria'];?></td>
                                                     <td><?php echo $tuple['descrizione'];?></td>
@@ -308,6 +319,18 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <nav class="pagination-container">
+                                <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
+                                    &lt;
+                                </button>
+                                
+                                <div id="pagination-numbers">
+                                </div>
+                                
+                                <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
+                                    &gt;
+                                </button>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -315,20 +338,6 @@
         </div>
     </div>
 </body>
-<script>
-    window.onafterprint = populateSelect();
-    function populateSelect() {
-        // THE JSON ARRAY.
-        let birds = <?= include ('./test_buffi_json.php');?>;
-        
-        let ele = document.getElementById('selectCat');
-        for (let i = 0; i < birds.length; i++) {
-            // POPULATE SELECT ELEMENT WITH JSON.
-            ele.innerHTML = ele.innerHTML +
-                '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
-        }
-    }
-</script>
 <?php 
 }
 else{

@@ -6,13 +6,18 @@
     $categoria = ((!isset($_GET["categoria"]) || $_GET["categoria"]=="") ? $categoria_prec : $_GET["categoria"]);
     $tipo = ((!isset($_GET["tipo"]) || $_GET["tipo"]=="") ? $tipo_prec : $_GET["tipo"]);
 
+    $catQuery = $conn->query("SELECT nome FROM categoria");
+    if($catQuery->num_rows> 0){
+        $options= mysqli_fetch_all($catQuery, MYSQLI_ASSOC);
+    }
+
     $_SESSION['categoria'] = $categoria;
     $_SESSION['tipo'] = $tipo;
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-    $query = "SELECT s.id,s.utente,s.importo,s.data,s.descrizione,c.nome as categoria FROM spesa as s join categoria as c on c.id=s.categoria WHERE s.utente = '$user'";
-    if ($categoria != "Tutte le categorie") $query .= " AND c.nome = '$categoria'";
+    $query = "SELECT * FROM spesa WHERE utente = '$user'";
+    if ($categoria != "Tutte le categorie") $query .= " AND categoria = '$categoria'";
     if ($tipo != "Tutti i tipi") $query .= ($tipo=="Entrate" ? " AND importo > 0" : " AND importo < 0");
 
     # echo $query; 
@@ -112,20 +117,6 @@
             </div>
             </td>
         </tr>
-<script> 
-            window.onload = populateSelect();           
-            function populateSelect() {
-                    // THE JSON ARRAY.
-                    let birds = <?= include ('./test_buffi_json.php');?>;
-                    
-                    let ele = document.getElementById('sel');
-                    for (let i = 0; i < birds.length; i++) {
-                        // POPULATE SELECT ELEMENT WITH JSON.
-                        ele.innerHTML = ele.innerHTML +
-                            '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
-                    }
-                }              
-</script>
     <?php 
     }
 ?>
