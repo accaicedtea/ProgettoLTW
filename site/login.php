@@ -1,7 +1,6 @@
 <?php 
   $pagina = 'Accedi';
   include './head.php';
-  $log = 'no';
   include './navBar.php';
 ?>
 <body id="page-top">
@@ -41,7 +40,7 @@
                                             <form action="./login_user.php" method="post" name="form-signin" class="form-signin">
                                                   <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Username</strong></label><input class="form-control" type="text" id="username" placeholder="pippo" name="username"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Username</strong></label><input class="form-control" type="text" id="username" placeholder="username" name="username"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">

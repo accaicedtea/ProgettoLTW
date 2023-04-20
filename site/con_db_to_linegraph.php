@@ -14,10 +14,10 @@ $array_dati_differenza = array();
 $array_giorni_differenza = array();
 $array_valori_differenza = array();
 $sql_uscite = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as uscite 
-from spesa 
-where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and spesa.utente = '$username'
-group by DAY(spesa.data)
-order by DAY(spesa.data)";
+               from spesa
+               where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.utente = '$username'
+               group by DAY(spesa.data)
+               order by DAY(spesa.data)";
 $result_uscite = $conn->query($sql_uscite);
 if ($result_uscite->num_rows > 0) {
     $i = 1;
@@ -25,9 +25,9 @@ if ($result_uscite->num_rows > 0) {
     while($row_uscite = $result_uscite->fetch_assoc()) {
         array_push($array_giorni_uscite, intval($row_uscite['giorno']));
     }
-    $result2_uscite = $conn->query($sql_uscite);
-    while($row2_uscite = $result2_uscite->fetch_assoc()) {
-        array_push($array_valori_uscite, doubleval($row2_uscite['uscite']));
+    mysqli_data_seek($result_uscite, 0);
+    while($row_uscite = $result_uscite->fetch_assoc()) {
+        array_push($array_valori_uscite, doubleval($row_uscite['uscite']));
     }
     while($i <= $giorni_mese) {
         if (!in_array($i, $array_giorni_uscite,false)) {
@@ -42,7 +42,7 @@ if ($result_uscite->num_rows > 0) {
 }
 $sql_entrate = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as entrate
 from spesa 
-where importo > 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and spesa.utente = '$username'
+where importo > 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.utente = '$username'
 group by DAY(spesa.data)
 order by DAY(spesa.data)";
 $result_entrate = $conn->query($sql_entrate);
@@ -52,9 +52,9 @@ if ($result_entrate->num_rows > 0) {
     while($row_entrate = $result_entrate->fetch_assoc()) {
         array_push($array_giorni_entrate, intval($row_entrate['giorno']));
     }
-    $result2_entrate = $conn->query($sql_entrate);
-    while($row2_entrate = $result2_entrate->fetch_assoc()) {
-        array_push($array_valori_entrate, doubleval($row2_entrate['entrate']));
+    mysqli_data_seek($result_entrate, 0);
+    while($row_entrate = $result_entrate->fetch_assoc()) {
+        array_push($array_valori_entrate, doubleval($row_entrate['entrate']));
     }
 
     while($i <= $giorni_mese) {
@@ -70,7 +70,7 @@ if ($result_entrate->num_rows > 0) {
 }
 $sql_differenza = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as differenza
 from spesa 
-where MONTH(spesa.data) = MONTH('$data_oggi') and spesa.utente = '$username'
+where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) = DAY('$data_oggi') and spesa.utente = '$username'
 group by DAY(spesa.data)
 order by DAY(spesa.data)";
 $result_differenza = $conn->query($sql_differenza);
@@ -80,9 +80,9 @@ if ($result_differenza->num_rows > 0) {
     while($row_differenza = $result_differenza->fetch_assoc()) {
         array_push($array_giorni_differenza, intval($row_differenza['giorno']));
     }
-    $result2_differenza = $conn->query($sql_differenza);
-    while($row2_differenza = $result2_differenza->fetch_assoc()) {
-        array_push($array_valori_differenza, doubleval($row2_differenza['differenza']));
+    mysqli_data_seek($result_differenza, 0);
+    while($row_differenza = $result_differenza->fetch_assoc()) {
+        array_push($array_valori_differenza, doubleval($row_differenza['differenza']));
     }
 
     while($i <= $giorni_mese) {

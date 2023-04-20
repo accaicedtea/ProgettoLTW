@@ -2,7 +2,8 @@
     $pagina = 'Registrazione';
     include './head.php';
     include './navBar.php';
-  
+    include './db_conn.php';
+    require './test_buffi_json.php';
 ?>
 <body id="page-top">
 <div id="wrapper">
@@ -15,6 +16,12 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="card shadow mb-3 mt-4">
+                                        <?php if(isset($_GET['error'])){ ?>
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>Cavolini! </strong><?php echo $_GET['error']; ?>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                          <?php }?>
                                         <div class="row-md-3">
                                             <p class="h3 text-center mb-3 mt-3">Registrati</p>
                                         </div>
@@ -22,10 +29,11 @@
                                             <p class="h6 text-primary m-0 fw-bold ">Crea la tua fantastiche utenze</p>
                                         </div>
                                         <div class="card-body">
+                                            <!-- inizio form-->
                                             <form action="./register_user.php" method="post" name="formreg" onsubmit="return validaForm();">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="nome utente" name="username" onfocus="show_requirements_username()" onblur="remove_requirements_username()" onchange="remove_error_username()"></div>
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="username" name="username" onfocus="show_requirements_username()" onblur="remove_requirements_username()" onchange="remove_error_username()"></div>
                                                             <!-- waring msg per username-->
                                                             <div class="mb-3"  id="requirements_username"></div>
                                                         <div class="errors mb-3" id="errors_username"></div>
@@ -33,14 +41,14 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="nome"><strong >Nome</strong></label><input class="form-control" type="text" id="nome" placeholder="solo nome" name="nome" onchange="remove_error_name()"></div>
+                                                        <div class="mb-3"><label class="form-label" for="nome"><strong >Nome</strong></label><input class="form-control" type="text" id="nome" placeholder="nome utente" name="nome" onchange="remove_error_name()"></div>
                                                         <!-- waring msg per nome-->
                                                         <div class="errors mb-3" id="errors_name"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="cognome"><strong >Cognome</strong></label><input class="form-control" type="text" id="cognome" placeholder="cognome" name="cognome" onchange="remove_error_cognome()"></div>
+                                                        <div class="mb-3"><label class="form-label" for="cognome"><strong >Cognome</strong></label><input class="form-control" type="text" id="cognome" placeholder="cognome utente" name="cognome" onchange="remove_error_cognome()"></div>
                                                         <!-- waring msg per cognome-->
                                                         <div class="errors mb-3" id="errors_cognome"></div>
                                                     </div>
@@ -66,7 +74,17 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Inidirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder="example@email.com" name="email" onchange="remove_error_email()"></div>
+                                                        <div class="errors mb-3" id="errors_nazionalità"></div>
+                                                        <div id="selectNazionalita" class="form-outline mb-3"><label class="form-label" for="dataN"><strong >Nazionalità</strong></label>
+                                                            <input id="selectNazi" type="search" />
+                                                        </div>
+                                                        <!-- waring msg per nazionalità-->
+                                                        <div class="requirements" id="requirements_dataN"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Inidirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder="esempio@email.com" name="email" onchange="remove_error_email()"></div>
                                                         <!-- waring msg per indirizzo email-->
                                                         <div class="errors mb-3" id="errors_email"></div>
                                                     </div>
@@ -99,5 +117,31 @@
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
 </body>
+<script>
+    window.onload = populateSelectNazionalita();
+    function populateSelectNazionalita() {
+        // THE JSON ARRAY.
+        let birds = <?=getJsonStati($conn);?>;
+        
+        let ele = document.getElementById('selectNazi');
+        for (let i = 0; i < birds.length; i++) {
+            // POPULATE SELECT ELEMENT WITH JSON.
+            ele.innerHTML = ele.innerHTML +
+                '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
+        }
+    }
+</script>
+<script>
+    const basicAutocomplete = document.querySelector('#selectNazionalita');
+const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+const dataFilter = (value) => {
+  return data.filter((item) => {
+    return item.toLowerCase().startsWith(value.toLowerCase());
+  });
+};
 
+new mdb.Autocomplete(basicAutocomplete, {
+  filter: dataFilter
+});
+</script>
 </html>

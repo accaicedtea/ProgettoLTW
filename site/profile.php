@@ -3,25 +3,7 @@
     include './head.php';
 
 ?>
-<style>
-  /* HIDE RADIO */
-  [type=radio] { 
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
 
-  /* IMAGE STYLES */
-  [type=radio] + img {
-    cursor: pointer;
-  }
-
-  /* CHECKED STYLES */
-  [type=radio]:checked + img {
-    outline: 4px solid #0275d8;
-  }
-</style>
 <body id="page-top">
     <?php 
         session_start();
@@ -154,7 +136,7 @@
                                             <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" value=<?php echo $_SESSION['username']?> name="username" readonly></div>
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" value=<?php echo $_SESSION['username'];?> name="username" readonly></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -181,22 +163,22 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Indirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder=<?php echo $_SESSION['email']?> name="email"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Indirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder=<?php echo $_SESSION['email'];?> name="email"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" placeholder=<?php echo $_SESSION['nome']?> name="nome"></div>
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" placeholder=<?php echo $_SESSION['nome'];?> name="nome"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Cognome</strong></label><input class="form-control" type="text" id="cognome" placeholder=<?php echo $_SESSION['cognome']?> name="cognome"></div>
+                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Cognome</strong></label><input class="form-control" type="text" id="cognome" placeholder=<?php echo $_SESSION['cognome'];?> name="cognome"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="birth"><strong>Data di nascita</strong></label><input class="form-control" type="date" id="dataN" value=<?php echo $_SESSION['dataN']?> name="dataN"></div>
+                                                        <div class="mb-5"><label class="form-label" for="birth"><strong>Data di nascita</strong></label><input class="form-control" type="date" id="dataN" value="<?php echo $_SESSION['dataN'];?>" name="dataN"></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 cnt-b"><button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button></div>
@@ -212,7 +194,16 @@
             </div>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <?php }else{ header("Location: home.php");}?>
+    <?php }elseif($_SESSION['adminLog']=='daje'){?> 
+    
+       
+<?php
+    }else{
+        header("Location: login.php?error=Credo tu debba accedere prima");
+    }
+
+    
+    ?>
 
 
 </body>
