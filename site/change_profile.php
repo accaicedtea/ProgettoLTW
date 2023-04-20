@@ -4,7 +4,9 @@
     $cognome = $_POST['cognome'];
     $dataN = $_POST['dataN'];
     $email = $_POST['email'];
-    
+    $nazi = $_POST['nazi'];
+    $sesso = $_POST['sesso'];
+    echo "".$nome. "cognome ". $cognome." data ".$dataN. "emal ".$email. "nazio->>>".$nazi. " sesso".$sesso. " ".$nome;
    
     if($_SESSION['username']==$_POST['username'] && isset($_SESSION['password'])){
         $sus = $_SESSION['username'];
@@ -27,10 +29,22 @@
                 $_SESSION['dataN']=$_POST['dataN'];
             }
         }
-        if(!empty($_POST['email']) && $_POST['eamail']!=$_SESSION['email']){
+        if(!empty($_POST['email']) && $_POST['email']!=$_SESSION['email']){
             $sql = "UPDATE utente SET email='$email' WHERE username='$sus' AND password='$spw'";
             if((mysqli_query($conn, $sql))){
                 $_SESSION['email']=$_POST['email'];
+            }
+        }
+        if(!empty($_POST['nazi']) && $_POST['nazi']!=$_SESSION['nazi']){
+            $sql = "UPDATE utente SET nazionalita='$nazi' WHERE username='$sus' AND password='$spw'";
+            if((mysqli_query($conn, $sql))){
+                $_SESSION['nazi']=$_POST['nazi'];
+            }
+        }
+        if(!empty($_POST['sesso']) && $_POST['sesso']!=$_SESSION['sesso']){
+            $sql = "UPDATE utente SET sesso='$sesso' WHERE username='$sus' AND password='$spw'";
+            if((mysqli_query($conn, $sql))){
+                $_SESSION['sesso']=$_POST['sesso'];
             }
         }
         if(!empty($_POST['password']) && !empty($_POST['passwordC']) && md5($_POST['password'])!=$_SESSION['password'] && $_POST['password']==$_POST['passwordC']){

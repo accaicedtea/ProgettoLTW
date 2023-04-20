@@ -6,9 +6,11 @@
 
 <body id="page-top">
     <?php 
-        session_start();
+        include './db_conn.php';
         include_once './navBar.php';
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
+            
+            require './test_buffi_json.php';
     ?>  
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -28,7 +30,7 @@
                                             <p class="h3 text-center mb-3 mt-3">Profilo</p>
                                         </div>
                                         <!-- qui sicuramente andrà fatto in php tutto quanto-->
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src=<?php echo $_SESSION['pfp'];?> width="160" height="160">
+                                <div class="card-body text-center shadow"><img id="pfp" class="rounded-circle mb-3 mt-4" width="160" height="160">
                                     <div class="mb-3">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                                     Cambia icona profilo
@@ -140,6 +142,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
+                                                    
                                                     <div class="mb-3">
                                                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                                             <li class="nav-item" role="presentation">
@@ -163,22 +166,43 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Indirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder=<?php echo $_SESSION['email'];?> name="email"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Indirizzo email</strong></label><input class="form-control" type="email" id="email"  name="email"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" placeholder=<?php echo $_SESSION['nome'];?> name="nome"></div>
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" name="nome"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Cognome</strong></label><input class="form-control" type="text" id="cognome" placeholder=<?php echo $_SESSION['cognome'];?> name="cognome"></div>
+                                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Cognome</strong></label><input class="form-control" type="text" id="cognome" name="cognome"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="birth"><strong>Data di nascita</strong></label><input class="form-control" type="date" id="dataN" value="<?php echo $_SESSION['dataN'];?>" name="dataN"></div>
+                                                        <div class="mb-3"><label class="form-label" for="nationality"><strong>Nazionalità</strong></label>
+                                                        <select id="selectNaz" name="nazi"class="d-inline-block form-select form-select-sm">
+                                                            <option id="naz"></option>
+                                                        </select></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-check">
+                                                            <input type="radio" class="btn-check" id="radio1" name="optradio" value="1" checked>
+                                                            <label id="mio" class="btn btn-outline-secondary btn-sm shadow-sm" for="radio1">Uomo</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" class="btn-check" id="radio2" name="optradio" value="0">
+                                                            <label id="altro"class="btn btn-outline-secondary btn-sm shadow-sm" for="radio2">Donna</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-5"><label class="form-label" for="birth"><strong>Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN"></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 cnt-b"><button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button></div>
@@ -194,6 +218,38 @@
             </div>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+
+    <script>
+        window.onload=placeH();
+        function placeH() {
+            let data = <?= getJsonUtente($conn);?>
+            
+            document.getElementById("username").placeholder = data[0]['username'];
+            document.getElementById("email").placeholder = data[0]['email'];
+            document.getElementById("nome").placeholder = data[0]['nome'];
+            document.getElementById("cognome").placeholder = data[0]['cognome'];
+            document.getElementById("dataN").value = data[0]['dataN'];
+
+            document.getElementById("pfp").src = data[0]['pfp'];
+            document.getElementById("naz").value = data[0]['nazionalita'];
+            document.getElementById("naz").text = data[0]['nazionalita'];
+            if(data[0]['sesso']==0){
+                
+                
+                document.getElementById("mio").innerHTML = "Donna";
+                document.getElementById("altro").innerHTML = "Uomo";
+                document.getElementById("radio1").value = 0;
+                document.getElementById("radio2").value = 1;
+            }else{
+                
+                document.getElementById("mio").innerHTML = "Uomo";
+                document.getElementById("altro").innerHTML = "Donna";
+                document.getElementById("radio1").value = 1;
+                document.getElementById("raido2").value = 0;
+            }
+            
+        }
+    </script>
     <?php }elseif($_SESSION['adminLog']=='daje'){?> 
     
        

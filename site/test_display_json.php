@@ -8,7 +8,7 @@
 
 <div class="col-auto">
                                             <!--The SELECT element.-->
-                                            <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat(this);" >
+                                            <select id="selectCat" class="d-inline-block form-select form-select-sm">
                                                 <option value="Tutte Le Categorie">Tutte le categorie</option>
                                             </select>
                                         </div>
@@ -16,7 +16,7 @@
 </body>
 
 <script>
-    window.onafterprint = populateSelect();
+    window.onload = populateSelect();
     function populateSelect() {
         // THE JSON ARRAY.
         let birds = <?= include ('./test_buffi_json.php');?>;

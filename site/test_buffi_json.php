@@ -24,7 +24,7 @@
         return json_encode($emparray);
     }
     function getJsonSpese($conn){
-        
+
         $user = $_SESSION['username']; 
         $emparray = array();
         $sql = "SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo FROM spesa s join categoria c on c.id=s.categoria WHERE utente = '$user' order by s.data DESC;";
@@ -33,9 +33,33 @@
             $emparray[] = $row;
         }
         $_SESSION['categoria'] = "Tutte le categorie";
-        $_SESSION['tipo'] = "Tutti i tipi";
-        
+        $_SESSION['tipo'] = "Tutti i tipi";    
         return json_encode($emparray);
     }
+    function getJsonSpesa($conn,$id){
 
+        $user = $_SESSION['username']; 
+        $emparray = array();
+        $sql = "SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo FROM spesa s join categoria c on c.id=s.categoria WHERE utente = '$user' and s.id='$id' Limit 1;";
+        $result = mysqli_query($conn, $sql);
+        while($row =mysqli_fetch_assoc($result)){
+            $emparray[] = $row;
+        }
+        $_SESSION['categoria'] = "Tutte le categorie";
+        $_SESSION['tipo'] = "Tutti i tipi";    
+        return json_encode($emparray);
+    }
+    function getJsonUtente($conn){
+        $emparray = array();
+        $user = $_SESSION['username']; 
+        $passw = $_SESSION['password']; 
+        $sql = "SELECT * FROM utente WHERE username = '$user' and password='$passw';";
+        $result = mysqli_query($conn, $sql);
+        while($row =mysqli_fetch_assoc($result)){
+            $emparray[] = $row;
+        }
+        $_SESSION['categoria'] = "Tutte le categorie";
+        $_SESSION['tipo'] = "Tutti i tipi";    
+        return json_encode($emparray);
+    }
 ?>

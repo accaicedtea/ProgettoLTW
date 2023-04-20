@@ -26,31 +26,78 @@ require './test_buffi_json.php';
       </table>
       <div >
       <nav aria-label="...">
-         <ul id="pagination" class="pagination pagination-sm">
+         <ul id="pagination"  class="pagination pagination-sm">
          </ul>
       </nav>
       </div>
     </div>
-    
+   <!-- Inizio madal-->
    <div id="myModal2" class="modal" tabindex="-1">
    <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-         <h5 class="modal-title">Modal title</h5>
-         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-         </div>
-         <div class="modal-body">
-         <p>Modal body text goes here.</p>
-         </div>
-         <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-         <button type="button" class="btn btn-primary">Save changes</button>
-         </div>
-      </div>
+   <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <!-- INIZIO FORM -->
+                                                                <form action="./edit_entry.php" method="post" name="edit_form">
+                                                                    <div class="visually-hidden"><input type="" name="id_edit" value=""></div>
+                                                                    <div class="visually-hidden"><input type="" name="tipo_edit" value=""></div>
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
+                                                                    </div>
+                                                                    <div class="modal-body left-labels">
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label>
+                                                                                <select id="selectCat" class="d-inline-block form-select form-select-sm">
+                                                                                 
+                                                                                 </select>
+                                                                                &nbsp;
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value="" name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                                                        <input type="submit" class="btn btn-primary" value="Salva modifiche">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
    </div>
-   </div>
+   <!-- Fine madal-->
   </body>
 </html>
+<script>
+    window.onload = populateSelect();
+    function populateSelect() {
+        // THE JSON ARRAY.
+        let data = <?= getJsonCat($conn);?>;
+        
+        let ele = document.getElementById('selectCat');
+        for (let i = 0; i < data.length; i++) {
+            // POPULATE SELECT ELEMENT WITH JSON.
+            ele.innerHTML = ele.innerHTML +
+                '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
+        }
+    }
+    function alert(val){
+      alert(val);
+    }
+</script>
 <script>
    const dataSet = <?= getJsonSpese($conn);?>
 
@@ -92,7 +139,7 @@ const displayItems = ( page = 1, perPage = 2 ) => {
    <td>${item.descrizione}</td>
    <td>${Math.abs(item.importo)}</td>
    <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-   <td> <a data-bs-toggle="modal" href="#myModal2" class="btn btn-primary">Launch modal</a></td>
+   <td> <a data-bs-toggle="modal" data-id="${item.id}" href="#myModal2" class="btn btn-primary" onclick="alter(${item.id})">Launch modal</a></td>
    </tr>`)
 
    document.querySelector('#container tbody').innerHTML = html.join('')
