@@ -76,7 +76,11 @@
                                                     <div class="col">
                                                         <div class="errors mb-3" id="errors_nazionalità"></div>
                                                         <div id="selectNazionalita" class="form-outline mb-3"><label class="form-label" for="dataN"><strong >Nazionalità</strong></label>
-                                                            <input id="selectNazi" type="search" />
+                                                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                                                        <datalist id="selectNazi">
+                                                            
+                                                            
+                                                        </datalist>
                                                         </div>
                                                         <!-- waring msg per nazionalità-->
                                                         <div class="requirements" id="requirements_dataN"></div>
@@ -130,18 +134,5 @@
                 '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
         }
     }
-</script>
-<script>
-    const basicAutocomplete = document.querySelector('#selectNazionalita');
-const data = ['One', 'Two', 'Three', 'Four', 'Five'];
-const dataFilter = (value) => {
-  return data.filter((item) => {
-    return item.toLowerCase().startsWith(value.toLowerCase());
-  });
-};
-
-new mdb.Autocomplete(basicAutocomplete, {
-  filter: dataFilter
-});
 </script>
 </html>
