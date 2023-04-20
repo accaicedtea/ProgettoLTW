@@ -188,16 +188,19 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col">
-                                                        <div class="form-check">
+                                                        <div class="col-auto mb-3">
+                                                        <label class="form-label" for="nationality"><strong>Sesso</strong></label>
+                                                        </div>
+                                                        
+                                                        <div class="col-auto form-check">
                                                             <input type="radio" class="btn-check" id="radio1" name="optradio" value="1" checked>
                                                             <label id="mio" class="btn btn-outline-secondary btn-sm shadow-sm" for="radio1">Uomo</label>
                                                         </div>
-                                                        <div class="form-check">
+                                                        <div class="col-auto form-check">
                                                             <input type="radio" class="btn-check" id="radio2" name="optradio" value="0">
                                                             <label id="altro"class="btn btn-outline-secondary btn-sm shadow-sm" for="radio2">Donna</label>
                                                         </div>
-                                                    </div>
+                                                    
                                                 </div>
                                                 
                                                 <div class="row">
