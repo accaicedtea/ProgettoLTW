@@ -129,7 +129,7 @@
         for (let i = 0; i < birds.length; i++) {
             // POPULATE SELECT ELEMENT WITH JSON.
             ele.innerHTML = ele.innerHTML +
-                '<option data-value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
+                '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
         }
     }
 </script>
