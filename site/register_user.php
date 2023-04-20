@@ -8,12 +8,12 @@
     $sesso =  $_POST['sesso'];
 
     $email = $_REQUEST['email'];
-    $nazionalita = $_REQUEST['nazionalita'];
+    $nazionalita = $_POST['nazionalita'];
     $password = $_REQUEST['password'];
     //passw criptata
     $encrypted_pwd = md5($password);
     $dataN = $_REQUEST['dataN'];
-
+/*
     $sql = "INSERT INTO utente  VALUES ('$username', '$nome',
         '$cognome','$sesso','$nazionalita','$dataN', '$email' ,'$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg')";
 
@@ -27,5 +27,6 @@
         header("Location: register.php?error=Credenziali errate");
     }
     $conn.close();
- 
+ */
+echo $nazionalita;
 ?>

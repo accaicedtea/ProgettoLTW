@@ -16,5 +16,5 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script><!-- jquery-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong"> 
     <!--<link rel="stylesheet" href="./assets/css/style.css">-->
-    <script src="./assets/js/register_controlli.js"></script>
+    <!--<script src="./assets/js/register_controlli.js"></script>-->
 </head>

@@ -76,10 +76,8 @@
                                                     <div class="col">
                                                         <div class="errors mb-3" id="errors_nazionalità"></div>
                                                         <div id="selectNazionalita" class="form-outline mb-3"><label class="form-label" for="dataN"><strong >Nazionalità</strong></label>
-                                                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                                                        <input class="form-control" name="nazionalita" list="selectNazi" id="nazionalita" placeholder="Vedi do cazzo abiti">
                                                         <datalist id="selectNazi">
-                                                            
-                                                            
                                                         </datalist>
                                                         </div>
                                                         <!-- waring msg per nazionalità-->
@@ -131,8 +129,12 @@
         for (let i = 0; i < birds.length; i++) {
             // POPULATE SELECT ELEMENT WITH JSON.
             ele.innerHTML = ele.innerHTML +
-                '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
+                '<option data-value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
         }
     }
+</script>
+<script>
+    var showVal = document.getElementById("nationalita").value;
+    var value2send = document.querySelector("#selectNazi option[value='"+shownVal+"']").dataset.value;
 </script>
 </html>
