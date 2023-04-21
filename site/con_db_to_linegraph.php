@@ -70,7 +70,7 @@ if ($result_entrate->num_rows > 0) {
 }
 $sql_differenza = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as differenza
 from spesa 
-where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) = DAY('$data_oggi') and spesa.utente = '$username'
+where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.utente = '$username'
 group by DAY(spesa.data)
 order by DAY(spesa.data)";
 $result_differenza = $conn->query($sql_differenza);
