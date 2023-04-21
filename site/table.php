@@ -94,9 +94,6 @@ require './test_buffi_json.php';
                 '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
         }
     }
-    function alert(val){
-      alert(val);
-    }
 </script>
 <script>
    const dataSet = <?= getJsonSpese($conn);?>
@@ -139,7 +136,7 @@ const displayItems = ( page = 1, perPage = 2 ) => {
    <td>${item.descrizione}</td>
    <td>${Math.abs(item.importo)}</td>
    <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-   <td> <a data-bs-toggle="modal" data-id="${item.id}" href="#myModal2" class="btn btn-primary" onclick="alter(${item.id})">Launch modal</a></td>
+   <td> <a data-bs-toggle="modal" data-id="${item.id}" href="#myModal2" class="btn btn-primary">Launch modal</a></td>
    </tr>`)
 
    document.querySelector('#container tbody').innerHTML = html.join('')
