@@ -53,7 +53,7 @@
         $emparray = array();
         $user = $_SESSION['username']; 
         $passw = $_SESSION['password']; 
-        $sql = "SELECT * FROM utente WHERE username = '$user' and password='$passw';";
+        $sql = "SELECT * FROM utente join stati on utente.nazionalita=stati.id_stati WHERE username = '$user' and password='$passw';";
         $result = mysqli_query($conn, $sql);
         while($row =mysqli_fetch_assoc($result)){
             $emparray[] = $row;

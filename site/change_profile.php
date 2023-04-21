@@ -7,7 +7,7 @@
     $nazi = $_POST['nazi'];
     $sesso = $_POST['sesso'];
     echo "".$nome. "cognome ". $cognome." data ".$dataN. "emal ".$email. "nazio->>>".$nazi. " sesso".$sesso. " ".$nome;
-   
+   /*
     if($_SESSION['username']==$_POST['username'] && isset($_SESSION['password'])){
         $sus = $_SESSION['username'];
         $spw = $_SESSION['password'];
@@ -57,5 +57,5 @@
         header('Location: profile.php?msg=Profilo aggiornato correttamente');
         $conn->close();
     }
-    
+    */
 ?>

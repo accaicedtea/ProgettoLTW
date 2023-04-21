@@ -235,7 +235,7 @@
 
             document.getElementById("pfp").src = data[0]['pfp'];
             document.getElementById("naz").value = data[0]['nazionalita'];
-            document.getElementById("naz").text = data[0]['nazionalita'];
+            document.getElementById("naz").text = data[0]['nome_stati'];
             if(data[0]['sesso']==0){
                 
                 
