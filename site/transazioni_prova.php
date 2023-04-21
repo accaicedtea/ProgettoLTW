@@ -10,6 +10,8 @@
         include './navBar.php';
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>
+    <script src=".assets/js/jquery-3.6.4.min.js">
+    </script>
     <script>
         function applicaFiltroCat(){
             var e = document.getElementById("selectCat");
@@ -41,6 +43,19 @@
                 document.getElementById("tableBody").innerHTML = e.target.responseText;
             }
         }
+
+        // gestione modals
+        $(function () {
+            $(".forModal").click(function () {
+                var row = $(this).data('id');
+                console.log(row["categoria"]);;
+                $(".modal_edit #description_edit").val(row["descrizione"]);
+                $(".modal_edit #date_edit").val(row["data"]);
+                $(".modal_edit #amount_edit").val(row["importo"]);
+            })
+        });
+
+
     </script>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -222,10 +237,10 @@
                                             if($result->num_rows> 0){
                                                 $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
                                             }
-                                            $i=0;
                                             $_SESSION['categoria'] = "Tutte le categorie";
                                             $_SESSION['tipo'] = "Tutti i tipi";
-                                            foreach ($tuples as $tuple) { ?>
+                                            foreach ($tuples as $tuple) { 
+                                                $row = json_encode($tuple);?>
                                                 <tr class="table-<?php echo ($tuple['importo']<0)? 'danger' : 'success';?>">
                                                     <td><?php echo $tuple['data'];?></td>
                                                     <td><?php echo $tuple['categoria'];?></td>
@@ -233,25 +248,23 @@
                                                     <td><?php echo abs($tuple['importo'])." €";?></td>
                                                     <td><?php if ($tuple['importo']>0) echo "Entrata"; else echo "Uscita";?></td>
                                                     <td class="buttons">
-                                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry<?php echo $i?>">
+                                                        <button type="button" class="forModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-id=<?php echo "'$row'"?>>
                                                             Modifica
                                                         </button>
-                                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry<?php echo $i?>">
+                                                        <button type="button" class="forModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=<?php echo "'$row'"?>>
                                                             Elimina
                                                         </button>
-
+                                                    </td>
                                                     <!-- Modal per MODIFICA-->
-                                                    <div class="modal fade" id="modalEditEntry<?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <!-- INIZIO FORM -->
                                                                 <form action="./edit_entry.php" method="post" name="edit_form">
-                                                                    <div class="hidden"><input type="" name="id_edit" value=<?php echo $tuple['id']?>></div>
-                                                                    <div class="hidden"><input type="" name="tipo_edit" value=<?php if ($tuple['importo']>=0) echo "entrata"; else echo "uscita";?>></div>
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                                                     </div>
-                                                                    <div class="modal-body left-labels">
+                                                                    <div class="modal-body left-labels modal_edit">
                                                                         <div class="row">
                                                                             <div class="col">
                                                                                 <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_edit">
@@ -268,17 +281,17 @@
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" <?php echo 'value = "'.$tuple["descrizione"].'"';?> name="description_edit"></div>
+                                                                                <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit"></div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value=<?php echo $tuple['data']?> name="date_edit"></div>
+                                                                                <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit"></div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value=<?php echo abs($tuple['importo'])?> name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                                                <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value="" name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -292,7 +305,7 @@
                                                     </div>
 
                                                     <!-- Modal per ELIMINA-->
-                                                    <div class="modal fade" id="modalDeleteEntry<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal fade" id="modalDeleteEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
