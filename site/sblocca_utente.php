@@ -1,6 +1,7 @@
 <?php
 //TODO: Gestione errori
-include "./db_conn.php";
+require "./test_buffi_json.php";
+ $conn = db_conn();
 $sblockThis = $_POST["sblockthis"];
 $sql = "SELECT password from utente WHERE username='$sblockThis'";
 $result = mysqli_query($conn, $sql);
@@ -11,6 +12,8 @@ if (mysqli_num_rows($result) === 1) {
     $sql = "UPDATE utente SET password = '$passw' WHERE username = '$sblockThis'";
     if (mysqli_query($conn, $sql)) {
         header("Location: view.php?msg= sbloccato l'utente ");
+    }else{
+        header("Location: view.php?error=qualcosa è andato storto");
     }
 }
 ?>

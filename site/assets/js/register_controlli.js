@@ -147,3 +147,4 @@ function remove_error_passwordC() {
     d.className = "mb-3 ";
     document.getElementById("errors_confirm_password").innerHTML = "";
 }
+

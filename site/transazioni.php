@@ -1,15 +1,17 @@
 <?php 
     $pagina = 'Visualizza transazioni';
-    include './head.php';
+    require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
+    navBar($pagina);
 ?>
 
 
 <body id="page-top" style="background-color:#e9e9e9;">
     <?php 
-        include './db_conn.php';
-        include './navBar.php';
+       
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
-            require './test_buffi_json.php';
+          
     ?>
     <script>
         function applicaFiltroCat(){

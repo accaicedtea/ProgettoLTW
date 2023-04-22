@@ -1,16 +1,17 @@
 <?php 
     $pagina = 'Profilo';
-    include './head.php';
-
+    require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
+    navBar($pagina);
 ?>
 
 <body id="page-top">
     <?php 
-        include './db_conn.php';
-        include_once './navBar.php';
+        
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
             
-            require './test_buffi_json.php';
+            
     ?>  
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -253,7 +254,7 @@
             
         }
     </script>
-    <?php }elseif($_SESSION['adminLog']=='daje'){?> 
+    <?php }elseif($_SESSION['adminLog']=='daje'){ //TODO: profilo admin?> 
     
        
 <?php

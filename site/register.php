@@ -1,9 +1,10 @@
 <?php 
     $pagina = 'Registrazione';
-    include './head.php';
-    include './navBar.php';
-    include './db_conn.php';
+   
     require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
+    navBar($pagina);
 ?>
 <body id="page-top">
 <div id="wrapper">
@@ -55,7 +56,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div name="radioSesso" class="mb-3"><label class="form-label" for="sesso"><strong >Sesso</strong></label>
+                                                        <div name="radioSesso" ><label class="form-label" for="sesso"><strong >Sesso</strong></label>
                                                             <input type="radio" class="btn-check" name="sesso" id="option2" value="0" autocomplete="off" checked>
                                                             <label class="btn btn-outline-secondary btn-sm shadow-sm" for="option2">Donna</label>
                                                             <input type="radio" class="btn-check" name="sesso" id="option3" value="1" autocomplete="off">
@@ -86,7 +87,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Inidirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder="esempio@email.com" name="email" onchange="remove_error_email()"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Inidirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder="esempio@email.com" name="email" pattern="" onchange="remove_error_email()"></div>
                                                         <!-- waring msg per indirizzo email-->
                                                         <div class="errors mb-3" id="errors_email"></div>
                                                     </div>
@@ -137,4 +138,5 @@
     var showVal = document.getElementById("nationalita").value;
     var value2send = document.querySelector("#selectNazi option[value='"+shownVal+"']").dataset.value;
 </script>
+
 </html>

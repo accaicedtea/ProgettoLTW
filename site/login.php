@@ -1,7 +1,10 @@
 <?php 
-  $pagina = 'Accedi';
-  include './head.php';
-  include './navBar.php';
+    $pagina = 'Login';
+   
+    require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
+    navBar($pagina);
 ?>
 <body id="page-top">
     <div id="wrapper">

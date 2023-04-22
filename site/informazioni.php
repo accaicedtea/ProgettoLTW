@@ -1,12 +1,14 @@
 <?php 
   $pagina='Informazioni';
-  include './head.php';
+  require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
+    navBar($pagina);
 ?>
 
 <body class="page-top" id="page-top">
 <?php 
-  include './db_conn.php';
-  include './navBar.php';
+  
   if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
 ?>
 <div "></div>
@@ -48,6 +50,7 @@
     <hr class="featurette-divider">
 <footer class="container">
 <p>&copy; 2023–2023 4Money, Inc. &middot; <a href="./assets/vid/get rickrolled lol.mp4">Privacy</a> &middot; <a href="./assets/vid/1 Hour Of Silence occasionally broken up by Lego Yoda death sound..mp4">Terms</a></p>
+<!-- TODO: FIXARE STA COSA -->
 <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top " role="button"><i class="fas fa-chevron-up"></i></a>
 </footer>
   

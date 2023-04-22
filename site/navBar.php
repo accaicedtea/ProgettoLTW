@@ -1,6 +1,8 @@
-<?php if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){ 
+<?php 
+    function navBar(){
+    if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){ 
 ?>
-<div id="topheader">
+<div id="topheader" class="sticky-top ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,10 +33,13 @@
         </nav>
     </div>
 
-
+    <div class="container card bg-transparent mt-2 mb-4 overflow-hidden  shadow-lg p-3 mb-5 bg-white rounded text-center">
+            
+            <p class="h3"><?php echo $pagina;?></p>
+        </div>
 <?php }else if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
 ?>
-<div id="topheader">
+<div id="topheader" class="sticky-top ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,12 +78,16 @@
             </div>
             </div>
         </nav>
+        
     </div>
 
-
+    <div class="container card bg-transparent mt-2 mb-4 overflow-hidden  shadow-lg p-3 mb-5 bg-white rounded text-center">
+            
+            <p class="h3"><?php echo $pagina;?></p>
+        </div>
 
 <?php }else if(!(isset($_SESSION['adminLog']))|| !(isset($_SESSION['log']))){ ?>
-    <div id="topheader">
+    <div id="topheader" class="sticky-top ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,6 +113,10 @@
     </div>
 
 
-
+    <div class="container card bg-transparent mt-2 mb-4 overflow-hidden  shadow-lg p-3 mb-5 bg-white rounded text-center">
+            
+            <p class="h3"><?php echo $pagina;?></p>
+        </div>
 <?php }
+}
     ?>

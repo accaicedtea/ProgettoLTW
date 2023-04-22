@@ -1,6 +1,7 @@
 
 <?php
-include './db_conn.php';
+require './test_buffi_json.php';
+$conn = db_conn();
 
 $sql = "SELECT max(id) as id from categoria";
 $result = mysqli_query($conn,$sql);

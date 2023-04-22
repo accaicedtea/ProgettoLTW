@@ -1,6 +1,8 @@
 
 <?php 
-include 'db_conn.php';
+require './test_buffi_json.php';
+$conn = db_conn();
+
 if(isset($_POST['username']) && isset($_POST['password'])){
     
     function validate($data){
@@ -43,7 +45,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 exit();
             }
         }else{
-            echo 'username: '.gettype($uname).'      password:'.gettype($passw);
+            echo 'username: '.$uname.'      password:'.$passw;
             $sql = "SELECT * FROM admin WHERE id='$uname' AND password='$passw'";
             $result = mysqli_query($conn,$sql);
             if(mysqli_num_rows($result) === 1){
@@ -57,7 +59,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 exit();
             }
             }else{
-                header('Location: login.php?error=Username o password errati');
+                //header('Location: login.php?error=Username o password errati');
             }
 
         }
