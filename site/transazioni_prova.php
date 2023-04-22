@@ -1,6 +1,7 @@
 <?php 
     $pagina = 'Visualizza transazioni';
     include './head.php';
+    require './test_buffi_json.php';
 ?>
 
 
@@ -43,20 +44,21 @@
                 document.getElementById("tableBody").innerHTML = e.target.responseText;
             }
         }
+    </script>
 
+    <script>
         // gestione modals
         $(function () {
             $(".forModal").click(function () {
                 var row = $(this).data('id');
-                console.log(row["categoria"]);;
+                console.log(row);
                 $(".modal_edit #description_edit").val(row["descrizione"]);
                 $(".modal_edit #date_edit").val(row["data"]);
-                $(".modal_edit #amount_edit").val(row["importo"]);
+                $(".modal_edit #amount_edit").val(Math.abs(row["importo"]));
             })
         });
-
-
     </script>
+
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
@@ -81,7 +83,6 @@
                                 }
                             ?>
                             <div class="container">
-                                <!-- Stack the columns on mobile by making one full-width and the other half-width -->
                                 <div class="row">
                                     <div class="col-auto"><select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
                                         <option>Tutte le categorie</option>
@@ -229,120 +230,77 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tableBody">
-                                        <!-- Prendo dal database tutte le spese -->
-                                        <?php
-                                            $user = $_SESSION['username']; 
-                                            $result = $conn->query("SELECT * FROM spesa WHERE utente = '$user'");
-                                            $tuples = array();
-                                            if($result->num_rows> 0){
-                                                $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
-                                            }
-                                            $_SESSION['categoria'] = "Tutte le categorie";
-                                            $_SESSION['tipo'] = "Tutti i tipi";
-                                            foreach ($tuples as $tuple) { 
-                                                $row = json_encode($tuple);?>
-                                                <tr class="table-<?php echo ($tuple['importo']<0)? 'danger' : 'success';?>">
-                                                    <td><?php echo $tuple['data'];?></td>
-                                                    <td><?php echo $tuple['categoria'];?></td>
-                                                    <td><?php echo $tuple['descrizione'];?></td>
-                                                    <td><?php echo abs($tuple['importo'])." €";?></td>
-                                                    <td><?php if ($tuple['importo']>0) echo "Entrata"; else echo "Uscita";?></td>
-                                                    <td class="buttons">
-                                                        <button type="button" class="forModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-id=<?php echo "'$row'"?>>
-                                                            Modifica
-                                                        </button>
-                                                        <button type="button" class="forModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=<?php echo "'$row'"?>>
-                                                            Elimina
-                                                        </button>
-                                                    </td>
-                                                    <!-- Modal per MODIFICA-->
-                                                    <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <!-- INIZIO FORM -->
-                                                                <form action="./edit_entry.php" method="post" name="edit_form">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
-                                                                    </div>
-                                                                    <div class="modal-body left-labels modal_edit">
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_edit">
-                                                                                        <?php 
-                                                                                        foreach ($options as $option) {
-                                                                                        ?>
-                                                                                            <option <?php if ($option['nome'] == $tuple['categoria']) echo "selected";?>><?php echo $option['nome']; ?> </option>
-                                                                                            <?php 
-                                                                                            }
-                                                                                        ?>
-                                                                                    </select>&nbsp;
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value="" name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                                                        <input type="submit" class="btn btn-primary" value="Salva modifiche">
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Modal per ELIMINA-->
-                                                    <div class="modal fade" id="modalDeleteEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="deleteModalLongTitle">Elimina transazione</h5>
-                                                                </div>
-                                                                <div class="modal-body left-labels">
-                                                                    Sei sicuro di voler eliminare la transazione?
-                                                                </div>
-                                                                <form action="./delete_entry.php" method="post" name="delete_form">
-                                                                    <div class="hidden"><input type="" name="id_delete" value=<?php echo $tuple['id']?>></div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                                                        <input type="submit" class="btn btn-danger" value="Si">
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    </td>
-                                                </tr>
-                                            <?php 
-                                            }
-                                        ?>
                                     </tbody>
                                 </table>
                             </div>
-                            <nav class="pagination-container">
-                                <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
-                                    &lt;
-                                </button>
-                                
-                                <div id="pagination-numbers">
+
+                            <!-- MODALS -->
+                            <!-- Modal per MODIFICA-->
+                            <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <!-- INIZIO FORM -->
+                                        <form action="./edit_entry.php" method="post" name="edit_form">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
+                                            </div>
+                                            <div class="modal-body left-labels modal_edit">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_edit">
+                                                            </select>&nbsp;
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value="" name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                                <input type="submit" class="btn btn-primary" value="Salva modifiche">
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                
-                                <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
-                                    &gt;
-                                </button>
+                            </div>
+
+                            <!-- Modal per ELIMINA-->
+                            <div class="modal fade" id="modalDeleteEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLongTitle">Elimina transazione</h5>
+                                        </div>
+                                        <div class="modal-body left-labels">
+                                            Sei sicuro di voler eliminare la transazione?
+                                        </div>
+                                        <form action="./delete_entry.php" method="post" name="delete_form">
+                                            <div class="hidden"><input type="" name="id_delete" value=<?php echo $tuple['id']?>></div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                <input type="submit" class="btn btn-danger" value="Si">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <nav aria-label="...">
+                                <ul id="pagination"  class="pagination pagination-sm">
+                                </ul>
                             </nav>
                         </div>
                     </div>
@@ -351,6 +309,67 @@
         </div>
     </div>
 </body>
+
+<script>
+    // attenzione
+    const dataSet = <?= getJsonSpese($conn);?>
+
+    const displayPageNav = perPage => {
+
+    let pagination = ""
+    const totalItems = dataSet.length
+    perPage = perPage ? perPage : 1
+    const pages = Math.ceil(totalItems/perPage)
+
+    for(let i = 1; i <= pages; i++) {
+        pagination += `<a class="page-link" href="#" onClick="displayItems(${i},${perPage})" >${i}</a>`
+    }
+
+    document.getElementById('pagination').innerHTML = pagination
+    }
+
+    const displayItems = ( page = 1, perPage = 2 ) => {
+
+    let index, offSet
+
+    if(page == 1 || page <=0)  {
+        index = 0
+        offSet = perPage
+    } else if(page > dataSet.length) {
+        index = page - 1
+        offSet = dataSet.length
+    } else {
+        index = page * perPage - perPage
+        offSet = index + perPage
+    }
+
+    const slicedItems = dataSet.slice(index, offSet)
+    console.log(JSON.stringify(slicedItems[0]));
+    const html = slicedItems.map(item => 
+    `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
+    <td>${item.data}</td>
+    <td>${item.categoria}</td>
+    <td>${item.descrizione}</td>
+    <td>${Math.abs(item.importo)}</td>
+    <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
+    <td class="buttons"> <button type="button" class="forModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-id=`+`'${JSON.stringify(item)}'`+`>  
+                                                                Modifica
+                                                            </button>
+                                                            <button type="button" class="forModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry">
+                                                                Elimina
+                                                            </button></td>
+    </tr>`)
+
+    document.querySelector('#tableBody').innerHTML = html.join('')
+
+    }
+
+    let perPage = 15
+    displayPageNav(perPage)
+    displayItems(1, perPage)
+</script>
+
+
 <?php 
 }
 else{
