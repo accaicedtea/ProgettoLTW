@@ -62,4 +62,12 @@
         $_SESSION['tipo'] = "Tutti i tipi";    
         return json_encode($emparray);
     }
+    function getJsonStati($conn) {
+        $sql = "SELECT stati.id_stati as id, stati.nome_stati as nome from stati order by stati.id_stati";
+        $result = mysqli_query($conn, $sql);
+        while ($row = mysqli_fetch_assoc($result)) {
+            $array[] = $row;
+        }
+        return json_encode($array);
+    }
 ?>

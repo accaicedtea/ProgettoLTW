@@ -2,7 +2,8 @@
     $pagina = 'Registrazione';
     include './head.php';
     include './navBar.php';
-  
+    include './db_conn.php';
+    require './test_buffi_json.php';
 ?>
 <body id="page-top">
 <div id="wrapper">
@@ -74,8 +75,12 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="errors mb-3" id="errors_nazionalità"></div>
-                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Nazionalità</strong></label><input class="form-control" type="text" id="nazionalita" name="nazionalita" onfocus="show_requirements_nazionalita()" onblur="remove_requirements_nazionalita()" onchange="remove_error_nazionalita()" placeholder="paese di nascita"></div>
-                                                        <!-- waring msg per data nascita-->
+                                                        <div id="selectNazionalita" class="form-outline mb-3"><label class="form-label" for="dataN"><strong >Nazionalità</strong></label>
+                                                        <input class="form-control" name="nazionalita" list="selectNazi" id="nazionalita" placeholder="Vedi do cazzo abiti">
+                                                        <datalist id="selectNazi">
+                                                        </datalist>
+                                                        </div>
+                                                        <!-- waring msg per nazionalità-->
                                                         <div class="requirements" id="requirements_dataN"></div>
                                                     </div>
                                                 </div>
@@ -114,5 +119,22 @@
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
 </body>
-
+<script>
+    window.onload = populateSelectNazionalita();
+    function populateSelectNazionalita() {
+        // THE JSON ARRAY.
+        let birds = <?=getJsonStati($conn);?>;
+        
+        let ele = document.getElementById('selectNazi');
+        for (let i = 0; i < birds.length; i++) {
+            // POPULATE SELECT ELEMENT WITH JSON.
+            ele.innerHTML = ele.innerHTML +
+                '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
+        }
+    }
+</script>
+<script>
+    var showVal = document.getElementById("nationalita").value;
+    var value2send = document.querySelector("#selectNazi option[value='"+shownVal+"']").dataset.value;
+</script>
 </html>
