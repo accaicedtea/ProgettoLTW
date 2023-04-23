@@ -27,6 +27,12 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                     <?php }?>
+                                    <?php if(isset($_GET['error'])){ ?>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>UPS! </strong><?php echo $_GET['error']; ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    <?php }?>
                                         <div class="row-md-3">
                                             <p class="h3 text-center mb-3 mt-3">Profilo</p>
                                         </div>
@@ -150,7 +156,7 @@
                                                                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Clicca per cambiare la password</button>
                                                             </li>
                                                             <li class="nav-item" role="presentation">
-                                                                <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">naah non voglio più modificare </button>
+                                                                <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" onclick="reset_password()" aria-selected="false" on>naah non voglio più modificare </button>
                                                             </li>
                                                         </ul>
                                                         <div class="tab-content" id="pills-tabContent">
@@ -254,8 +260,95 @@
             
         }
     </script>
-    <?php }elseif($_SESSION['adminLog']=='daje'){ //TODO: profilo admin?> 
-    
+    <?php }elseif($_SESSION['adminLog']=='daje'){ //TODO: profilo admin>
+        ?> 
+        <div id="wrapper">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="row mb-3">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="card mb-3 mt-4">
+                                    <?php if(isset($_GET['msg'])){ ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    <?php }?>
+                                    <?php if(isset($_GET['error'])){ ?>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>UPS! </strong><?php echo $_GET['error']; ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    <?php }?>   
+                                        
+                               
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card shadow mb-3">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 fw-bold">Cambia informazioni utente</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" name="username" readonly> </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">  
+                                                    <div class="mb-3">
+                                                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                                            <li class="nav-item" role="presentation">
+                                                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Clicca per cambiare la password</button>
+                                                            </li>
+                                                            <li class="nav-item" role="presentation">
+                                                                <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="reset_password()">naah non voglio più modificare </button>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content" id="pills-tabContent">
+                                                        
+                                                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                                                <div class="card-header py-6">
+                                                                    <div class="mb-1"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="passord" placeholder="*****" name="password"></div>
+                                                                    <div class="mb-3"><label class="form-label" for="password"><strong >Conferma Password</strong></label><input class="form-control" type="password" id="passordC" placeholder="*****" name="passwordC"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-5"><label class="form-label" for="first_name"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" name="nome"></div>
+                                                    </div>
+                                                </div>                                             
+                                                <div class="mb-3 cnt-b"><button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+
+    <script>
+        window.onload=placeH();
+        function placeH() {
+            let data = <?= getJsonAdmin($conn);?>
+            
+            document.getElementById("username").value = data[0]['id'];
+           
+            document.getElementById("nome").placeholder = data[0]['nome'];
+        }
+    </script>
        
 <?php
     }else{

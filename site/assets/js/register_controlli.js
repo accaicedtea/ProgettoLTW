@@ -148,3 +148,9 @@ function remove_error_passwordC() {
     document.getElementById("errors_confirm_password").innerHTML = "";
 }
 
+function reset_password(){
+    document.querySelectorAll('input[type=password]');
+
+    document.getElementById("passord").value = "";
+    document.getElementById("passordC").value = "";
+}

@@ -6,9 +6,9 @@
     ?>   
 <body id="page-top">
     <?php 
-       
+        navBar($pagina);
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
-            navBar($pagina);
+           
         ?>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -266,8 +266,9 @@
                                          <tbody>
                                              <?php
                                                  if($_SESSION['log']=='on'){ 
-                                                     $result = $conn->query("SELECT * FROM categoriaCustom ");
-                                                 }
+                                                    $uname = $_SESSION['username'];
+                                                    $result = $conn->query("SELECT * FROM categoriaCustom WHERE user='$uname'; ");
+                                                 
                                                  $tuples = array();
                                                  if($result->num_rows> 0){
                                                      $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -337,7 +338,7 @@
                                                      </td>
                                              </tr>
                                              <?php 
-                                                 
+                                                 }
                                                  }
                                                  ?>
                                          </tbody>

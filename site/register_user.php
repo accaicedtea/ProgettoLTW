@@ -1,7 +1,8 @@
 <?php
 // controlli su dati
 
-    include './db_conn.php';
+require "./test_buffi_json.php";
+ $conn = db_conn();
     $username = $_REQUEST['username'];
     $nome =  $_REQUEST['nome'];
     $cognome = $_REQUEST['cognome'];
