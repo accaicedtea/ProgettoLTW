@@ -1,8 +1,10 @@
 <?php 
-  $pagina = 'Accedi';
-  include './head.php';
-  $log = 'no';
-  include './navBar.php';
+    $pagina = 'Login';
+   
+    require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
+    navBar($pagina);
 ?>
 <body id="page-top">
     <div id="wrapper">
@@ -32,7 +34,7 @@
                                             </div>
                                           <?php }else if(isset($_GET['msg'])){?>
                                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <strong>Nuovo utente! </strong><?php echo $_GET['msg']; ?>
+                                            <strong>WOW! </strong><?php echo $_GET['msg']; ?>
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
                                             
@@ -41,7 +43,7 @@
                                             <form action="./login_user.php" method="post" name="form-signin" class="form-signin">
                                                   <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Username</strong></label><input class="form-control" type="text" id="username" placeholder="pippo" name="username"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Username</strong></label><input class="form-control" type="text" id="username" placeholder="username" name="username"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">

@@ -1,6 +1,15 @@
 <?php 
-    session_start();
+    require './test_buffi_json.php';
+    $conn = db_conn();
     session_destroy();
-    header('Location: home.php');
+    if(isset($_GET['ciaooo'])){
+        $msg = $_GET['ciaooo'];     
+        header("Location: login.php?msg=".$msg);
+       
+       
+    }else{ 
+        header('Location: home.php');
+        
+    }
     exit;
 ?>

@@ -117,7 +117,7 @@ require './test_buffi_json.php';
 
 const displayPageNav = perPage => {
   
-  let pagination = ""
+  let pagination = ``
   const totalItems = dataSet.length
   perPage = perPage ? perPage : 1
   const pages = Math.ceil(totalItems/perPage)

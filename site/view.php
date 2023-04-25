@@ -1,12 +1,14 @@
 <?php 
     $pagina='Utenti';
-    include './head.php';
+    require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
     ?>   
 <body id="page-top">
     <?php 
-        include './db_conn.php';
-        include './navBar.php';
-        if(isset($_SESSION['log']) && $_SESSION['log']== 'on' && $_SESSION['username']=='admin'){
+        
+        if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
+            navBar($pagina);
         ?>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -46,16 +48,16 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $user = $_SESSION['username'];
-                                                if($user=='admin'){ 
+                                                if($_SESSION['adminLog']=='daje'){ 
                                                     $result = $conn->query("SELECT * FROM utente ");
                                                 }
                                                 $tuples = array();
                                                 if($result->num_rows> 0){
                                                     $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
                                                 }
+
+                                                $i=0;
                                                 foreach ($tuples as $tuple) { 
-                                                    if($tuple['username']!='admin'){
                                                     ?>
                                             <tr class="table-<?php if($tuple['sesso']==0) echo 'dark';?>">
                                                 <td scope="row">
@@ -68,7 +70,7 @@
                                                     <p><?php echo $tuple['cognome'];?></p>
                                                 </td>
                                                 <td >
-                                                    <p><?php echo $tuple['dataNascita'];?></p>
+                                                    <p><?php echo $tuple['dataN'];?></p>
                                                 </td>
                                                 <td >
                                                     <p><?php echo ($tuple['sesso']==1) ? "Uomo" : "Donna";?></p>
@@ -86,7 +88,7 @@
                                                             $pass = $row['password'];
                                                         } 
                                                         if(substr($pass, -10)!='adminBlock'){?>
-                                                    <form action="./blocca_utente.php" method="post" name="form-block-user" class="form-block-user">
+                                                    <form action="./blocca_utente" method="post" name="form-block-user" class="form-block-user">
                                                         <input class="visually-hidden" type="text" id="username" name="blockthis" value="<?php echo $tuple['username'];?>" readonly>
                                                         <button type="submit"  class="btn btn-warning btn-sm">Blocca utente</button>
                                                     </form>
@@ -98,8 +100,10 @@
                                                     <?php }?>
                                                 </td>
                                                 <td class="text-center ">
-                                                    <button type="button" name="<?php echo $tuple['username'];?>" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry">Elimina utente</button>
-                                                    <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <button type="button" name="<?php echo $tuple['username'];?>" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteUser<?php echo $i?>">Elimina utente</button>
+
+                                                    <!-- Modal elimina utente -->
+                                                    <div class="modal fade" id="modalDeleteUser<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -109,7 +113,8 @@
                                                                     <!-- INIZIO FORM -->
                                                                     <form action="./elimina_utente.php" method="post" name="edit_form">
                                                                         <div class="row">
-                                                                            <input class="visually-hidden" type="text" id="username" name="sblockthis" value="<?php echo $tuple['username'];?>" readonly>
+                                                                            <p>Vuoi davvero eliminare <strong><?php echo $tuple['username'];?></strong>?</p>
+                                                                            <input class="visually-hidden" type="text" id="username" name="dropThis" value="<?php echo $tuple['username'];?>" readonly>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rinuncio</button>
@@ -123,7 +128,7 @@
                                                 </td>
                                             </tr>
                                             <?php 
-                                                }
+                                                
                                                 }
                                                 ?>
                                         </tbody>

@@ -1,11 +1,11 @@
 <?php 
-session_start();
 
 $pagina='Home';
 
-include './head.php';
-
-include './navBar.php';
+require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
+    navBar($pagina);
 
 ?>
 
