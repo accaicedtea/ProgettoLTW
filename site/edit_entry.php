@@ -1,6 +1,8 @@
 <?php
 
-include './db_conn.php';
+include './test_buffi_json.php';
+$conn = db_conn();
+
 $utente = $_SESSION['username'];
 $id = $_POST['id_edit'];
 $descrizione =  $_POST['description_edit'];
@@ -18,9 +20,9 @@ $query = mysqli_query($conn, $sql);
 
 if($query){
     
-    header("Location: transazioni.php?msg=Transazione modificata correttamente");
+    header("Location: transazioni_prova.php?msg=Transazione modificata correttamente");
 } else{
-    header("Location: transazioni.php?error=Qualcosa è andato storto :(");
+    header("Location: transazioni_prova.php?error=Qualcosa è andato storto :(");
 }
 
 ?>

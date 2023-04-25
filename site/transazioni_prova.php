@@ -1,70 +1,80 @@
 <?php 
     $pagina = 'Visualizza transazioni';
-    include './head.php';
     require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
+    navBar($pagina);
 ?>
 
+<script src=".assets/js/jquery-3.6.4.min.js">
+</script>
+<script>
+    function applicaFiltroCat(){
+        $("#dataTable").ready(function(){
+            var e = document.getElementById("selectCat");
+            var chosen = e.options[e.selectedIndex].text; 
+            $.ajax({
+                url:'filtered_table.php',
+                type:'GET',
+                data:'categoria="' + chosen + '"&tipo=',
+                success:function(){
+                    items = <?= getJsonSpeseFiltrate($conn);?>
+                    let perPage = 15;
+                    displayItems(1, perPage, items);
+                    displayPageNav(perPage, items);
+                }
+            });
+        })
+    }
+
+    function applicaFiltroTipo(){
+        $("#dataTable").ready(function(){
+            var e = document.getElementById("selectTipo");
+            var chosen = e.options[e.selectedIndex].text; 
+            $.ajax({
+                url:'filtered_table.php',
+                type:'GET',
+                data:'tipo="' + chosen + '"&categoria=',
+                success:function(){
+                    items = <?= getJsonSpeseFiltrate($conn);?>
+                    let perPage = 15
+                    displayItems(1, perPage, items)
+                    displayPageNav(perPage, items)
+                }
+            });
+        })
+    }
+</script>
+
+<script>
+    // gestione modals
+    $(function () {
+        $(document).on("click", ".editForModal", function () {
+            var row = $(this).data('row');
+            $(".modal_edit #description_edit").val(row["descrizione"]);
+            $(".modal_edit #date_edit").val(row["data"]);
+            $(".modal_edit #amount_edit").val(Math.abs(row["importo"]));
+            $(".modal_edit #id_edit").val(row["id"]);
+            $(".modal_edit #tipo_edit").val(row["importo"] > 0 ? "entrata" : "uscita");
+            //console.log($("#cat_edit > option[value='"+row['categoria']+"']").val());
+        })
+    });
+
+    $(function () {
+        $(document).on("click", ".deleteForModal", function () {
+            var id = $(this).data('id');
+            $(".modal_delete #id_delete").val(id);    
+        })
+    });
+</script>
+
+
+<!-- INIZIO PAGINA HTML -->
 
 <body id="page-top" style="background-color:#e9e9e9;">
     <?php 
-        include './db_conn.php';
-        include './navBar.php';
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>
-    <script src=".assets/js/jquery-3.6.4.min.js">
-    </script>
-    <script>
-        function applicaFiltroCat(){
-            $("#dataTable").ready(function(){
-                var e = document.getElementById("selectCat");
-                var chosen = e.options[e.selectedIndex].text; 
-                $.ajax({
-                    url:'filtered_table.php',
-                    type:'GET',
-                    data:'categoria="' + chosen + '"&tipo=',
-                    success:function(){
-                        items = <?= getJsonSpeseFiltrate($conn);?>
-                        let perPage = 15;
-                        displayItems(1, perPage, items);
-                        displayPageNav(perPage, items);
-                    }
-                });
-            })
-        }
-
-        function applicaFiltroTipo(){
-            $("#dataTable").ready(function(){
-                var e = document.getElementById("selectTipo");
-                var chosen = e.options[e.selectedIndex].text; 
-                $.ajax({
-                    url:'filtered_table.php',
-                    type:'GET',
-                    data:'tipo="' + chosen + '"&categoria=',
-                    success:function(){
-                        items = <?= getJsonSpeseFiltrate($conn);?>
-                        let perPage = 15
-                        displayItems(1, perPage, items)
-                        displayPageNav(perPage, items)
-                    }
-                });
-            })
-        }
-    </script>
-
-    <script>
-        // gestione modals
-        $(function () {
-            $(".forModal").click(function () {
-                var row = $(this).data('id');
-                console.log(row);
-                $(".modal_edit #description_edit").val(row["descrizione"]);
-                $(".modal_edit #date_edit").val(row["data"]);
-                $(".modal_edit #amount_edit").val(Math.abs(row["importo"]));
-                console.log($("#cat_edit > option[value='"+row['categoria']+"']").val());
-            })
-        });
-    </script>
-
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
@@ -127,15 +137,7 @@
                                             <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col">
-                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_new">
-                                                                <option>Seleziona categoria</option>
-                                                                        <?php 
-                                                                        foreach ($options as $option) {
-                                                                        ?>
-                                                                            <option><?php echo $option['nome']; ?> </option>
-                                                                            <?php 
-                                                                            }
-                                                                        ?>
+                                                            <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_new" id="cat_newE">
                                                                 </select>&nbsp;
                                                             </div>
                                                         </div>
@@ -178,15 +180,7 @@
                                             <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col">
-                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_new">
-                                                                <option>Seleziona categoria</option>
-                                                                        <?php 
-                                                                        foreach ($options as $option) {
-                                                                        ?>
-                                                                            <option><?php echo $option['nome']; ?> </option>
-                                                                            <?php 
-                                                                            }
-                                                                        ?>
+                                                            <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_new" id="cat_newU">
                                                                 </select>&nbsp;
                                                             </div>
                                                         </div>
@@ -248,6 +242,8 @@
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                             </div>
                                             <div class="modal-body left-labels modal_edit">
+                                                <div class="hidden"><input type="" name="id_edit" id="id_edit" value=""></div> 
+                                                <div class="hidden"><input type="" name="tipo_edit" id="tipo_edit" value=""></div> 
                                                 <div class="row">
                                                     <div class="col">
                                                         <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label><select id="cat_edit" class="d-inline-block form-select form-select-sm" name="cat_edit" >
@@ -287,16 +283,16 @@
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="deleteModalLongTitle">Elimina transazione</h5>
                                         </div>
-                                        <div class="modal-body left-labels">
+                                        <div class="modal-body left-labels modal_delete">
                                             Sei sicuro di voler eliminare la transazione?
+                                            <form action="./delete_entry.php" method="post" name="delete_form">
+                                                <div class="hidden"><input type="" name="id_delete" id="id_delete" value=""></div> 
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                    <input type="submit" class="btn btn-danger" value="Si">
+                                                </div>
+                                            </form>
                                         </div>
-                                        <form action="./delete_entry.php" method="post" name="delete_form">
-                                            <div class="hidden"><input type="" name="id_delete" value=<?php echo $tuple['id']?>></div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                                <input type="submit" class="btn btn-danger" value="Si">
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -312,26 +308,28 @@
     window.onload = populateSelect();
     function populateSelect() {
         // THE JSON ARRAY.
-        let data = <?= getJsonCat($conn);?>;
+        let data = <?= getJsonCat($conn)?>;
         
         let ele1 = document.getElementById('selectCat');
         let ele2 = document.getElementById('cat_edit');
+        let ele3 = document.getElementById('cat_newE');
+        let ele4 = document.getElementById('cat_newU');
         ele1.innerHTML = ele1.innerHTML + '<option value="Tutte le categorie">Tutte le categorie</option>';
-        ele2.innerHTML = ele2.innerHTML + '<option value="Tutte le categorie">Tutte le categorie</option>';
+        list = [ele1, ele2, ele3, ele4];
         for (let i = 0; i < data.length; i++) {
-            // POPULATE SELECT ELEMENT WITH JSON.
-            ele1.innerHTML = ele1.innerHTML + '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
-            ele2.innerHTML = ele2.innerHTML + '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
+            for (element of list)
+                // POPULATE SELECT ELEMENT WITH JSON.
+                element.innerHTML = element.innerHTML + '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
         }
     }
 </script>
 <script>
     // attenzione
-    items = <?= getJsonSpese($conn);?>
+    dataSet = <?= getJsonSpese($conn);?>
 
     const displayItems = ( page = 1, perPage = 2, dataset ) => {
 
-        let index, offSet
+        let index, offSet;
 
         if(page == 1 || page <=0)  {
             index = 0
@@ -344,8 +342,7 @@
             offSet = index + perPage
         }
 
-        const slicedItems = dataSet.slice(index, offSet)
-        console.log(JSON.stringify(slicedItems[0]));
+        const slicedItems = dataSet.slice(index, offSet);
         const html = slicedItems.map(item => 
         `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
         <td>${item.data}</td>
@@ -353,15 +350,15 @@
         <td>${item.descrizione}</td>
         <td>${Math.abs(item.importo)}</td>
         <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-        <td class="buttons"> <button type="button" class="forModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-id=`+`'${JSON.stringify(item)}'`+`>  
+        <td class="buttons"> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
                                                                     Modifica
                                                                 </button>
-                                                                <button type="button" class="forModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry">
+                                                                <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
                                                                     Elimina
                                                                 </button></td>
-        </tr>`)
+        </tr>`);
 
-        document.querySelector('#tableBody').innerHTML = html.join('')
+        document.querySelector('#tableBody').innerHTML = html.join('');
 
     }
 
@@ -380,8 +377,8 @@
     }
 
     let perPage = 15
-    displayItems(1, perPage, items)
-    displayPageNav(perPage, items)
+    displayItems(1, perPage, dataSet)
+    displayPageNav(perPage, dataSet)
 </script>
 
 
