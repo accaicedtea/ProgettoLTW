@@ -60,7 +60,7 @@
                     <a class="nav-link " href="#">Scadenze</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Statistiche</a>
+                    <a class="nav-link <?php if($pagina=='Statistiche') echo 'active';?>" href="./statistiche.php">Statistiche</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if($pagina=='Buffe e buffetti') echo 'active';?>" href="./buffi.php">Buffi e buffetti</a>

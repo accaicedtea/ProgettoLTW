@@ -426,7 +426,7 @@ function navBar($pagina)
                     <a class="nav-link " href="#">Scadenze</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Statistiche</a>
+                    <a class="nav-link " href="./statistiche.php">Statistiche</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if (
