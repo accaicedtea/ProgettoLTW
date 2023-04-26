@@ -1,19 +1,21 @@
 <?php 
     $pagina = 'Visualizza transazioni';
-    include './head.php';
+    require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
+    navBar($pagina);
 ?>
 
 
 <body id="page-top" style="background-color:#e9e9e9;">
     <?php 
-        include './db_conn.php';
-        include './navBar.php';
+       
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
+          
     ?>
     <script>
-        
         function applicaFiltroCat(){
-            var e = document.getElementById("selectCat");
+            var e = document.getElementById("selectCat0");
             var chosen = e.options[e.selectedIndex].text; 
             var httpRequest = new XMLHttpRequest();
             httpRequest.onreadystatechange = gestisciCat;
@@ -59,23 +61,15 @@
                             <p class="text-primary m-0 fw-bold">I tuoi movimenti</p>
                         </div>
                         <div class="card-body">
-                            <?php 
-                                $query ="SELECT nome FROM categoria";
-                                $result = $conn->query($query);
-                                if($result->num_rows> 0){
-                                    $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
-                                }
-                            ?>
+                            
                             <div class="container">
                                 <!-- Stack the columns on mobile by making one full-width and the other half-width -->
                                 <div class="row">
                                     <div class="col-auto">
-                                        <!--The SELECT element.-->
-                                        <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat(this);" >
-                                            <option value="Tutte Le Categorie">Tutte le categorie</option>
-                                        </select>
+                                        <select id="selectCat0" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
+                                        <option>Tutte le categorie</option>
+                                        </select> 
                                     </div>
-
                                     <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
                                         <option value="tutte" selected="">Tutti i tipi</option>
                                         <option value="entrate">Entrate</option>
@@ -102,22 +96,16 @@
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
                                         <form action="./register_entry.php" method="post" name="insert_form">
-                                            <div class="hidden"><input type="" name="tipo_new" value="entrata"></div>
+                                            <div class="visually-hidden"><input type="" name="tipo_new" value="entrata"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
                                             </div>
                                             <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col">
-                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_new">
+                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label>
+                                                        <select id="selectCat1"class="d-inline-block form-select form-select-sm" name="cat_new">
                                                                 <option>Seleziona categoria</option>
-                                                                        <?php 
-                                                                        foreach ($options as $option) {
-                                                                        ?>
-                                                                            <option><?php echo $option['nome']; ?> </option>
-                                                                            <?php 
-                                                                            }
-                                                                        ?>
                                                                 </select>&nbsp;
                                                             </div>
                                                         </div>
@@ -153,22 +141,16 @@
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
                                         <form action="./register_entry.php" method="post" name="insert_form">
-                                            <div class="hidden"><input type="" name="tipo_new" value="uscita"></div>
+                                            <div class="visually-hidden"><input type="" name="tipo_new" value="uscita"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
                                             </div>
                                             <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col">
-                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_new">
-                                                                <option>Seleziona categoria</option>
-                                                                        <?php 
-                                                                        foreach ($options as $option) {
-                                                                        ?>
-                                                                            <option><?php echo $option['nome']; ?> </option>
-                                                                            <?php 
-                                                                            }
-                                                                        ?>
+                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label>
+                                                                <select id="selectCat2" class="d-inline-block form-select form-select-sm" name="cat_new">
+                                                                    <option>Seleziona categoria</option>
                                                                 </select>&nbsp;
                                                             </div>
                                                         </div>
@@ -199,66 +181,39 @@
                             </div>
 
                             <!-- Inizio tabella -->
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                            <div class="table-responsive table mt-2" id="container" role="grid" aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
                                     <thead>
-                                        <tr>
-                                            <th>Data</th>
-                                            <th>Categoria</th>
-                                            <th>Descrizione</th>
-                                            <th>Importo</th>
-                                            <th>Tipo</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Categoria</th>
+                                        <th>Descrizione</th>
+                                        <th>Importo</th>
+                                        <th>Tipo</th>
+                                        <th>Azioni</th>
+                                    </tr>
                                     </thead>
                                     <tbody id="tableBody">
-                                        <!-- Prendo dal database tutte le spese -->
-                                        <?php
-                                            $user = $_SESSION['username']; 
-                                            $result = $conn->query("SELECT * FROM spesa WHERE utente = '$user'");
-                                            $tuples = array();
-                                            if($result->num_rows> 0){
-                                                $tuples= mysqli_fetch_all($result, MYSQLI_ASSOC);
-                                            }
-                                            $i=0;
-                                            $_SESSION['categoria'] = "Tutte le categorie";
-                                            $_SESSION['tipo'] = "Tutti i tipi";
-                                            foreach ($tuples as $tuple) { ?>
-                                                <tr class="table-<?php echo ($tuple['importo']<0)? 'danger' : 'success';?>">
-                                                    <td><?php echo $tuple['data'];?></td>
-                                                    <td><?php echo $tuple['categoria'];?></td>
-                                                    <td><?php echo $tuple['descrizione'];?></td>
-                                                    <td><?php echo abs($tuple['importo'])." €";?></td>
-                                                    <td><?php if ($tuple['importo']>0) echo "Entrata"; else echo "Uscita";?></td>
-                                                    <td class="buttons">
-                                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry<?php echo $i?>">
-                                                            Modifica
-                                                        </button>
-                                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry<?php echo $i?>">
-                                                            Elimina
-                                                        </button>
-
-                                                    <!-- Modal per MODIFICA-->
-                                                    <div class="modal fade" id="modalEditEntry<?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                         
+                                                   
+                                    </tbody>
+                                </table>
+                                <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <!-- INIZIO FORM -->
                                                                 <form action="./edit_entry.php" method="post" name="edit_form">
-                                                                    <div class="hidden"><input type="" name="id_edit" value=<?php echo $tuple['id']?>></div>
-                                                                    <div class="hidden"><input type="" name="tipo_edit" value=<?php if ($tuple['importo']>=0) echo "entrata"; else echo "uscita";?>></div>
+                                                                    <div class=""><input type="" name="id_edit" value=""></div>
+                                                                    <div class=""><input type="" name="tipo_edit" value=""></div>
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                                                     </div>
                                                                     <div class="modal-body left-labels">
                                                                         <div class="row">
                                                                             <div class="col">
-                                                                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_edit">
-                                                                                        <?php 
-                                                                                        foreach ($options as $option) {
-                                                                                        ?>
-                                                                                            <option <?php if ($option['nome'] == $tuple['categoria']) echo "selected";?>><?php echo $option['nome']; ?> </option>
-                                                                                            <?php 
-                                                                                            }
-                                                                                        ?>
+                                                                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label>
+                                                                                    <select class="d-inline-block form-select form-select-sm" name="cat_edit">
+                                                                                    
                                                                                     </select>&nbsp;
                                                                                 </div>
                                                                             </div>
@@ -308,26 +263,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    </td>
-                                                </tr>
-                                            <?php 
-                                            }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                <div >
+      <nav aria-label="...">
+         <ul id="pagination"  class="pagination pagination-sm">
+         </ul>
+      </nav>
+      </div>
                             </div>
-                            <nav class="pagination-container">
-                                <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
-                                    &lt;
-                                </button>
-                                
-                                <div id="pagination-numbers">
-                                </div>
-                                
-                                <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
-                                    &gt;
-                                </button>
-                            </nav>
+            
                         </div>
                     </div>
                 </div>
@@ -335,22 +278,103 @@
         </div>
     </div>
 </body>
+
+
+
 <script>
     window.onload = populateSelect();
     function populateSelect() {
         // THE JSON ARRAY.
-        <?php require './test_buffi_json.php';
-        $jsonCat=getJsonCat();
-        ?>
-        let birds = <?= $jsonCat;?>;
+        let data = <?= getJsonCat($conn);?>;
         
-        let ele = document.getElementById('selectCat');
-        for (let i = 0; i < birds.length; i++) {
+        let ele = document.getElementById('selectCat0');
+        for (let i = 0; i < data.length; i++) {
             // POPULATE SELECT ELEMENT WITH JSON.
             ele.innerHTML = ele.innerHTML +
-                '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
+                '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
+        }
+        ele = document.getElementById('selectCat1');
+        for (let i = 0; i < data.length; i++) {
+            // POPULATE SELECT ELEMENT WITH JSON.
+            ele.innerHTML = ele.innerHTML +
+                '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
+        }
+        ele = document.getElementById('selectCat2');
+        for (let i = 0; i < data.length; i++) {
+            // POPULATE SELECT ELEMENT WITH JSON.
+            ele.innerHTML = ele.innerHTML +
+                '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
         }
     }
+    function populateModal(id){
+        
+    }
+</script>
+<script>
+   const dataSet = <?= getJsonSpese($conn);?>
+
+const displayPageNav = perPage => {
+  
+  let pagination = ``
+  const totalItems = dataSet.length
+  perPage = perPage ? perPage : 1
+  const pages = Math.ceil(totalItems/perPage)
+  
+   for(let i = 1; i <= pages; i++) {
+      pagination += `<a class="page-link" href="#" onClick="displayItems(${i},${perPage})" >${i}</a>`
+   }
+
+   document.getElementById('pagination').innerHTML = pagination
+}
+
+const displayItems = ( page = 1, perPage = 2 ) => {
+  
+   let index, offSet
+
+   if(page == 1 || page <=0)  {
+      index = 0
+      offSet = perPage
+   } else if(page > dataSet.length) {
+      index = page - 1
+      offSet = dataSet.length
+   } else {
+      index = page * perPage - perPage
+      offSet = index + perPage
+   }
+
+   const slicedItems = dataSet.slice(index, offSet)
+
+   const html = slicedItems.map(item => 
+   `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
+   <td>${item.data}</td>
+   <td>${item.categoria}</td>
+   <td>${item.descrizione}</td>
+   <td>${Math.abs(item.importo)}</td>
+   <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
+   <td> 
+   <button type="button" onclick="populateModal(1)" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry">
+        Modifica
+    </button>
+    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry">
+        Elimina
+    </button>
+   </td>
+   </tr>`)
+
+   document.querySelector('#container tbody').innerHTML = html.join('')
+ 
+}
+
+let perPage = 15
+displayPageNav(perPage)
+displayItems(1, perPage)
+</script>
+<script>
+   $(document).ready(function(){
+      $('#btnShowModal').click(function{
+         $('#modalModifica').modal('show');
+      });
+   });
 </script>
 <?php 
 }

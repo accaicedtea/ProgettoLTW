@@ -1,6 +1,7 @@
 <?php
 //TODO: da modificare per rendere id incrementale e aggiustare la query per aggiungere l'id categoria
-    include './db_conn.php';
+require "./test_buffi_json.php";
+ $conn = db_conn();
     $utente = $_SESSION['username'];
     $descrizione =  $_POST['description_new'];
     $data =  $_POST['date_new'];

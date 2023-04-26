@@ -1,12 +1,14 @@
 <?php 
     $pagina='Utenti';
-    include './head.php';
+    require './test_buffi_json.php';
+    $conn = db_conn();
+    head($pagina);
     ?>   
 <body id="page-top">
     <?php 
-        include './db_conn.php';
-        include './navBar.php';
+        
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
+            navBar($pagina);
         ?>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -86,7 +88,7 @@
                                                             $pass = $row['password'];
                                                         } 
                                                         if(substr($pass, -10)!='adminBlock'){?>
-                                                    <form action="./blocca_utente.php" method="post" name="form-block-user" class="form-block-user">
+                                                    <form action="./blocca_utente" method="post" name="form-block-user" class="form-block-user">
                                                         <input class="visually-hidden" type="text" id="username" name="blockthis" value="<?php echo $tuple['username'];?>" readonly>
                                                         <button type="submit"  class="btn btn-warning btn-sm">Blocca utente</button>
                                                     </form>

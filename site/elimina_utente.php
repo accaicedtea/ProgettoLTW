@@ -1,12 +1,18 @@
 <?php
     
-    include './db_conn.php';
+    require "./test_buffi_json.php";
+    $conn = db_conn();
+    
     $dropThis = $_POST['dropThis'];
-    echo $dropThis;
-    $sql = "DELETE FROM utente WHERE utente.username = '$dropThis'";
+    
+    
+    $sql = "DELETE FROM categoriaCustom WHERE user = '$dropThis'";
+    $sql = "DELETE FROM spesa WHERE spesa.utente = '$dropThis'";
     if((mysqli_query($conn, $sql))){
-        
-        header("Location: view.php?msg=eliminato l'utente");
+        $sql = "DELETE FROM utente WHERE utente.username = '$dropThis'";
+        if((mysqli_query($conn, $sql))){
+            cheader("Location: view.php?msg=eliminato l'utente");
+        }
     }else{
         header("Location: view.php?error=qualcosa è andato storto");
     }

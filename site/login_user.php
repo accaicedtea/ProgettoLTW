@@ -1,14 +1,11 @@
 
 <?php 
-include 'db_conn.php';
+require './test_buffi_json.php';
+$conn = db_conn();
+
 if(isset($_POST['username']) && isset($_POST['password'])){
     
-    function validate($data){
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
+   
     $uname = validate($_POST['username']);
     $passw = validate($_POST['password']);
     if(empty($uname)){
@@ -35,13 +32,15 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['dataN'] = $row['dataN'];
                 $_SESSION['pfp'] = $row['pfp'];
+                $_SESSION['sesso'] = $row['sesso'];
+                $_SESSION['nazi'] = $row['nazionalita'];
                 $_SESSION['password'] = $row['password'];
                 $_SESSION['log'] = 'on';
                 header("Location: dashboard.php");       
                 exit();
             }
         }else{
-            echo 'username: '.gettype($uname).'      password:'.gettype($passw);
+            //echo 'username: '.$uname.'      password:'.$passw;
             $sql = "SELECT * FROM admin WHERE id='$uname' AND password='$passw'";
             $result = mysqli_query($conn,$sql);
             if(mysqli_num_rows($result) === 1){
