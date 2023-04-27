@@ -12,7 +12,7 @@ require "./test_buffi_json.php";
     $categoria = $_POST['cat_new'];
 
     // Performing insert query execution
-    $sql = "INSERT INTO spesa VALUES ('$id', '$utente', '$importo', '$descrizione', '$data', '$categoria')";
+    $sql = "INSERT INTO spesa VALUES ('$id', '$utente', '$importo', '$data', '$descrizione', '$categoria')";
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $query = mysqli_query($conn, $sql);

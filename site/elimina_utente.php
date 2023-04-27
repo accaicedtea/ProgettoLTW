@@ -6,7 +6,6 @@
     $dropThis = $_POST['dropThis'];
     
     
-    $sql = "DELETE FROM categoriaCustom WHERE user = '$dropThis'";
     $sql = "DELETE FROM spesa WHERE spesa.utente = '$dropThis'";
     if((mysqli_query($conn, $sql))){
         $sql = "DELETE FROM utente WHERE utente.username = '$dropThis'";

@@ -5,6 +5,7 @@ function db_conn()
     mysqli_report(MYSQLI_REPORT_OFF);
     /* @ is used to suppress warnings */
     $conn = @mysqli_connect("localhost", "root", "", "4Money");
+    $_SESSION["data_oggi"] = date("Y:m:d");
     if (!$conn) {
         /* Use your preferred error logging method here */
         header("Location: ./error.php?error=405");
@@ -12,7 +13,10 @@ function db_conn()
     }
     return $conn;
 }
-
+function log_out($conn){
+    session_destroy();
+    
+}
 function getJsonCat($conn)
 {
     $emparray = [];
@@ -26,9 +30,23 @@ function getJsonCat($conn)
 }
 function getJsonSpese($conn)
 {
-    $user = $_SESSION["username"];
+    $username = $_SESSION["username"];
     $emparray = [];
-    $sql = "SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo FROM spesa s join categoria c on c.id=s.categoria WHERE utente = '$user' order by s.data DESC;";
+    $data_oggi = $_SESSION["data_oggi"];
+    $sql = "select *
+    from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria
+    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) < Month('$data_oggi')
+    UNION
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) <= DAY('$data_oggi')
+    union
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi')
+    )as vie
+    ORDER BY vie.data DESC;";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $emparray[] = $row;
@@ -96,212 +114,174 @@ function validate($data)
 //TODO: INIZIO GRAFICI
 function histogram($conn)
 {
-    $username = $_SESSION["username"];
-    $_SESSION["data_oggi"] = date("Y:m:d");
-    $data_oggi = $_SESSION["data_oggi"];
-    $sql = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(importo),0) as importo from spesa where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) <= MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.importo < 0 GROUP BY MONTH(spesa.data) union select MONTH(spesa.data) as mese, 0 as importo from spesa where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) > MONTH('$data_oggi') group by MONTH(spesa.data) order by mese;";
+    $username = $_SESSION['username'];
+    $data_oggi = $_SESSION['data_oggi'];
+    $sql = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(importo),0) as importo 
+            from spesa 
+            where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) < MONTH('$data_oggi') and spesa.importo < 0 
+            GROUP BY MONTH(spesa.data)
+            union
+            select MONTH(spesa.data) as mese, 0 as importo
+            from spesa
+            where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) > MONTH('$data_oggi')
+            group by MONTH(spesa.data)
+            union
+            select MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo),0) as importo
+            from spesa
+            where YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.utente = '$username' and spesa.importo < 0
+            group by MONTH(spesa.data)
+            order by mese;";
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            if ($row["mese"] == "01") {
-                $mese = "gennaio";
-            }
-            if ($row["mese"] == "02") {
-                $mese = "febbraio";
-            }
-            if ($row["mese"] == "03") {
-                $mese = "marzo";
-            }
-            if ($row["mese"] == "04") {
-                $mese = "aprile";
-            }
-            if ($row["mese"] == "05") {
-                $mese = "maggio";
-            }
-            if ($row["mese"] == "06") {
-                $mese = "giugno";
-            }
-            if ($row["mese"] == "07") {
-                $mese = "luglio";
-            }
-            if ($row["mese"] == "08") {
-                $mese = "agosto";
-            }
-            if ($row["mese"] == "09") {
-                $mese = "settembre";
-            }
-            if ($row["mese"] == "10") {
-                $mese = "ottobre";
-            }
-            if ($row["mese"] == "11") {
-                $mese = "novembre";
-            }
-            if ($row["mese"] == "12") {
-                $mese = "dicembre";
-            }
-            $arr = [
-                "name" => $mese,
-                "y" => doubleval(abs($row["importo"])),
-            ];
+    if ($result->num_rows > 0){
+        while($row = $result->fetch_assoc()){
+            if ($row['mese'] == "01") $mese = "gennaio";if ($row['mese'] == "02") $mese= "febbraio";if ($row['mese'] == "03") $mese= "marzo";if ($row['mese'] == "04") $mese= "aprile";if ($row['mese'] == "05") $mese= "maggio";if ($row['mese'] == "06") $mese="giugno";if ($row['mese'] == "07") $mese="luglio";if ($row['mese'] == "08") $mese= "agosto";if ($row['mese'] == "09") $mese= "settembre";if ($row['mese'] == "10") $mese="ottobre";if ($row['mese'] == "11") $mese="novembre";if ($row['mese'] == "12") $mese= "dicembre";
+            $arr = array(
+                'name' => $mese,
+                'y' => doubleval(abs($row['importo']))
+            );
             $series_array_histogram[] = $arr;
-        }
-        return json_encode($series_array_histogram);
+            }
+            return json_encode($series_array_histogram);
     }
 }
 function linegraph($conn)
 {
-    $username = $_SESSION["username"];
-    $_SESSION["data_oggi"] = date("Y:m:d");
-    $data_oggi = $_SESSION["data_oggi"];
-    $_SESSION["giorni_mese"] = date("t");
-    $giorni_mese = $_SESSION["giorni_mese"];
-    $array_dati_uscite = [];
-    $array_giorni_uscite = [];
-    $array_valori_uscite = [];
-    $array_dati_entrate = [];
-    $array_giorni_entrate = [];
-    $array_valori_entrate = [];
-    $array_dati_differenza = [];
-    $array_giorni_differenza = [];
-    $array_valori_differenza = [];
+    $username = $_SESSION['username'];
+    $data_oggi = $_SESSION['data_oggi'];
+    $_SESSION['giorni_mese'] = date("t");
+    $giorni_mese = $_SESSION['giorni_mese'];
+    $array_dati_uscite = array();
+    $array_giorni_uscite = array();
+    $array_valori_uscite = array();
+    $array_dati_entrate = array();
+    $array_giorni_entrate = array();
+    $array_valori_entrate = array();
+    $array_dati_differenza = array();
+    $array_giorni_differenza = array();
+    $array_valori_differenza = array();
     $sql_uscite = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as uscite 
-        from spesa 
-        where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and spesa.utente = '$username'
-        group by DAY(spesa.data)
-        order by DAY(spesa.data)";
+                from spesa
+                where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.utente = '$username'
+                group by DAY(spesa.data)
+                order by DAY(spesa.data)";
     $result_uscite = $conn->query($sql_uscite);
     if ($result_uscite->num_rows > 0) {
         $i = 1;
         $j = 0;
-        while ($row_uscite = $result_uscite->fetch_assoc()) {
-            array_push($array_giorni_uscite, intval($row_uscite["giorno"]));
+        while($row_uscite = $result_uscite->fetch_assoc()) {
+            array_push($array_giorni_uscite, intval($row_uscite['giorno']));
         }
-        $result2_uscite = $conn->query($sql_uscite);
-        while ($row2_uscite = $result2_uscite->fetch_assoc()) {
-            array_push($array_valori_uscite, doubleval($row2_uscite["uscite"]));
+        mysqli_data_seek($result_uscite, 0);
+        while($row_uscite = $result_uscite->fetch_assoc()) {
+            array_push($array_valori_uscite, doubleval($row_uscite['uscite']));
         }
-        while ($i <= $giorni_mese) {
-            if (!in_array($i, $array_giorni_uscite, false)) {
-                array_push($array_dati_uscite, doubleval("0"));
-            } else {
-                array_push(
-                    $array_dati_uscite,
-                    doubleval($array_valori_uscite[$j])
-                );
+        while($i <= $giorni_mese) {
+            if (!in_array($i, $array_giorni_uscite,false)) {
+                    array_push($array_dati_uscite, doubleval('0'));
+            }
+            else {
+                array_push($array_dati_uscite, doubleval($array_valori_uscite[$j]));
                 $j++;
             }
             $i++;
         }
     }
     $sql_entrate = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as entrate
-        from spesa 
-        where importo > 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and spesa.utente = '$username'
-        group by DAY(spesa.data)
-        order by DAY(spesa.data)";
+    from spesa 
+    where importo > 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.utente = '$username'
+    group by DAY(spesa.data)
+    order by DAY(spesa.data)";
     $result_entrate = $conn->query($sql_entrate);
     if ($result_entrate->num_rows > 0) {
         $i = 1;
         $j = 0;
-        while ($row_entrate = $result_entrate->fetch_assoc()) {
-            array_push($array_giorni_entrate, intval($row_entrate["giorno"]));
+        while($row_entrate = $result_entrate->fetch_assoc()) {
+            array_push($array_giorni_entrate, intval($row_entrate['giorno']));
         }
-        $result2_entrate = $conn->query($sql_entrate);
-        while ($row2_entrate = $result2_entrate->fetch_assoc()) {
-            array_push(
-                $array_valori_entrate,
-                doubleval($row2_entrate["entrate"])
-            );
+        mysqli_data_seek($result_entrate, 0);
+        while($row_entrate = $result_entrate->fetch_assoc()) {
+            array_push($array_valori_entrate, doubleval($row_entrate['entrate']));
         }
 
-        while ($i <= $giorni_mese) {
-            if (!in_array($i, $array_giorni_entrate, false)) {
-                array_push($array_dati_entrate, doubleval("0"));
-            } else {
-                array_push(
-                    $array_dati_entrate,
-                    doubleval($array_valori_entrate[$j])
-                );
+        while($i <= $giorni_mese) {
+            if (!in_array($i, $array_giorni_entrate,false)) {
+                    array_push($array_dati_entrate, doubleval('0'));
+            }
+            else {
+                array_push($array_dati_entrate, doubleval($array_valori_entrate[$j]));
                 $j++;
             }
             $i++;
         }
     }
     $sql_differenza = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as differenza
-        from spesa 
-        where MONTH(spesa.data) = MONTH('$data_oggi') and spesa.utente = '$username'
-        group by DAY(spesa.data)
-        order by DAY(spesa.data)";
+    from spesa 
+    where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.utente = '$username'
+    group by DAY(spesa.data)
+    order by DAY(spesa.data)";
     $result_differenza = $conn->query($sql_differenza);
     if ($result_differenza->num_rows > 0) {
         $i = 1;
         $j = 0;
-        while ($row_differenza = $result_differenza->fetch_assoc()) {
-            array_push(
-                $array_giorni_differenza,
-                intval($row_differenza["giorno"])
-            );
+        while($row_differenza = $result_differenza->fetch_assoc()) {
+            array_push($array_giorni_differenza, intval($row_differenza['giorno']));
         }
-        $result2_differenza = $conn->query($sql_differenza);
-        while ($row2_differenza = $result2_differenza->fetch_assoc()) {
-            array_push(
-                $array_valori_differenza,
-                doubleval($row2_differenza["differenza"])
-            );
+        mysqli_data_seek($result_differenza, 0);
+        while($row_differenza = $result_differenza->fetch_assoc()) {
+            array_push($array_valori_differenza, doubleval($row_differenza['differenza']));
         }
 
-        while ($i <= $giorni_mese) {
-            if (!in_array($i, $array_giorni_differenza, false)) {
-                array_push($array_dati_differenza, doubleval("0"));
-            } else {
-                array_push(
-                    $array_dati_differenza,
-                    doubleval($array_valori_differenza[$j])
-                );
+        while($i <= $giorni_mese) {
+            if (!in_array($i, $array_giorni_differenza,false)) {
+                    array_push($array_dati_differenza, doubleval('0'));
+            }
+            else {
+                array_push($array_dati_differenza, doubleval($array_valori_differenza[$j]));
                 $j++;
             }
             $i++;
         }
     }
-    $arr_uscite = [
-        "name" => "Uscite",
-        "data" => $array_dati_uscite,
-        "color" => "#E65C4F",
-    ];
-    $arr_entrate = [
-        "name" => "Entrate",
-        "data" => $array_dati_entrate,
-        "color" => "#46A094",
-    ];
-    $arr_differenza = [
-        "name" => "Differenza",
-        "data" => $array_dati_differenza,
-        "color" => "#4A8DB7",
-    ];
+    $arr_uscite = array(
+                'name' => 'Uscite',
+                'data' => $array_dati_uscite,
+                'color' => '#E65C4F'
+            
+    );
+    $arr_entrate = array(
+                'name' => 'Entrate',
+                'data' => $array_dati_entrate,
+                'color' => '#46A094'
+    );
+    $arr_differenza = array (
+                'name' => 'Differenza',
+                'data' => $array_dati_differenza,
+                'color' => '#4A8DB7'
+    );
     $series_array_linegraph_uscite[] = $arr_uscite;
     $series_array_linegraph_entrate[] = $arr_entrate;
     $serie_array_linegraph_differenza[] = $arr_differenza;
-    return json_encode(
-        array_merge(
-            $series_array_linegraph_uscite,
-            $series_array_linegraph_entrate,
-            $serie_array_linegraph_differenza
-        )
-    );
+    return json_encode(array_merge($series_array_linegraph_uscite, $series_array_linegraph_entrate, $serie_array_linegraph_differenza));
 }
 function piechart($conn)
 {
-    $username = $_SESSION["username"];
-    $_SESSION["data_oggi"] = date("Y:m:d");
-    $data_oggi = $_SESSION["data_oggi"];
-    $sql = "SELECT categoria.nome as categoria, sum(importo) / (SELECT sum(importo) from spesa where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') AND spesa.utente = '$username') as somma, categoria.colore as colore from spesa join categoria on categoria.id = spesa.categoria where spesa.importo < 0 AND spesa.utente = '$username' AND MONTH(spesa.data) = MONTH('$data_oggi') group by categoria.nome";
+    $username = $_SESSION['username'];
+    $data_oggi = $_SESSION['data_oggi'];
+    $sql = "SELECT categoria.nome as categoria, COALESCE(sum(importo),0) / 
+                (SELECT COALESCE(sum(importo),0)
+                from spesa
+                where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') AND spesa.utente = '$username') as somma, categoria.colore as colore
+            from spesa join categoria on categoria.id = spesa.categoria
+            where spesa.importo < 0 and DAY(spesa.data) <= DAY('$data_oggi') AND spesa.utente = '$username' AND MONTH(spesa.data) = MONTH('$data_oggi')
+            group by categoria.nome";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $arr = [
-                "name" => $row["categoria"],
-                "y" => doubleval($row["somma"]),
-                "color" => $row["colore"],
-            ];
+            $arr = array (
+                'name' => $row['categoria'],
+                'y' => doubleval($row['somma']),
+                'color' => $row['colore']
+            );
             $series_array_piechart[] = $arr;
         }
         return json_encode($series_array_piechart);
@@ -354,8 +334,11 @@ function get_euma($conn)
     }
     return json_encode($array_dati);
 }
+//TODO: INIZIO TOOLS
+// gli passi la pagina da visualizzare
 function navBar($pagina)
 {
+    //admin
     if (isset($_SESSION["adminLog"]) && $_SESSION["adminLog"] == "daje") { ?>
     <div id="topheader" class="sticky-top ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -398,7 +381,10 @@ function navBar($pagina)
                 
                 <p class="h3"><?php echo $pagina; ?></p>
             </div>
-    <?php } elseif (isset($_SESSION["log"]) && $_SESSION["log"] == "on") { ?>
+            
+    <?php } 
+        //utente loggato
+        elseif (isset($_SESSION["log"]) && $_SESSION["log"] == "on") { ?>
     <div id="topheader" class="sticky-top ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
@@ -426,7 +412,7 @@ function navBar($pagina)
                     <a class="nav-link " href="#">Scadenze</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="./statistiche.php">Statistiche</a>
+                    <a class="nav-link " href="#">Statistiche</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if (
@@ -434,11 +420,6 @@ function navBar($pagina)
                     ) {
                         echo "active";
                     } ?>" href="./buffi.php">Buffi e buffetti</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php if ($pagina == "Categorie") {
-                        echo "active";
-                    } ?>" href="./categorie.php">Categorie</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link ms-3" href="./informazioni.php">Informazioni
@@ -467,7 +448,9 @@ function navBar($pagina)
                 <p class="h3"><?php echo $pagina; ?></p>
             </div>
 
-    <?php } elseif (
+    <?php } elseif 
+        //random
+        (
         !isset($_SESSION["adminLog"]) ||
         !isset($_SESSION["log"])
     ) { ?>
