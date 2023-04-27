@@ -9,9 +9,9 @@
 
 <body id="page-top" style="background-color:#e9e9e9;">
     <?php 
-       
+        //check($conn);
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
-          
+            
     ?>
     <script>
         function applicaFiltroCat(){

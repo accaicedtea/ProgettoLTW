@@ -13,9 +13,20 @@ function db_conn()
     }
     return $conn;
 }
-function log_out($conn){
+function log_out($conn)
+{
     session_destroy();
     
+}
+    function check($conn)
+{
+    $uname = $_SESSION['username'];
+    $passw = $_SESSION['password'];
+    $sql = "SELECT * FROM utente WHERE username='$uname' AND password='$passw'";;
+    $result = mysqli_query($conn,$sql);
+    if($row = mysqli_fetch_assoc($result) != 1){
+        $_SESSION['log']='off';
+    }
 }
 function getJsonCat($conn)
 {
@@ -256,7 +267,8 @@ function linegraph($conn)
     $arr_differenza = array (
                 'name' => 'Differenza',
                 'data' => $array_dati_differenza,
-                'color' => '#4A8DB7'
+                'color' => '#4A8DB7',
+                "type" => "line"
     );
     $series_array_linegraph_uscite[] = $arr_uscite;
     $series_array_linegraph_entrate[] = $arr_entrate;
