@@ -57,10 +57,10 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-auto">
-                                        <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
+                                        <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="">
                                         </select> 
                                     </div>
-                                    <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
+                                    <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="">
                                         <option value="tutte" selected="">Tutti i tipi</option>
                                         <option value="entrate">Entrate</option>
                                         <option value="uscite">Uscite</option>
@@ -181,10 +181,12 @@
                                     <tbody id="tableBody">
                                     </tbody>
                                 </table>
-                                <nav aria-label="...">
-                                    <ul id="pagination"  class="pagination pagination-sm">
-                                    </ul>
-                                </nav>
+                                <div class="mt-2 justify-content-center">
+                                    <nav aria-label="...">
+                                        <ul id="pagination"  class="pagination justify-content-center pagination-sm">
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
 
                             <!-- MODALS -->
@@ -281,11 +283,16 @@
 </script>
 <script>
     // attenzione
-    dataSet = <?= getJsonSpese($conn);?>
+    dataSet = <?= getJsonSpese($conn);?>;
+    currPage = 1;
+    let perPage = 15;
+    lastPage = Math.round(dataSet.length/perPage);
 
     const displayItems = ( page = 1, perPage = 2, dataset ) => {
 
         let index, offSet;
+        var currPage = page;
+        console.log(page);
 
         if(page == 1 || page <=0)  {
             index = 0
@@ -317,24 +324,37 @@
         document.querySelector('#tableBody').innerHTML = html.join('');
 
     }
+    const displayAll = ( page = 1, perPage = 2 ) => {
+        displayItems(page, perPage)
+        displayPageNav(page, perPage)
+    }
 
-    const displayPageNav = (perPage, dataset) => {
+    const displayPageNav = (page, perPage) => {
 
         let pagination = ""
         const totalItems = dataSet.length
         perPage = perPage ? perPage : 1
         const pages = Math.ceil(totalItems/perPage)
 
-        for(let i = 1; i <= pages; i++) {
+        /*for(let i = 1; i <= pages; i++) {
             pagination += `<a class="page-link" href="#" onClick="displayItems(${i},${perPage})" >${i}</a>`
+        }*/
+        if (page!=1){
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(1,${perPage})" ><<</a></li>`
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page-1},${perPage})" >Precedente</a></li>`
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page-1},${perPage})" >${page-1}</a></li>`
+        }
+        pagination += `<li class="page-item active"><a class="page-link" href="#" onClick="displayAll(${page},${perPage})" >${page}</a></li>`
+        if (page!=lastPage){
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page+1},${perPage})" >${page+1}</a></li>`
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page+1},${perPage})" >Successivo</a></li>`
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${lastPage},${perPage})" >>></a></li>`
         }
 
         document.getElementById('pagination').innerHTML = pagination
     }
 
-    let perPage = 15
-    displayItems(1, perPage, dataSet)
-    displayPageNav(perPage, dataSet)
+    displayAll(1, perPage);
 </script>
 
 
