@@ -5,6 +5,7 @@ function db_conn()
     mysqli_report(MYSQLI_REPORT_OFF);
     /* @ is used to suppress warnings */
     $conn = @mysqli_connect("localhost", "root", "", "4Money");
+    $_SESSION["data_oggi"] = date("Y:m:d");
     if (!$conn) {
         /* Use your preferred error logging method here */
         header("Location: ./error.php?error=405");
@@ -12,7 +13,10 @@ function db_conn()
     }
     return $conn;
 }
-
+function log_out($conn){
+    session_destroy();
+    
+}
 function getJsonCat($conn)
 {
     $emparray = [];
@@ -26,9 +30,23 @@ function getJsonCat($conn)
 }
 function getJsonSpese($conn)
 {
-    $user = $_SESSION["username"];
+    $username = $_SESSION["username"];
     $emparray = [];
-    $sql = "SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo FROM spesa s join categoria c on c.id=s.categoria WHERE utente = '$user' order by s.data DESC;";
+    $data_oggi = $_SESSION["data_oggi"];
+    $sql = "select *
+    from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria
+    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) < Month('$data_oggi')
+    UNION
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) <= DAY('$data_oggi')
+    union
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi')
+    )as vie
+    ORDER BY vie.data DESC;";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $emparray[] = $row;
@@ -97,7 +115,6 @@ function validate($data)
 function histogram($conn)
 {
     $username = $_SESSION["username"];
-    $_SESSION["data_oggi"] = date("Y:m:d");
     $data_oggi = $_SESSION["data_oggi"];
     $sql = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(importo),0) as importo from spesa where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) <= MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.importo < 0 GROUP BY MONTH(spesa.data) union select MONTH(spesa.data) as mese, 0 as importo from spesa where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) > MONTH('$data_oggi') group by MONTH(spesa.data) order by mese;";
     $result = $conn->query($sql);
@@ -151,7 +168,6 @@ function histogram($conn)
 function linegraph($conn)
 {
     $username = $_SESSION["username"];
-    $_SESSION["data_oggi"] = date("Y:m:d");
     $data_oggi = $_SESSION["data_oggi"];
     $_SESSION["giorni_mese"] = date("t");
     $giorni_mese = $_SESSION["giorni_mese"];
@@ -291,7 +307,7 @@ function linegraph($conn)
 function piechart($conn)
 {
     $username = $_SESSION["username"];
-    $_SESSION["data_oggi"] = date("Y:m:d");
+    
     $data_oggi = $_SESSION["data_oggi"];
     $sql = "SELECT categoria.nome as categoria, sum(importo) / (SELECT sum(importo) from spesa where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') AND spesa.utente = '$username') as somma, categoria.colore as colore from spesa join categoria on categoria.id = spesa.categoria where spesa.importo < 0 AND spesa.utente = '$username' AND MONTH(spesa.data) = MONTH('$data_oggi') group by categoria.nome";
     $result = $conn->query($sql);
@@ -354,8 +370,11 @@ function get_euma($conn)
     }
     return json_encode($array_dati);
 }
+//TODO: INIZIO TOOLS
+// gli passi la pagina da visualizzare
 function navBar($pagina)
 {
+    //admin
     if (isset($_SESSION["adminLog"]) && $_SESSION["adminLog"] == "daje") { ?>
     <div id="topheader" class="sticky-top ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -398,7 +417,10 @@ function navBar($pagina)
                 
                 <p class="h3"><?php echo $pagina; ?></p>
             </div>
-    <?php } elseif (isset($_SESSION["log"]) && $_SESSION["log"] == "on") { ?>
+            
+    <?php } 
+        //utente loggato
+        elseif (isset($_SESSION["log"]) && $_SESSION["log"] == "on") { ?>
     <div id="topheader" class="sticky-top ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
@@ -436,11 +458,6 @@ function navBar($pagina)
                     } ?>" href="./buffi.php">Buffi e buffetti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php if ($pagina == "Categorie") {
-                        echo "active";
-                    } ?>" href="./categorie.php">Categorie</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link ms-3" href="./informazioni.php">Informazioni
                     </a>
                 </li>
@@ -467,7 +484,9 @@ function navBar($pagina)
                 <p class="h3"><?php echo $pagina; ?></p>
             </div>
 
-    <?php } elseif (
+    <?php } elseif 
+        //random
+        (
         !isset($_SESSION["adminLog"]) ||
         !isset($_SESSION["log"])
     ) { ?>
