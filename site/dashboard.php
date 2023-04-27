@@ -54,7 +54,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                         <script>
                                             Highcharts.chart('line graph', {
                                                 chart: {
-                                                type: 'line'
+                                                type: 'area'
                                                 },
                                                 title: {
                                                     text: 'Movimenti di questo mese'

@@ -6,45 +6,8 @@
     navBar($pagina);
 ?>
 
-<script src=".assets/js/jquery-3.6.4.min.js">
-</script>
-<script>
-    function applicaFiltroCat(){
-        $("#dataTable").ready(function(){
-            var e = document.getElementById("selectCat");
-            var chosen = e.options[e.selectedIndex].text; 
-            $.ajax({
-                url:'filtered_table.php',
-                type:'GET',
-                data:'categoria="' + chosen + '"&tipo=',
-                success:function(){
-                    items = <?= getJsonSpeseFiltrate($conn);?>
-                    let perPage = 15;
-                    displayItems(1, perPage, items);
-                    displayPageNav(perPage, items);
-                }
-            });
-        })
-    }
 
-    function applicaFiltroTipo(){
-        $("#dataTable").ready(function(){
-            var e = document.getElementById("selectTipo");
-            var chosen = e.options[e.selectedIndex].text; 
-            $.ajax({
-                url:'filtered_table.php',
-                type:'GET',
-                data:'tipo="' + chosen + '"&categoria=',
-                success:function(){
-                    items = <?= getJsonSpeseFiltrate($conn);?>
-                    let perPage = 15
-                    displayItems(1, perPage, items)
-                    displayPageNav(perPage, items)
-                }
-            });
-        })
-    }
-</script>
+
 
 <script>
     // gestione modals
@@ -56,7 +19,7 @@
             $(".modal_edit #amount_edit").val(Math.abs(row["importo"]));
             $(".modal_edit #id_edit").val(row["id"]);
             $(".modal_edit #tipo_edit").val(row["importo"] > 0 ? "entrata" : "uscita");
-            //console.log($("#cat_edit > option[value='"+row['categoria']+"']").val());
+            $(".modal_edit #cat_edit > option[value='"+row['id_categoria']+"']").attr('selected', 'true');
         })
     });
 
@@ -91,13 +54,6 @@
                             <p class="text-primary m-0 fw-bold">I tuoi movimenti</p>
                         </div>
                         <div class="card-body">
-                            <?php 
-                                $query ="SELECT nome FROM categoria";
-                                $result = $conn->query($query);
-                                if($result->num_rows> 0){
-                                    $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
-                                }
-                            ?>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-auto">
@@ -364,16 +320,16 @@
 
     const displayPageNav = (perPage, dataset) => {
 
-    let pagination = ""
-    const totalItems = dataSet.length
-    perPage = perPage ? perPage : 1
-    const pages = Math.ceil(totalItems/perPage)
+        let pagination = ""
+        const totalItems = dataSet.length
+        perPage = perPage ? perPage : 1
+        const pages = Math.ceil(totalItems/perPage)
 
-    for(let i = 1; i <= pages; i++) {
-        pagination += `<a class="page-link" href="#" onClick="displayItems(${i},${perPage})" >${i}</a>`
-    }
+        for(let i = 1; i <= pages; i++) {
+            pagination += `<a class="page-link" href="#" onClick="displayItems(${i},${perPage})" >${i}</a>`
+        }
 
-    document.getElementById('pagination').innerHTML = pagination
+        document.getElementById('pagination').innerHTML = pagination
     }
 
     let perPage = 15
