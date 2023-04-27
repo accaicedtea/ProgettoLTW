@@ -172,7 +172,7 @@ function linegraph($conn)
     $array_valori_differenza = array();
     $sql_uscite = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as uscite 
                 from spesa
-                where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.utente = '$username'
+                where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') and spesa.utente = '$username'
                 group by DAY(spesa.data)
                 order by DAY(spesa.data)";
     $result_uscite = $conn->query($sql_uscite);
@@ -199,7 +199,7 @@ function linegraph($conn)
     }
     $sql_entrate = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as entrate
     from spesa 
-    where importo > 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.utente = '$username'
+    where importo > 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username'
     group by DAY(spesa.data)
     order by DAY(spesa.data)";
     $result_entrate = $conn->query($sql_entrate);
@@ -227,7 +227,7 @@ function linegraph($conn)
     }
     $sql_differenza = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as differenza
     from spesa 
-    where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.utente = '$username'
+    where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') and spesa.utente = '$username'
     group by DAY(spesa.data)
     order by DAY(spesa.data)";
     $result_differenza = $conn->query($sql_differenza);
@@ -282,9 +282,9 @@ function piechart($conn)
     $sql = "SELECT categoria.nome as categoria, COALESCE(sum(importo),0) / 
                 (SELECT COALESCE(sum(importo),0)
                 from spesa
-                where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') AND spesa.utente = '$username') as somma, categoria.colore as colore
+                where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username') as somma, categoria.colore as colore
             from spesa join categoria on categoria.id = spesa.categoria
-            where spesa.importo < 0 and DAY(spesa.data) <= DAY('$data_oggi') AND spesa.utente = '$username' AND MONTH(spesa.data) = MONTH('$data_oggi')
+            where spesa.importo < 0 AND spesa.utente = '$username' AND MONTH(spesa.data) < MONTH('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi')
             group by categoria.nome";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -316,28 +316,40 @@ function get_euma($conn)
     $array_dati = [];
     $username = $_SESSION["username"];
     $data_oggi = $_SESSION["data_oggi"];
-    $query = "SELECT COALESCE(sum(importo),0) as somma from spesa where importo > 0 AND spesa.utente = '$username' AND MONTH(spesa.data) = MONTH('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi')";
+    $query = "SELECT COALESCE(sum(spesa.importo),0) as somma
+    from spesa
+    where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) = MONTH('$data_oggi') and importo > 0 and DAY(spesa.data) <= DAY('$data_oggi')";
     $result = $conn->query($query);
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
         $str = abs($row["somma"]) . "€";
         array_push($array_dati, $str);
     }
-    $query = "SELECT COALESCE(sum(importo),0) as somma from spesa where importo < 0 AND spesa.utente = '$username' AND MONTH(spesa.data) = MONTH('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi')";
+    $query = "SELECT COALESCE(sum(spesa.importo),0) as somma
+    from spesa
+    where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) = MONTH('$data_oggi') and importo < 0 and DAY(spesa.data) <= DAY('$data_oggi')";
     $result = $conn->query($query);
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
         $str = abs($row["somma"]) . "€";
         array_push($array_dati, $str);
     }
-    $query = "SELECT COALESCE(sum(importo),0) as somma from spesa where importo > 0 AND spesa.utente = '$username' AND YEAR(spesa.data) = YEAR('$data_oggi')";
+    $query = "SELECT COALESCE(sum(spesa.importo),0) + (select COALESCE(sum(spesa.importo),0)
+    from spesa
+    where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.importo > 0) as somma
+    from spesa
+    where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) < MONTH('$data_oggi') and importo > 0";
     $result = $conn->query($query);
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
         $str = abs($row["somma"]) . "€";
         array_push($array_dati, $str);
     }
-    $query = "SELECT COALESCE(sum(importo),0) as somma from spesa where importo < 0 AND spesa.utente = '$username' AND YEAR(spesa.data) = YEAR('$data_oggi')";
+    $query = "SELECT COALESCE(sum(spesa.importo),0) + (select COALESCE(sum(spesa.importo),0)
+    from spesa
+    where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.importo < 0) as somma
+    from spesa
+    where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) < MONTH('$data_oggi') and importo < 0";
     $result = $conn->query($query);
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
@@ -345,6 +357,164 @@ function get_euma($conn)
         array_push($array_dati, $str);
     }
     return json_encode($array_dati);
+}
+function entrata_graph($conn) {
+    $array_dati = [];
+    $_SESSION['giorni_mese'] = date("t");
+    $giorni_mese = $_SESSION['giorni_mese'];
+    $username = $_SESSION["username"];
+    $data_oggi = $_SESSION["data_oggi"];
+    $array_dati_entrate = array();
+    $array_giorni_entrate = array();
+    $array_valori_entrate= array();
+    $sql_entrate = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as entrate 
+                from spesa
+                where importo > 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') and spesa.utente = '$username'
+                group by DAY(spesa.data)
+                order by DAY(spesa.data)";
+    $result_entrate = $conn->query($sql_entrate);
+    if ($result_entrate->num_rows > 0) {
+        $i = 1;
+        $j = 0;
+        while($row_entrate = $result_entrate->fetch_assoc()) {
+            array_push($array_giorni_entrate, intval($row_entrate['giorno']));
+        }
+        mysqli_data_seek($result_entrate, 0);
+        while($row_entrate = $result_entrate->fetch_assoc()) {
+            array_push($array_valori_entrate, doubleval($row_entrate['entrate']));
+        }
+        while($i <= $giorni_mese) {
+            if (!in_array($i, $array_giorni_entrate,false)) {
+                    array_push($array_dati_entrate, doubleval('0'));
+            }
+            else {
+                array_push($array_dati_entrate, doubleval($array_valori_entrate[$j]));
+                $j++;
+            }
+            $i++;
+        }
+    }
+    $arr_uscite = array(
+        'name' => 'Entrate',
+        'data' => $array_dati_entrate,
+        'color' => '#46A094'
+);
+$series_array_uscite[] = $arr_uscite;
+return json_encode($series_array_uscite);
+}
+function saldo($conn) {
+    $username = $_SESSION['username'];
+    $data_oggi = $_SESSION['data_oggi'];
+    $_SESSION['giorni_mese'] = date("d");
+    $giorni_mese = $_SESSION['giorni_mese'];
+    $array_dati = array();
+    $array_giorni = array();
+    $array_valori = array();
+    $array_saldo = array();
+    //Saldo iniziale
+    $sql_saldo = "SELECT COALESCE(sum(spesa.importo),0) + utente.saldo_ini + (SELECT COALESCE(sum(spesa.importo),0)
+                                                                             from spesa
+                                                                             where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) < MONTH('$data_oggi')) as saldo
+                  from spesa join utente on utente.username = spesa.utente
+                  where spesa.utente = '$username' and YEAR(spesa.data) < YEAR('$data_oggi')";
+    $result = mysqli_query($conn, $sql_saldo);
+    $saldo = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $saldo = $row['saldo'];
+    }
+    //Variazioni di questo mese
+    $sql = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as variazione
+    from spesa join utente on utente.username = spesa.utente
+    where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username'
+    group by DAY(spesa.data)
+    order by DAY(spesa.data)";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $i = 1;
+        $j = 0;
+        while($row = $result->fetch_assoc()) {
+            array_push($array_giorni, intval($row['giorno']));
+        }
+        mysqli_data_seek($result, 0);
+        while($row = $result->fetch_assoc()) {
+            array_push($array_valori, doubleval($row['variazione']));
+        }
+
+        while($i <= $giorni_mese) {
+            if (!in_array($i, $array_giorni,false)) {
+                    array_push($array_dati, doubleval('0'));
+            }
+            else {
+                array_push($array_dati, doubleval($array_valori[$j]));
+                $j++;
+            }
+            $i++;
+        }
+        for($k = 0; $k < $giorni_mese; $k++) {
+            $saldo += $array_dati[$k];
+            array_push($array_saldo, doubleval($saldo));
+        }
+    }
+    return json_encode($array_saldo);
+}
+function saldo_color($saldo) {
+    if ($saldo < 0) return "#E65C4F";
+    else return "#46A094";
+}
+function risparmio($conn) {
+    $username = $_SESSION['username'];
+    $data_oggi = $_SESSION['data_oggi'];
+    $_SESSION['giorni_mese'] = date("d");
+    $giorni_mese = $_SESSION['giorni_mese'];
+    $array_dati = array();
+    $array_giorni = array();
+    $array_valori = array();
+    $array_risparmio = array();
+    //Risparmio iniziale
+    $sql_risparmio = "SELECT COALESCE(sum(spesa.importo),0) + (SELECT COALESCE(sum(spesa.importo),0)
+                                                                from spesa
+                                                                where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) < MONTH('$data_oggi') and spesa.categoria = 6) as risparmio
+                  from spesa
+                  where spesa.utente = '$username' and YEAR(spesa.data) < YEAR('$data_oggi') and spesa.categoria = 6";
+    $result = mysqli_query($conn, $sql_risparmio);
+    $risparmio = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $risparmio = $row['risparmio'];
+    }
+    //Variazioni di questo mese
+    $sql = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as variazione
+    from spesa join utente on utente.username = spesa.utente
+    where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username' and spesa.categoria = 6
+    group by DAY(spesa.data)
+    order by DAY(spesa.data)";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $i = 1;
+        $j = 0;
+        while($row = $result->fetch_assoc()) {
+            array_push($array_giorni, intval($row['giorno']));
+        }
+        mysqli_data_seek($result, 0);
+        while($row = $result->fetch_assoc()) {
+            array_push($array_valori, doubleval($row['variazione']));
+        }
+
+        while($i <= $giorni_mese) {
+            if (!in_array($i, $array_giorni,false)) {
+                    array_push($array_dati, doubleval('0'));
+            }
+            else {
+                array_push($array_dati, doubleval($array_valori[$j]));
+                $j++;
+            }
+            $i++;
+        }
+        for($k = 0; $k < $giorni_mese; $k++) {
+            $risparmio += $array_dati[$k];
+            array_push($array_risparmio, doubleval($risparmio));
+        }
+    }
+    return json_encode($array_risparmio);
 }
 //TODO: INIZIO TOOLS
 // gli passi la pagina da visualizzare
@@ -424,7 +594,11 @@ function navBar($pagina)
                     <a class="nav-link " href="#">Scadenze</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Statistiche</a>
+                    <a class="nav-link <?php if (
+                        $pagina == "Statistiche"
+                    ) {
+                        echo "active";
+                    } ?>" href="./statistiche.php">Statistiche</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if (

@@ -8,7 +8,7 @@ $_SESSION['data_oggi'] = date("Y:m:d");
 if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     navBar($pagina);
     $json_data_piechart = piechart($conn);
-    $json_data_linegraph = linegraph($conn);
+    $json_data_linegraph = entrata_graph($conn);
     $json_data_histogram = histogram($conn);
     $json_giorni_mese = giorni_mese();
 ?>
@@ -18,12 +18,10 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <body id="page-top">
-        
         <div id="wrapper">
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content">
-                    <div class="container">
-                       
+                    <div class="container">  
                         <div class="row justify-content-center mt-3 ">
                             <div id="entrate_mensili" class="col-auto lg-3  card shadow me-2">
                                 <p class="fs-5 mt-2">Entrate mensili</p>
@@ -50,14 +48,14 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                         <div class="row-auto justify-content-center mt-3">
                             <div class="row-auto mt-3 card shadow me-2">
                                 <figure class="highcharts-figure">
-                                    <div id="line graph">
+                                    <div id="area graph">
                                         <script>
-                                            Highcharts.chart('line graph', {
+                                            Highcharts.chart('area graph', {
                                                 chart: {
                                                 type: 'area'
                                                 },
                                                 title: {
-                                                    text: 'Movimenti di questo mese'
+                                                    text: 'Entrate di questo mese'
                                                 },
                                                 credits:{
                                                     enabled: false
