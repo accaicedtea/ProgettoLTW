@@ -6,45 +6,6 @@
     navBar($pagina);
 ?>
 
-<script src=".assets/js/jquery-3.6.4.min.js">
-</script>
-<script>
-    function applicaFiltroCat(){
-        $("#dataTable").ready(function(){
-            var e = document.getElementById("selectCat");
-            var chosen = e.options[e.selectedIndex].text; 
-            $.ajax({
-                url:'filtered_table.php',
-                type:'GET',
-                data:'categoria="' + chosen + '"&tipo=',
-                success:function(){
-                    items = <?= getJsonSpeseFiltrate($conn);?>
-                    let perPage = 15;
-                    displayItems(1, perPage, items);
-                    displayPageNav(perPage, items);
-                }
-            });
-        })
-    }
-
-    function applicaFiltroTipo(){
-        $("#dataTable").ready(function(){
-            var e = document.getElementById("selectTipo");
-            var chosen = e.options[e.selectedIndex].text; 
-            $.ajax({
-                url:'filtered_table.php',
-                type:'GET',
-                data:'tipo="' + chosen + '"&categoria=',
-                success:function(){
-                    items = <?= getJsonSpeseFiltrate($conn);?>
-                    let perPage = 15
-                    displayItems(1, perPage, items)
-                    displayPageNav(perPage, items)
-                }
-            });
-        })
-    }
-</script>
 
 <script>
     // gestione modals

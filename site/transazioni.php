@@ -7,44 +7,35 @@
 ?>
 
 
+<script>
+    // gestione modals
+    $(function () {
+        $(document).on("click", ".editForModal", function () {
+            var row = $(this).data('row');
+            $(".modal_edit #description_edit").val(row["descrizione"]);
+            $(".modal_edit #date_edit").val(row["data"]);
+            $(".modal_edit #amount_edit").val(Math.abs(row["importo"]));
+            $(".modal_edit #id_edit").val(row["id"]);
+            $(".modal_edit #tipo_edit").val(row["importo"] > 0 ? "entrata" : "uscita");
+            //console.log($("#cat_edit > option[value='"+row['categoria']+"']").val());
+        })
+    });
+
+    $(function () {
+        $(document).on("click", ".deleteForModal", function () {
+            var id = $(this).data('id');
+            $(".modal_delete #id_delete").val(id);    
+        })
+    });
+</script>
+
+
+<!-- INIZIO PAGINA HTML -->
+
 <body id="page-top" style="background-color:#e9e9e9;">
     <?php 
-        //check($conn);
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
-            
     ?>
-    <script>
-        function applicaFiltroCat(){
-            var e = document.getElementById("selectCat0");
-            var chosen = e.options[e.selectedIndex].text; 
-            var httpRequest = new XMLHttpRequest();
-            httpRequest.onreadystatechange = gestisciCat;
-            httpRequest.open("GET", "filtered_table.php"+"?categoria="+chosen+"&tipo=", true);
-            httpRequest.send();
-        }
-
-        function gestisciCat(e){
-            if (e.target.readyState == XMLHttpRequest.DONE && e.target.status == 200){
-                document.getElementById("tableBody").innerHTML = e.target.responseText;
-            }
-        }
-
-        function applicaFiltroTipo(){
-            var e = document.getElementById("selectTipo");
-            var chosen = e.options[e.selectedIndex].text; 
-            console.log(chosen);
-            var httpRequest = new XMLHttpRequest();
-            httpRequest.onreadystatechange = gestisciCat;
-            httpRequest.open("GET", "filtered_table.php"+"?tipo="+chosen+"&categoria=", true);
-            httpRequest.send();
-        }
-
-        function gestisciCat(e){
-            if (e.target.readyState == XMLHttpRequest.DONE && e.target.status == 200){
-                document.getElementById("tableBody").innerHTML = e.target.responseText;
-            }
-        }
-    </script>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
@@ -61,13 +52,17 @@
                             <p class="text-primary m-0 fw-bold">I tuoi movimenti</p>
                         </div>
                         <div class="card-body">
-                            
+                            <?php 
+                                $query ="SELECT nome FROM categoria";
+                                $result = $conn->query($query);
+                                if($result->num_rows> 0){
+                                    $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                }
+                            ?>
                             <div class="container">
-                                <!-- Stack the columns on mobile by making one full-width and the other half-width -->
                                 <div class="row">
                                     <div class="col-auto">
-                                        <select id="selectCat0" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
-                                        <option>Tutte le categorie</option>
+                                        <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
                                         </select> 
                                     </div>
                                     <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
@@ -96,16 +91,14 @@
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
                                         <form action="./register_entry.php" method="post" name="insert_form">
-                                            <div class="visually-hidden"><input type="" name="tipo_new" value="entrata"></div>
+                                            <div class="hidden"><input type="" name="tipo_new" value="entrata"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
                                             </div>
                                             <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col">
-                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label>
-                                                        <select id="selectCat1"class="d-inline-block form-select form-select-sm" name="cat_new">
-                                                                <option>Seleziona categoria</option>
+                                                            <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_new" id="cat_newE">
                                                                 </select>&nbsp;
                                                             </div>
                                                         </div>
@@ -141,16 +134,14 @@
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
                                         <form action="./register_entry.php" method="post" name="insert_form">
-                                            <div class="visually-hidden"><input type="" name="tipo_new" value="uscita"></div>
+                                            <div class="hidden"><input type="" name="tipo_new" value="uscita"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
                                             </div>
                                             <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col">
-                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label>
-                                                                <select id="selectCat2" class="d-inline-block form-select form-select-sm" name="cat_new">
-                                                                    <option>Seleziona categoria</option>
+                                                            <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria&nbsp;</strong></label><select class="d-inline-block form-select form-select-sm" name="cat_new" id="cat_newU">
                                                                 </select>&nbsp;
                                                             </div>
                                                         </div>
@@ -181,96 +172,91 @@
                             </div>
 
                             <!-- Inizio tabella -->
-                            <div class="table-responsive table mt-2" id="container" role="grid" aria-describedby="dataTable_info">
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
                                     <thead>
-                                    <tr>
-                                        <th>Data</th>
-                                        <th>Categoria</th>
-                                        <th>Descrizione</th>
-                                        <th>Importo</th>
-                                        <th>Tipo</th>
-                                        <th>Azioni</th>
-                                    </tr>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Categoria</th>
+                                            <th>Descrizione</th>
+                                            <th>Importo</th>
+                                            <th>Tipo</th>
+                                        </tr>
                                     </thead>
                                     <tbody id="tableBody">
-                                         
-                                                   
                                     </tbody>
                                 </table>
-                                <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <!-- INIZIO FORM -->
-                                                                <form action="./edit_entry.php" method="post" name="edit_form">
-                                                                    <div class=""><input type="" name="id_edit" value=""></div>
-                                                                    <div class=""><input type="" name="tipo_edit" value=""></div>
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
-                                                                    </div>
-                                                                    <div class="modal-body left-labels">
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label>
-                                                                                    <select class="d-inline-block form-select form-select-sm" name="cat_edit">
-                                                                                    
-                                                                                    </select>&nbsp;
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" <?php echo 'value = "'.$tuple["descrizione"].'"';?> name="description_edit"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value=<?php echo $tuple['data']?> name="date_edit"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value=<?php echo abs($tuple['importo'])?> name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                                                        <input type="submit" class="btn btn-primary" value="Salva modifiche">
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Modal per ELIMINA-->
-                                                    <div class="modal fade" id="modalDeleteEntry<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="deleteModalLongTitle">Elimina transazione</h5>
-                                                                </div>
-                                                                <div class="modal-body left-labels">
-                                                                    Sei sicuro di voler eliminare la transazione?
-                                                                </div>
-                                                                <form action="./delete_entry.php" method="post" name="delete_form">
-                                                                    <div class="hidden"><input type="" name="id_delete" value=<?php echo $tuple['id']?>></div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                                                        <input type="submit" class="btn btn-danger" value="Si">
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                <div >
-      <nav aria-label="...">
-         <ul id="pagination"  class="pagination pagination-sm">
-         </ul>
-      </nav>
-      </div>
+                                <nav aria-label="...">
+                                    <ul id="pagination"  class="pagination pagination-sm">
+                                    </ul>
+                                </nav>
                             </div>
-            
+
+                            <!-- MODALS -->
+                            <!-- Modal per MODIFICA-->
+                            <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <!-- INIZIO FORM -->
+                                        <form action="./edit_entry.php" method="post" name="edit_form">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
+                                            </div>
+                                            <div class="modal-body left-labels modal_edit">
+                                                <div class="hidden"><input type="" name="id_edit" id="id_edit" value=""></div> 
+                                                <div class="hidden"><input type="" name="tipo_edit" id="tipo_edit" value=""></div> 
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label><select id="cat_edit" class="d-inline-block form-select form-select-sm" name="cat_edit" >
+                                                            </select>&nbsp;
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value="" name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                                <input type="submit" class="btn btn-primary" value="Salva modifiche">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal per ELIMINA-->
+                            <div class="modal fade" id="modalDeleteEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLongTitle">Elimina transazione</h5>
+                                        </div>
+                                        <div class="modal-body left-labels modal_delete">
+                                            Sei sicuro di voler eliminare la transazione?
+                                            <form action="./delete_entry.php" method="post" name="delete_form">
+                                                <div class="hidden"><input type="" name="id_delete" id="id_delete" value=""></div> 
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                    <input type="submit" class="btn btn-danger" value="Si">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,103 +265,84 @@
     </div>
 </body>
 
-
-
 <script>
     window.onload = populateSelect();
     function populateSelect() {
         // THE JSON ARRAY.
-        let data = <?= getJsonCat($conn);?>;
+        let data = <?= getJsonCat($conn)?>;
         
-        let ele = document.getElementById('selectCat0');
+        let ele1 = document.getElementById('selectCat');
+        let ele2 = document.getElementById('cat_edit');
+        let ele3 = document.getElementById('cat_newE');
+        let ele4 = document.getElementById('cat_newU');
+        ele1.innerHTML = ele1.innerHTML + '<option value="Tutte le categorie">Tutte le categorie</option>';
+        list = [ele1, ele2, ele3, ele4];
         for (let i = 0; i < data.length; i++) {
-            // POPULATE SELECT ELEMENT WITH JSON.
-            ele.innerHTML = ele.innerHTML +
-                '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
+            for (element of list)
+                // POPULATE SELECT ELEMENT WITH JSON.
+                element.innerHTML = element.innerHTML + '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
         }
-        ele = document.getElementById('selectCat1');
-        for (let i = 0; i < data.length; i++) {
-            // POPULATE SELECT ELEMENT WITH JSON.
-            ele.innerHTML = ele.innerHTML +
-                '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
-        }
-        ele = document.getElementById('selectCat2');
-        for (let i = 0; i < data.length; i++) {
-            // POPULATE SELECT ELEMENT WITH JSON.
-            ele.innerHTML = ele.innerHTML +
-                '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
-        }
-    }
-    function populateModal(id){
-        
     }
 </script>
 <script>
-   const dataSet = <?= getJsonSpese($conn);?>
+    // attenzione
+    dataSet = <?= getJsonSpese($conn);?>
 
-const displayPageNav = perPage => {
-  
-  let pagination = ``
-  const totalItems = dataSet.length
-  perPage = perPage ? perPage : 1
-  const pages = Math.ceil(totalItems/perPage)
-  
-   for(let i = 1; i <= pages; i++) {
-      pagination += `<a class="page-link" href="#" onClick="displayItems(${i},${perPage})" >${i}</a>`
-   }
+    const displayItems = ( page = 1, perPage = 2, dataset ) => {
 
-   document.getElementById('pagination').innerHTML = pagination
-}
+        let index, offSet;
 
-const displayItems = ( page = 1, perPage = 2 ) => {
-  
-   let index, offSet
+        if(page == 1 || page <=0)  {
+            index = 0
+            offSet = perPage
+        } else if(page > dataSet.length) {
+            index = page - 1
+            offSet = dataSet.length
+        } else {
+            index = page * perPage - perPage
+            offSet = index + perPage
+        }
 
-   if(page == 1 || page <=0)  {
-      index = 0
-      offSet = perPage
-   } else if(page > dataSet.length) {
-      index = page - 1
-      offSet = dataSet.length
-   } else {
-      index = page * perPage - perPage
-      offSet = index + perPage
-   }
+        const slicedItems = dataSet.slice(index, offSet);
+        const html = slicedItems.map(item => 
+        `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
+        <td>${item.data}</td>
+        <td>${item.categoria}</td>
+        <td>${item.descrizione}</td>
+        <td>${Math.abs(item.importo)}</td>
+        <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
+        <td class="buttons"> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
+                                                                    Modifica
+                                                                </button>
+                                                                <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
+                                                                    Elimina
+                                                                </button></td>
+        </tr>`);
 
-   const slicedItems = dataSet.slice(index, offSet)
+        document.querySelector('#tableBody').innerHTML = html.join('');
 
-   const html = slicedItems.map(item => 
-   `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
-   <td>${item.data}</td>
-   <td>${item.categoria}</td>
-   <td>${item.descrizione}</td>
-   <td>${Math.abs(item.importo)}</td>
-   <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-   <td> 
-   <button type="button" onclick="populateModal(1)" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry">
-        Modifica
-    </button>
-    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry">
-        Elimina
-    </button>
-   </td>
-   </tr>`)
+    }
 
-   document.querySelector('#container tbody').innerHTML = html.join('')
- 
-}
+    const displayPageNav = (perPage, dataset) => {
 
-let perPage = 15
-displayPageNav(perPage)
-displayItems(1, perPage)
+    let pagination = ""
+    const totalItems = dataSet.length
+    perPage = perPage ? perPage : 1
+    const pages = Math.ceil(totalItems/perPage)
+
+    for(let i = 1; i <= pages; i++) {
+        pagination += `<a class="page-link" href="#" onClick="displayItems(${i},${perPage})" >${i}</a>`
+    }
+
+    document.getElementById('pagination').innerHTML = pagination
+    }
+
+    let perPage = 15
+    displayItems(1, perPage, dataSet)
+    displayPageNav(perPage, dataSet)
 </script>
-<script>
-   $(document).ready(function(){
-      $('#btnShowModal').click(function{
-         $('#modalModifica').modal('show');
-      });
-   });
-</script>
+
+
 <?php 
 }
 else{

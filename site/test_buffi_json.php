@@ -123,6 +123,138 @@ function validate($data)
     return $data;
 }
 //TODO: INIZIO GRAFICI
+function bar90g($conn)
+{  
+
+    $sql="SELECT nazionalita,count(*) as quanti
+            FROM utente
+            GROUP by nazionalita;";
+    
+    $array = "";
+    $i = 0;
+    $arr ="";
+    
+    $result = $conn->query($sql);
+    $len = $result->num_rows;
+    while ($row = $result->fetch_assoc()) {
+        
+        $arr = "['".$row['nazionalita']."',".$row['quanti']."]";
+        if($len>1){
+             $arr.=",";
+             $len-=1;
+        }
+        $array .= $arr;
+    }
+    return $array;
+    
+}
+function get_eta_per_categorie($conn)
+{
+    //totali gruppati per eta
+    $sql ="SELECT 
+    CASE WHEN (age>=14 and age <=19) THEN '15-19' 
+        WHEN (age>=20 and age <=24) THEN '20-24'
+        WHEN (age>=25 and age <=29) THEN '25-29' 
+        WHEN (age>=30 and age <=34) THEN '30-34' 
+        WHEN (age>=35 and age <=40) THEN '35-40' 
+        WHEN (age>=41 and age <=45) THEN '41-45' 
+        WHEN (age>=46 and age <=51) THEN '46-51' 
+        ELSE '52+' 
+    END AS eta_eta FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso FROM utente) as vista
+    GROUP BY eta_eta;";
+    $array = "";
+    $i = 0;
+    $arr ="";
+     
+    $result = $conn->query($sql);
+    $len = $result->num_rows;
+    while ($row = $result->fetch_assoc()) {
+         
+        $arr = "'".$row['eta_eta']."'";
+        if($len>1){
+            $arr.=",";
+            $len-=1;
+        }
+        $array .= $arr;
+    }
+    return $array;
+}
+function get_eta_sesso_graph($conn,$sesso)
+{
+    //divisione x sesso, gruppati per eta
+    $sql="SELECT count(*) as quanti, 
+    CASE WHEN (age>=15 and age <=19) THEN '15-19' 
+    WHEN (age>=20 and age <=24) THEN '20-24' 
+    WHEN (age>=25 and age <=29) THEN '25-29' 
+    WHEN (age>=30 and age <=34) THEN '30-34' 
+    WHEN (age>=35 and age <=40) THEN '35-40' 
+    WHEN (age>=41 and age <=45) THEN '41-45' 
+    WHEN (age>=46 and age <=51) THEN '46-51' 
+    ELSE '52+' END AS eta_eta 
+    FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso 
+        FROM utente 
+        WHERE sesso=$sesso) as vista
+    GROUP BY eta_eta,sesso;";
+    $result = mysqli_query($conn, $sql);
+    $array = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $array = array(
+            'quanti' => $row['quanti'],
+            'eta' => $row['eta_eta']
+        );
+        $array_series[] = $array;
+    }
+    return json_encode($array_series);
+
+}
+function get_eta_graph($conn)
+{
+    //divisione x sesso, gruppati per eta
+    $sql="SELECT count(*) as quanti, 
+    CASE WHEN (age>=15 and age <=19) THEN '15-19' 
+    WHEN (age>=20 and age <=24) THEN '20-24' 
+    WHEN (age>=25 and age <=29) THEN '25-29' 
+    WHEN (age>=30 and age <=34) THEN '30-34' 
+    WHEN (age>=35 and age <=40) THEN '35-40' 
+    WHEN (age>=41 and age <=45) THEN '41-45' 
+    WHEN (age>=46 and age <=51) THEN '46-51' 
+    ELSE '52+' END AS eta_eta 
+    FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso 
+        FROM utente) as vista
+    GROUP BY eta_eta;";
+    $result = mysqli_query($conn, $sql);
+    $array = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $array = array(
+            'quanti' => $row['quanti'],
+            'eta' => $row['eta_eta']
+        );
+        $array_series[] = $array;
+    }
+    return json_encode($array_series);
+
+}
+function get_array_sesso($json_totali,$json_sesso)
+{
+    $json = json_decode($json_totali, true);
+    $json_s = json_decode($json_sesso,true);
+    $array=array();
+    /*for($i=0;$i<sizeof($json_s);$i++){
+
+        $val_1 = floatval($json_s[$i]['quanti']);
+        $val_2= floatval($json[$i]['quanti']);
+        $array= array(
+            '1' => floatval($val_1),
+            '2' => floatval($val_2)
+        );
+    } $array_series[] = $array;
+
+    return json_encode($array_series);*/
+    for($i=0;$i<sizeof($json_s);$i++){
+        echo "totale di persone di eta".$json_s[$i]['eta'].": ".floatval($json_s[$i]['quanti']);
+        echo "\ntotale di persone di eta di sesso x".$json_s[$i]['eta'].": ".floatval($json_s[$i]['quanti']);
+    }
+}
 function histogram($conn)
 {
     $username = $_SESSION['username'];
@@ -526,7 +658,6 @@ function navBar($pagina)
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-        
     </head>
 <?php
 } ?>

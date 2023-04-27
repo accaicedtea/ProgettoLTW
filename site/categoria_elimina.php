@@ -1,5 +1,8 @@
 <?php
-include './db_conn.php';
+
+require './test_buffi_json.php';
+$conn = db_conn();
+
 $id = $_POST['id_edit'];
 // Performing insert query execution
 

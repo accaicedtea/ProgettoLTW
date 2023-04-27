@@ -1,5 +1,7 @@
 <?php 
-    include './db_conn.php';
+    
+require './test_buffi_json.php';
+$conn = db_conn();
     function getJsonSpeseFiltrate($conn)
     {
         $user = $_SESSION['username'];
