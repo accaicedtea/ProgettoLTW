@@ -19,6 +19,7 @@
             data: {categoria: e.options[e.selectedIndex].text},
             success:function(result){
                 dataSet = result;
+                lastPage = Math.round(dataSet.length/perPage);
                 displayAll(1, 15);
             }
         });
@@ -33,6 +34,7 @@
             data: {tipo: e.options[e.selectedIndex].text},
             success:function(result){
                 dataSet = result;
+                lastPage = Math.round(dataSet.length/perPage);
                 displayAll(1, 15);
             }
         });
