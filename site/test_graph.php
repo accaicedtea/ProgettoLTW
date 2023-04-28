@@ -13,8 +13,9 @@ $conn = db_conn();
     <div id="container"><script>
 // Age categories
 
+// Age categories
 var categories = [
-    <?php echo get_eta_per_graph($conn);?>
+    <?php echo get_eta_per_categorie($conn);?>
 ];
 
 Highcharts.chart('container', {
@@ -87,20 +88,27 @@ Highcharts.chart('container', {
     },
 
     series: [{
-        name: 'Male',
+        name: 'Uomo',
         data: [
-            -5.72, -4.85,
-            -3.71, -2.76, -2.07, -1.70, -1.47,
-            -1.22, -0.99, -0.81, -0.62, -0.41,
-            -0.23, -0.15
+            <?php 
+                $sesso=1;
+                $totali= get_eta_graph($conn);
+                $sesso_uomo = get_eta_sesso_graph($conn,$sesso);
+                $frazione_test=get_array_sesso($totali,$sesso_uomo,$sesso);
+                echo $frazione_test; 
+            ?>
         ]
     }, {
-        name: 'Female',
+        name: 'Donna',
         data: [
-           	5.68, 4.83,
-            3.74, 2.80, 2.14, 1.79, 1.59,
-            1.34, 1.06, 0.83, 0.63, 0.43,
-            0.25, 0.19
+           
+            <?php 
+                $sesso=0;
+                $totali= get_eta_graph($conn);
+                $sesso_uomo = get_eta_sesso_graph($conn,$sesso);
+                $frazione_test=get_array_sesso($totali,$sesso_uomo,$sesso);
+                echo $frazione_test; 
+            ?>
         ]
     }]
 });

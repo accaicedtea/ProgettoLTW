@@ -150,7 +150,7 @@ function bar90g($conn)
 }
 function get_eta_per_categorie($conn)
 {
-    //totali gruppati per eta
+    //categoria gra_fico
     $sql ="SELECT 
     CASE WHEN (age>=14 and age <=19) THEN '15-19' 
         WHEN (age>=20 and age <=24) THEN '20-24'
@@ -161,7 +161,8 @@ function get_eta_per_categorie($conn)
         WHEN (age>=46 and age <=51) THEN '46-51' 
         ELSE '52+' 
     END AS eta_eta FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso FROM utente) as vista
-    GROUP BY eta_eta;";
+    GROUP BY eta_eta
+    order by eta_eta;";
     $array = "";
     $i = 0;
     $arr ="";
@@ -194,7 +195,8 @@ function get_eta_sesso_graph($conn,$sesso)
     FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso 
         FROM utente 
         WHERE sesso=$sesso) as vista
-    GROUP BY eta_eta,sesso;";
+    GROUP BY eta_eta,sesso
+    order by eta_eta;";
     $result = mysqli_query($conn, $sql);
     $array = array();
     while ($row = mysqli_fetch_assoc($result)) {
@@ -221,7 +223,9 @@ function get_eta_graph($conn)
     ELSE '52+' END AS eta_eta 
     FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso 
         FROM utente) as vista
-    GROUP BY eta_eta;";
+    GROUP BY eta_eta
+    order by eta_eta;
+    ";
     $result = mysqli_query($conn, $sql);
     $array = array();
     while ($row = mysqli_fetch_assoc($result)) {
@@ -234,27 +238,45 @@ function get_eta_graph($conn)
     return json_encode($array_series);
 
 }
-function get_array_sesso($json_totali,$json_sesso)
+function get_array_sesso($json_totali,$json_sesso_s,$sesso)
 {
     $json = json_decode($json_totali, true);
-    $json_s = json_decode($json_sesso,true);
-    $array=array();
-    /*for($i=0;$i<sizeof($json_s);$i++){
-
-        $val_1 = floatval($json_s[$i]['quanti']);
-        $val_2= floatval($json[$i]['quanti']);
-        $array= array(
-            '1' => floatval($val_1),
-            '2' => floatval($val_2)
-        );
-    } $array_series[] = $array;
-
-    return json_encode($array_series);*/
-    for($i=0;$i<sizeof($json_s);$i++){
-        echo "totale di persone di eta".$json_s[$i]['eta'].": ".floatval($json_s[$i]['quanti']);
-        echo "\ntotale di persone di eta di sesso x".$json_s[$i]['eta'].": ".floatval($json_s[$i]['quanti']);
+    $json_s = json_decode($json_sesso_s,true);
+    $array = "";
+    $len = sizeof($json);
+    for($i=0;$i<sizeof($json);$i++){
+        $find_this = $json[$i]['eta'];
+        $index=-1;
+        //echo "eta sesso: ".$find_this;
+        for($j=0; $j<sizeof($json_s);$j++){
+            $t_d = $json_s[$j]['eta'];
+            //echo "eta totali: ".$t_d;
+            if($find_this==$t_d){
+                $index=$j;
+            }
+        }
+        if($index!=-1){
+            //ok
+            
+            $perc = $json_s[$index]['quanti']/$json[$i]['quanti'];
+            $perc *= 100;
+            if($sesso==1){
+                $arr = "-".$perc."";
+            }else{
+                $arr = "".$perc."";
+            }
+        }else{
+            $arr = "0";
+        }
+        if($len>1){
+            $arr .= ",";
+            $len -= 1;
+        }
+        $array .= $arr;
     }
+    return $array;
 }
+
 function histogram($conn)
 {
     $username = $_SESSION['username'];
