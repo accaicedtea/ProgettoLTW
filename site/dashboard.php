@@ -11,6 +11,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     $json_data_linegraph = entrata_graph($conn);
     $json_data_histogram = histogram($conn);
     $json_giorni_mese = giorni_mese();
+    echo $json_data_piechart;
 ?>
 <html>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -68,6 +69,10 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                                         text: '€'
                                                     }
                                                 },
+                                                tooltip: {
+                                                    valueDecimals: 2,
+                                                    valueSuffix: "€"
+                                                },
                                                 plotOptions: {
                                                     line: {
                                                         dataLabels: {
@@ -103,7 +108,7 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                                         align: 'left'
                                                     },
                                                     tooltip: {
-                                                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                                        pointFormat: '<b>{point.percentage:.1f}%</b>'
                                                     },
                                                     accessibility: {
                                                         point: {
@@ -169,11 +174,12 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                                 enabled: false
                                                 },
                                                 plotOptions: {
-                                                series: {
-                                                    borderWidth: 0,
-                                                    dataLabels: {
-                                                    enabled: true,
-                                                    }
+                                                    series: {
+                                                        borderWidth: 0,
+                                                        dataLabels: {
+                                                            enabled: true,
+                                                            format: '{y:.2f}€'
+                                                        }
                                                 }
                                                 },
                                             

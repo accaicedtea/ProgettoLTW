@@ -49,10 +49,15 @@
                                                         text: '€'
                                                     }
                                                 },
+                                                tooltip: {
+                                                    valueDecimals: 2,
+                                                    valueSuffix: "€"
+                                                },
                                                 plotOptions: {
                                                     line: {
                                                         dataLabels: {
                                                             enabled: true,
+                                                            format: '{y:.2f} €'
                                                         },
                                                         enableMouseTracking: false
                                                     }
@@ -94,7 +99,9 @@
                                             },
                                             tooltip: {
                                                 crosshairs: true,
-                                                shared: true
+                                                shared: true,
+                                                valueDecimals: 2,
+                                                valueSuffix: "€"
                                             },
                                             plotOptions: {
                                                 spline: {
@@ -145,7 +152,9 @@
                                             },
                                             tooltip: {
                                                 crosshairs: true,
-                                                shared: true
+                                                shared: true,
+                                                valueDecimals: 2,
+                                                valueSuffix: "€"
                                             },
                                             plotOptions: {
                                                 spline: {
@@ -154,7 +163,7 @@
                                                         lineColor: '<?=$colore_risparmio?>',
                                                         lineWidth: 1
                                                     }
-                                                }
+                                                },
                                             },
                                             series: [{
                                                 name: 'Risparmio',

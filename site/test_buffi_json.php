@@ -283,7 +283,7 @@ function piechart($conn)
                 from spesa
                 where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username') as somma, categoria.colore as colore
             from spesa join categoria on categoria.id = spesa.categoria
-            where spesa.importo < 0 AND spesa.utente = '$username' AND MONTH(spesa.data) < MONTH('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi')
+            where spesa.importo < 0 AND spesa.utente = '$username' AND MONTH(spesa.data) = MONTH('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.categoria <> 6
             group by categoria.nome";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -404,7 +404,7 @@ return json_encode($series_array_uscite);
 function saldo($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
-    $_SESSION['giorni_mese'] = date("d");
+    $_SESSION['giorni_mese'] = date("t");
     $giorni_mese = $_SESSION['giorni_mese'];
     $array_dati = array();
     $array_giorni = array();
@@ -463,7 +463,7 @@ function saldo_color($saldo) {
 function risparmio($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
-    $_SESSION['giorni_mese'] = date("d");
+    $_SESSION['giorni_mese'] = date("t");
     $giorni_mese = $_SESSION['giorni_mese'];
     $array_dati = array();
     $array_giorni = array();
