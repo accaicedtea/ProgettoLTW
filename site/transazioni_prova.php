@@ -10,6 +10,34 @@
 
 
 <script>
+    function applicaFiltroCat() {
+        var e = document.getElementById("selectCat");
+        $.ajax({
+            url:"filtered_table.php",   
+            type: "get",   
+            dataType: 'json',
+            data: {categoria: e.options[e.selectedIndex].text},
+            success:function(result){
+                dataSet = result;
+                displayAll(1, 15);
+            }
+        });
+    }
+
+    function applicaFiltroTipo() {
+        var e = document.getElementById("selectTipo");
+        $.ajax({
+            url:"filtered_table.php",    
+            type: "get",    
+            dataType: 'json',
+            data: {tipo: e.options[e.selectedIndex].text},
+            success:function(result){
+                dataSet = result;
+                displayAll(1, 15);
+            }
+        });
+    }
+
     // gestione modals
     $(function () {
         $(document).on("click", ".editForModal", function () {
@@ -57,10 +85,10 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-auto">
-                                        <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="">
+                                        <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
                                         </select> 
                                     </div>
-                                    <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="">
+                                    <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
                                         <option value="tutte" selected="">Tutti i tipi</option>
                                         <option value="entrate">Entrate</option>
                                         <option value="uscite">Uscite</option>
@@ -284,7 +312,6 @@
 <script>
     // attenzione
     dataSet = <?= getJsonSpese($conn);?>;
-    currPage = 1;
     let perPage = 15;
     lastPage = Math.round(dataSet.length/perPage);
 
@@ -292,7 +319,6 @@
 
         let index, offSet;
         var currPage = page;
-        console.log(page);
 
         if(page == 1 || page <=0)  {
             index = 0
@@ -336,9 +362,6 @@
         perPage = perPage ? perPage : 1
         const pages = Math.ceil(totalItems/perPage)
 
-        /*for(let i = 1; i <= pages; i++) {
-            pagination += `<a class="page-link" href="#" onClick="displayItems(${i},${perPage})" >${i}</a>`
-        }*/
         if (page!=1){
             pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(1,${perPage})" ><<</a></li>`
             pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page-1},${perPage})" >Precedente</a></li>`
@@ -355,6 +378,11 @@
     }
 
     displayAll(1, perPage);
+
+    const displayAllFiltered = (page, perPage) => {
+        displayItems(page, perPage)
+        displayPageNav(page, perPage)
+    }
 </script>
 
 
