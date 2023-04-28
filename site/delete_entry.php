@@ -12,9 +12,9 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $query = mysqli_query($conn, $sql);
 
 if($query){
-    header("Location: transazioni_prova.php?msg=Transazione eliminata correttamente");
+    header("Location: transazioni.php?msg=Transazione eliminata correttamente");
 } else{
-    header("Location: transazioni_prova.php?error=Qualcosa è andato storto :(");
+    header("Location: transazioni.php?error=Qualcosa è andato storto :(");
 }
 
 ?>

@@ -18,9 +18,9 @@ require "./test_buffi_json.php";
     $query = mysqli_query($conn, $sql);
 
     if($query){
-        header("Location: transazioni_prova.php?msg=Transazione inserita correttamente");
+        header("Location: transazioni.php?msg=Transazione inserita correttamente");
     } else{
-        header("Location: transazioni_prova.php?error=Qualcosa è andato storto :(");
+        header("Location: transazioni.php?error=Qualcosa è andato storto :(");
     }
 
 ?>

@@ -19,7 +19,7 @@
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-    $query = "SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo FROM spesa s join categoria c on c.id=s.categoria WHERE utente = '$user'";
+    $query = "SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.id as id_categoria, c.nome as categoria,s.importo as importo FROM spesa s join categoria c on c.id=s.categoria WHERE utente = '$user'";
     if ($categoria != "Tutte le categorie") $query .= " AND c.nome = '$categoria'";
     if ($tipo != "Tutti i tipi") $query .= ($tipo=="Entrate" ? " AND importo > 0" : " AND importo < 0");
     $query .= " ORDER BY s.data DESC;";

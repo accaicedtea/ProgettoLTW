@@ -20,9 +20,9 @@ $query = mysqli_query($conn, $sql);
 
 if($query){
     
-    header("Location: transazioni_prova.php?msg=Transazione modificata correttamente");
+    header("Location: transazioni.php?msg=Transazione modificata correttamente");
 } else{
-    header("Location: transazioni_prova.php?error=Qualcosa è andato storto :(");
+    header("Location: transazioni.php?error=Qualcosa è andato storto :(");
 }
 
 ?>
