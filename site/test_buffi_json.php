@@ -107,8 +107,7 @@ function getJsonAdmin($conn)
 }
 function getJsonStati($conn)
 {
-    $sql =
-        "SELECT stati.id_stati as id, stati.nome_stati as nome from stati order by stati.id_stati";
+    $sql = "SELECT stati.nome_stati as nome from stati order by stati.nome_stati";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $array[] = $row;
@@ -176,7 +175,7 @@ function linegraph($conn)
                 group by DAY(spesa.data)
                 order by DAY(spesa.data)";
     $result_uscite = $conn->query($sql_uscite);
-    if ($result_uscite->num_rows > 0) {
+    if ($result_uscite->num_rows >= 0) {
         $i = 1;
         $j = 0;
         while($row_uscite = $result_uscite->fetch_assoc()) {
@@ -203,7 +202,7 @@ function linegraph($conn)
     group by DAY(spesa.data)
     order by DAY(spesa.data)";
     $result_entrate = $conn->query($sql_entrate);
-    if ($result_entrate->num_rows > 0) {
+    if ($result_entrate->num_rows >= 0) {
         $i = 1;
         $j = 0;
         while($row_entrate = $result_entrate->fetch_assoc()) {
@@ -231,7 +230,7 @@ function linegraph($conn)
     group by DAY(spesa.data)
     order by DAY(spesa.data)";
     $result_differenza = $conn->query($sql_differenza);
-    if ($result_differenza->num_rows > 0) {
+    if ($result_differenza->num_rows >= 0) {
         $i = 1;
         $j = 0;
         while($row_differenza = $result_differenza->fetch_assoc()) {
@@ -373,7 +372,7 @@ function entrata_graph($conn) {
                 group by DAY(spesa.data)
                 order by DAY(spesa.data)";
     $result_entrate = $conn->query($sql_entrate);
-    if ($result_entrate->num_rows > 0) {
+    if ($result_entrate->num_rows >= 0) {
         $i = 1;
         $j = 0;
         while($row_entrate = $result_entrate->fetch_assoc()) {
@@ -429,7 +428,7 @@ function saldo($conn) {
     group by DAY(spesa.data)
     order by DAY(spesa.data)";
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
+    if ($result->num_rows >= 0) {
         $i = 1;
         $j = 0;
         while($row = $result->fetch_assoc()) {
@@ -488,7 +487,7 @@ function risparmio($conn) {
     group by DAY(spesa.data)
     order by DAY(spesa.data)";
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
+    if ($result->num_rows >= 0) {
         $i = 1;
         $j = 0;
         while($row = $result->fetch_assoc()) {
@@ -515,6 +514,10 @@ function risparmio($conn) {
         }
     }
     return json_encode($array_risparmio);
+}
+function risparmio_color($risparmio) {
+    if ($risparmio < 0) return "#E65C4F";
+    else return "#99CBFF";
 }
 //TODO: INIZIO TOOLS
 // gli passi la pagina da visualizzare

@@ -14,9 +14,10 @@ require "./test_buffi_json.php";
     //passw criptata
     $encrypted_pwd = md5($password);
     $dataN = $_REQUEST['dataN'];
+    $saldo_ini = intval($_REQUEST['saldo_ini']);
 
     $sql = "INSERT INTO utente  VALUES ('$username', '$nome',
-        '$cognome','$sesso','$nazionalita','$dataN', '$email' ,'$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg')";
+        '$cognome','$sesso','$nazionalita','$dataN', '$email' ,'$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg'), '$saldo_ini'";
 
 
 

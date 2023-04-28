@@ -84,118 +84,113 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
                                 </figure>
                             </div>
                             <div class="row-auto justify-content-center mt-3">
-                               
-                            
                                 <div class="col-auto col-xs-12 card">
-                                <figure class="highcharts-figure">
-                                    <div id="pie chart" class="container">
-                                        <script>
-                                            Highcharts.chart('pie chart', {
-                                                chart: {
-                                                    plotBackgroundColor: null,
-                                                    plotBorderWidth: null,
-                                                    plotShadow: false,
-                                                    type: 'pie'
-                                                },
-                                                credits: {
-                                                    enabled: false
-                                                },
-                                                title: {
-                                                    text: 'Percentuali uscite di <?php if (date("m") == "01") echo "gennaio";if (date("m") == "02") echo "febbraio";if (date("m") == "03") echo "marzo";if (date("m") == "04") echo "aprile";if (date("m") == "05") echo "maggio";if (date("m") == "06") echo "giugno";if (date("m") == "07") echo "luglio";if (date("m") == "08") echo "agosto";if (date("m") == "09") echo "settembre";if (date("m") == "10") echo "ottobre";if (date("m") == "11") echo "novembre";if (date("m") == "12") echo "dicembre";?>',
-                                                    align: 'left'
-                                                },
-                                                tooltip: {
-                                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                                                },
-                                                accessibility: {
-                                                    point: {
-                                                        valueSuffix: '%'
-                                                    }
-                                                },
-                                                plotOptions: {
-                                                    pie: {
-                                                        allowPointSelect: true,
-                                                        cursor: 'pointer',
-                                                        dataLabels: {
-                                                            enabled: true,
-                                                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                    <figure class="highcharts-figure">
+                                        <div id="pie chart" class="container">
+                                            <script>
+                                                Highcharts.chart('pie chart', {
+                                                    chart: {
+                                                        plotBackgroundColor: null,
+                                                        plotBorderWidth: null,
+                                                        plotShadow: false,
+                                                        type: 'pie'
+                                                    },
+                                                    credits: {
+                                                        enabled: false
+                                                    },
+                                                    title: {
+                                                        text: 'Percentuali uscite di <?php if (date("m") == "01") echo "gennaio";if (date("m") == "02") echo "febbraio";if (date("m") == "03") echo "marzo";if (date("m") == "04") echo "aprile";if (date("m") == "05") echo "maggio";if (date("m") == "06") echo "giugno";if (date("m") == "07") echo "luglio";if (date("m") == "08") echo "agosto";if (date("m") == "09") echo "settembre";if (date("m") == "10") echo "ottobre";if (date("m") == "11") echo "novembre";if (date("m") == "12") echo "dicembre";?>',
+                                                        align: 'left'
+                                                    },
+                                                    tooltip: {
+                                                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                                    },
+                                                    accessibility: {
+                                                        point: {
+                                                            valueSuffix: '%'
                                                         }
-                                                    }
-                                                },
-                                                series: [{ 
-                                                    data: <?=$json_data_piechart?>,
-                                                }]
-                                                });
-                                        </script>
-                                    </div>
-                                </figure>
-                                            
+                                                    },
+                                                    plotOptions: {
+                                                        pie: {
+                                                            allowPointSelect: true,
+                                                            cursor: 'pointer',
+                                                            dataLabels: {
+                                                                enabled: true,
+                                                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                                            }
+                                                        }
+                                                    },
+                                                    series: [{ 
+                                                        data: <?=$json_data_piechart?>,
+                                                    }]
+                                                    });
+                                            </script>
+                                        </div>
+                                    </figure>      
                                 </div>
-                                
                                 <div class="col-auto justify-content-center col-xs-12 card">
                                     <figure class="highcharts-figure">
                                         <div id="histogram">
                                             <script>
-                                    <?php $title = "Spese durante l'anno";
-                                    $title = addslashes($title);
-                                    ?>  
-Highcharts.chart('histogram', {
-    chart: {
-      type: 'column'
-    },
-    credits: {
-      enabled:false
-    },
-    title: {
-      align: 'left',
-      text: '<?php echo $title?>'
-    },
-    accessibility: {
-      announceNewData: {
-        enabled: true
-      }
-    },
-    xAxis: {
-      type: 'category',
-      labels: {
-                style: {
-                    fontWeight: 'bold'
-                }
-            }
-    },
-    yAxis: {
-      title: {
-        text: '€'
-      }
-  
-    },
-    legend: {
-      enabled: false
-    },
-    plotOptions: {
-      series: {
-        borderWidth: 0,
-        dataLabels: {
-          enabled: true,
-        }
-      }
-    },
-  
-    tooltip: {
-      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}€<br/>'
-    },
-  
-    series: [{
-      name: 'Spesa del mese',
-      colorByPoint:true,
-      data: <?=$json_data_histogram?>,
-    }]
-  });
-  </script>
+                                                <?php $title = "Spese durante l'anno";
+                                                $title = addslashes($title);
+                                                ?>  
+                                            Highcharts.chart('histogram', {
+                                                chart: {
+                                                type: 'column'
+                                                },
+                                                credits: {
+                                                enabled:false
+                                                },
+                                                title: {
+                                                align: 'left',
+                                                text: '<?php echo $title?>'
+                                                },
+                                                accessibility: {
+                                                announceNewData: {
+                                                    enabled: true
+                                                }
+                                                },
+                                                xAxis: {
+                                                type: 'category',
+                                                labels: {
+                                                            style: {
+                                                                fontWeight: 'bold'
+                                                            }
+                                                        }
+                                                },
+                                                yAxis: {
+                                                title: {
+                                                    text: '€'
+                                                }
+                                            
+                                                },
+                                                legend: {
+                                                enabled: false
+                                                },
+                                                plotOptions: {
+                                                series: {
+                                                    borderWidth: 0,
+                                                    dataLabels: {
+                                                    enabled: true,
+                                                    }
+                                                }
+                                                },
+                                            
+                                                tooltip: {
+                                                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                                                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}€<br/>'
+                                                },
+                                            
+                                                series: [{
+                                                name: 'Spesa del mese',
+                                                colorByPoint:true,
+                                                data: <?=$json_data_histogram?>,
+                                                }]
+                                            });
+                                            </script>
                                         </div>
                                     </figure>
-
                                 </div>
                             </div>
                         </div>

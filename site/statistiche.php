@@ -13,6 +13,9 @@
         $array_saldo = json_decode($json_data_saldo);
         $saldo_finale = intval($array_saldo[$ultimo_giorno_mese - 1]);
         $colore_saldo = saldo_color($saldo_finale);
+        $array_risparmio = json_decode($json_data_risparmio);
+        $risparmio_finale = intval($array_risparmio[$ultimo_giorno_mese - 1]);
+        $colore_risparmio = saldo_color($risparmio_finale);
 ?>
 <html>
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -61,7 +64,8 @@
                                 </div>
                             </figure>
                         </div>
-                        <div class="row card shadow mt-3">
+                        <div class="row mt-3">
+                            <div class="col card shadow">
                             <figure class="highcharts-figure">
                                 <div id="spline graph saldo">
                                     <script>
@@ -110,6 +114,7 @@
                                     </script>
                                 </div>
                             </figure>
+                            </div>
                         </div>
                         <div class="row card shadow mt-3">
                             <figure class="highcharts-figure">
@@ -123,7 +128,7 @@
                                                 enabled: false
                                             },
                                             title: {
-                                                text: 'Saldo di questo mese'
+                                                text: 'Risparmi di questo mese'
                                             },
                                             xAxis: {
                                                 categories: <?=$json_giorni_mese?>,
@@ -146,14 +151,15 @@
                                                 spline: {
                                                     marker: {
                                                         radius: 4,
-                                                        lineColor: '#666666',
+                                                        lineColor: '<?=$colore_risparmio?>',
                                                         lineWidth: 1
                                                     }
                                                 }
                                             },
                                             series: [{
-                                                name: 'Saldo',
-                                                data: <?=$json_data_risparmio?>
+                                                name: 'Risparmio',
+                                                data: <?=$json_data_risparmio?>,
+                                                color: '<?=$colore_risparmio?>'
                                             }]
                                             });
                                     </script>
