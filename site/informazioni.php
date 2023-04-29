@@ -7,16 +7,11 @@
 ?>
 
 <body class="page-top" id="page-top">
-<?php 
-  
-  if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
-?>
-<div "></div>
   <hr class="featurette-divider">
     <div class="row featurette">
       <div class="col-md-7">
         <h2 class="featurette-heading">Hasan <span class="text-muted">Abdel Aziz</span></h2>
-        <p class="lead">My name is Yoshikage Kira. I'm 33 years old. My house is in the northeast section of Morioh, where all the villas are, and I am not married. I work as an employee for the Kame Yu department stores, and I get home every day by 8 PM at the latest. I don't smoke, but I occasionally drink. I'm in bed by 11 PM, and make sure I get eight hours of sleep, no matter what. After having a glass of warm milk and doing about twenty minutes of stretches before going to bed, I usually have no problems sleeping until morning. Just like a baby, I wake up without any fatigue or stress in the morning. I was told there were no issues at my last check-up. I'm trying to explain that I'm a person who wishes to live a very quiet life. I take care not to trouble myself with any enemies, like winning and losing, that would cause me to lose sleep at night. That is how I deal with society, and I know that is what brings me happiness. Although, if I were to fight I wouldn't lose to anyone.</p>
+        <p class="lead">Mi chiamo Abdel Aziz Hasan. Ho 22 anni. La mia casa è nella parte est di Roma, dove ci sono tutti i criminali, e non sono sposato. Sono uno stundente presso Sapienza e torno a casa ogni giorno al massimo alle 19:30. Non fumo, ma bevo occasionalmente. Sono a letto alle 00:00 e mi assicuro di dormire come minimo 8 ore, qualunque cosa accada. Di solito non ho problemi a dormire fino al mattino. Proprio come una persona stanca, al mattino mi sveglio con fatica o stress. Mi è stato detto che forse non c'erano problemi al mio ultimo controllo. Sto cercando di spiegare che sono una persona che desidera vivere una vita molto tranquilla. Faccio attenzione a non disturbarmi con problemi, come vincere e perdere, che mi farebbero perdere il sonno la notte. È così che mi occupo della società e so che è ciò che mi rende felice.</p>
       </div>
       <div class="col-md-5">
         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
@@ -55,5 +50,5 @@
 </footer>
   
 </body>
-<?php } ?>
+
     
