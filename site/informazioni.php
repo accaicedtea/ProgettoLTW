@@ -7,11 +7,6 @@
 ?>
 
 <body class="page-top" id="page-top">
-<?php 
-  
-  if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
-?>
-<div "></div>
   <hr class="featurette-divider">
     <div class="row featurette">
       <div class="col-md-7">
@@ -55,5 +50,5 @@
 </footer>
   
 </body>
-<?php } ?>
+
     
