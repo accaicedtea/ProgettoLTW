@@ -21,7 +21,7 @@
             data: {categoria: e.options[e.selectedIndex].text},
             success:function(result){
                 dataSet = result;
-                lastPage = Math.round(dataSet.length/perPage);
+                lastPage = Math.ceil(dataSet.length/perPage);
                 displayAll(1, 15);
             }
         });
@@ -36,7 +36,7 @@
             data: {tipo: e.options[e.selectedIndex].text},
             success:function(result){
                 dataSet = result;
-                lastPage = Math.round(dataSet.length/perPage);
+                lastPage = Math.ceil(dataSet.length/perPage);
                 displayAll(1, 15);
             }
         });
@@ -314,9 +314,9 @@
     // attenzione
     dataSet = <?= getJsonSpese($conn);?>;
     let perPage = 15;
-    lastPage = Math.round(dataSet.length/perPage);
+    lastPage = Math.ceil(dataSet.length/perPage);
 
-    const displayItems = ( page = 1, perPage = 2, dataset ) => {
+    const displayItems = ( page , perPage , dataset ) => {
 
         let index, offSet;
         var currPage = page;
@@ -338,7 +338,7 @@
         <td>${item.data}</td>
         <td>${item.categoria}</td>
         <td>${item.descrizione}</td>
-        <td>${Math.abs(item.importo)}</td>
+        <td>${Math.abs(item.importo)} &euro;</td>
         <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
         <td class="buttons"> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
                                                                     Modifica
