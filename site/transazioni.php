@@ -7,7 +7,41 @@
 ?>
 
 
+
+<?php 
+    if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
+?>
 <script>
+    function applicaFiltroCat() {
+        var e = document.getElementById("selectCat");
+        $.ajax({
+            url:"filtered_table.php",   
+            type: "get",   
+            dataType: 'json',
+            data: {categoria: e.options[e.selectedIndex].text},
+            success:function(result){
+                dataSet = result;
+                lastPage = Math.round(dataSet.length/perPage);
+                displayAll(1, 15);
+            }
+        });
+    }
+
+    function applicaFiltroTipo() {
+        var e = document.getElementById("selectTipo");
+        $.ajax({
+            url:"filtered_table.php",    
+            type: "get",    
+            dataType: 'json',
+            data: {tipo: e.options[e.selectedIndex].text},
+            success:function(result){
+                dataSet = result;
+                lastPage = Math.round(dataSet.length/perPage);
+                displayAll(1, 15);
+            }
+        });
+    }
+
     // gestione modals
     $(function () {
         $(document).on("click", ".editForModal", function () {
@@ -17,7 +51,7 @@
             $(".modal_edit #amount_edit").val(Math.abs(row["importo"]));
             $(".modal_edit #id_edit").val(row["id"]);
             $(".modal_edit #tipo_edit").val(row["importo"] > 0 ? "entrata" : "uscita");
-            //console.log($("#cat_edit > option[value='"+row['categoria']+"']").val());
+            $(".modal_edit #cat_edit > option[value='"+row['id_categoria']+"']").attr('selected', 'true');
         })
     });
 
@@ -33,9 +67,6 @@
 <!-- INIZIO PAGINA HTML -->
 
 <body id="page-top" style="background-color:#e9e9e9;">
-    <?php 
-        if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
-    ?>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
@@ -52,13 +83,6 @@
                             <p class="text-primary m-0 fw-bold">I tuoi movimenti</p>
                         </div>
                         <div class="card-body">
-                            <?php 
-                                $query ="SELECT nome FROM categoria";
-                                $result = $conn->query($query);
-                                if($result->num_rows> 0){
-                                    $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
-                                }
-                            ?>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-auto">
@@ -186,10 +210,12 @@
                                     <tbody id="tableBody">
                                     </tbody>
                                 </table>
-                                <nav aria-label="...">
-                                    <ul id="pagination"  class="pagination pagination-sm">
-                                    </ul>
-                                </nav>
+                                <div class="mt-2 justify-content-center">
+                                    <nav aria-label="...">
+                                        <ul id="pagination"  class="pagination justify-content-center pagination-sm">
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
 
                             <!-- MODALS -->
@@ -286,11 +312,14 @@
 </script>
 <script>
     // attenzione
-    dataSet = <?= getJsonSpese($conn);?>
+    dataSet = <?= getJsonSpese($conn);?>;
+    let perPage = 15;
+    lastPage = Math.round(dataSet.length/perPage);
 
     const displayItems = ( page = 1, perPage = 2, dataset ) => {
 
         let index, offSet;
+        var currPage = page;
 
         if(page == 1 || page <=0)  {
             index = 0
@@ -322,24 +351,39 @@
         document.querySelector('#tableBody').innerHTML = html.join('');
 
     }
-
-    const displayPageNav = (perPage, dataset) => {
-
-    let pagination = ""
-    const totalItems = dataSet.length
-    perPage = perPage ? perPage : 1
-    const pages = Math.ceil(totalItems/perPage)
-
-    for(let i = 1; i <= pages; i++) {
-        pagination += `<a class="page-link" href="#" onClick="displayItems(${i},${perPage})" >${i}</a>`
+    const displayAll = ( page = 1, perPage = 2 ) => {
+        displayItems(page, perPage)
+        displayPageNav(page, perPage)
     }
 
-    document.getElementById('pagination').innerHTML = pagination
+    const displayPageNav = (page, perPage) => {
+
+        let pagination = ""
+        const totalItems = dataSet.length
+        perPage = perPage ? perPage : 1
+        const pages = Math.ceil(totalItems/perPage)
+
+        if (page!=1){
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(1,${perPage})" ><<</a></li>`
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page-1},${perPage})" >Precedente</a></li>`
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page-1},${perPage})" >${page-1}</a></li>`
+        }
+        pagination += `<li class="page-item active"><a class="page-link" href="#" onClick="displayAll(${page},${perPage})" >${page}</a></li>`
+        if (page!=lastPage){
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page+1},${perPage})" >${page+1}</a></li>`
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page+1},${perPage})" >Successivo</a></li>`
+            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${lastPage},${perPage})" >>></a></li>`
+        }
+
+        document.getElementById('pagination').innerHTML = pagination
     }
 
-    let perPage = 15
-    displayItems(1, perPage, dataSet)
-    displayPageNav(perPage, dataSet)
+    displayAll(1, perPage);
+
+    const displayAllFiltered = (page, perPage) => {
+        displayItems(page, perPage)
+        displayPageNav(page, perPage)
+    }
 </script>
 
 
