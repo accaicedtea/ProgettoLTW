@@ -66,6 +66,51 @@ function getJsonSpese($conn)
     $_SESSION["tipo"] = "Tutti i tipi";
     return json_encode($emparray);
 }
+function getJsonScadenze($conn)
+{
+    $username = $_SESSION["username"];
+    $emparray = [];
+    $data_oggi = $_SESSION["data_oggi"];
+    $sql = "select *
+    from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria
+    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) > Month('$data_oggi')
+    UNION
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) > DAY('$data_oggi')
+    union
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' and YEAR(s.data) > YEAR('$data_oggi')
+    )as vie
+    ORDER BY vie.data;";
+    $result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $emparray[] = $row;
+    }
+    $_SESSION["categoria"] = "Tutte le categorie";
+    $_SESSION["tipo"] = "Tutti i tipi";
+    return json_encode($emparray);
+}
+function getJsonBuffi($conn)
+{
+    $username = $_SESSION["username"];
+    $emparray = [];
+    $data_oggi = $_SESSION["data_oggi"];
+    $sql = "SELECT s.id as id, s.utente as utente, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' AND data is NULL 
+    ORDER BY id DESC;";
+    $result = mysqli_query($conn, $sql);
+    while ($result->num_rows >= 0)
+        while ($row = mysqli_fetch_assoc($result)) {
+            $emparray[] = $row;
+        }
+    $_SESSION["categoria"] = "Tutte le categorie";
+    $_SESSION["tipo"] = "Tutti i tipi";
+    return json_encode($emparray);
+}
 function getJsonSpesa($conn, $id)
 {
     $user = $_SESSION["username"];
@@ -746,7 +791,11 @@ function navBar($pagina)
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Scadenze</a>
+                    <a class="nav-link <?php if (
+                        $pagina == "Visualizza scadenze"
+                    ) {
+                        echo "active";
+                    } ?>" aria-current="page" href="./scadenze.php">Scadenze</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if ($pagina == "Statistiche") {
@@ -755,7 +804,7 @@ function navBar($pagina)
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if (
-                        $pagina == "Buffe e buffetti"
+                        $pagina == "Buffi e buffetti"
                     ) {
                         echo "active";
                     } ?>" href="./buffi.php">Buffi e buffetti</a>
