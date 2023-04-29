@@ -719,12 +719,6 @@ function navBar($pagina)
             </div>
         </nav>
     </div>
-
-    <div class="container card bg-transparent mt-2 mb-4 overflow-hidden  shadow-lg p-3 mb-5  rounded text-center">
-                
-                <p class="h3"><?php echo $pagina; ?></p>
-            </div>
-            
     <?php } 
         //utente loggato
         elseif (isset($_SESSION["log"]) && $_SESSION["log"] == "on") { ?>
@@ -789,12 +783,6 @@ function navBar($pagina)
         </nav>
         
     </div>
-
-    <div class="container card bg-transparent mt-2 mb-4 overflow-hidden  shadow-lg p-3 mb-5  rounded text-center">
-                
-                <p class="h3"><?php echo $pagina; ?></p>
-            </div>
-
     <?php } elseif 
         //random
         (
@@ -827,15 +815,12 @@ function navBar($pagina)
             </div>
         </nav>
     </div>
-
-
-    <div class="container card bg-transparent mt-2 mb-4 overflow-hidden  shadow-lg p-3 mb-5 rounded text-center">
-                
-                <p class="h3"><?php echo $pagina; ?></p>
-            </div>
-    <?php }
-}
-?>
+    <?php } ?>
+    <!-- testo ad ogni inizio pagina -->
+    <div class="container-top-text">
+        <span class="text"> <?php echo $pagina;?> </span>
+    </div>
+<?php } ?>
 <?php function head($pagina)
 {
     ?>
@@ -848,21 +833,30 @@ function navBar($pagina)
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title><?php echo $pagina; ?></title>
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>   
-        <script src="./site/asserts/js/scripts.js"></script>
-        <!-- Option 1: Include in HTML -->
+        
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script><!-- jquery-->
+        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong"> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
         <link rel="stylesheet" href="./assets/css/style.css">
+        <link rel="stylesheet" href="./assets/css/animation.css">
+
+        
+        <script src="./site/asserts/js/scripts.js"></script>
         <script src="./assets/js/register_controlli.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>   
+        
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script><!-- jquery-->
     </head>
 <?php
 } ?>

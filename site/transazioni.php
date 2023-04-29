@@ -1,6 +1,6 @@
 <?php 
     $pagina = 'Visualizza transazioni';
-    require './test_buffi_json.php';
+    require './funzioni.php';
     $conn = db_conn();
     head($pagina);
     navBar($pagina);
@@ -63,7 +63,12 @@
     });
 </script>
 
-
+<style>
+    .bottone-download{
+        --bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;
+}
+    
+</style>
 <!-- INIZIO PAGINA HTML -->
 
 <body id="page-top">
@@ -89,7 +94,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-auto">
+                                    <div class="col-auto ">
                                         <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
                                         </select> 
                                     </div>
@@ -102,13 +107,15 @@
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-auto ">
-                                        <a id="exportJSON" onclick="exportJson(this);" class="btn btn-outline-dark btn-sm"><i class="bi bi-download"></i>Esporta tabella</a>
+                                    <div class="col">
+                                        <a id="exportJSON" onclick="exportJson(this);" class="btn btn-outline-dark btn-sm bottone-download"><i class="bi bi-download bi-sm"></i>Esporta tabella</a>
                                     </div>
-                                    <div class="col-auto ms-auto">
+                                    
+                                    <div class="col"></div>
+                                    <div class="col">
                                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
                                     </div>
-                                    <div class="col-auto ">
+                                    <div class="col">
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
                                     </div>
                                 </div>

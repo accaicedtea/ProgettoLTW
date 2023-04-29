@@ -1,6 +1,6 @@
 <?php
 
-require './test_buffi_json.php';
+require './funzioni.php';
 $conn = db_conn();
 $utente = $_SESSION['username'];
 $id = $_POST['id_delete'];

@@ -1,6 +1,6 @@
 <?php 
     
-require './test_buffi_json.php';
+require './funzioni.php';
 $conn = db_conn();
     $icon = $_POST['test'];
     if( !empty($_SESSION['username']) && !empty($_SESSION['password'])){
