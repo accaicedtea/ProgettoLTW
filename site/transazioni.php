@@ -344,9 +344,9 @@ el.setAttribute("download", "data.json");
     // attenzione
     dataSet = <?= getJsonSpese($conn);?>;
     let perPage = 15;
-    lastPage = Math.round(dataSet.length/perPage);
+    lastPage = Math.ceil(dataSet.length/perPage);
 
-    const displayItems = ( page = 1, perPage = 2, dataset ) => {
+    const displayItems = ( page , perPage , dataset ) => {
 
         let index, offSet;
         var currPage = page;
@@ -368,18 +368,14 @@ el.setAttribute("download", "data.json");
         <td>${item.data}</td>
         <td>${item.categoria}</td>
         <td>${item.descrizione}</td>
-        <td>${Math.abs(item.importo)}</td>
+        <td>${Math.abs(item.importo)} &euro;</td>
         <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-        <td> 
-                
-                    <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
-                        Modifica
-                    </button>
-                    <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
-                        Elimina
-                    </button>       
-        
-        </td>
+        <td> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
+                                                                    Modifica
+                                                                </button>
+                                                                <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
+                                                                    Elimina
+                                                                </button></td>
         </tr>`);
 
         document.querySelector('#tableBody').innerHTML = html.join('');
@@ -419,6 +415,7 @@ el.setAttribute("download", "data.json");
         displayPageNav(page, perPage)
     }
 </script>
+
 
 
 <?php 
