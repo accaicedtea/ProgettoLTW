@@ -47,15 +47,15 @@ function getJsonSpese($conn)
     $sql = "select *
     from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria
-    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) < Month('$data_oggi')
+    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) < Month('$data_oggi') and YEAR(s.data)!=0
     UNION
     SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria 
-    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) <= DAY('$data_oggi')
+    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) <= DAY('$data_oggi') and YEAR(s.data)!=0
     union
     SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria 
-    WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi')
+    WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi') and YEAR(s.data)!=0 
     )as vie
     ORDER BY vie.data DESC;";
     $result = mysqli_query($conn, $sql);
@@ -66,6 +66,7 @@ function getJsonSpese($conn)
     $_SESSION["tipo"] = "Tutti i tipi";
     return json_encode($emparray);
 }
+//TODO: penso che questa si possa anche levare
 function getJsonSpesa($conn, $id)
 {
     $user = $_SESSION["username"];
@@ -309,6 +310,7 @@ function histogram($conn)
             return json_encode($series_array_histogram);
     }
 }
+
 function linegraph($conn)
 {
     $username = $_SESSION['username'];
@@ -465,6 +467,7 @@ function giorni_mese()
     }
     return json_encode($array_giorni_mese);
 }
+
 function get_euma($conn)
 {
     $array_dati = [];
@@ -512,6 +515,7 @@ function get_euma($conn)
     }
     return json_encode($array_dati);
 }
+
 function entrata_graph($conn) {
     $array_dati = [];
     $_SESSION['giorni_mese'] = date("t");
@@ -556,6 +560,7 @@ function entrata_graph($conn) {
 $series_array_uscite[] = $arr_uscite;
 return json_encode($series_array_uscite);
 }
+
 function saldo($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
