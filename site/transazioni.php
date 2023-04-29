@@ -365,17 +365,18 @@ el.setAttribute("download", "data.json");
         const slicedItems = dataSet.slice(index, offSet);
         const html = slicedItems.map(item => 
         `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
-        <td>${item.data}</td>
-        <td>${item.categoria}</td>
-        <td>${item.descrizione}</td>
-        <td>${Math.abs(item.importo)} &euro;</td>
-        <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-        <td> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
-                                                                    Modifica
-                                                                </button>
-                                                                <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
-                                                                    Elimina
-                                                                </button></td>
+            <td>${item.data}</td>
+            <td>${item.categoria}</td>
+            <td>${item.descrizione}</td>
+            <td>${Math.abs(item.importo)} &euro;</td>
+            <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
+            <td><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
+                    Modifica
+                </button>
+                <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
+                    Elimina
+                </button>
+            </td>
         </tr>`);
 
         document.querySelector('#tableBody').innerHTML = html.join('');
