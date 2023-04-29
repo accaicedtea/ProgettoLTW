@@ -66,11 +66,11 @@
 
 <!-- INIZIO PAGINA HTML -->
 
-<body id="page-top" style="background-color:#e9e9e9;">
+<body id="page-top">
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <div class="container fluid mt-5 mb-5">
+                <div class="container fluid  mb-5">
                     <div class="card shadow">
                         <?php if(isset($_GET['msg'])){ ?>
                             <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -85,26 +85,31 @@
                         <div class="card-body">
                             <div class="container">
                                 <div class="row">
+                                    <p class=" m-0 fw-bold">filtri</p>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-auto">
                                         <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
                                         </select> 
                                     </div>
-                                    <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
-                                        <option value="tutte" selected="">Tutti i tipi</option>
-                                        <option value="entrate">Entrate</option>
-                                        <option value="uscite">Uscite</option>
+                                    <div class="col-auto">
+                                        <select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
+                                            <option value="tutte" selected="">Tutti i tipi</option>
+                                            <option value="entrate">Entrate</option>
+                                            <option value="uscite">Uscite</option>
                                         </select>
                                     </div>
-                                    <div class="col-1">
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-auto ">
+                                        <a id="exportJSON" onclick="exportJson(this);" class="btn btn-outline-dark btn-sm"><i class="bi bi-download"></i>Esporta tabella</a>
                                     </div>
                                     <div class="col-auto ms-auto">
                                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
                                     </div>
                                     <div class="col-auto ">
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
-                                    </div>
-                                    <div class="col-auto ms-auto">
-                                        <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search">
                                     </div>
                                 </div>
                             </div>
@@ -201,22 +206,41 @@
                                     <thead>
                                         <tr>
                                             <th>Data</th>
-                                            <th>Categoria</th>
-                                            <th>Descrizione</th>
+                                            <th>Cate.</th>
+                                            <th>Descr.</th>
                                             <th>Importo</th>
                                             <th>Tipo</th>
+                                            <th>Azioni</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tableBody">
                                     </tbody>
                                 </table>
-                                <div class="mt-2 justify-content-center">
-                                    <nav aria-label="...">
-                                        <ul id="pagination"  class="pagination justify-content-center pagination-sm">
-                                        </ul>
-                                    </nav>
-                                </div>
+                                
+                                    
+                                    <div class="col ps-5">
+                                        <nav aria-label="...">
+                                            <ul id="pagination"  class="pagination justify-content-center pagination-sm">
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                
                             </div>
+                            
+
+
+                                        <script>
+function exportJson(el) {
+
+var obj = <?= getJsonSpese($conn);?>;
+var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
+// what to return in order to show download window?
+
+el.setAttribute("href", "data:"+data);
+el.setAttribute("download", "data.json");    
+}
+
+</script>
 
                             <!-- MODALS -->
                             <!-- Modal per MODIFICA-->
@@ -290,7 +314,6 @@
         </div>
     </div>
 </body>
-
 <script>
     window.onload = populateSelect();
     function populateSelect() {
@@ -340,12 +363,16 @@
         <td>${item.descrizione}</td>
         <td>${Math.abs(item.importo)}</td>
         <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-        <td class="buttons"> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
-                                                                    Modifica
-                                                                </button>
-                                                                <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
-                                                                    Elimina
-                                                                </button></td>
+        <td> 
+                
+                    <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
+                        Modifica
+                    </button>
+                    <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
+                        Elimina
+                    </button>       
+        
+        </td>
         </tr>`);
 
         document.querySelector('#tableBody').innerHTML = html.join('');
@@ -390,6 +417,6 @@
 <?php 
 }
 else{
-    header("Location: login.php?error=E tu chi cazzo sei");
+    header("Location: login.php?error=E tu chi sei?");
 }
 ?>
