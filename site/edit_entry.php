@@ -1,6 +1,7 @@
 <?php
 
-include './db_conn.php';
+require './funzioni.php';
+$conn = db_conn();
 $utente = $_SESSION['username'];
 $id = $_POST['id_edit'];
 $descrizione =  $_POST['description_edit'];

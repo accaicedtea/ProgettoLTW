@@ -107,7 +107,8 @@ function getJsonAdmin($conn)
 }
 function getJsonStati($conn)
 {
-    $sql = "SELECT stati.nome_stati as nome from stati order by stati.nome_stati";
+    $sql =
+        "SELECT stati.id_stati as id, stati.nome_stati as nome from stati order by stati.id_stati";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $array[] = $row;
@@ -122,6 +123,160 @@ function validate($data)
     return $data;
 }
 //TODO: INIZIO GRAFICI
+function bar90g($conn)
+{  
+
+    $sql="SELECT nazionalita,count(*) as quanti
+            FROM utente
+            GROUP by nazionalita;";
+    
+    $array = "";
+    $i = 0;
+    $arr ="";
+    
+    $result = $conn->query($sql);
+    $len = $result->num_rows;
+    while ($row = $result->fetch_assoc()) {
+        
+        $arr = "['".$row['nazionalita']."',".$row['quanti']."]";
+        if($len>1){
+             $arr.=",";
+             $len-=1;
+        }
+        $array .= $arr;
+    }
+    return $array;
+    
+}
+function get_eta_per_categorie($conn)
+{
+    //categoria gra_fico
+    $sql ="SELECT 
+    CASE WHEN (age>=14 and age <=19) THEN '15-19' 
+        WHEN (age>=20 and age <=24) THEN '20-24'
+        WHEN (age>=25 and age <=29) THEN '25-29' 
+        WHEN (age>=30 and age <=34) THEN '30-34' 
+        WHEN (age>=35 and age <=40) THEN '35-40' 
+        WHEN (age>=41 and age <=45) THEN '41-45' 
+        WHEN (age>=46 and age <=51) THEN '46-51' 
+        ELSE '52+' 
+    END AS eta_eta FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso FROM utente) as vista
+    GROUP BY eta_eta
+    order by eta_eta;";
+    $array = "";
+    $i = 0;
+    $arr ="";
+     
+    $result = $conn->query($sql);
+    $len = $result->num_rows;
+    while ($row = $result->fetch_assoc()) {
+         
+        $arr = "'".$row['eta_eta']."'";
+        if($len>1){
+            $arr.=",";
+            $len-=1;
+        }
+        $array .= $arr;
+    }
+    return $array;
+}
+function get_eta_sesso_graph($conn,$sesso)
+{
+    //divisione x sesso, gruppati per eta
+    $sql="SELECT count(*) as quanti, 
+    CASE WHEN (age>=15 and age <=19) THEN '15-19' 
+    WHEN (age>=20 and age <=24) THEN '20-24' 
+    WHEN (age>=25 and age <=29) THEN '25-29' 
+    WHEN (age>=30 and age <=34) THEN '30-34' 
+    WHEN (age>=35 and age <=40) THEN '35-40' 
+    WHEN (age>=41 and age <=45) THEN '41-45' 
+    WHEN (age>=46 and age <=51) THEN '46-51' 
+    ELSE '52+' END AS eta_eta 
+    FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso 
+        FROM utente 
+        WHERE sesso=$sesso) as vista
+    GROUP BY eta_eta,sesso
+    order by eta_eta;";
+    $result = mysqli_query($conn, $sql);
+    $array = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $array = array(
+            'quanti' => $row['quanti'],
+            'eta' => $row['eta_eta']
+        );
+        $array_series[] = $array;
+    }
+    return json_encode($array_series);
+
+}
+function get_eta_graph($conn)
+{
+    //divisione x sesso, gruppati per eta
+    $sql="SELECT count(*) as quanti, 
+    CASE WHEN (age>=15 and age <=19) THEN '15-19' 
+    WHEN (age>=20 and age <=24) THEN '20-24' 
+    WHEN (age>=25 and age <=29) THEN '25-29' 
+    WHEN (age>=30 and age <=34) THEN '30-34' 
+    WHEN (age>=35 and age <=40) THEN '35-40' 
+    WHEN (age>=41 and age <=45) THEN '41-45' 
+    WHEN (age>=46 and age <=51) THEN '46-51' 
+    ELSE '52+' END AS eta_eta 
+    FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso 
+        FROM utente) as vista
+    GROUP BY eta_eta
+    order by eta_eta;
+    ";
+    $result = mysqli_query($conn, $sql);
+    $array = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $array = array(
+            'quanti' => $row['quanti'],
+            'eta' => $row['eta_eta']
+        );
+        $array_series[] = $array;
+    }
+    return json_encode($array_series);
+
+}
+function get_array_sesso($json_totali,$json_sesso_s,$sesso)
+{
+    $json = json_decode($json_totali, true);
+    $json_s = json_decode($json_sesso_s,true);
+    $array = "";
+    $len = sizeof($json);
+    for($i=0;$i<sizeof($json);$i++){
+        $find_this = $json[$i]['eta'];
+        $index=-1;
+        //echo "eta sesso: ".$find_this;
+        for($j=0; $j<sizeof($json_s);$j++){
+            $t_d = $json_s[$j]['eta'];
+            //echo "eta totali: ".$t_d;
+            if($find_this==$t_d){
+                $index=$j;
+            }
+        }
+        if($index!=-1){
+            //ok
+            
+            $perc = $json_s[$index]['quanti']/$json[$i]['quanti'];
+            $perc *= 100;
+            if($sesso==1){
+                $arr = "-".$perc."";
+            }else{
+                $arr = "".$perc."";
+            }
+        }else{
+            $arr = "0";
+        }
+        if($len>1){
+            $arr .= ",";
+            $len -= 1;
+        }
+        $array .= $arr;
+    }
+    return $array;
+}
+
 function histogram($conn)
 {
     $username = $_SESSION['username'];
@@ -519,6 +674,7 @@ function risparmio_color($risparmio) {
     if ($risparmio < 0) return "#E65C4F";
     else return "#99CBFF";
 }
+
 //TODO: INIZIO TOOLS
 // gli passi la pagina da visualizzare
 function navBar($pagina)
@@ -546,7 +702,9 @@ function navBar($pagina)
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link ms-3" href="./informazioni.php">Informazioni
+                    <a class="nav-link ms-3 <?php if ($pagina == "Informazioni") {
+                        echo "active";
+                    } ?>" href="./informazioni.php">Informazioni
                     </a>
                 </li>
                 </ul>
@@ -561,12 +719,6 @@ function navBar($pagina)
             </div>
         </nav>
     </div>
-
-    <div class="container card bg-transparent mt-2 mb-4 overflow-hidden  shadow-lg p-3 mb-5  rounded text-center">
-                
-                <p class="h3"><?php echo $pagina; ?></p>
-            </div>
-            
     <?php } 
         //utente loggato
         elseif (isset($_SESSION["log"]) && $_SESSION["log"] == "on") { ?>
@@ -597,9 +749,7 @@ function navBar($pagina)
                     <a class="nav-link " href="#">Scadenze</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php if (
-                        $pagina == "Statistiche"
-                    ) {
+                    <a class="nav-link <?php if ($pagina == "Statistiche") {
                         echo "active";
                     } ?>" href="./statistiche.php">Statistiche</a>
                 </li>
@@ -611,7 +761,9 @@ function navBar($pagina)
                     } ?>" href="./buffi.php">Buffi e buffetti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3" href="./informazioni.php">Informazioni
+                    <a class="nav-link ms-3 <?php if ($pagina == "Informazioni") {
+                        echo "active";
+                    } ?>" href="./informazioni.php">Informazioni
                     </a>
                 </li>
                 </ul>
@@ -631,12 +783,6 @@ function navBar($pagina)
         </nav>
         
     </div>
-
-    <div class="container card bg-transparent mt-2 mb-4 overflow-hidden  shadow-lg p-3 mb-5  rounded text-center">
-                
-                <p class="h3"><?php echo $pagina; ?></p>
-            </div>
-
     <?php } elseif 
         //random
         (
@@ -657,7 +803,9 @@ function navBar($pagina)
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="./informazioni.php">Informazioni
+                    <a class="nav-link <?php if ($pagina == "Informazioni") {
+                        echo "active";
+                    } ?>" href="./informazioni.php">Informazioni
                     </a>
                 </li>
                 </ul>
@@ -667,15 +815,12 @@ function navBar($pagina)
             </div>
         </nav>
     </div>
-
-
-    <div class="container card bg-transparent mt-2 mb-4 overflow-hidden  shadow-lg p-3 mb-5 rounded text-center">
-                
-                <p class="h3"><?php echo $pagina; ?></p>
-            </div>
-    <?php }
-}
-?>
+    <?php } ?>
+    <!-- testo ad ogni inizio pagina -->
+    <div class="container-top-text">
+        <span class="text"> <?php echo $pagina;?> </span>
+    </div>
+<?php } ?>
 <?php function head($pagina)
 {
     ?>
@@ -688,19 +833,30 @@ function navBar($pagina)
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title><?php echo $pagina; ?></title>
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>   
-        <script src="./site/asserts/js/scripts.js"></script>
-        <!-- Option 1: Include in HTML -->
+        
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script><!-- jquery-->
+        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong"> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
         <link rel="stylesheet" href="./assets/css/style.css">
-        <script src="./assets/js/register_controlli.js"></script>
+        <link rel="stylesheet" href="./assets/css/animation.css">
 
         
+        <script src="./site/asserts/js/scripts.js"></script>
+        <script src="./assets/js/register_controlli.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>   
+        
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script><!-- jquery-->
     </head>
 <?php
 } ?>

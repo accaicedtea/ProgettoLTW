@@ -1,7 +1,7 @@
 <?php 
     $pagina = 'Registrazione';
    
-    require './test_buffi_json.php';
+    require './funzioni.php';
     $conn = db_conn();
     head($pagina);
     navBar($pagina);
@@ -37,7 +37,7 @@
                                                         <div class="mb-3"><label class="form-label" for="username"><strong >Nome utente</strong></label><input class="form-control" type="text" id="username" placeholder="username" name="username" onfocus="show_requirements_username()" onblur="remove_requirements_username()" onchange="remove_error_username()"></div>
                                                             <!-- waring msg per username-->
                                                             <div class="mb-3"  id="requirements_username"></div>
-                                                            <div class="errors mb-3" id="errors_username"></div>
+                                                        <div class="errors mb-3" id="errors_username"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -75,21 +75,14 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
+                                                        <div class="errors mb-3" id="errors_nazionalità"></div>
                                                         <div id="selectNazionalita" class="form-outline mb-3"><label class="form-label" for="dataN"><strong >Nazionalità</strong></label>
                                                         <input class="form-control" name="nazionalita" list="selectNazi" id="nazionalita" placeholder="Vedi do cazzo abiti">
                                                         <datalist id="selectNazi">
                                                         </datalist>
                                                         </div>
                                                         <!-- waring msg per nazionalità-->
-                                                        <div class="errors mb-3" id="errors_nazi"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="saldo_ini"><strong >Saldo iniziale</strong></label><input class="form-control" type="text" id="saldo_ini" placeholder="€" name="saldo_ini" onfocus="show_requirements_saldo_ini()" onblur="remove_requirements_saldo_ini()" onchange="remove_error_saldo_ini()"></div>
-                                                            <!-- waring msg per username-->
-                                                            <div class="mb-3"  id="requirements_saldo_ini"></div>
-                                                            <div class="errors mb-3" id="errors_saldo_ini"></div>
+                                                        <div class="requirements" id="requirements_dataN"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -137,7 +130,7 @@
         for (let i = 0; i < birds.length; i++) {
             // POPULATE SELECT ELEMENT WITH JSON.
             ele.innerHTML = ele.innerHTML +
-                '<option value="' + birds[i]['nome'] + '">' + '</option>';
+                '<option value="' + birds[i]['id'] + '">' + birds[i]['nome'] + '</option>';
         }
     }
 </script>

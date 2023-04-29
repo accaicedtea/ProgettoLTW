@@ -1,5 +1,8 @@
 <?php
-include './db_conn.php';
+
+require './funzioni.php';
+$conn = db_conn();
+
 $id = $_POST['id_edit'];
 // Performing insert query execution
 

@@ -1,6 +1,6 @@
 <?php
 //TODO: Gestione errori
-require "./test_buffi_json.php";
+require "./funzioni.php";
  $conn = db_conn();
 $sblockThis = $_POST["sblockthis"];
 $sql = "SELECT password from utente WHERE username='$sblockThis'";

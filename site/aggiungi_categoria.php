@@ -1,6 +1,6 @@
 
 <?php
-require './test_buffi_json.php';
+require './funzioni.php';
 $conn = db_conn();
 if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
     $sql = "SELECT max(id) as id from categoria";

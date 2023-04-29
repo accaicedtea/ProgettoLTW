@@ -1,7 +1,7 @@
 <?php
 // controlli su dati
 
-require "./test_buffi_json.php";
+    require "./funzioni.php";
     $conn = db_conn();
     $username = $_REQUEST['username'];
     $nome =  $_REQUEST['nome'];
@@ -14,10 +14,9 @@ require "./test_buffi_json.php";
     //passw criptata
     $encrypted_pwd = md5($password);
     $dataN = $_REQUEST['dataN'];
-    $saldo_ini = intval($_REQUEST['saldo_ini']);
 
     $sql = "INSERT INTO utente  VALUES ('$username', '$nome',
-        '$cognome','$sesso','$nazionalita','$dataN', '$email' ,'$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg'), '$saldo_ini'";
+        '$cognome','$sesso','$nazionalita','$dataN', '$email' ,'$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg')";
 
 
 

@@ -33,16 +33,6 @@ function remove_requirements_dataN() {
     d.className = "mb-3 ";
     document.getElementById("requirements_dataN").innerHTML = "";
 }
-function show_requirements_saldo_ini() {
-    var d = document.getElementById("requirements_saldo_ini");
-    d.className += " alert alert-warning";
-    document.getElementById("requirements_saldo_ini").innerHTML = "Devi inserire un numero";
-}
-function remove_requirements_saldo_ini() {
-    var d = document.getElementById("requirements_saldo_ini");
-    d.className = "mb-3 ";
-    document.getElementById("requirements_saldo_ini").innerHTML = "";
-}
 
 function validaForm() {
     var password_regex = RegExp("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&])(?=.*[a-zA-Z0-9]).{6,20}")
@@ -96,18 +86,6 @@ function validaForm() {
             }
         }
     }
-    if(document.formreg.nazionalita.value=="") {
-        var d = document.getElementById("errors_nazi");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_nazi").innerHTML = "Errore! Inserisci nazionalità";
-        return false;
-    }
-    if(document.formreg.saldo_ini.value=="" || !document.formreg.saldo_ini.value.isNan()) {
-        var d = document.getElementById("errors_saldo_ini");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_saldo_ini").innerHTML = "Errore! Inserisci un numero";
-        return false;
-    }
     if (document.formreg.email.value == "") {
         var d = document.getElementById("errors_email");
         d.className += " alert alert-danger";
@@ -153,11 +131,6 @@ function remove_error_dataN() {
     var d = document.getElementById("errors_dataN");
     d.className = "mb-3 ";
     document.getElementById("errors_dataN").innerHTML = "";
-}
-function remove_error_username() {
-    var d = document.getElementById("errors_saldo_ini");
-    d.className = "mb-3 ";
-    document.getElementById("errors_saldo_ini").innerHTML = "";
 }
 function remove_error_email() {
     var d = document.getElementById("errors_email");

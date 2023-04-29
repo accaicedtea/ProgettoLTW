@@ -1,6 +1,6 @@
 <?php 
     $pagina = 'Profilo';
-    require './test_buffi_json.php';
+    require './funzioni.php';
     $conn = db_conn();
     head($pagina);
     navBar($pagina);
@@ -37,7 +37,7 @@
                                             <p class="h3 text-center mb-3 mt-3">Profilo</p>
                                         </div>
                                         <!-- qui sicuramente andrà fatto in php tutto quanto-->
-                                <div class="card-body text-center shadow"><img id="pfp" class="rounded-circle mb-3 mt-4" width="160" height="160">
+                                <div id="miaPfp"class="card-body text-center shadow">
                                     <div class="mb-3">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                                     Cambia icona profilo
@@ -239,8 +239,9 @@
             document.getElementById("nome").placeholder = data[0]['nome'];
             document.getElementById("cognome").placeholder = data[0]['cognome'];
             document.getElementById("dataN").value = data[0]['dataN'];
-
-            document.getElementById("pfp").src = data[0]['pfp'];
+            let pfp= data[0]['pfp'];
+            let inner = `<img id="pfp" src ="${pfp} " class="rounded-circle mb-3 mt-4" width="160" height="160>`;
+            document.getElementById("miaPfp").innerHTML = "inner";
             document.getElementById("naz").value = data[0]['nazionalita'];
             document.getElementById("naz").text = data[0]['nome_stati'];
             if(data[0]['sesso']==0){

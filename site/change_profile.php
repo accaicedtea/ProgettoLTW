@@ -1,5 +1,5 @@
 <?php 
-require './test_buffi_json.php';
+require './funzioni.php';
 $conn = db_conn();
 if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
     $username= validate($_POST['username']);

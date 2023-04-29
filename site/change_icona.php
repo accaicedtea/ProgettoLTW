@@ -1,5 +1,7 @@
 <?php 
-    include_once './db_conn.php';
+    
+require './funzioni.php';
+$conn = db_conn();
     $icon = $_POST['test'];
     if( !empty($_SESSION['username']) && !empty($_SESSION['password'])){
         $sus = $_SESSION['username'];

@@ -1,5 +1,5 @@
 <?php 
-    require './test_buffi_json.php';
+    require './funzioni.php';
     $conn = db_conn();
     session_destroy();
     if(isset($_GET['ciaooo'])){
