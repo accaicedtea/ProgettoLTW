@@ -18,7 +18,8 @@ function log_out($conn)
     session_destroy();
     
 }
-    function check($conn)
+//serve??? non mi ricordo
+function check($conn)
 {
     $uname = $_SESSION['username'];
     $passw = $_SESSION['password'];
@@ -28,6 +29,17 @@ function log_out($conn)
         $_SESSION['log']='off';
     }
 }
+function validate($data)
+{
+    $val = array("'",",","\"",";");
+    $data = str_replace($val,"",$data);
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+//TODO: INIZIO JSON
 function getJsonCat($conn)
 {
     $emparray = [];
@@ -143,13 +155,9 @@ function getJsonStati($conn)
     }
     return json_encode($array);
 }
-function validate($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+//TODO: FINE JSON
+
+
 //TODO: INIZIO GRAFICI
 function bar90g($conn)
 {  
