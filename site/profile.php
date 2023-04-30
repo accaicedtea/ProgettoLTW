@@ -35,15 +35,10 @@
                                     <?php }?>
                                         <div class="row-md-3">
                                             <p class="h3 text-center mb-3 mt-3">Profilo</p>
-<<<<<<< HEAD
                                            
                                             <div><img  class="immagineProfilo" src="<?php echo $_SESSION['pfp']?>"></div>
                                         </div>
                                         
-=======
-                                        </div>
-                                        <!-- qui sicuramente andrà fatto in php tutto quanto-->
->>>>>>> modifichebycri
                                 <div id="miaPfp"class="card-body text-center shadow">
                                     <div class="mb-3">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
@@ -180,11 +175,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-<<<<<<< HEAD
                                                         <div class="mb-3"><label class="form-label" for="email"><strong>Indirizzo email</strong></label><input class="form-control" type="email" id="email"  name="email" ></div>
-=======
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Indirizzo email</strong></label><input class="form-control" type="email" id="email"  name="email"></div>
->>>>>>> modifichebycri
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -244,15 +235,6 @@
         window.onload=placeH();
         function placeH() {
             let data = <?= getJsonUtente($conn);?>
-<<<<<<< HEAD
-            document.getElementById("username").placeholder = data[0]['username'];
-            document.getElementById("email").placeholder = "ciao";
-            //data[0]['email'];
-            document.getElementById("nome").placeholder = data[0]['nome'];
-            document.getElementById("cognome").placeholder = data[0]['cognome'];
-            document.getElementById("dataN").value = data[0]['dataN'];
-            
-=======
             
             document.getElementById("username").placeholder = data[0]['username'];
             document.getElementById("email").placeholder = data[0]['email'];
@@ -262,7 +244,6 @@
             let pfp= data[0]['pfp'];
             let inner = `<img id="pfp" src ="${pfp} " class="rounded-circle mb-3 mt-4" width="160" height="160>`;
             document.getElementById("miaPfp").innerHTML = "inner";
->>>>>>> modifichebycri
             document.getElementById("naz").value = data[0]['nazionalita'];
             document.getElementById("naz").text = data[0]['nome_stati'];
             if(data[0]['sesso']==0){
