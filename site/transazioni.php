@@ -232,21 +232,16 @@
                                         </nav>
                                     </div>
                                 
-                            </div>
-                            
-
-
-                                        <script>
-function exportJson(el) {
-
-var obj = <?= getJsonSpese($conn);?>;
-var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
-// what to return in order to show download window?
-
-el.setAttribute("href", "data:"+data);
-el.setAttribute("download", "data.json");    
-}
-
+                            </div>                       
+<script>
+    function exportJson(el) {
+        var obj = <?= getJsonSpese($conn);?>;
+        //formattato
+        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
+        
+        el.setAttribute("href", "data:"+data);
+        el.setAttribute("download", "data.json");    
+    }
 </script>
 
                             <!-- MODALS -->
