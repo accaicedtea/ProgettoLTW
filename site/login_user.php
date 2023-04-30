@@ -9,9 +9,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     $uname = validate($_POST['username']);
     $passw = validate($_POST['password']);
     //controlli che i campi non siano vuoti
-    
-
-    if(empty($uname)){
+   if(empty($uname)){
         header("Location: login.php?error=Inserisci un username per accedere");
         exit();
     }else if(empty($passw)){

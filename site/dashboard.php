@@ -11,7 +11,6 @@ if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     $json_data_linegraph = entrata_graph($conn);
     $json_data_histogram = histogram($conn);
     $json_giorni_mese = giorni_mese();
-    echo $json_data_piechart;
 ?>
 <html>
 <script src="https://code.highcharts.com/highcharts.js"></script>

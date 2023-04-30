@@ -5,6 +5,7 @@ require "./funzioni.php";
     $utente = $_SESSION['username'];
     $descrizione =  $_POST['description_new'];
     $data =  $_POST['date_new'];
+<<<<<<< HEAD
 
     if ($_POST['tipo_new'] == 'entrata') $importo =  $_POST['amount_new'];
     else $importo = -1 * $_POST['amount_new'];
@@ -26,12 +27,21 @@ require "./funzioni.php";
     $categoria = $_POST['cat_new']; 
 
     
+=======
+    if ($_POST['tipo'] == 'entrata')
+        $importo =  $_POST['amount_new'];
+    else $importo = -1 * $_POST['amount_new'];
+    $id = rand(); // deve essere diverso dagli altri id
+    $categoria = $_POST['cat_new'];
+
+>>>>>>> modifichebycri
     // Performing insert query execution
     $sql = "INSERT INTO spesa VALUES ('$id', '$utente', '$importo', '$data', '$descrizione', '$categoria')";
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $query = mysqli_query($conn, $sql);
 
+<<<<<<< HEAD
     
     if($query){
         //allora è una buffo o buffetto
@@ -52,4 +62,13 @@ require "./funzioni.php";
     } else{
         header("Location: transazioni.php?error=Qualcosa è andato storto :(");
     }
+=======
+    if($query){
+        
+        header("Location: transazioni.php?msg=Transazione inserita correttamente");
+    } else{
+        header("Location: transazioni.php?error=Qualcosa è andato storto :(");
+    }
+
+>>>>>>> modifichebycri
 ?>

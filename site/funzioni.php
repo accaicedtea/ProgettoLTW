@@ -59,6 +59,7 @@ function getJsonSpese($conn)
     $sql = "select *
     from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria
+<<<<<<< HEAD
     WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) < Month('$data_oggi') and YEAR(s.data)!=0
     UNION
     SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
@@ -68,6 +69,17 @@ function getJsonSpese($conn)
     SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria 
     WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi') and YEAR(s.data)!=0 
+=======
+    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) < Month('$data_oggi')
+    UNION
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) <= DAY('$data_oggi')
+    union
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi')
+>>>>>>> modifichebycri
     )as vie
     ORDER BY vie.data DESC;";
     $result = mysqli_query($conn, $sql);
@@ -345,7 +357,6 @@ function histogram($conn)
             return json_encode($series_array_histogram);
     }
 }
-
 function linegraph($conn)
 {
     $username = $_SESSION['username'];
@@ -502,7 +513,6 @@ function giorni_mese()
     }
     return json_encode($array_giorni_mese);
 }
-
 function get_euma($conn)
 {
     $array_dati = [];
@@ -550,7 +560,6 @@ function get_euma($conn)
     }
     return json_encode($array_dati);
 }
-
 function entrata_graph($conn) {
     $array_dati = [];
     $_SESSION['giorni_mese'] = date("t");
@@ -595,7 +604,6 @@ function entrata_graph($conn) {
 $series_array_uscite[] = $arr_uscite;
 return json_encode($series_array_uscite);
 }
-
 function saldo($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
@@ -786,7 +794,11 @@ function navBar($pagina)
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Scadenze</a>
+                    <a class="nav-link <?php if (
+                        $pagina == "Visualizza scadenze"
+                    ) {
+                        echo "active";
+                    } ?>" aria-current="page" href="./scadenze.php">Scadenze</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if ($pagina == "Statistiche") {
@@ -795,7 +807,7 @@ function navBar($pagina)
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if (
-                        $pagina == "Buffe e buffetti"
+                        $pagina == "Buffi e buffetti"
                     ) {
                         echo "active";
                     } ?>" href="./buffi.php">Buffi e buffetti</a>
@@ -808,13 +820,9 @@ function navBar($pagina)
                 </li>
                 </ul>
                 
-                <a class="h5 text-white me-3 mt-1 <?php if (
-                    $pagina != "Profilo"
-                ) {
+                <a class="h5 text-white me-3 mt-1 <?php if ($pagina != "Profilo") {
                     echo "fw-normal";
-                } ?>" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION[
-    "username"
-]; ?>
+                } ?>" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION["username"]; ?>
                 </a>
                 
                 <a class="btn btn-sm btn-outline-danger" href="./logout.php" role="button">Logout</a>
