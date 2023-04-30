@@ -157,7 +157,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                                <input type="submit" class="btn btn-primary" value="Salva transazione"></button>
+                                                <input type="submit" class="btn btn-primary" value="Salva transazione">
                                             </div>
                                         </form>
                                     </div>

@@ -126,7 +126,7 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
-                                        <form action="./register_entry_scadenze.php" method="post" name="insert_form">
+                                        <form action="./register_entry.php" method="post" name="insert_form">
                                             <div class="hidden"><input type="" name="tipo_new" value="entrata"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
@@ -169,7 +169,7 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
-                                        <form action="./register_entry_scadenze.php" method="post" name="insert_form">
+                                        <form action="./register_entry.php" method="post" name="insert_form">
                                             <div class="hidden"><input type="" name="tipo_new" value="uscita"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
@@ -255,7 +255,7 @@ el.setAttribute("download", "data.json");
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
-                                        <form action="./edit_entry_scadenze.php" method="post" name="edit_form">
+                                        <form action="./edit_entry.php" method="post" name="edit_form">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                             </div>
@@ -303,7 +303,7 @@ el.setAttribute("download", "data.json");
                                         </div>
                                         <div class="modal-body left-labels modal_delete">
                                             Sei sicuro di voler eliminare la transazione?
-                                            <form action="./delete_entry_scadenze.php" method="post" name="delete_form">
+                                            <form action="./delete_entry.php" method="post" name="delete_form">
                                                 <div class="hidden"><input type="" name="id_delete" id="id_delete" value=""></div> 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>

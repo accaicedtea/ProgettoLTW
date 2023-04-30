@@ -1,27 +1,70 @@
 <?php
+//TODO: da modificare per rendere id incrementale e aggiustare la query per aggiungere l'id categoria
+require "./funzioni.php";
+ $conn = db_conn();
+    $utente = $_SESSION['username'];
+    $descrizione =  $_POST['description_new'];
+    $data =  $_POST['date_new'];
 
-require './funzioni.php';
-$conn = db_conn();
-$utente = $_SESSION['username'];
-$id = $_POST['id_edit'];
-$descrizione =  $_POST['description_edit'];
-$data =  $_POST['date_edit'];
-if ($_POST['tipo_edit'] == 'entrata')
-    $importo =  $_POST['amount_edit'];
-else $importo = -1 * $_POST['amount_edit'];
-$categoria = $_POST['cat_edit'];
+    if ($_POST['tipo_new'] == 'entrata') $importo =  $_POST['amount_new'];
+    else $importo = -1 * $_POST['amount_new'];
 
-// Performing insert query execution
-$sql = "UPDATE spesa SET importo = '$importo', descrizione = '$descrizione', data = '$data', categoria = '$categoria' WHERE utente = '$utente' AND id = '$id'";
+    //prende il massimo valore di una spesa di un certo utente
+    $sql = "SELECT MAX(s.id) as id
+    FROM spesa s JOIN utente u ON s.utente='$utente';";
 
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-$query = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn,$sql);
+    if(mysqli_num_rows($result) === 1){
+        $row = mysqli_fetch_assoc($result);
+        $id=$row['id'];
+        $id+=1;
 
-if($query){
-    
-    header("Location: transazioni.php?msg=Transazione modificata correttamente");
-} else{
-    header("Location: transazioni.php?error=Qualcosa è andato storto :(");
-}
+    }else{
+        $id= rand();
+    }
 
+    $categoria = $_POST['cat_new']; 
+
+
+    // Performing insert query execution
+    if ($data == "") $sql = "INSERT INTO spesa VALUES ('$id', '$utente', '$importo', NULL, '$descrizione', '$categoria')";
+    else $sql = "INSERT INTO spesa VALUES ('$id', '$utente', '$importo', '$data', '$descrizione', '$categoria')";
+
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    $query = mysqli_query($conn, $sql);
+
+
+    if($query){
+        //allora è una buffo o buffetto
+        if($data==NULL){
+            $msg="Il buffo o buffetto è stato inserito correttamente";
+            echo "<script>window.location.href=' buffi.php?msg=$msg'</script>";
+        }else 
+        //allora è una transazione normali
+        if($data<=date("Y-m-d")){
+            $msg="Transazione inserita correttamente";
+            echo "<script>window.location.href=' transazioni.php?msg=$msg'</script>";
+        }else{
+        //allora è una scadenza
+            $msg="Scadenza inserita correttamente puoi visualizzarla nella sezione scadenze";
+            echo "<script>window.location.href=' scadenze.php?msg=$msg'</script>";
+        }
+
+
+        //header("Location: transazioni.php?msg=$msg");
+    } else{
+        if($data==NULL){
+            $msg="Qualcosa è andato storto";
+            echo "<script>window.location.href=' buffi.php?msg=$msg'</script>";
+        }else 
+        //allora è una transazione normali
+        if($data<=date("Y-m-d")){
+            $msg="Qualcosa è andato storto";
+            echo "<script>window.location.href=' transazioni.php?msg=$msg'</script>";
+        }else{
+        //allora è una scadenza
+            $msg="Qualcosa è andato storto";
+            echo "<script>window.location.href=' scadenze.php?msg=$msg'</script>";
+        }
+    }
 ?>

@@ -97,25 +97,11 @@ function getJsonBuffi($conn)
 {
     $username = $_SESSION["username"];
     $emparray = [];
-    $data_oggi = $_SESSION["data_oggi"];
     $sql = "SELECT s.id as id, s.utente as utente, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria 
     WHERE s.utente = '$username' AND data is NULL 
-    ORDER BY id DESC;";
-    $result = mysqli_query($conn, $sql);
-    while ($result->num_rows >= 0)
-        while ($row = mysqli_fetch_assoc($result)) {
-            $emparray[] = $row;
-        }
-    $_SESSION["categoria"] = "Tutte le categorie";
-    $_SESSION["tipo"] = "Tutti i tipi";
-    return json_encode($emparray);
-}
-function getJsonSpesa($conn, $id)
-{
-    $user = $_SESSION["username"];
-    $emparray = [];
-    $sql = "SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo FROM spesa s join categoria c on c.id=s.categoria WHERE utente = '$user' and s.id='$id' Limit 1;";
+    ORDER BY id;";
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $emparray[] = $row;
@@ -800,14 +786,14 @@ function navBar($pagina)
                 <li class="nav-item">
                     <a class="nav-link <?php if ($pagina == "Statistiche") {
                         echo "active";
-                    } ?>" href="./statistiche.php">Statistiche</a>
+                    } ?>" aria-current="page" href="./statistiche.php">Statistiche</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if (
-                        $pagina == "Buffi e buffetti"
+                        $pagina == "Buffi e Buffetti"
                     ) {
                         echo "active";
-                    } ?>" href="./buffi.php">Buffi e buffetti</a>
+                    } ?>" aria-current="page" href="./buffi.php">Buffi e buffetti</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link ms-3 <?php if ($pagina == "Informazioni") {
