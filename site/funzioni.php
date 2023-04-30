@@ -59,7 +59,6 @@ function getJsonSpese($conn)
     $sql = "select *
     from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria
-<<<<<<< HEAD
     WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) < Month('$data_oggi') and YEAR(s.data)!=0
     UNION
     SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
@@ -69,17 +68,6 @@ function getJsonSpese($conn)
     SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria 
     WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi') and YEAR(s.data)!=0 
-=======
-    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) < Month('$data_oggi')
-    UNION
-    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
-    FROM spesa s join categoria c on c.id=s.categoria 
-    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) <= DAY('$data_oggi')
-    union
-    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
-    FROM spesa s join categoria c on c.id=s.categoria 
-    WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi')
->>>>>>> modifichebycri
     )as vie
     ORDER BY vie.data DESC;";
     $result = mysqli_query($conn, $sql);
