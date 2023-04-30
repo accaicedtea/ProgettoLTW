@@ -16,7 +16,7 @@ function db_conn()
 function log_out($conn)
 {
     session_destroy();
-    
+    exit();
 }
 //serve??? non mi ricordo
 function check($conn)

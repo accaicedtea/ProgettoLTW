@@ -37,16 +37,19 @@ require "./funzioni.php";
         //allora è una buffo o buffetto
         if($data==NULL){
             $msg="Il buffo o buffetto è stato inserito correttamente";
-            echo "sono dentro";
+            
+            echo "<script>window.location.href=' buffi.php?msg=$msg'</script>";
         }else 
         //allora è una transazione normali
         if($data<=date("Y-m-d")){
             $msg="Transazione inserita correttamente";
+            echo "<script>window.location.href=' transazioni.php?msg=$msg'</script>";
         }else{
         //allora è una scadenza   
             $msg="Scadenza inserita correttamente puoi visualizzarla nella sezione scadenze";
+            echo "<script>window.location.href=' scadenze.php?msg=$msg'</script>";
         }
-        echo "<script>window.location.href=' transazioni.php?msg=$msg'</script>";
+        
 
         //header("Location: transazioni.php?msg=$msg");
     } else{
