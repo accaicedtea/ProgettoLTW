@@ -317,7 +317,10 @@
     </div>
 </body>
 <script>
-    window.onload = populateSelect();
+    window.onload = function(){
+        populateSelect();
+
+    } 
     function populateSelect() {
         // THE JSON ARRAY.
         let data = <?= getJsonCat($conn)?>;
