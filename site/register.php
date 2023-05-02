@@ -87,7 +87,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Inidirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder="esempio@email.com" name="email" pattern="" onchange="remove_error_email()"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Inidirizzo email</strong></label><input class="form-control" type="email" id="email" placeholder="esempio@email.com" name="email" pattern="[a-z]+([0-9]*[a-z]*)*@[a-z]+.[a-z]{2-3}" onchange="remove_error_email()"></div>
                                                         <!-- waring msg per indirizzo email-->
                                                         <div class="errors mb-3" id="errors_email"></div>
                                                     </div>

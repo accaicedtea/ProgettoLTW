@@ -29,6 +29,8 @@ function check($conn)
         $_SESSION['log']='off';
     }
 }
+
+//TODO: INIZIO CONTROLLO
 function validate($data)
 {
     $val = array("'",",","\"",";");
@@ -38,7 +40,13 @@ function validate($data)
     $data = htmlspecialchars($data);
     return $data;
 }
+function valida_dataN($data){
+    
+}
 
+
+
+//TODO: FINE CONTROLLI
 //TODO: INIZIO JSON
 function getJsonCat($conn)
 {
@@ -349,7 +357,7 @@ function linegraph($conn)
 {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
-    $_SESSION['giorni_mese'] = date("t");
+    $_SESSION['giorni_mese'] = date("D");
     $giorni_mese = $_SESSION['giorni_mese'];
     $array_dati_uscite = array();
     $array_giorni_uscite = array();
@@ -550,7 +558,7 @@ function get_euma($conn)
 }
 function entrata_graph($conn) {
     $array_dati = [];
-    $_SESSION['giorni_mese'] = date("t");
+    $_SESSION['giorni_mese'] = date("d");
     $giorni_mese = $_SESSION['giorni_mese'];
     $username = $_SESSION["username"];
     $data_oggi = $_SESSION["data_oggi"];
