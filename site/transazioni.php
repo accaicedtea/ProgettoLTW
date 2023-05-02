@@ -369,10 +369,10 @@
             <td>${Math.abs(item.importo)} &euro;</td>
             <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
             <td><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
-                    Modifica
+            <i class="bi bi-pen-fill"></i>
                 </button>
                 <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
-                    Elimina
+                <i class="bi bi-trash3-fill"></i>
                 </button>
             </td>
         </tr>`);

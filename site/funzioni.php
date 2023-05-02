@@ -485,7 +485,33 @@ function piechart($conn)
             where spesa.importo < 0 AND spesa.utente = '$username' AND MONTH(spesa.data) = MONTH('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.categoria <> 6
             group by categoria.nome";
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
+    $series_array_piechart[] =array();
+    if ($result->num_rows >= 0) {
+        while ($row = $result->fetch_assoc()) {
+            $arr = array (
+                'name' => $row['categoria'],
+                'y' => doubleval($row['somma']),
+                'color' => $row['colore']
+            );
+            $series_array_piechart[] = $arr;
+        }
+        return json_encode($series_array_piechart);
+    }
+}
+function piechart_filtrato($conn,$mese)
+{
+    $username = $_SESSION['username'];
+    $data_oggi = $_SESSION['data_oggi'];
+    $sql = "SELECT categoria.nome as categoria, COALESCE(sum(importo),0) / 
+                (SELECT COALESCE(sum(importo),0)
+                from spesa
+                where importo < 0 AND MONTH(spesa.data) = $mese and DAY(spesa.data) <= DAY('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username') as somma, categoria.colore as colore
+            from spesa join categoria on categoria.id = spesa.categoria
+            where spesa.importo < 0 AND spesa.utente = '$username' AND MONTH(spesa.data) = $mese AND YEAR(spesa.data) = YEAR('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.categoria <> 6
+            group by categoria.nome";
+    $result = $conn->query($sql);
+    $series_array_piechart[] =array();
+    if ($result->num_rows >= 0) {
         while ($row = $result->fetch_assoc()) {
             $arr = array (
                 'name' => $row['categoria'],

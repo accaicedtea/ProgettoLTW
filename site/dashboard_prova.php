@@ -14,10 +14,6 @@
         $json_giorni_mese = giorni_mese();
         echo $json_data_piechart;
 ?>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 <body id="page-top">
     <div id="wrapper">
