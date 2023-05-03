@@ -16,7 +16,6 @@ function db_conn()
 function log_out($conn)
 {
     session_destroy();
-    exit();
 }
 //serve??? non mi ricordo
 function check($conn)
@@ -33,6 +32,7 @@ function check($conn)
 //TODO: INIZIO CONTROLLO
 function validate($data)
 {
+    if(!isset($data)) return NULL;
     $val = array("'",",","\"",";");
     $data = str_replace($val,"",$data);
     $data = trim($data);
@@ -156,7 +156,7 @@ function getJsonAdmin($conn)
 function getJsonStati($conn)
 {
     $sql =
-        "SELECT stati.id_stati as id, stati.nome_stati as nome from stati order by stati.id_stati";
+        "SELECT * from stati order by nome_stati";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $array[] = $row;
@@ -909,15 +909,11 @@ function navBar($pagina)
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
         
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong"> 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">      
         
-        <link rel="stylesheet" href="./assets/css/style.css">
-        <link rel="stylesheet" href="./assets/css/animation.css">
 
         
-        <script src="./site/asserts/js/scripts.js"></script>
-        <script src="./assets/js/register_controlli.js"></script>
-
+        
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>   
         
