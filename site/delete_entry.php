@@ -2,10 +2,13 @@
 
 require './funzioni.php';
 $conn = db_conn();
-$pagina = $_POST['pagina'];
 $utente = $_SESSION['username'];
 $id = $_POST['id_delete'];
 
+$sql = "select data FROM spesa WHERE id = '$id' AND utente = '$utente'";
+$sql_data = mysqli_query($conn, $sql);
+$data = mysqli_fetch_assoc($sql_data);
+echo $data['data']!=NULL;
 $sql = "DELETE FROM spesa WHERE id = '$id' AND utente = '$utente'";
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
