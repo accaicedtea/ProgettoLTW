@@ -14,6 +14,8 @@ if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
     $sus = $_SESSION['username'];
     $spw = $_SESSION['password'];
     $flag=0;
+    echo empty($_POST['sesso']);
+
     if(!empty($nome) && $nome!= $_SESSION['nome']){
         $sql = "UPDATE utente SET nome='$nome' WHERE username='$sus' AND password='$spw'";
             if((mysqli_query($conn, $sql))){
@@ -54,7 +56,7 @@ if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
         }else goto Error;
     }
 
-    if(!empty( $sesso) &&  $sesso!=$_SESSION['sesso']){
+    if(($sesso==0 || $sesso==1) &&  $sesso!=$_SESSION['sesso']){
         $sql = "UPDATE utente SET sesso='$sesso' WHERE username='$sus' AND password='$spw'";
         if((mysqli_query($conn, $sql))){
             $_SESSION['sesso']= $sesso;
