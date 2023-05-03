@@ -8,7 +8,7 @@
     <?php 
         include './db_conn.php';
         include './navBar.php';
-        require './test_buffi_json.php';
+        require './funzioni.php';
         if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
     ?>
     <script>

@@ -1,6 +1,6 @@
 
 <?php 
-require './test_buffi_json.php';
+require './funzioni.php';
 $conn = db_conn();
 
 if(isset($_POST['username']) && isset($_POST['password'])){

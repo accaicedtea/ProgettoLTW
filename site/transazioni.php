@@ -1,6 +1,6 @@
 <?php 
     $pagina = 'Visualizza transazioni';
-    require './test_buffi_json.php';
+    require './funzioni.php';
     $conn = db_conn();
     head($pagina);
     navBar($pagina);
@@ -85,26 +85,33 @@
                         <div class="card-body">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-auto">
+                                    <p class=" m-0 fw-bold">Filtri</p>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-auto ">
                                         <select id="selectCat" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroCat()">
                                         </select> 
                                     </div>
-                                    <div class="col-auto"><select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
-                                        <option value="tutte" selected="">Tutti i tipi</option>
-                                        <option value="entrate">Entrate</option>
-                                        <option value="uscite">Uscite</option>
+                                    <div class="col-auto">
+                                        <select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroTipo()">
+                                            <option value="tutte" selected="">Tutti i tipi</option>
+                                            <option value="entrate">Entrate</option>
+                                            <option value="uscite">Uscite</option>
                                         </select>
                                     </div>
-                                    <div class="col-1">
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <a id="exportJSON" onclick="exportJson(this);" class="btn btn-outline-dark btn-sm bottone-download"><i class="bi bi-download bi-sm"></i>Esporta tabella</a>
                                     </div>
-                                    <div class="col-auto ms-auto">
+                                    
+                                    <div class="col"></div>
+                                    <div class="col">
                                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
                                     </div>
-                                    <div class="col-auto ">
+                                    <div class="col">
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
-                                    </div>
-                                    <div class="col-auto ms-auto">
-                                        <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search">
                                     </div>
                                 </div>
                             </div>
@@ -205,6 +212,7 @@
                                             <th>Descrizione</th>
                                             <th>Importo</th>
                                             <th>Tipo</th>
+                                            <th>Azione</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tableBody">
@@ -292,6 +300,16 @@
 </body>
 
 <script>
+    function exportJson(el) {
+        var obj = <?= getJsonSpese($conn);?>;
+        //formattato
+        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
+        
+        el.setAttribute("href", "data:"+data);
+        el.setAttribute("download", "data.json");    
+    }
+</script>
+<script>
     window.onload = populateSelect();
     function populateSelect() {
         // THE JSON ARRAY.
@@ -335,16 +353,16 @@
         const slicedItems = dataSet.slice(index, offSet);
         const html = slicedItems.map(item => 
         `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
-        <td>${item.data}</td>
-        <td>${item.categoria}</td>
-        <td>${item.descrizione}</td>
-        <td>${Math.abs(item.importo)} &euro;</td>
-        <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-        <td class="buttons"> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
-                                                                    Modifica
+        <td data-label="Data">${item.data}</td>
+        <td data-label="Categoria">${item.categoria}</td>
+        <td data-label="Descrizione">${item.descrizione}</td>
+        <td data-label="Importo">${Math.abs(item.importo)} &euro;</td>
+        <td data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
+        <td data-label="Azione"> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
+                                                                <i class="bi bi-pencil-square"></i>
                                                                 </button>
                                                                 <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
-                                                                    Elimina
+                                                                <i class="bi bi-trash"></i>
                                                                 </button></td>
         </tr>`);
 

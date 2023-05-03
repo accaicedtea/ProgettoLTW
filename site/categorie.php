@@ -1,6 +1,6 @@
 <?php 
     $pagina='Categorie';
-    require './test_buffi_json.php';
+    require './funzioni.php';
     $conn = db_conn();
     head($pagina);
     ?>   

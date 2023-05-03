@@ -1,6 +1,6 @@
 <?php
 
-require "./test_buffi_json.php";
+require "./funzioni.php";
  $conn = db_conn();
 $blockThis = $_POST["blockthis"];
 $sql = "SELECT password from utente WHERE username='$blockThis'";

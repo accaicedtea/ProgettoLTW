@@ -1,6 +1,6 @@
 <?php 
     $pagina = 'Buffe e buffetti';
-    require './test_buffi_json.php';
+    require './funzioni.php';
     $conn = db_conn();
     head($pagina);
     navBar($pagina);

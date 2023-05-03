@@ -1,5 +1,5 @@
 <?php 
-    include "./test_buffi_json.php";
+    include "./funzioni.php";
     $conn = db_conn();
 
     $user = $_SESSION['username'];
