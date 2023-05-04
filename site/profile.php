@@ -112,24 +112,38 @@
     animation-name: left;
     animation-duration: 1s;
 }
-.minno{
-    top:-432px;
+.leftToF-3{
+    animation-name: left;
+    animation-duration: 3s;
 }
 .topToF {
     animation-name: top;
     animation-duration: 2s;
 }
-
 @keyframes top {
-    0%  {top:-600px; }
-    100% {top:0px; }
+    0%  {top:-1200px;}
+    100% {top:0px;}
 }
+
 
 @keyframes left {
-    0%  {left:-200px; }
+    0%  {left:-800px; }
     100% {left:0px; }
 }
-
+@media screen and (min-width: 800px) {
+    .minno{
+                top:-414px;
+    }
+    img{
+        width:170px;
+        height:170px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .mb{
+        margin-bottom: 22px;
+    }
+}
 .fade-in {
     animation-name: fade-in;
     animation-duration: 2s;
@@ -137,7 +151,7 @@
 
 @keyframes fade-in {
     0%{opacity: 0;}
-    30%{opacity: 0;}
+    30%{opacity: .5;}
     100% {opacity: 1;}
 }
 
@@ -150,17 +164,20 @@
 
 @keyframes cambia-colore {
   0% {
-    background-color: #00b4db;
+    background-color: #c2c086;
   }
   50% {
-    background-color: #0083b0;
+    background-color: #edebbb;
   }
   100% {
-    background-color: #00b4db;
+    background-color: #c2c086;
   }
 }
 
-
+.giga-big{
+    width:170px;
+        height:170px;
+}
 
 </style>
 <?php if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
@@ -168,35 +185,54 @@
         navBar($pagina);
     ?>
 <body id="page-top ">
+
     <div class="container-fluid sfondo-animato">
         <div class="row row-cols-1  row-cols-md-2 ">
             <div class="col mt-5 " id="div1">
                 <div class="card text-center shadow mb-3 leftToF">
-                    <div class="card-header">
+                    <div class="card-header py-3">
                     <?php if(isset($_GET['msg'])){ ?>
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
                                         </div>
+                                        <script>
+setTimeout(function() {
+  var alert = document.querySelector('.alert');
+  var bsAlert = new bootstrap.Alert(alert);
+  bsAlert.close();
+}, 1000);
+</script>
                                     <?php }?>
                                     <?php if(isset($_GET['error'])){ ?>
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>UPS! </strong><?php echo $_GET['error']; ?>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
+                                        <script>
+setTimeout(function() {
+  var alert = document.querySelector('.alert');
+  var bsAlert = new bootstrap.Alert(alert);
+  bsAlert.close();
+}, 1000);
+</script>
                                     <?php }?>
-                        <p class="text-primary m-0 fw-bold " >Profilo di</p>
-                        <p class="m-0 h5 fw-bold text-center" id="username"></p>
+                                   
+                                        <p class="text-primary m-0 fw-bold text-start">Profilo <i class="bi bi-person-bounding-box"></i></p>
+                                    
                     </div>
                     <div>
-                        <img id="pfp" src="" class="rounded-circle mb-3 mt-4 fade-in" width="100" height="100">
+                        <img id="pfp" src="" class="rounded-circle fade-in" width="100" height="100">
                     </div>
+                    <p class="m-0 h5 fw-bold text-center text-primary" >Username dell'utente</p>
                     
+                    <p class="m-0 h5 fw-bold text-center" id="username"></p>
                     <div class="card-body text-center">
 
-                        <button type="button" class="btn btn-primary btn-sm fade-in" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                        <button type="button" class="btn btn-primary btn-sm fade-in mb mt-5" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                             Cambia icona profilo
                         </button>
+                        
                         <!-- INIZIO MODAL MODIFICA ICONA PROFILO-->
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -288,7 +324,45 @@
                         <!-- FINE MODAL MODIFICA-->
                     </div>
                 </div>
-                
+
+                <div class="card shadow mb-3 leftToF-3">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 fw-bold text-start">Dati utente <i class="bi bi-person-bounding-box"></i></p>
+                    </div>
+                    <div class="card-body">
+                        
+                            <div class="row">
+                                <div class="col">
+                                    
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="saldo" name="saldo">
+                                        <label for="saldo">Saldo</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="email@example.com">
+                                        <label for="email">Email</label>
+                                        
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="password" name="password" placeholder="password">
+                                        <label for="cognome">Password</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC">
+                                        <label for="cognome">Conferma password</label>
+                                    </div> 
+                                    
+                                    <div>
+                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                    </div>       
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
 
@@ -401,127 +475,13 @@
                 </div>
                 
             </div>
-            <div class="col">
+            
 
 
 
 
 
-            <div class="card text-center shadow mb-3 leftToF minno">
-                    <div class="card-header">
-                        <p class="text-primary m-0 fw-bold " >Scarica in vari formati la tabella delle transazioni</p>
-                        
-                    </div>
-                    <div>
-                        <img id="pfp" src="" class="rounded-circle mb-3 mt-4 fade-in" width="100" height="100">
-                    </div>
-                    
-                    <div class="card-body text-center">
-
-                        <button type="button" class="btn btn-primary btn-sm fade-in" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                            Cambia icona profilo
-                        </button>
-                        <!-- INIZIO MODAL MODIFICA ICONA PROFILO-->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="./change_icona.php" method="post" name="form-change-icon" class="form-change-icon">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="mb-3">
-                                                        <label>
-                                                            <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-anime-sama.svg" checked >
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-anime-sama.svg" alt="Option 1" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-futurama-bender.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-futurama-bender.svg" alt="Option 2" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-genshin-impact-xiao.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-genshin-impact-xiao.svg" alt="Option 3" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-hello-kitty.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-hello-kitty.svg" alt="Option 4" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-homer-simpson.svg" >
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-homer-simpson.svg" alt="Option 5" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-impero.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-impero.svg" alt="Option 6" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-iron-man.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-iron-man.svg" alt="Option 7" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-jake.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-jake.svg" alt="Option 8" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-kaedehara-kazuha.svg" >
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-kaedehara-kazuha.svg" alt="Option 9" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-koya-bt21.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-koya-bt21.svg" alt="Option 10" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-maschera-anonimo.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-maschera-anonimo.svg" alt="Option 11" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-mummia.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-mummia.svg" alt="Option 12" width="50" height="50">
-                                                        </label>                                                        
-                                                        <label>
-                                                            <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-walter-white.svg" >
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-walter-white.svg" alt="Option 13" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-super-mario.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-super-mario.svg" alt="Option 14" width="50" height="50" >
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-rebel.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-rebel.svg" alt="Option 15" width="50" height="50">
-                                                        </label>
-                                                        <label>
-                                                            <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-pokemon.svg">
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-pokemon.svg" alt="Option 16" width="50" height="50">
-                                                        </label>  
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Chiudi</button>
-                                                <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  
-
-
-
-
-
-
-
-
-
-
-
-
-            </div>
+            
         <!-- fine row-->
         </div>
     </div>
@@ -544,7 +504,7 @@ function placeH() {
     document.getElementById("dataN").value = data[0]['dataN'];
 
     document.getElementById("nazionalita").placeholder = data[0]['nome_stati'];
-    document.getElementById("saldo").value = data[0]["saldo"];
+    document.getElementById("saldo").value = data[0]["saldo_ini"];
     if(data[0]['sesso']==0){
         
         
@@ -586,7 +546,124 @@ function placeH() {
     }
 </script>
 
-<?php }else{
+<?php }else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
+            head($pagina);
+            navBar($pagina);
+    ?>
+<body id="page-top ">
+    <div class="container-fluid sfondo-animato">
+        <div class="row row-cols-1  row-cols-md-2 ">
+            <div class="col mt-5 " >
+                <div class="card text-center shadow mb-3 leftToF">
+                    <div class="card-header">
+                    <?php if(isset($_GET['msg'])){ ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        <script>
+setTimeout(function() {
+  var alert = document.querySelector('.alert');
+  var bsAlert = new bootstrap.Alert(alert);
+  bsAlert.close();
+}, 1000);
+</script>
+                                    <?php }?>
+                                    <?php if(isset($_GET['error'])){ ?>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>UPS! </strong><?php echo $_GET['error']; ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        <script>
+setTimeout(function() {
+  var alert = document.querySelector('.alert');
+  var bsAlert = new bootstrap.Alert(alert);
+  bsAlert.close();
+}, 1000);
+</script>
+                                    <?php }?>
+                        <p class="text-primary m-0 fw-bold h3" >Profilo</p>
+                        <p class="m-0 h5 fw-bold text-center" id="username"></p>
+                    </div>
+
+                    <div class="card-body">
+                        <img src="./assets/img/person-circle.svg" class="rounded-circle fade-in" width="100" height="100">
+                        <p class="h4 fw-bold text-center text-danger" >Profilo amministratore</p>
+                    </div>
+                 
+                </div>
+                
+            </div>
+
+
+            <div class="col-6 mt-5">
+                <div class="card shadow mb-3 topToF">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 fw-bold text-start">Cambia informazioni utente <i class="bi bi-person-bounding-box"></i></p>
+                    </div>
+                    <div class="card-body ">
+                        <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
+                            <div class="row">
+                                <div class="col">
+                                    
+                                    <div class="form-floating mb-3">
+                                        
+                                        <input type="text" class="form-control" name="nome" id="nome" placeholder="nome">
+                                        <label for="nome">Nome</label>
+                                        
+                                    </div>
+                                   
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="password" name="password" placeholder="password">
+                                        <label for="cognome">Password</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC">
+                                        <label for="cognome">Conferma password</label>
+                                    </div> 
+
+                                    
+                                    <div>
+                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                    </div>  
+                                        
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+
+              
+                
+            </div>
+
+
+
+
+
+        <!-- fine row-->
+        </div>
+    </div>
+</body>
+<script>
+window.onload= function(){
+    placeH();    
+}
+function placeH() {
+    let data = <?= getJsonUtente($conn);?>
+    
+    document.getElementById("username").innerHTML = data[0]['username'];
+    document.getElementById("nome").value = data[0]['nome'];
+    
+}    
+ 
+</script>
+
+
+  <?php
+    }else{
         header("Location: login.php?error=Credo tu debba accedere prima");
     }
 ?>

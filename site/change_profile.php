@@ -1,9 +1,15 @@
 <?php 
 require './funzioni.php';
 $conn = db_conn();
-
+function p($data,$patt){
+    if (!preg_match($patt, $data)) {
+        echo "<script>window.location.href=' profile.php?error=Qualcosa è andato storto controlla le credenziali'</script>";
+        return null;
+    } 
+    return $data;
+}
 if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
-    $nome = validate($_POST['nome']);
+    $nome = validate($_POST['nome'],);
     $cognome = validate($_POST['cognome']);
     $dataN = validate($_POST['dataN']);
     $email = validate($_POST['email']);
@@ -14,9 +20,10 @@ if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
     $sus = $_SESSION['username'];
     $spw = $_SESSION['password'];
     $flag=0;
-    echo empty($_POST['sesso']);
-
+    //echo empty($_POST['sesso']);
+    //cotrolli in php + inserimento
     if(!empty($nome) && $nome!= $_SESSION['nome']){
+        $nome = p($nome,"[A-Za-z ]{1,32}");
         $sql = "UPDATE utente SET nome='$nome' WHERE username='$sus' AND password='$spw'";
             if((mysqli_query($conn, $sql))){
                 $_SESSION['nome']= $nome;
@@ -25,6 +32,7 @@ if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
     }
     
     if(!empty($cognome) && $cognome!=$_SESSION['cognome']){
+        $cognome= p($cognome,"[A-Za-z ]{1,32}");
         $sql = "UPDATE utente SET cognome='$cognome' WHERE username='$sus' AND password='$spw'";
         if((mysqli_query($conn, $sql))){
             $_SESSION['cognome'] = $cognome;
@@ -41,6 +49,7 @@ if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
     }
 
     if(!empty($email) &&  $email!=$_SESSION['email']){
+        $email = p($email,"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$");
         $sql = "UPDATE utente SET email='$email' WHERE username='$sus' AND password='$spw'";
         if((mysqli_query($conn, $sql))){
             $_SESSION['email']= $email;
@@ -66,7 +75,8 @@ if(isset($_SESSION['log']) && $_SESSION['log']=='on'){
         }
     }
     if(!empty( $pasw) && !empty( $paswC) && md5( $pasw)!=$_SESSION['password'] &&  $pasw== $paswC){
-        $password=md5( $pasw);
+        $pasw = p($pasw,"/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
+        $password=md5($pasw);
         $sql = "UPDATE utente SET password='$password' WHERE username='$sus' AND password='$spw'";
         if((mysqli_query($conn, $sql))){
             $_SESSION['password']=$password;
@@ -85,6 +95,44 @@ A:
 Error:
     echo "<script>window.location.href=' profile.php?error=Qualcosa è andato storto'</script>";
 
+}else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
+    $nome = validate($_POST['nome']);
+    $pasw= validate($_POST['password']);
+    $paswC= validate($_POST['passwordC']);
+
+    $sus = $_SESSION['username'];
+    $spw = $_SESSION['password'];
+    $flag=0;
+    
+    if(!empty($nome) && $nome!= $_SESSION['nome']){
+        $nome = p($nome,"[A-Za-z ]{1,32}");
+        $sql = "UPDATE admin SET nome='$nome' WHERE id='$sus' AND password='$spw'";
+            if((mysqli_query($conn, $sql))){
+                $_SESSION['nome']= $nome;
+                $flag+=1;
+            }else goto Error;
+    }
+
+    if(!empty( $pasw) && !empty( $paswC) && md5($pasw)!=$_SESSION['password'] &&  $pasw== $paswC){
+        $pasw = p($pasw,"/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
+        $password=md5( $pasw);
+        $sql = "UPDATE admin SET password='$password' WHERE username='$sus' AND password='$spw'";
+        if((mysqli_query($conn, $sql))){
+            $_SESSION['password']=$password;
+            $flag+=1;
+            log_out($conn); 
+            goto A;
+        }else{
+            goto Error;
+        }
+    }
+if($flag!=0) echo "<script>window.location.href=' profile.php?msg=Profilo aggiornato correttemente correttamente'</script>";
+
+else echo "<script>window.location.href=' profile.php?msg=Nulla è stato cambiato gg'</script>";
+
+
+}else{
+    header("Location: home.php");
 }
 ?>
 
