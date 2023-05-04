@@ -1,9 +1,9 @@
 <?php 
   $pagina='Informazioni';
   require './funzioni.php';
-  $conn = db_conn();
-  head($pagina);
-  navBar($pagina);
+    $conn = db_conn();
+    head($pagina);
+    navBar($pagina);
 ?>
 
 <body class="page-top" id="page-top">

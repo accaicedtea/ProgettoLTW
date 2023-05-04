@@ -1,5 +1,5 @@
 <?php 
-    $pagina = 'Buffi e Buffetti';
+    $pagina = 'Visualizza scadenze';
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
@@ -47,6 +47,7 @@
         $(document).on("click", ".editForModal", function () {
             var row = $(this).data('row');
             $(".modal_edit #description_edit").val(row["descrizione"]);
+            $(".modal_edit #date_edit").val(row["data"]);
             $(".modal_edit #amount_edit").val(Math.abs(row["importo"]));
             $(".modal_edit #id_edit").val(row["id"]);
             $(".modal_edit #tipo_edit").val(row["importo"] > 0 ? "entrata" : "uscita");
@@ -145,6 +146,11 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
+                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date" name="date_new"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
                                                             <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount" name="amount_new" step="0.01" min="0" pattern="^\d*(\.\d{0,2})$"></div>
                                                         </div>
                                                     </div>
@@ -183,6 +189,11 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
+                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_new" name="date_new"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
                                                             <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_new" name="amount_new" step="0.01" min="0" pattern="^\d*(\.\d{0,2})$"></div>
                                                         </div>
                                                     </div>
@@ -201,6 +212,7 @@
                                 <table class="table my-0" id="dataTable">
                                     <thead>
                                         <tr>
+                                            <th>Data</th>
                                             <th>Cate.</th>
                                             <th>Descr.</th>
                                             <th>Importo</th>
@@ -227,7 +239,7 @@
                                         <script>
 function exportJson(el) {
 
-var obj = <?= getJsonBuffi($conn);?>;
+var obj = <?= getJsonScadenze($conn);?>;
 var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
 // what to return in order to show download window?
 
@@ -260,6 +272,11 @@ el.setAttribute("download", "data.json");
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -325,7 +342,7 @@ el.setAttribute("download", "data.json");
 </script>
 <script>
     // attenzione
-    dataSet = <?= getJsonBuffi($conn);?>;
+    dataSet = <?= getJsonScadenze($conn);?>;
     let perPage = 15;
     lastPage = Math.ceil(dataSet.length/perPage);
 
@@ -348,15 +365,16 @@ el.setAttribute("download", "data.json");
         const slicedItems = dataSet.slice(index, offSet);
         const html = slicedItems.map(item => 
         `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
-            <td>${item.categoria}</td>
-            <td>${item.descrizione}</td>
-            <td>${Math.abs(item.importo)} &euro;</td>
-            <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-            <td><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
-                    Modifica
+            <td data-label="Data">${item.data}</td>
+            <td data-label="Categoria">${item.categoria}</td>
+            <td data-label="Descrizione">${item.descrizione}</td>
+            <td data-label="Importo">${Math.abs(item.importo)} &euro;</td>
+            <td data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
+            <td data-label="Azione"><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
+                    <i class="bi bi-pencil-square"></i>
                 </button>
                 <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
-                    Elimina
+                    <i class="bi bi-trash"></i>
                 </button>
             </td>
         </tr>`);

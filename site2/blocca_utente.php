@@ -1,4 +1,5 @@
 <?php
+
 require "./funzioni.php";
  $conn = db_conn();
 $blockThis = $_POST["blockthis"];

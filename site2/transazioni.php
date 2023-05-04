@@ -1,5 +1,5 @@
 <?php 
-    $pagina = 'Buffi e Buffetti';
+    $pagina = 'Visualizza transazioni';
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
@@ -21,7 +21,7 @@
             data: {categoria: e.options[e.selectedIndex].text},
             success:function(result){
                 dataSet = result;
-                lastPage = Math.round(dataSet.length/perPage);
+                lastPage = Math.ceil(dataSet.length/perPage);
                 displayAll(1, 15);
             }
         });
@@ -36,7 +36,7 @@
             data: {tipo: e.options[e.selectedIndex].text},
             success:function(result){
                 dataSet = result;
-                lastPage = Math.round(dataSet.length/perPage);
+                lastPage = Math.ceil(dataSet.length/perPage);
                 displayAll(1, 15);
             }
         });
@@ -47,6 +47,7 @@
         $(document).on("click", ".editForModal", function () {
             var row = $(this).data('row');
             $(".modal_edit #description_edit").val(row["descrizione"]);
+            $(".modal_edit #date_edit").val(row["data"]);
             $(".modal_edit #amount_edit").val(Math.abs(row["importo"]));
             $(".modal_edit #id_edit").val(row["id"]);
             $(".modal_edit #tipo_edit").val(row["importo"] > 0 ? "entrata" : "uscita");
@@ -62,19 +63,14 @@
     });
 </script>
 
-<style>
-    .bottone-download{
-        --bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;
-}
-    
-</style>
+
 <!-- INIZIO PAGINA HTML -->
 
-<body id="page-top">
+<body id="page-top" style="background-color:#e9e9e9;">
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <div class="container fluid  mb-5">
+                <div class="container fluid mt-5 mb-5">
                     <div class="card shadow">
                         <?php if(isset($_GET['msg'])){ ?>
                             <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -89,7 +85,7 @@
                         <div class="card-body">
                             <div class="container">
                                 <div class="row">
-                                    <p class=" m-0 fw-bold">filtri</p>
+                                    <p class=" m-0 fw-bold">Filtri</p>
                                 </div>
 
                                 <div class="row">
@@ -145,6 +141,11 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
+                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date" name="date_new"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
                                                             <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount" name="amount_new" step="0.01" min="0" pattern="^\d*(\.\d{0,2})$"></div>
                                                         </div>
                                                     </div>
@@ -183,6 +184,11 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
+                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_new" name="date_new"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
                                                             <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_new" name="amount_new" step="0.01" min="0" pattern="^\d*(\.\d{0,2})$"></div>
                                                         </div>
                                                     </div>
@@ -201,41 +207,24 @@
                                 <table class="table my-0" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Cate.</th>
-                                            <th>Descr.</th>
+                                            <th>Data</th>
+                                            <th>Categoria</th>
+                                            <th>Descrizione</th>
                                             <th>Importo</th>
                                             <th>Tipo</th>
-                                            <th>Azioni</th>
+                                            <th>Azione</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tableBody">
                                     </tbody>
                                 </table>
-                                
-                                    
-                                    <div class="col ps-5">
-                                        <nav aria-label="...">
-                                            <ul id="pagination"  class="pagination justify-content-center pagination-sm">
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                
+                                <div class="mt-2 justify-content-center">
+                                    <nav aria-label="...">
+                                        <ul id="pagination"  class="pagination justify-content-center pagination-sm">
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
-                            
-
-
-                                        <script>
-function exportJson(el) {
-
-var obj = <?= getJsonBuffi($conn);?>;
-var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
-// what to return in order to show download window?
-
-el.setAttribute("href", "data:"+data);
-el.setAttribute("download", "data.json");    
-}
-
-</script>
 
                             <!-- MODALS -->
                             <!-- Modal per MODIFICA-->
@@ -260,6 +249,11 @@ el.setAttribute("download", "data.json");
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -304,6 +298,17 @@ el.setAttribute("download", "data.json");
         </div>
     </div>
 </body>
+
+<script>
+    function exportJson(el) {
+        var obj = <?= getJsonSpese($conn);?>;
+        //formattato
+        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
+        
+        el.setAttribute("href", "data:"+data);
+        el.setAttribute("download", "data.json");    
+    }
+</script>
 <script>
     window.onload = populateSelect();
     function populateSelect() {
@@ -325,7 +330,7 @@ el.setAttribute("download", "data.json");
 </script>
 <script>
     // attenzione
-    dataSet = <?= getJsonBuffi($conn);?>;
+    dataSet = <?= getJsonSpese($conn);?>;
     let perPage = 15;
     lastPage = Math.ceil(dataSet.length/perPage);
 
@@ -348,17 +353,17 @@ el.setAttribute("download", "data.json");
         const slicedItems = dataSet.slice(index, offSet);
         const html = slicedItems.map(item => 
         `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
-            <td>${item.categoria}</td>
-            <td>${item.descrizione}</td>
-            <td>${Math.abs(item.importo)} &euro;</td>
-            <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-            <td><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
-                    Modifica
-                </button>
-                <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
-                    Elimina
-                </button>
-            </td>
+        <td data-label="Data">${item.data}</td>
+        <td data-label="Categoria">${item.categoria}</td>
+        <td data-label="Descrizione">${item.descrizione}</td>
+        <td data-label="Importo">${Math.abs(item.importo)} &euro;</td>
+        <td data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
+        <td data-label="Azione"> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
+                                                                <i class="bi bi-pencil-square"></i>
+                                                                </button>
+                                                                <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
+                                                                <i class="bi bi-trash"></i>
+                                                                </button></td>
         </tr>`);
 
         document.querySelector('#tableBody').innerHTML = html.join('');
@@ -400,10 +405,9 @@ el.setAttribute("download", "data.json");
 </script>
 
 
-
 <?php 
 }
 else{
-    header("Location: login.php?error=E tu chi sei?");
+    header("Location: login.php?error=E tu chi cazzo sei");
 }
 ?>

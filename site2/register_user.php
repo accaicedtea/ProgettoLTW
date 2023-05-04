@@ -1,8 +1,8 @@
 <?php
 // controlli su dati
 
-    require "./funzioni.php";
-    $conn = db_conn();
+require "./funzioni.php";
+ $conn = db_conn();
     $username = $_REQUEST['username'];
     $nome =  $_REQUEST['nome'];
     $cognome = $_REQUEST['cognome'];
