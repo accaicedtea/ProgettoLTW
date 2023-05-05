@@ -853,7 +853,7 @@ function navBar($pagina)
     <?php } ?>
     <!-- testo ad ogni inizio pagina -->
     <div class="container-top-text">
-        <span class="text"> <?php echo $pagina;?> </span>
+        <span class="text">  </span>
     </div>
 <?php } ?>
 <?php function head($pagina)

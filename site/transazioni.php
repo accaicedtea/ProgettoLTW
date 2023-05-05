@@ -343,12 +343,12 @@
 
         const slicedItems = dataSet.slice(index, offSet);
         const html = slicedItems.map(item => 
-        `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
-        <td data-label="Data">${item.data}</td>
-        <td data-label="Categoria">${item.categoria}</td>
-        <td data-label="Descrizione">${item.descrizione}</td>
-        <td data-label="Importo">${Math.abs(item.importo)} &euro;</td>
-        <td data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
+        `<tr>
+        <td  data-label="Data">${item.data}</td>
+        <td class="table-light" data-label="Categoria">${item.categoria}</td>
+        <td  data-label="Descrizione">${item.descrizione}</td>
+        <td class="table-light" data-label="Importo">${Math.abs(item.importo)} &euro;</td>
+        <td class="table-${(item.importo>0)? 'success': 'danger'}" data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
         <td data-label="Azione"> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
                                                                 <i class="bi bi-pencil-square"></i>
                                                                 </button>
