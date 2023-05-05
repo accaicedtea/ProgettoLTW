@@ -899,9 +899,6 @@ function navBar($pagina)
     </div>
     <?php } ?>
     <!-- testo ad ogni inizio pagina -->
-    <div class="container-top-text">
-        <span class="text"> <?php echo $pagina;?> </span>
-    </div>
 <?php } ?>
 <?php function head($pagina)
 {
@@ -923,7 +920,8 @@ function navBar($pagina)
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong"> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">      
         
-
+        <link rel="stylesheet" href="./assets/css/style.css">      
+        
         
         
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

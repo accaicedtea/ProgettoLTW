@@ -113,15 +113,15 @@
 <style> 
 .leftToF {
     animation-name: left;
-    animation-duration: 1s;
+    animation-duration: .5s;
 }
 .leftToF-3{
     animation-name: left;
-    animation-duration: 3s;
+    animation-duration: 1.5s;
 }
 .topToF {
     animation-name: top;
-    animation-duration: 2s;
+    animation-duration: 1s;
 }
 @keyframes top {
     0%  {top:-1200px;}
@@ -149,7 +149,7 @@
 }
 .fade-in {
     animation-name: fade-in;
-    animation-duration: 2s;
+    animation-duration: 0.7s;
 }
 
 @keyframes fade-in {
