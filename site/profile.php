@@ -225,7 +225,7 @@ setTimeout(function() {
                                     
                     </div>
                     <div>
-                        <img id="pfp" src="" class="rounded-circle fade-in" width="100" height="100">
+                        <img id="pfp" src="" class="rounded-circle fade-in icon">
                     </div>
                     <p class="m-0 h5 fw-bold text-center text-primary" >Username dell'utente</p>
                     
@@ -250,7 +250,7 @@ setTimeout(function() {
                                                     <div class="mb-3">
                                                         <label>
                                                             <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-anime-sama.svg" checked >
-                                                            <img class="icon fade-in" src="./assets/img/avatars/icons8-anime-sama.svg" alt="Option 1" width="50" height="50">
+                                                            <img class="fade-in" src="./assets/img/avatars/icons8-anime-sama.svg" alt="Option 1" width="50" height="50">
                                                         </label>
                                                         <label>
                                                             <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-futurama-bender.svg">
