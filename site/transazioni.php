@@ -218,7 +218,7 @@
                                     <tbody id="tableBody">
                                     </tbody>
                                 </table>
-                                <div class="mt-2 justify-content-center">
+                                <div class="col ps-5">
                                     <nav aria-label="...">
                                         <ul id="pagination"  class="pagination justify-content-center pagination-sm">
                                         </ul>
@@ -343,18 +343,19 @@
 
         const slicedItems = dataSet.slice(index, offSet);
         const html = slicedItems.map(item => 
-        `<tr>
-        <td  data-label="Data">${item.data}</td>
-        <td class="table-light" data-label="Categoria">${item.categoria}</td>
-        <td  data-label="Descrizione">${item.descrizione}</td>
-        <td class="table-light" data-label="Importo">${Math.abs(item.importo)} &euro;</td>
-        <td class="table-${(item.importo>0)? 'success': 'danger'}" data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
-        <td data-label="Azione"> <button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
-                                                                <i class="bi bi-pencil-square"></i>
-                                                                </button>
-                                                                <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
-                                                                <i class="bi bi-trash"></i>
-                                                                </button></td>
+        `<tr">
+            <td data-label="Data">${item.data}</td>
+            <td class="table-light" data-label="Categoria">${item.categoria}</td>
+            <td data-label="Descrizione">${item.descrizione}</td>
+            <td class="table-light" data-label="Importo">${Math.abs(item.importo)} &euro;</td>
+            <td class="table-${(item.importo>0)? 'success': 'danger'} data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
+            <td data-label="Azione"><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
         </tr>`);
 
         document.querySelector('#tableBody').innerHTML = html.join('');

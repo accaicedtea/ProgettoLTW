@@ -107,11 +107,13 @@
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col">
-                                        <a id="exportJSON" onclick="exportJson(this);" class="btn btn-outline-dark btn-sm bottone-download"><i class="bi bi-download bi-sm"></i>Esporta tabella</a>
-                                    </div>
                                     
-                                    <div class="col"></div>
+                                    <div class="col">
+
+                                    </div>
+                                    <div class="col">
+
+                                    </div>
                                     <div class="col">
                                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
                                     </div>
@@ -233,21 +235,6 @@
                                     </div>
                                 
                             </div>
-                            
-
-
-                                        <script>
-function exportJson(el) {
-
-var obj = <?= getJsonScadenze($conn);?>;
-var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
-// what to return in order to show download window?
-
-el.setAttribute("href", "data:"+data);
-el.setAttribute("download", "data.json");    
-}
-
-</script>
 
                             <!-- MODALS -->
                             <!-- Modal per MODIFICA-->
@@ -364,12 +351,12 @@ el.setAttribute("download", "data.json");
 
         const slicedItems = dataSet.slice(index, offSet);
         const html = slicedItems.map(item => 
-        `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
+        `<tr">
             <td data-label="Data">${item.data}</td>
-            <td data-label="Categoria">${item.categoria}</td>
+            <td class="table-light" data-label="Categoria">${item.categoria}</td>
             <td data-label="Descrizione">${item.descrizione}</td>
-            <td data-label="Importo">${Math.abs(item.importo)} &euro;</td>
-            <td data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
+            <td class="table-light" data-label="Importo">${Math.abs(item.importo)} &euro;</td>
+            <td class="table-${(item.importo>0)? 'success': 'danger'} data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
             <td data-label="Azione"><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
                     <i class="bi bi-pencil-square"></i>
                 </button>
