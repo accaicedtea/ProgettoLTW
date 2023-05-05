@@ -4,6 +4,9 @@
     $conn = db_conn();
    
 ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+   
 <style>
 .radio-inputs {
     display: flex;
@@ -333,39 +336,49 @@ setTimeout(function() {
                         
                             <div class="row">
                                 <div class="col">
-                                    
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="saldo" name="saldo">
-                                        <label for="saldo">Saldo</label>
-                                    </div>
-
-                                    <div class="form-floating mb-3">
-                                        
-                                        <input type="text" class="form-control" id="email" name="email" placeholder="email@example.com">
-                                        <label for="email">Email</label>
-                                        
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="password" name="password" placeholder="password">
-                                        <label for="cognome">Password</label>
-                                    </div>
-
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC">
-                                        <label for="cognome">Conferma password</label>
-                                    </div> 
-                                    
-                                    <div>
-                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
-                                    </div>       
+                                        <a id="exportJSON" onclick="exportJson(this);" class="btn btn-outline-dark btn-sm bottone-download"><i class="bi bi-download bi-sm"></i>Esporta tabella JSON</a>                                          
                                 </div>
+                                <div class="col">
+                                        <a id="exportCSV" onclick="esportaCSV();" class="btn btn-outline-dark btn-sm bottone-download"><i class="bi bi-download bi-sm"></i>Esporta tabella CSV</a>
+                                </div>
+                                <div class="col">
+                                    <a href="exportXML.php" class="btn btn-outline-dark btn-sm bottone-download"><i class="bi bi-download bi-sm"></i>Esporta tabella XML</a>
+                                </div>
+
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
+<script>
+    function exportJson(el) {
+        var obj = <?= getJsonSpese($conn);?>;
+        //formattato
+        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
+        
+        el.setAttribute("href", "data:"+data);
+        el.setAttribute("download", "tabellaJSON.json");    
+    }
+</script>
+<script>
+function esportaCSV() {
+  // Seleziona la tabella
+  const jsonData = <?= getJsonSpese($conn);?>;
+;
+  
+  // Crea l'intestazione CSV
+    // Converti il JSON in CSV utilizzando Papa Parse
+    const csv = Papa.unparse(jsonData);
+  
+  // Crea un oggetto Blob dal contenuto CSV
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  
+  // Salva il file CSV utilizzando FileSaver.js
+  saveAs(blob, 'tabellaCSV.csv');
 
+}
+</script>
             <div class="col mt-5 ">
                 <div class="card shadow mb-3 topToF">
                     <div class="card-header py-3">
@@ -378,12 +391,12 @@ setTimeout(function() {
                                     
                                     <div class="form-floating mb-3">
                                         
-                                        <input type="text" class="form-control" name="nome" id="nome" placeholder="nome">
+                                        <input type="text" class="form-control " name="nome" id="nome" placeholder="nome" onchange="validaInput('nome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}">
                                         <label for="nome">Nome</label>
                                         
                                     </div>
                                     <div class="form-floating pb-1">
-                                        <input type="text" class="form-control" name="cognome" id="cognome" placeholder="cognome">
+                                        <input type="text" class="form-control " name="cognome" id="cognome" placeholder="cognome" onchange="validaInput('cognome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}">
                                         <label for="cognome">Cognome</label>
                                     </div> 
                                     <div class="form-check ps-2 mb-2 radio-inputs">
@@ -412,7 +425,7 @@ setTimeout(function() {
                                     <div class="mb-3">    
                                         <label class="form-label">Nazionalità</label>
                                         
-                                        <input class="form-control" list="selectNazi" name="nazionalita"  id="nazionalita" >
+                                        <input class="form-control " list="selectNazi" name="nazionalita"  id="nazionalita" >
                                         
                                         <datalist id="selectNazi">
                                         
@@ -421,11 +434,13 @@ setTimeout(function() {
                                     </div>    
 
                                     <div class="form-floating mb-3">  
-                                        <input type="text" class="form-control" id="dataN" name="dataN">
+                                        <input type="date" class="form-control " id="dataN" name="dataN" >
                                         <label for="dataN">Data di nascita</label>    
                                     </div>
 
-                                    
+                                    <div>
+                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                    </div>  
 
                                         
                                 </div>
@@ -445,23 +460,23 @@ setTimeout(function() {
                                 <div class="col">
                                     
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="saldo" name="saldo">
+                                        <input type="text" class="form-control " id="saldo" name="saldo" onchange="validaInput('saldo','[0-9]{1,32}')" pattern="[0-9]]{1,32}">
                                         <label for="saldo">Saldo</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
                                         
-                                        <input type="text" class="form-control" id="email" name="email" placeholder="email@example.com">
+                                        <input type="text" class="form-control " id="email" name="email" placeholder="email@example.com" onchange="validaInput('email','[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                                         <label for="email">Email</label>
                                         
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="password" name="password" placeholder="password">
+                                        <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
                                         <label for="cognome">Password</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC">
+                                        <input type="password" class="form-control " id="passwordC" name="passwordC" placeholder="passwordC" onchange="validaInput('passwordC','[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
                                         <label for="cognome">Conferma password</label>
                                     </div> 
                                     
@@ -546,6 +561,45 @@ function placeH() {
     }
 </script>
 
+<script>
+function validaInput(id,pattern){
+    var input = document.getElementById(id);
+    var regex = new RegExp(pattern);
+    if (!regex.test(input.value)) {
+        input.classList.add("is-invalid");
+        return false;
+    }
+    input.classList.remove("is-invalid");
+    return true;
+}
+
+var form = document.getElementById("my-form");
+var submitButton = document.getElementById("submit-button");
+
+submitButton.addEventListener("click", function() {
+  // Controlla la validità del form
+    if (form.checkValidity()) {
+        form.submit();
+    }else{
+        const alertContainer = document.querySelector('#alert-container');
+
+        const alert = document.createElement('div');
+        alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
+        alert.setAttribute('role', 'alert');
+
+        alert.textContent = 'Le password devono essere uguali';
+
+        const closeButton = document.createElement('button');
+        closeButton.classList.add('btn-close');
+        closeButton.setAttribute('type', 'button');
+        closeButton.setAttribute('data-bs-dismiss', 'alert');
+        closeButton.setAttribute('aria-label', 'Chiudi');
+        alert.appendChild(closeButton);
+
+        alertContainer.appendChild(alert);
+    }
+});
+</script>
 <?php }else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
             head($pagina);
             navBar($pagina);
@@ -561,12 +615,12 @@ function placeH() {
                                         <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
-                                        <script>
-setTimeout(function() {
-  var alert = document.querySelector('.alert');
-  var bsAlert = new bootstrap.Alert(alert);
-  bsAlert.close();
-}, 1000);
+<script>
+    setTimeout(function() {
+        var alert = document.querySelector('.alert');
+        var bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+    }, 1000);
 </script>
                                     <?php }?>
                                     <?php if(isset($_GET['error'])){ ?>
@@ -574,12 +628,12 @@ setTimeout(function() {
                                         <strong>UPS! </strong><?php echo $_GET['error']; ?>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
-                                        <script>
-setTimeout(function() {
-  var alert = document.querySelector('.alert');
-  var bsAlert = new bootstrap.Alert(alert);
-  bsAlert.close();
-}, 1000);
+<script>
+    setTimeout(function() {
+        var alert = document.querySelector('.alert');
+        var bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+    }, 1000);
 </script>
                                     <?php }?>
                         <p class="text-primary m-0 fw-bold h3" >Profilo</p>
@@ -596,36 +650,37 @@ setTimeout(function() {
             </div>
 
 
-            <div class="col-6 mt-5">
+            <div class="col mt-5">
                 <div class="card shadow mb-3 topToF">
                     <div class="card-header py-3">
+                        <div id="alert-container"></div>
                         <p class="text-primary m-0 fw-bold text-start">Cambia informazioni utente <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div class="card-body ">
-                        <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
+                        <form id="my-form" action="#" method="post" name="form-change-profile" class="form-change-profile">
                             <div class="row">
                                 <div class="col">
                                     
                                     <div class="form-floating mb-3">
                                         
-                                        <input type="text" class="form-control" name="nome" id="nome" placeholder="nome">
+                                        <input type="text" class="form-control " name="nome" id="nome" placeholder="nome" onchange="validaInput('nome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}">
                                         <label for="nome">Nome</label>
                                         
                                     </div>
                                    
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="password" name="password" placeholder="password">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="password" onchange="validaInput('password','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
                                         <label for="cognome">Password</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC">
-                                        <label for="cognome">Conferma password</label>
+                                        <input type="text" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC" >
+                                        <label id="msgErrore"for="cognome">Conferma password</label>
                                     </div> 
 
                                     
                                     <div>
-                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                        <button id="submit-button" class="btn btn-primary btn-sm">Salva cambiamenti</button>
                                     </div>  
                                         
                                 </div>
@@ -652,16 +707,51 @@ window.onload= function(){
     placeH();    
 }
 function placeH() {
-    let data = <?= getJsonUtente($conn);?>
+    let data = <?= getJsonAdmin($conn);?>
     
-    document.getElementById("username").innerHTML = data[0]['username'];
     document.getElementById("nome").value = data[0]['nome'];
     
 }    
- 
+function validaInput(id,pattern){
+    var input = document.getElementById(id);
+    var regex = new RegExp(pattern);
+    if (!regex.test(input.value)) {
+        input.classList.add("is-invalid");
+        return false;
+    }
+    input.classList.remove("is-invalid");
+    return true;
+}
+
 </script>
+<script>
+var form = document.getElementById("my-form");
+var submitButton = document.getElementById("submit-button");
 
+submitButton.addEventListener("click", function() {
+  // Controlla la validità del form
+    if (form.checkValidity()) {
+        form.submit();
+    }else{
+        const alertContainer = document.querySelector('#alert-container');
 
+        const alert = document.createElement('div');
+        alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
+        alert.setAttribute('role', 'alert');
+
+        alert.textContent = 'Le password devono essere uguali';
+
+        const closeButton = document.createElement('button');
+        closeButton.classList.add('btn-close');
+        closeButton.setAttribute('type', 'button');
+        closeButton.setAttribute('data-bs-dismiss', 'alert');
+        closeButton.setAttribute('aria-label', 'Chiudi');
+        alert.appendChild(closeButton);
+
+        alertContainer.appendChild(alert);
+    }
+});
+</script>
   <?php
     }else{
         header("Location: login.php?error=Credo tu debba accedere prima");

@@ -36,6 +36,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 $_SESSION['sesso'] = $row['sesso'];
                 $_SESSION['nazi'] = $row['nazionalita'];
                 $_SESSION['password'] = $row['password'];
+                $_SESSION['saldo'] = $row['saldo_ini'];
                 $_SESSION['log'] = 'on';
                 header("Location: dashboard.php");       
                 exit();

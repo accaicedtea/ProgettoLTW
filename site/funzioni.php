@@ -779,9 +779,8 @@ function navBar($pagina)
                 </li>
                 </ul>
                 
-                <a class=" h5 text-white me-3 mt-1" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION[
-                    "nome"
-                ]; ?>
+                <a class=" h5 text-white me-3 mt-1" href="./profile.php" style="text-decoration: none">
+                    <?php echo $_SESSION["nome"]; ?>
                 </a>
                 
                 <a class="btn btn-sm btn-outline-danger" href="./logout.php" role="button">Logout</a>
