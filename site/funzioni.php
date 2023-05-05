@@ -788,13 +788,7 @@ function navBar($pagina)
                         echo "active";
                     } ?>" aria-current="page" href="./statistiche.php">Statistiche</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php if (
-                        $pagina == "Buffi e Buffetti"
-                    ) {
-                        echo "active";
-                    } ?>" aria-current="page" href="./buffi.php">Buffi e buffetti</a>
-                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link ms-3 <?php if ($pagina == "Informazioni") {
                         echo "active";
@@ -807,9 +801,7 @@ function navBar($pagina)
                     $pagina != "Profilo"
                 ) {
                     echo "fw-normal";
-                } ?>" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION[
-    "username"
-]; ?>
+                } ?>" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION["username"]; ?>
                 </a>
                 
                 <a class="btn btn-sm btn-outline-danger" href="./logout.php" role="button">Logout</a>
@@ -820,10 +812,8 @@ function navBar($pagina)
     </div>
     <?php } elseif 
         //random
-        (
-        !isset($_SESSION["adminLog"]) ||
-        !isset($_SESSION["log"])
-    ) { ?>
+        (!isset($_SESSION["adminLog"]) || !isset($_SESSION["log"])) 
+    { ?>
     <div id="topheader" class="sticky-top ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
