@@ -29,7 +29,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
         if ((mysqli_query($conn, $sql))) {
             $_SESSION['nome'] = $nome;
             $flag+= 1;
-        } else gotoError;
+        } else goto Error;
     }
     if (!empty($cognome) && $cognome != $_SESSION['cognome']) {
         $cognome = p($cognome, "/[A-Za-z ]{1,32}/");
@@ -37,14 +37,14 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
         if ((mysqli_query($conn, $sql))) {
             $_SESSION['cognome'] = $cognome;
             $flag+= 1;
-        } else gotoError;
+        } else goto Error;
     }
     if (!empty($dataN) && $dataN != $_SESSION['dataN']) {
-        $sql = "UPDATE utente SET dataNascista='$dataN' WHERE username='$sus' AND password='$spw'";
+        $sql = "UPDATE utente SET dataN='$dataN' WHERE username='$sus' AND password='$spw'";
         if ((mysqli_query($conn, $sql))) {
             $_SESSION['dataN'] = $dataN;
             $flag+= 1;
-        } else gotoError;
+        } else goto Error;
     }
     if (!empty($email) && $email != $_SESSION['email']) {
         $email = p($email, "/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/");
@@ -52,14 +52,14 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
         if ((mysqli_query($conn, $sql))) {
             $_SESSION['email'] = $email;
             $flag+= 1;
-        } else gotoError;
+        } else goto Error;
     }
     if (!empty($nazi) && $nazi != $_SESSION['nazi']) {
         $sql = "UPDATE utente SET nazionalita='$nazi' WHERE username='$sus' AND password='$spw'";
         if ((mysqli_query($conn, $sql))) {
             $_SESSION['nazi'] = $nazi;
             $flag+= 1;
-        } else gotoError;
+        } else goto Error;
     }
     if (($sesso == 0 || $sesso == 1) && $sesso != $_SESSION['sesso']) {
         $sql = "UPDATE utente SET sesso='$sesso' WHERE username='$sus' AND password='$spw'";
@@ -67,7 +67,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
             $_SESSION['sesso'] = $sesso;
             $flag+= 1;
         } else {
-            gotoError;
+            goto Error;
         }
     }
     if (!empty($saldo) && $saldo != $_SESSION['saldo']) {
@@ -76,7 +76,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
         if ((mysqli_query($conn, $sql))) {
             $_SESSION['saldo'] = $saldo;
             $flag+= 1;
-        } else gotoError;
+        } else goto Error;
     }
     if (!empty($pasw) && !empty($paswC) && md5($pasw) != $_SESSION['password'] && $pasw == $paswC) {
         $pasw = p($pasw, "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
@@ -86,9 +86,9 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
             $_SESSION['password'] = $password;
             $flag+= 1;
             log_out($conn);
-            gotoA;
+            goto A;
         } else {
-            gotoError;
+            goto Error;
         }
     }
     if ($flag != 0) echo "<script>window.location.href=' profile.php?msg=Profilo aggiornato correttemente correttamente'</script>";
@@ -110,7 +110,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
                 if ((mysqli_query($conn, $sql))) {
                     $_SESSION['nome'] = $nome;
                     $flag+= 1;
-                } else gotoError;
+                } else goto Error;
             }
             if (!empty($pasw) && !empty($paswC) && md5($pasw) != $_SESSION['password'] && $pasw == $paswC) {
                 $pasw = p($pasw, "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
@@ -122,7 +122,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
                     log_out($conn);
                     gotoA;
                 } else {
-                    gotoError;
+                    goto Error;
                 }
             }
             if ($flag != 0) echo "<script>window.location.href=' profile.php?msg=Profilo aggiornato correttemente correttamente'</script>";

@@ -119,7 +119,7 @@
     .minno{
         top:-414px;
     }
-    img{
+    .icon{
         width:170px;
         height:170px;
         margin-top: 50px;
@@ -135,7 +135,6 @@
 }
 @keyframes fade-in {
     0%{opacity: 0;}
-    30%{opacity: .5;}
     100% {opacity: 1;}
 }
 .sfondo-animato {
@@ -198,7 +197,7 @@
                         <p class="text-primary m-0 fw-bold text-start">Profilo <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div>
-                        <img id="pfp" src="" class="rounded-circle fade-in" width="100" height="100">
+                        <img id="pfp" src="" class="rounded-circle fade-in icon" width="100" height="100">
                     </div>
                     <p class="m-0 h5 fw-bold text-center text-primary" >Username dell'utente</p>
                     <p class="m-0 h5 fw-bold text-center" id="username"></p>
@@ -497,7 +496,7 @@
     var submitButton = document.getElementById("submit-button");
     
     submitButton.addEventListener("click", function() {
-      // Controlla la validità del form
+    // Controlla la validità del form
         if (form.checkValidity()) {
             form.submit();
         }else{
@@ -521,6 +520,7 @@
     });
 </script>
 <?php
+/*-----------------------------------ADMIN-------------------------------------------------*/
     } else if (isset($_SESSION['adminLog']) && $_SESSION['adminLog'] == 'daje') {
         head($pagina);
         navBar($pagina);
@@ -572,7 +572,7 @@
                 <div class="card shadow mb-3 topToF">
                     <div class="card-header py-3">
                         <div id="alert-container"></div>
-                        <p class="text-primary m-0 fw-bold text-start">Cambia informazioni utente <i class="bi bi-person-bounding-box"></i></p>
+                        <p class="text-primary m-0 fw-bold text-start">Cambia informazioni amministratore <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div class="card-body ">
                         <form id="my-form" action="#" method="post" name="form-change-profile" class="form-change-profile">
