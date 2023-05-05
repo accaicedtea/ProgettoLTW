@@ -16,9 +16,9 @@ function db_conn()
 function log_out($conn)
 {
     session_destroy();
+    
 }
-//serve??? non mi ricordo
-function check($conn)
+    function check($conn)
 {
     $uname = $_SESSION['username'];
     $passw = $_SESSION['password'];
@@ -28,39 +28,6 @@ function check($conn)
         $_SESSION['log']='off';
     }
 }
-
-//TODO: INIZIO CONTROLLO
-function validate($data)
-{
-    if(!isset($data)) return NULL;
-    $val = array("'",",","\"",";");
-    $data = str_replace($val,"",$data);
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-function controlla_immagine($img)
-{
-    $imaginin_disponibili = 
-    [
-        "./assets/img/avatars/icons8-anime-sama.svg","./assets/img/avatars/icons8-futurama-bender.svg","./assets/img/avatars/icons8-genshin-impact-xiao.svg",
-        "./assets/img/avatars/icons8-hello-kitty.svg","./assets/img/avatars/icons8-homer-simpson.svg",
-        "./assets/img/avatars/icons8-impero.svg","./assets/img/avatars/icons8-iron-man.svg","./assets/img/avatars/icons8-jake.svg",
-        "./assets/img/avatars/icons8-kaedehara-kazuha.svg","./assets/img/avatars/icons8-koya-bt21.svg","./assets/img/avatars/icons8-maschera-anonimo.svg",
-        "./assets/img/avatars/icons8-mummia.svg","./assets/img/avatars/icons8-walter-white.svg","./assets/img/avatars/icons8-super-mario.svg",
-        "./assets/img/avatars/icons8-rebel.svg","./assets/img/avatars/icons8-pokemon.svg"
-    ];
-
-    if (!in_array($img, $imaginin_disponibili)) {
-        return false;
-    }
-    return true;
-}
-
-
-//TODO: FINE CONTROLLI
-//TODO: INIZIO JSON
 function getJsonCat($conn)
 {
     $emparray = [];
@@ -78,17 +45,17 @@ function getJsonSpese($conn)
     $emparray = [];
     $data_oggi = $_SESSION["data_oggi"];
     $sql = "select *
-    from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria, c.id as id_categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria
-    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) < Month('$data_oggi') and YEAR(s.data)!=0
+    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) < Month('$data_oggi')
     UNION
-    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria, c.id as id_categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria 
-    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) <= DAY('$data_oggi') and YEAR(s.data)!=0
+    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) <= DAY('$data_oggi')
     union
-    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria, c.id as id_categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria 
-    WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi') and YEAR(s.data)!=0 
+    WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi')
     )as vie
     ORDER BY vie.data DESC;";
     $result = mysqli_query($conn, $sql);
@@ -99,25 +66,25 @@ function getJsonSpese($conn)
     $_SESSION["tipo"] = "Tutti i tipi";
     return json_encode($emparray);
 }
-function getJsonScadenza($conn)
+function getJsonScadenze($conn)
 {
     $username = $_SESSION["username"];
     $emparray = [];
     $data_oggi = $_SESSION["data_oggi"];
     $sql = "select *
-    from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria, c.id as id_categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria
-    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) > Month('$data_oggi') and YEAR(s.data)!=0
+    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) > Month('$data_oggi')
     UNION
-    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria, c.id as id_categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria 
-    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) > DAY('$data_oggi') and YEAR(s.data)!=0
+    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) > DAY('$data_oggi')
     union
-    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria, c.id as id_categoria,s.importo as importo 
     FROM spesa s join categoria c on c.id=s.categoria 
-    WHERE s.utente = '$username' and YEAR(s.data) > YEAR('$data_oggi') and YEAR(s.data)!=0 
+    WHERE s.utente = '$username' and YEAR(s.data) > YEAR('$data_oggi')
     )as vie
-    ORDER BY vie.data DESC;";
+    ORDER BY vie.data;";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $emparray[] = $row;
@@ -126,12 +93,15 @@ function getJsonScadenza($conn)
     $_SESSION["tipo"] = "Tutti i tipi";
     return json_encode($emparray);
 }
-//TODO: penso che questa si possa anche levare
-function getJsonSpesa($conn, $id)
+function getJsonBuffi($conn)
 {
-    $user = $_SESSION["username"];
+    $username = $_SESSION["username"];
     $emparray = [];
-    $sql = "SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo FROM spesa s join categoria c on c.id=s.categoria WHERE utente = '$user' and s.id='$id' Limit 1;";
+    $sql = "SELECT s.id as id, s.utente as utente, s.descrizione as descrizione, c.nome as categoria, c.id as id_categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' AND data is NULL 
+    ORDER BY id;";
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $emparray[] = $row;
@@ -145,7 +115,7 @@ function getJsonUtente($conn)
     $emparray = [];
     $user = $_SESSION["username"];
     $passw = $_SESSION["password"];
-    $sql = "SELECT * FROM utente join stati on utente.nazionalita=stati.nome_stati WHERE username = '$user' and password='$passw';";
+    $sql = "SELECT * FROM utente join stati on utente.nazionalita=stati.id_stati WHERE username = '$user' and password='$passw';";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $emparray[] = $row;
@@ -169,16 +139,20 @@ function getJsonAdmin($conn)
 function getJsonStati($conn)
 {
     $sql =
-        "SELECT * from stati order by nome_stati";
+        "SELECT stati.id_stati as id, stati.nome_stati as nome from stati order by stati.id_stati";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $array[] = $row;
     }
     return json_encode($array);
 }
-//TODO: FINE JSON
-
-
+function validate($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 //TODO: INIZIO GRAFICI
 function bar90g($conn)
 {  
@@ -370,7 +344,7 @@ function linegraph($conn)
 {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
-    $_SESSION['giorni_mese'] = date("D");
+    $_SESSION['giorni_mese'] = date("t");
     $giorni_mese = $_SESSION['giorni_mese'];
     $array_dati_uscite = array();
     $array_giorni_uscite = array();
@@ -498,33 +472,7 @@ function piechart($conn)
             where spesa.importo < 0 AND spesa.utente = '$username' AND MONTH(spesa.data) = MONTH('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.categoria <> 6
             group by categoria.nome";
     $result = $conn->query($sql);
-    $series_array_piechart[] =array();
-    if ($result->num_rows >= 0) {
-        while ($row = $result->fetch_assoc()) {
-            $arr = array (
-                'name' => $row['categoria'],
-                'y' => doubleval($row['somma']),
-                'color' => $row['colore']
-            );
-            $series_array_piechart[] = $arr;
-        }
-        return json_encode($series_array_piechart);
-    }
-}
-function piechart_filtrato($conn,$mese)
-{
-    $username = $_SESSION['username'];
-    $data_oggi = $_SESSION['data_oggi'];
-    $sql = "SELECT categoria.nome as categoria, COALESCE(sum(importo),0) / 
-                (SELECT COALESCE(sum(importo),0)
-                from spesa
-                where importo < 0 AND MONTH(spesa.data) = $mese and DAY(spesa.data) <= DAY('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username') as somma, categoria.colore as colore
-            from spesa join categoria on categoria.id = spesa.categoria
-            where spesa.importo < 0 AND spesa.utente = '$username' AND MONTH(spesa.data) = $mese AND YEAR(spesa.data) = YEAR('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and spesa.categoria <> 6
-            group by categoria.nome";
-    $result = $conn->query($sql);
-    $series_array_piechart[] =array();
-    if ($result->num_rows >= 0) {
+    if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $arr = array (
                 'name' => $row['categoria'],
@@ -597,7 +545,7 @@ function get_euma($conn)
 }
 function entrata_graph($conn) {
     $array_dati = [];
-    $_SESSION['giorni_mese'] = date("d");
+    $_SESSION['giorni_mese'] = date("t");
     $giorni_mese = $_SESSION['giorni_mese'];
     $username = $_SESSION["username"];
     $data_oggi = $_SESSION["data_oggi"];
@@ -792,8 +740,9 @@ function navBar($pagina)
                 </li>
                 </ul>
                 
-                <a class=" h5 text-white me-3 mt-1" href="./profile.php" style="text-decoration: none">
-                    <?php echo $_SESSION["nome"]; ?>
+                <a class=" h5 text-white me-3 mt-1" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION[
+                    "nome"
+                ]; ?>
                 </a>
                 
                 <a class="btn btn-sm btn-outline-danger" href="./logout.php" role="button">Logout</a>
@@ -837,14 +786,14 @@ function navBar($pagina)
                 <li class="nav-item">
                     <a class="nav-link <?php if ($pagina == "Statistiche") {
                         echo "active";
-                    } ?>" href="./statistiche.php">Statistiche</a>
+                    } ?>" aria-current="page" href="./statistiche.php">Statistiche</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if (
-                        $pagina == "Buffi e buffetti"
+                        $pagina == "Buffi e Buffetti"
                     ) {
                         echo "active";
-                    } ?>" href="./buffi.php">Buffi e buffetti</a>
+                    } ?>" aria-current="page" href="./buffi.php">Buffi e buffetti</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link ms-3 <?php if ($pagina == "Informazioni") {
@@ -854,9 +803,13 @@ function navBar($pagina)
                 </li>
                 </ul>
                 
-                <a class="h5 text-white me-3 mt-1 <?php if ($pagina != "Profilo") {
+                <a class="h5 text-white me-3 mt-1 <?php if (
+                    $pagina != "Profilo"
+                ) {
                     echo "fw-normal";
-                } ?>" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION["username"]; ?>
+                } ?>" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION[
+    "username"
+]; ?>
                 </a>
                 
                 <a class="btn btn-sm btn-outline-danger" href="./logout.php" role="button">Logout</a>
@@ -899,6 +852,9 @@ function navBar($pagina)
     </div>
     <?php } ?>
     <!-- testo ad ogni inizio pagina -->
+    <div class="container-top-text">
+        <span class="text">  </span>
+    </div>
 <?php } ?>
 <?php function head($pagina)
 {
@@ -913,19 +869,22 @@ function navBar($pagina)
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title><?php echo $pagina; ?></title>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
         
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
         
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong"> 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         
-        <link rel="stylesheet" href="./assets/css/style.css">      
+        <link rel="stylesheet" href="./assets/css/style.css">
+        <link rel="stylesheet" href="./assets/css/animation.css">
+
         
-        
-        
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>   
+        <script src="./site/asserts/js/scripts.js"></script>
+        <script src="./assets/js/register_controlli.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>   
         
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
