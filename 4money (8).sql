@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Apr 28, 2023 alle 14:38
+-- Creato il: Mag 05, 2023 alle 08:54
 -- Versione del server: 8.0.31
 -- Versione PHP: 8.0.26
 
@@ -31,9 +31,16 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `id` varchar(30) NOT NULL,
   `nome` varchar(20) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dump dei dati per la tabella `admin`
+--
+
+INSERT INTO `admin` (`id`, `nome`, `password`) VALUES
+('007', 'mimmo', '6e6bc4e49dd477ebc98ef4046c067b5f');
 
 -- --------------------------------------------------------
 
@@ -1295,7 +1302,32 @@ INSERT INTO `spesa` (`id`, `utente`, `importo`, `data`, `descrizione`, `categori
 (8456, 'accaicedtea', -32, '2023-04-07', 'desc', 6),
 (8565, 'accaicedtea', -60, '2023-04-27', 'desc', 6),
 (53543, 'accaicedtea', 90, '2023-04-14', 'desc', 6),
-(84567, 'accaicedtea', 23, '2023-03-22', 'desc', 6);
+(84567, 'accaicedtea', 23, '2023-03-22', 'desc', 6),
+(1866924011, 'accaicedtea', -100000000, '0000-00-00', 'fffff', 1),
+(1866924012, 'accaicedtea', 11, '2023-04-13', 'fefe', 5),
+(1866924013, 'accaicedtea', 99999, '0000-00-00', 'jfaafjooafuafoafo', 5),
+(1866924014, 'accaicedtea', 888888, '0000-00-00', '8888888', 5),
+(1866924015, 'accaicedtea', 100000, '0000-00-00', 'fjeofjoj', 5),
+(1866924016, 'accaicedtea', 100000, '0000-00-00', 'feohwfhaeofehof', 5),
+(1866924017, 'accaicedtea', 100000, '0000-00-00', 'feohwfhaeofehof', 5),
+(1866924018, 'accaicedtea', 100000, '0000-00-00', 'feohwfhaeofehof', 5),
+(1866924019, 'accaicedtea', 100000, '0000-00-00', 'feohwfhaeofehof', 5),
+(1866924020, 'accaicedtea', 100000, '0000-00-00', 'feohwfhaeofehof', 5),
+(1866924021, 'accaicedtea', 100000, '0000-00-00', 'feohwfhaeofehof', 5),
+(1866924022, 'accaicedtea', 100000, '0000-00-00', 'feohwfhaeofehof', 5),
+(1866924023, 'accaicedtea', 100000, '0000-00-00', 'feohwfhaeofehof', 5),
+(1866924024, 'accaicedtea', 100000, '0000-00-00', 'feohwfhaeofehof', 5),
+(1866924025, 'accaicedtea', 100000, '2023-04-30', 'feohwfhaeofehof', 5),
+(1866924026, 'accaicedtea', 100000, '2023-04-30', 'feohwfhaeofehof', 5),
+(1866924027, 'accaicedtea', 100000, '2023-04-30', 'feohwfhaeofehof', 5),
+(1866924028, 'accaicedtea', 100000, '2023-04-30', 'feohwfhaeofehof', 5),
+(1866924029, 'accaicedtea', 100000, '2023-04-30', 'feohwfhaeofehof', 5),
+(1866924033, 'accaicedtea', 100000, '2023-05-02', 'feohwfhaeofehof', 5),
+(1866924034, 'accaicedtea', 100000, '2023-05-02', 'feohwfhaeofehof', 5),
+(1866924035, 'accaicedtea', 100000, '2023-05-02', 'feohwfhaeofehof', 5),
+(1866924036, 'accaicedtea', 100000, '2023-05-02', 'feohwfhaeofehof', 5),
+(1866924037, 'accaicedtea', 99999, '0000-00-00', 'mmmm', 5),
+(1866924038, 'accaicedtea', 99999, '2023-05-02', 'efifeifgei', 5);
 
 -- --------------------------------------------------------
 
@@ -1580,7 +1612,7 @@ CREATE TABLE IF NOT EXISTS `utente` (
   `dataN` date NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(42) NOT NULL,
-  `pfp` varchar(40) NOT NULL,
+  `pfp` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `saldo_ini` decimal(16,2) NOT NULL,
   PRIMARY KEY (`username`),
   KEY `nazionalità` (`nazionalita`)
@@ -1591,7 +1623,7 @@ CREATE TABLE IF NOT EXISTS `utente` (
 --
 
 INSERT INTO `utente` (`username`, `nome`, `cognome`, `sesso`, `nazionalita`, `dataN`, `email`, `password`, `pfp`, `saldo_ini`) VALUES
-('accaicedtea', 'hasan', 'abdel aziz', 1, 'Italia', '2003-06-04', 'provaemail@email.com', '0975af2aa2d9a0dc37610668371e9d05', './assets/img/avatars/icons8-an', '0.00'),
+('accaicedtea', 'hasan', 'abdel aziz', 1, 'Italia', '2003-06-25', 'provaemail@email.com', '6e6bc4e49dd477ebc98ef4046c067b5f', './assets/img/avatars/icons8-super-mario.svg', '100.00'),
 ('luchetto', 'luca', 'mimmi', 1, 'Italia', '1992-03-12', 'diobrando@gmail.com', '0975af2aa2d9a0dc37610668371e9d05', './assets/img/avatars/icons8-an', '0.00'),
 ('pippa', 'laura', 'zingheri', 0, 'Italia', '1995-10-18', 'cinquesonocinque@gmail.com', '0975af2aa2d9a0dc37610668371e9d05', './assets/img/avatars/icons8-an', '0.00');
 
