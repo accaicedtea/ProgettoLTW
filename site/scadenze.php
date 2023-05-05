@@ -82,6 +82,13 @@
                             <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
+<script>
+    setTimeout(function() {
+        var alert = document.querySelector('.alert');
+        var bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+    }, 1000);
+</script>
                         <?php }?>
                         <p class="h3 text-center mb-3 mt-3">Gestione entrate e uscite</p>
                         <div class="card-header py-3">
@@ -356,7 +363,7 @@
             <td class="table-light" data-label="Categoria">${item.categoria}</td>
             <td data-label="Descrizione">${item.descrizione}</td>
             <td class="table-light" data-label="Importo">${Math.abs(item.importo)} &euro;</td>
-            <td class="table-${(item.importo>0)? 'success': 'danger'} data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
+            <td class="table-${(item.importo>0)? 'success': 'danger'}" data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
             <td data-label="Azione"><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
                     <i class="bi bi-pencil-square"></i>
                 </button>
