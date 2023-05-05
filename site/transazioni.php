@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col">
-                                        <a id="exportJSON" onclick="exportJson(this);" class="btn btn-outline-dark btn-sm bottone-download"><i class="bi bi-download bi-sm"></i>Esporta tabella</a>
+                                        
                                     </div>
                                     
                                     <div class="col"></div>
@@ -299,16 +299,7 @@
     </div>
 </body>
 
-<script>
-    function exportJson(el) {
-        var obj = <?= getJsonSpese($conn);?>;
-        //formattato
-        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
-        
-        el.setAttribute("href", "data:"+data);
-        el.setAttribute("download", "data.json");    
-    }
-</script>
+
 <script>
     window.onload = populateSelect();
     function populateSelect() {
