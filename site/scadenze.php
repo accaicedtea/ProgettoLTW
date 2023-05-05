@@ -18,10 +18,10 @@
             url:"filtered_table.php",   
             type: "get",   
             dataType: 'json',
-            data: {categoria: e.options[e.selectedIndex].text},
+            data: {categoria: e.options[e.selectedIndex].text, pagina: "scadenze"},
             success:function(result){
                 dataSet = result;
-                lastPage = Math.round(dataSet.length/perPage);
+                lastPage = Math.ceil(dataSet.length/perPage);
                 displayAll(1, 15);
             }
         });
@@ -33,10 +33,10 @@
             url:"filtered_table.php",    
             type: "get",    
             dataType: 'json',
-            data: {tipo: e.options[e.selectedIndex].text},
+            data: {tipo: e.options[e.selectedIndex].text, pagina: "scadenze"},
             success:function(result){
                 dataSet = result;
-                lastPage = Math.round(dataSet.length/perPage);
+                lastPage = Math.ceil(dataSet.length/perPage);
                 displayAll(1, 15);
             }
         });

@@ -1,46 +1,24 @@
 <?php
-//TODO: da modificare per rendere id incrementale e aggiustare la query per aggiungere l'id categoria
-require "./funzioni.php";
- $conn = db_conn();
+
+    require './funzioni.php';
+    $conn = db_conn();
+    
     $utente = $_SESSION['username'];
-    $descrizione =  $_POST['description_new'];
-    $data =  $_POST['date_new'];
+    $id = $_POST['id_edit'];
+    $descrizione =  validate($_POST['description_edit']);
+    $data =  $_POST['date_edit'];
+    
+    if ($_POST['tipo_edit'] == 'entrata')
+        $importo =  validate($_POST['amount_edit']);
+    else $importo = -1 * validate($_POST['amount_edit']);
+    $categoria = validate($_POST['cat_edit']);
 
-    if ($_POST['tipo_new'] == 'entrata') $importo =  $_POST['amount_new'];
-    else $importo = -1 * $_POST['amount_new'];
-
-    //prende il massimo valore di una spesa di un certo utente
-    $sql = "SELECT MAX(s.id) as id
-    FROM spesa s JOIN utente u ON s.utente='$utente';";
-
-    $result = mysqli_query($conn,$sql);
-    if(mysqli_num_rows($result) === 1){
-        $row = mysqli_fetch_assoc($result);
-        $id=$row['id'];
-        $id+=1;
-
-    }else{
-        $id= rand();
-    }
-
-    $categoria = $_POST['cat_new']; 
-
-
-    // Performing insert query execution
-    if ($data == "") $sql = "INSERT INTO spesa VALUES ('$id', '$utente', '$importo', NULL, '$descrizione', '$categoria')";
-    else $sql = "INSERT INTO spesa VALUES ('$id', '$utente', '$importo', '$data', '$descrizione', '$categoria')";
+    $sql = "UPDATE spesa SET importo = '$importo', descrizione = '$descrizione', data = '$data', categoria = '$categoria' WHERE utente = '$utente' AND id = '$id'";
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $query = mysqli_query($conn, $sql);
 
-
     if($query){
-        //allora è una buffo o buffetto
-        if($data==NULL){
-            $msg="Il buffo o buffetto è stato inserito correttamente";
-            echo "<script>window.location.href=' buffi.php?msg=$msg'</script>";
-        }else 
-        //allora è una transazione normali
         if($data<=date("Y-m-d")){
             $msg="Transazione inserita correttamente";
             echo "<script>window.location.href=' transazioni.php?msg=$msg'</script>";
@@ -66,5 +44,7 @@ require "./funzioni.php";
             $msg="Qualcosa è andato storto";
             echo "<script>window.location.href=' scadenze.php?msg=$msg'</script>";
         }
+
     }
+
 ?>
