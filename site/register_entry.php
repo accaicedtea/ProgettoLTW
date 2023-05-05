@@ -19,11 +19,6 @@ require "./funzioni.php";
     $query = mysqli_query($conn, $sql);
 
     if($query){
-        //allora è una buffo o buffetto
-        if($data==NULL){
-            $msg="Il buffo o buffetto è stato inserito correttamente";
-            echo "<script>window.location.href=' buffi.php?msg=$msg'</script>";
-        }else 
         //allora è una transazione normali
         if($data<=date("Y-m-d")){
             $msg="Transazione inserita correttamente";

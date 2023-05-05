@@ -20,21 +20,17 @@
 
     if($query){
         if($data<=date("Y-m-d")){
-            $msg="Transazione inserita correttamente";
+            $msg="Transazione modificata correttamente";
             echo "<script>window.location.href=' transazioni.php?msg=$msg'</script>";
         }else{
         //allora è una scadenza
-            $msg="Scadenza inserita correttamente puoi visualizzarla nella sezione scadenze";
+            $msg="Scadenza modificata correttamente";
             echo "<script>window.location.href=' scadenze.php?msg=$msg'</script>";
         }
 
 
         //header("Location: transazioni.php?msg=$msg");
     } else{
-        if($data==NULL){
-            $msg="Qualcosa è andato storto";
-            echo "<script>window.location.href=' buffi.php?msg=$msg'</script>";
-        }else 
         //allora è una transazione normali
         if($data<=date("Y-m-d")){
             $msg="Qualcosa è andato storto";
