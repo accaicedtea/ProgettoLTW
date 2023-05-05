@@ -13,78 +13,111 @@
     $json_giorni_mese = giorni_mese();
     //echo $json_data_piechart;
 ?>
-<script>
-    function applicaFiltroCat() {
-        var e = document.getElementById("cars");
-        $.ajax({
-            url:"filtri.php",   
-            type: "get",   
-            dataType: 'json',
-            data: {
-                mese: e.options[e.selectedIndex].text
-            },
-            success:function(result){
-                dataSet = result;    
-            }
-        });
-    }
 
-</script>
-<label for="cars">Choose a car:</label>
+<style>
+    .highcharts-figure,
+.highcharts-data-table table,.card-high {
+  min-width: 260px;
+  max-width: 800px;
+  margin: 1em auto;
+}
 
-<select name="cars" id="cars">
-  <option value="04">aprile</option>
-  <option value="05">maggio</option>
-  <option value="06">giugno</option>
-  <option value="07">luglio</option>
-</select>
-<div class="col-xl-6">
-                            <figure class="highcharts-figure">
-                                <div id="pie_chart">
+/* Global font */
+@import url("https://fonts.googleapis.com/css?family=Dosis:400,600");
+@import url("../highcharts.css");
 
-                                </div>
-                            </figure>
-                        </div>
-<script>
+:root {
+    /* Colors for data series and points. */
+    --highcharts-color-0: #7cb5ec;
+    --highcharts-color-1: #f7a35c;
+    --highcharts-color-2: #90ee7e;
+    --highcharts-color-3: #7798bf;
+    --highcharts-color-4: #aaeeee;
+    --highcharts-color-5: #ff0066;
+    --highcharts-color-6: #eeaaee;
+    --highcharts-color-7: #55bf3b;
+    --highcharts-color-8: #df5353;
+    --highcharts-color-9: #7798bf;
+}
 
-    var y = document.getElementById("pie_chart");
-    y.innerHTML =                                     `<script>
-                                        let dataSet = <?=$json_data_piechart;?>;
-                                        Highcharts.chart('pie chart', {
+.highcharts-container {
+    font-family: Dosis, arial, helvetica, sans-serif;
+}
+
+.highcharts-title,
+.highcharts-subtitle,
+.highcharts-yaxis .highcharts-axis-title {
+    text-transform: uppercase;
+}
+
+.highcharts-title {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.highcharts-axis-labels {
+    font-size: 1em;
+}
+
+.highcharts-legend-item > text {
+    font-size: 1.1em;
+}
+
+.highcharts-xaxis-grid .highcharts-grid-line {
+    stroke-width: 1px;
+}
+
+.highcharts-tooltip-box {
+    stroke-width: 0;
+    fill: rgb(219, 219, 216);
+}
+    
+</style>
+
+<div class="card border-success mb-3 card-high" >
+  <div class="card-header">Header</div>
+  <div class="card-body text-success">
+    
+        <h5 class="card-title">Success card title</h5>
+        
+        <figure class="highcharts-figure">
+                                <div id="area graph">
+                                    <script>
+                                        Highcharts.chart('area graph', {
                                             chart: {
-                                                plotBackgroundColor: null,
-                                                plotBorderWidth: null,
-                                                plotShadow: false,
-                                                type: 'pie'
-                                            },
-                                            credits: {
-                                                enabled: false
+                                                type: 'area'
                                             },
                                             title: {
-                                                text: 'Percentuali uscite di <?php if (date("m") == "01") echo "gennaio";if (date("m") == "02") echo "febbraio";if (date("m") == "03") echo "marzo";if (date("m") == "04") echo "aprile";if (date("m") == "05") echo "maggio";if (date("m") == "06") echo "giugno";if (date("m") == "07") echo "luglio";if (date("m") == "08") echo "agosto";if (date("m") == "09") echo "settembre";if (date("m") == "10") echo "ottobre";if (date("m") == "11") echo "novembre";if (date("m") == "12") echo "dicembre";?>',
-                                                align: 'left'
+                                                text: 'Entrate di questo mese'
+                                            },
+                                            credits:{
+                                                enabled: false
+                                            },
+                                            xAxis: {
+                                                categories: <?=$json_giorni_mese;?>
+                                            },
+                                            yAxis: {
+                                                title: {
+                                                    text: '€'
+                                                }
                                             },
                                             tooltip: {
-                                                pointFormat: '<b>{point.percentage:.1f}%</b>'
-                                            },
-                                            accessibility: {
-                                                point: {
-                                                    valueSuffix: '%'
-                                                }
+                                                valueDecimals: 2,
+                                                valueSuffix: "€"
                                             },
                                             plotOptions: {
-                                                pie: {
-                                                    allowPointSelect: true,
-                                                    cursor: 'pointer',
+                                                line: {
                                                     dataLabels: {
                                                         enabled: true,
-                                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                                                    }
+                                                    },
+                                                    enableMouseTracking: false
                                                 }
                                             },
-                                            series: [{ 
-                                                data: dataSet
-                                            }]
+                                            series: 
+                                                <?=$json_data_linegraph;?>
                                         });
-                                    </script>`
-</script>
+                                    </script>
+                                </div>
+                            </figure>
+    </div>
+</div>

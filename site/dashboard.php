@@ -15,6 +15,65 @@
         //echo $json_data_piechart;
 ?>
 
+<style>
+    .highcharts-figure,
+.highcharts-data-table table {
+  min-width: 260px;
+  max-width: 800px;
+  margin: 1em auto;
+}
+
+/* Global font */
+@import url("https://fonts.googleapis.com/css?family=Dosis:400,600");
+@import url("../highcharts.css");
+
+:root {
+    /* Colors for data series and points. */
+    --highcharts-color-0: #7cb5ec;
+    --highcharts-color-1: #f7a35c;
+    --highcharts-color-2: #90ee7e;
+    --highcharts-color-3: #7798bf;
+    --highcharts-color-4: #aaeeee;
+    --highcharts-color-5: #ff0066;
+    --highcharts-color-6: #eeaaee;
+    --highcharts-color-7: #55bf3b;
+    --highcharts-color-8: #df5353;
+    --highcharts-color-9: #7798bf;
+}
+
+.highcharts-container {
+    font-family: Dosis, arial, helvetica, sans-serif;
+}
+
+.highcharts-title,
+.highcharts-subtitle,
+.highcharts-yaxis .highcharts-axis-title {
+    text-transform: uppercase;
+}
+
+.highcharts-title {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.highcharts-axis-labels {
+    font-size: 1em;
+}
+
+.highcharts-legend-item > text {
+    font-size: 1.1em;
+}
+
+.highcharts-xaxis-grid .highcharts-grid-line {
+    stroke-width: 1px;
+}
+
+.highcharts-tooltip-box {
+    stroke-width: 0;
+    fill: rgb(219, 219, 216);
+}
+    
+</style>
 <body id="page-top">
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -47,6 +106,7 @@
                     <!-- nuova riga per grafico area-->
                     <div class="row">
                         <div class="col mt-5">
+                            
                             <figure class="highcharts-figure">
                                 <div id="area graph">
                                     <script>
