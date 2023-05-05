@@ -74,7 +74,7 @@
     
 </style>
 
-<div class="card border-success mb-3 card-high" >
+<div class="card border-success mb-3 card-high shadow" >
   <div class="card-header">Header</div>
   <div class="card-body text-success">
     

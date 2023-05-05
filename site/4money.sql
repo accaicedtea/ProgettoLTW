@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `id` varchar(30) NOT NULL,
   `nome` varchar(20) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -72,7 +72,7 @@ INSERT INTO `categoria` (`id`, `nome`, `colore`, `img`) VALUES
 DROP TABLE IF EXISTS `spesa`;
 CREATE TABLE IF NOT EXISTS `spesa` (
   `id` int NOT NULL,
-  `utente` varchar(30) NOT NULL,
+  `utente` varchar(32) NOT NULL,
   `importo` double NOT NULL,
   `data` date NOT NULL,
   `descrizione` varchar(50) NOT NULL,
@@ -1572,15 +1572,15 @@ INSERT INTO `stati` (`nome_stati`) VALUES
 
 DROP TABLE IF EXISTS `utente`;
 CREATE TABLE IF NOT EXISTS `utente` (
-  `username` varchar(30) NOT NULL,
-  `nome` varchar(30) NOT NULL,
-  `cognome` varchar(30) NOT NULL,
+  `username` varchar(32) NOT NULL,
+  `nome` varchar(32) NOT NULL,
+  `cognome` varchar(32) NOT NULL,
   `sesso` tinyint(1) NOT NULL,
   `nazionalita` varchar(50) NOT NULL,
   `dataN` date NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(42) NOT NULL,
-  `pfp` varchar(40) NOT NULL,
+  `pfp` varchar(60) NOT NULL,
   `saldo_ini` decimal(16,2) NOT NULL,
   PRIMARY KEY (`username`),
   KEY `nazionalità` (`nazionalita`)
