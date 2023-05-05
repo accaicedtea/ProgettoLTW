@@ -137,7 +137,7 @@
     .minno{
                 top:-414px;
     }
-    img{
+    .icon{
         width:170px;
         height:170px;
         margin-top: 50px;
@@ -250,7 +250,7 @@ setTimeout(function() {
                                                     <div class="mb-3">
                                                         <label>
                                                             <input class="border border-5" type="radio" name="test" value="./assets/img/avatars/icons8-anime-sama.svg" checked >
-                                                            <img class="fade-in" src="./assets/img/avatars/icons8-anime-sama.svg" alt="Option 1" width="50" height="50">
+                                                            <img class="icon fade-in" src="./assets/img/avatars/icons8-anime-sama.svg" alt="Option 1" width="50" height="50">
                                                         </label>
                                                         <label>
                                                             <input class="border border-primary" type="radio" name="test" value="./assets/img/avatars/icons8-futurama-bender.svg">
