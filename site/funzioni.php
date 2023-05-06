@@ -28,6 +28,27 @@ function log_out($conn)
         $_SESSION['log']='off';
     }
 }
+function controlla_immagine($img){
+    $imaginin_disponibili = 
+    [
+        "./assets/img/avatars/icons8-anime-sama.svg","./assets/img/avatars/icons8-futurama-bender.svg","./assets/img/avatars/icons8-genshin-impact-xiao.svg",
+        "./assets/img/avatars/icons8-hello-kitty.svg","./assets/img/avatars/icons8-homer-simpson.svg",
+        "./assets/img/avatars/icons8-impero.svg","./assets/img/avatars/icons8-iron-man.svg","./assets/img/avatars/icons8-jake.svg",
+        "./assets/img/avatars/icons8-kaedehara-kazuha.svg","./assets/img/avatars/icons8-koya-bt21.svg","./assets/img/avatars/icons8-maschera-anonimo.svg",
+        "./assets/img/avatars/icons8-mummia.svg","./assets/img/avatars/icons8-walter-white.svg","./assets/img/avatars/icons8-super-mario.svg",
+        "./assets/img/avatars/icons8-rebel.svg","./assets/img/avatars/icons8-pokemon.svg"
+    ];
+
+    if (!in_array($img, $imaginin_disponibili)) {
+        return false;
+    }
+    return true;
+}
+
+
+
+
+
 function getJsonCat($conn)
 {
     $emparray = [];
@@ -144,7 +165,7 @@ function getJsonUtente($conn)
     $emparray = [];
     $user = $_SESSION["username"];
     $passw = $_SESSION["password"];
-    $sql = "SELECT * FROM utente join stati on utente.nazionalita=stati.id_stati WHERE username = '$user' and password='$passw';";
+    $sql = "SELECT * FROM utente join stati on utente.nazionalita=stati.nome_stati WHERE username = '$user' and password='$passw';";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $emparray[] = $row;
@@ -168,7 +189,7 @@ function getJsonAdmin($conn)
 function getJsonStati($conn)
 {
     $sql =
-        "SELECT stati.id_stati as id, stati.nome_stati as nome from stati order by stati.id_stati";
+        "SELECT stati.nome_stati as id, stati.nome_stati as nome from stati order by stati.nome_stati";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
         $array[] = $row;

@@ -21,16 +21,18 @@
                     <div class="card-header py-3">
                     <?php if(isset($_GET['msg'])){ ?>
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
+                                        <strong>Congratulazioni! </strong><?php echo $_GET['msg'];
+                                             
+                                        ?>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
                                         </div>
                                         <script>
-setTimeout(function() {
-  var alert = document.querySelector('.alert');
-  var bsAlert = new bootstrap.Alert(alert);
-  bsAlert.close();
-}, 1000);
-</script>
+                                            setTimeout(function() {
+                                            var alert = document.querySelector('.alert');
+                                            var bsAlert = new bootstrap.Alert(alert);
+                                            bsAlert.close();
+                                            }, 1000);
+                                        </script>
                                     <?php }?>
                                     <?php if(isset($_GET['error'])){ ?>
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -38,12 +40,12 @@ setTimeout(function() {
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                         <script>
-setTimeout(function() {
-  var alert = document.querySelector('.alert');
-  var bsAlert = new bootstrap.Alert(alert);
-  bsAlert.close();
-}, 1000);
-</script>
+                                            setTimeout(function() {
+                                            var alert = document.querySelector('.alert');
+                                            var bsAlert = new bootstrap.Alert(alert);
+                                            bsAlert.close();
+                                            }, 1000);
+                                        </script>
                                     <?php }?>
                                    
                                         <p class="text-primary m-0 fw-bold text-start">Profilo <i class="bi bi-person-bounding-box"></i></p>
@@ -227,7 +229,7 @@ function esportaCSV() {
                                     <div class="form-check ps-2 mb-2 radio-inputs">
                                         
                                         <label>
-                                        <label>Sesso</label>
+                                        <label><strong>Sesso</strong> </label>
                                             <input checked=""class="radio-input " type="radio" id="radio1" name="sesso" value="1">
                                                 <span class="radio-tile">
                                                     <span class="radio-icon">
@@ -248,8 +250,7 @@ function esportaCSV() {
                                     </div>
 
                                     <div class="mb-3">    
-                                        <label class="form-label">Nazionalità</label>
-                                        
+                                        <label><strong>Nazionalità</strong> </label>
                                         <input class="form-control " list="selectNazi" name="nazionalita"  id="nazionalita" >
                                         
                                         <datalist id="selectNazi">
@@ -258,9 +259,10 @@ function esportaCSV() {
 
                                     </div>    
 
-                                    <div class="form-floating mb-3">  
+                                    <div class="mb-3">  
+                                        <label for="dataN pb-2"><strong>Data di nascita</strong> </label>
                                         <input type="date" class="form-control " id="dataN" name="dataN" >
-                                        <label for="dataN">Data di nascita</label>    
+                                            
                                     </div>
 
                                     <div>

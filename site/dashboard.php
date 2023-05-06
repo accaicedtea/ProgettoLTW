@@ -15,109 +15,25 @@
         $json_giorni_mese = giorni_mese();
         //echo $json_data_piechart;
 ?>
-
-<style>
-    .highcharts-figure,
-.highcharts-data-table table,.card-high {
-  min-width: 260px;
-  max-width: 900px;
-  margin: 1em auto;
-}
-
-/* Global font */
-@import url("https://fonts.googleapis.com/css?family=Dosis:400,600");
-@import url("../highcharts.css");
-
-:root {
-    /* Colors for data series and points. */
-    --highcharts-color-0: #7cb5ec;
-    --highcharts-color-1: #f7a35c;
-    --highcharts-color-2: #90ee7e;
-    --highcharts-color-3: #7798bf;
-    --highcharts-color-4: #aaeeee;
-    --highcharts-color-5: #ff0066;
-    --highcharts-color-6: #eeaaee;
-    --highcharts-color-7: #55bf3b;
-    --highcharts-color-8: #df5353;
-    --highcharts-color-9: #7798bf;
-}
-
-.highcharts-container {
-    font-family: Dosis, arial, helvetica, sans-serif;
-}
-
-.highcharts-title,
-.highcharts-subtitle,
-.highcharts-yaxis .highcharts-axis-title {
-    text-transform: uppercase;
-}
-
-.highcharts-title {
-    font-weight: bold;
-    font-size: 1.3em;
-}
-
-.highcharts-axis-labels {
-    font-size: 1em;
-}
-
-.highcharts-legend-item > text {
-    font-size: 1.1em;
-}
-
-.highcharts-xaxis-grid .highcharts-grid-line {
-    stroke-width: 1px;
-}
-
-.highcharts-tooltip-box {
-    stroke-width: 0;
-    fill: rgb(219, 219, 216);
-}
-    
-</style>
-
-
-
-</style>
-<style>
-.pupup {
-    animation: pupup 1s cubic-bezier(0.61, 1, 0.88, 1) 0s 1 normal forwards;
-}
-@keyframes pupup {
-	0% {
-        opacity: 0;
-		transform: scale(1);
-	}
-
-	50% {
-        opacity: 0.5;
-		transform: scale(1.1);
-	}
-
-	100% {
-		transform: scale(1);
-	}
-}
-</style>
 <body>
     <div class="container-fluid ">
         <div class="row justify-content-center mt-3 ">
-            <div id="entrate_mensili" class="col-auto lg-3 card shadow me-5 mt-2 pupup">
+            <div id="entrate_mensili" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Entrate mensili</p>
                 <span class="border-bottom"></span>
                 <!--Entrate mensili da database-->
             </div>
-            <div id="uscite_mensili" class="col-auto  lg-3 card shadow me-5 mt-2 pupup">
+            <div id="uscite_mensili" class="col-auto  lg-3 card shadow me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Uscite mensili</p>
                 <span class="border-bottom"></span>
                 <!--Uscite mensili da database-->
             </div>
-            <div id="entrate_annuali" class="col-auto lg-3 card shadow me-5 mt-2 pupup">
+            <div id="entrate_annuali" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Entrate annuali</p>
                 <span class="border-bottom"></span>
                 <!--Entrate annuali da database-->
             </div>
-            <div id="uscite_annuali" class="col-auto lg-3 card shadow me-5 mt-2 pupup">
+            <div id="uscite_annuali" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Uscite annuali</p>
                 <span class="border-bottom"></span>
                 <!--uscote annuali da database-->
@@ -230,20 +146,20 @@
 
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" >
                 <div class="card shadow card-high">
                     <div class="card-header">
                         <p class="text-primary m-0" ><strong>Le prossime scadenze</strong></p>
                     </div>
                     <div class="card-body text-center">
                         <!-- TABELLA -->
-                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                            <table class="table my-0" id="dataTable">
+                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info" >
+                            <table class="table my-0" id="dataTable" >
                                 <thead>
                                     <tr>
                                         <th>Data</th>
-                                        <th>Cate.</th>
-                                        <th>Descr.</th>
+                                        <th>Categoria</th>
+                                        <th>Descrizione</th>
                                         <th>Importo</th>
                                         <th>Tipo</th>
                                         
