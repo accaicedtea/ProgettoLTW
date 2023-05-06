@@ -81,7 +81,7 @@
                                                     <div class="col">
                                                        
                                                         <div class="form-floating mb-3">
-                                                            <input type="text" class="form-control " id="username" name="username" placeholder="username" onchange="validaInput('username','[A-Za-z ]{4,32}')" pattern="[A-Za-z ]{4,32}" required>
+                                                            <input type="text" class="form-control " id="username" name="username" placeholder="username" onchange="validaInput('username','([0-9]*[A-Za-z ]*[0-9]*)*')" pattern="([0-9]*[A-Za-z ]*[0-9]*)*" required>
                                                             <label for="username">Username</label>
                                                         </div>
                                                     </div>
@@ -89,7 +89,7 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="form-floating mb-3">
-                                                            <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" required>
+                                                            <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" required>
                                                             <label for="passw">Password</label>
                                                         </div>
                                                     </div>
