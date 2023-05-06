@@ -75,49 +75,69 @@
 </style>
 
 <div class="card border-success mb-3 card-high shadow" >
-  <div class="card-header">Header</div>
-  <div class="card-body text-success">
-    
-        <h5 class="card-title">Success card title</h5>
-        
-        <figure class="highcharts-figure">
-                                <div id="area graph">
-                                    <script>
-                                        Highcharts.chart('area graph', {
-                                            chart: {
-                                                type: 'area'
-                                            },
-                                            title: {
-                                                text: 'Entrate di questo mese'
-                                            },
-                                            credits:{
-                                                enabled: false
-                                            },
-                                            xAxis: {
-                                                categories: <?=$json_giorni_mese;?>
-                                            },
-                                            yAxis: {
+  <div class="card-header">Tabella</div>
+    <div class="card-body text-success">        
+    <figure class="highcharts-figure">
+                                        <div id="histogram">
+                                            <script>
+                                                <?php 
+                                                    $title = "Spese durante l'anno";
+                                                    $title = addslashes($title);
+                                                ?>  
+                                            Highcharts.chart('histogram', {
+                                                chart: {
+                                                    type: 'column'
+                                                },
+                                                credits: {
+                                                enabled:false
+                                                },
                                                 title: {
-                                                    text: '€'
-                                                }
-                                            },
-                                            tooltip: {
-                                                valueDecimals: 2,
-                                                valueSuffix: "€"
-                                            },
-                                            plotOptions: {
-                                                line: {
-                                                    dataLabels: {
-                                                        enabled: true,
-                                                    },
-                                                    enableMouseTracking: false
-                                                }
-                                            },
-                                            series: 
-                                                <?=$json_data_linegraph;?>
-                                        });
-                                    </script>
-                                </div>
-                            </figure>
+                                                    align: 'left',
+                                                    text: '<?php echo $title;?>'
+                                                },
+                                                accessibility: {
+                                                    announceNewData: {
+                                                        enabled: true
+                                                    }
+                                                },
+                                                xAxis: {
+                                                    type: 'category',
+                                                    labels: {
+                                                        style: {
+                                                            fontWeight: 'bold'
+                                                        }
+                                                    }
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: '€'
+                                                    }
+                                                },
+                                                legend: {
+                                                    enabled: false
+                                                },
+                                                plotOptions: {
+                                                    series: {
+                                                        borderWidth: 0,
+                                                        dataLabels: {
+                                                            enabled: true,
+                                                            format: '{y:.2f}€'
+                                                        }
+                                                    }
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                                                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}€<br/>'
+                                                },
+                                            
+                                                series: [{
+                                                    name: 'Spesa del mese',
+                                                    colorByPoint:true,
+                                                    data: <?=$json_data_histogram;?>
+                                                }]
+                                            });
+                                            </script>
+                                        </div>
+                                    </figure>  
     </div>
 </div>

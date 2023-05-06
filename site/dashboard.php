@@ -105,6 +105,23 @@
                     <!-- fine riga -->
                     <!-- nuova riga per grafico area-->
                     <div class="row">
+                        <div class="col">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold text-start">Profilo <i class="bi bi-person-bounding-box"></i></p>             
+                        </div>
+                    <div>
+                        <img id="pfp" src="" class="rounded-circle fade-in" width="100" height="100">
+                    </div>
+                    <p class="m-0 h5 fw-bold text-center text-primary" >Username dell'utente</p>
+                    
+                    <p class="m-0 h5 fw-bold text-center" id="username"></p>
+                    <div class="card-body text-center">
+
+                        <button type="button" class="btn btn-primary btn-sm fade-in mb mt-5" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                            Cambia icona profilo
+                        </button>
+                  
+                    </div>
                         <div class="col mt-5">
                             
                             <figure class="highcharts-figure">
