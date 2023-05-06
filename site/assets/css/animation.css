@@ -28,7 +28,16 @@
     animation: text 1s 1;
 }
   
-  
+.card-log-effect{
+    animation: 0.5s skew-x-shakeng;
+}
+
+@keyframes skew-x-shakeng{
+    0% { transform: scale(1.2); }
+   
+    100% { transform: scale(1); }
+}
+
 @keyframes text {
     0% {
         color: #262626;
@@ -40,6 +49,21 @@
         letter-spacing:8px;
     }
 }
+.sfondo-animato {
+    animation: cambia-colore 10s ease-in-out infinite;
+  }
+  
+  @keyframes cambia-colore {
+    0% {
+      background-color: #c2c086;
+    }
+    50% {
+      background-color: #edebbb;
+    }
+    100% {
+      background-color: #c2c086;
+    }
+  }
 /* fine */
 .immagineProfilo{
     display: block;

@@ -161,21 +161,7 @@
 </style>
 
 <style>
-.sfondo-animato {
-  animation: cambia-colore 10s ease-in-out infinite;
-}
 
-@keyframes cambia-colore {
-  0% {
-    background-color: #c2c086;
-  }
-  50% {
-    background-color: #edebbb;
-  }
-  100% {
-    background-color: #c2c086;
-  }
-}
 
 .giga-big{
     width:170px;

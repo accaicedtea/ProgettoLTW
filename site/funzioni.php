@@ -878,8 +878,8 @@ function navBar($pagina)
                     </a>
                 </li>
                 </ul>
-                <a class="btn me-3 btn-success" href="./login.php" role="button">Accedi</a>
-                <a class="btn btn-danger" href="./register.php  " role="button">Registrati</a>
+                <a class="btn me-3 btn-success zoom" href="./login.php" role="button">Accedi</a>
+                <a class="btn btn-danger zoom" href="./register.php  " role="button">Registrati</a>
             </div>
             </div>
         </nav>
