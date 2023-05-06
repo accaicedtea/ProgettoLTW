@@ -228,7 +228,7 @@ function esportaCSV() {
                                         
                                         <label>
                                         <label>Sesso</label>
-                                            <input checked=""class="radio-input pe-4" type="radio" id="radio1" name="sesso" value="1">
+                                            <input checked=""class="radio-input " type="radio" id="radio1" name="sesso" value="1">
                                                 <span class="radio-tile">
                                                     <span class="radio-icon">
                                                         <i id="sesso1" class="bi bi-gender-male"></i>
@@ -238,7 +238,7 @@ function esportaCSV() {
                                         </label>
                                         <label>
                                             <input  class="radio-input" id="radio2" type="radio" name="sesso" value="0" >
-                                            <span class="radio-tile">
+                                            <span class="radio-tile mt-4">
                                                 <span class="radio-icon">
                                                     <i id="sesso2" class="bi bi-gender-female"></i>
                                                 </span>

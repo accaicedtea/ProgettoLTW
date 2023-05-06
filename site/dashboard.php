@@ -360,7 +360,7 @@ function populateVal() {
 </script>
 <script>
     // attenzione
-    dataSet = <?= getJsonScadenzeLimit($conn);?>;
+    dataSet = <?= getJsonScadenzaLimitata($conn);?>;
     for (var i in dataSet){
         var html = `<tr class="table-${( dataSet[i].importo>0)? 'success': 'danger'}">
         <td>${dataSet[i].data}</td>

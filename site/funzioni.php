@@ -93,6 +93,35 @@ function getJsonScadenze($conn)
     $_SESSION["tipo"] = "Tutti i tipi";
     return json_encode($emparray);
 }
+function getJsonScadenzaLimitata($conn)
+{
+    $username = $_SESSION["username"];
+    $emparray = [];
+    $data_oggi = $_SESSION["data_oggi"];
+    $sql = "select *
+    from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria
+    WHERE s.utente = '$username' and YEAR(s.data) = YEAR('$data_oggi') and Month(s.data) > Month('$data_oggi') and YEAR(s.data)!=0
+    UNION
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' and Year(s.data) = YEAR('$data_oggi') and MONTH(s.data) = MONTH('$data_oggi') and DAY(s.data) > DAY('$data_oggi') and YEAR(s.data)!=0
+    union
+    SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria,s.importo as importo 
+    FROM spesa s join categoria c on c.id=s.categoria 
+    WHERE s.utente = '$username' and YEAR(s.data) > YEAR('$data_oggi') and YEAR(s.data)!=0 
+    )as vie
+    ORDER BY vie.data DESC
+    LIMIT 9;
+    ";
+    $result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $emparray[] = $row;
+    }
+    $_SESSION["categoria"] = "Tutte le categorie";
+    $_SESSION["tipo"] = "Tutti i tipi";
+    return json_encode($emparray);
+}
 function getJsonBuffi($conn)
 {
     $username = $_SESSION["username"];
