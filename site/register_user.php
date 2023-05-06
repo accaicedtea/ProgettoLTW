@@ -5,7 +5,7 @@
     $conn = db_conn();
 function p($data,$patt){
     if(!preg_match($patt, $data)){
-        echo "<script>window.location.href=' profile.php?error=Qualcosa è andato storto controlla le credenziali'</script>";
+        echo "<script>window.location.href=' register.php?error=Qualcosa è andato storto controlla le credenziali'</script>";
         return null;
     } 
     return $data;
@@ -31,13 +31,17 @@ function p($data,$patt){
 
     $saldo =$_POST['saldo'];
     $saldo= p($saldo,"/[0-9]{1,32}/");
-    $sql = "INSERT INTO utente  VALUES ('$username', '$nome', '$cognome','$sesso','$nazionalita','$dataN', '$email' ,'$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg','$saldo')";
+    if($password==md5($_POST['passwordC'])){
+        $sql = "INSERT INTO utente  VALUES ('$username', '$nome', '$cognome','$sesso','$nazionalita','$dataN', '$email' ,'$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg','$saldo')";
 
-    if(mysqli_query($conn, $sql)){   
-        header("Location: login.php?msg=Grazie per la registazione");
-    } else{
-        header("Location: register.php?error=Ups Qualcosa è andato storto");
+        if(mysqli_query($conn, $sql)){   
+            header("Location: login.php?msg=Grazie per la registazione");
+        } else{
+            header("Location: register.php?error=Ups Qualcosa è andato storto");
+        }
+        $conn.close();
+    }else{
+        echo "<script>window.location.href=' register.php?error=Qualcosa è andato storto controlla le credenziali'</script>";
+        
     }
-    $conn.close();
-
 ?>

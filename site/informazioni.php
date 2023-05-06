@@ -5,16 +5,42 @@
   head($pagina);
   navBar($pagina);
 ?>
+<style>
+.img-hover{
+  box-shadow: 10px 10px 5px #000000;
+  -moz-box-shadow: 0px 10px 5px #000000;
+  -webkit-box-shadow: 0px 10px 5px #000000; 
+  transition: transform .5s;
+}
+.shadowT {
+  text-shadow: 2px 2px 10PX #7A7A7A;
+}
+.img-hover:hover{
+  transform: scale(1.1);
+  box-shadow: 10px 10px 5px #000000;
+  -moz-box-shadow: 0px 10px 5px #000000;
+  -webkit-box-shadow: 0px 10px 5px #000000; 
+}
+@media only screen and (max-width: 600px) {
+  .img-md {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+
 
 <body class="page-top" id="page-top">
   <hr class="featurette-divider">
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">Hasan <span class="text-muted">Abdel Aziz</span></h2>
-        <p class="lead">Mi chiamo Abdel Aziz Hasan. Ho 22 anni. La mia casa è nella parte est di Roma, dove ci sono tutti i criminali, e non sono sposato. Sono uno stundente presso Sapienza e torno a casa ogni giorno al massimo alle 19:30. Non fumo, ma bevo occasionalmente. Sono a letto alle 00:00 e mi assicuro di dormire come minimo 8 ore, qualunque cosa accada. Di solito non ho problemi a dormire fino al mattino. Proprio come una persona stanca, al mattino mi sveglio con fatica o stress. Mi è stato detto che forse non c'erano problemi al mio ultimo controllo. Sto cercando di spiegare che sono una persona che desidera vivere una vita molto tranquilla. Faccio attenzione a non disturbarmi con problemi, come vincere e perdere, che mi farebbero perdere il sonno la notte. È così che mi occupo della società e so che è ciò che mi rende felice.</p>
+    <div class="row ">
+      <div class="col-md-6">
+        <div class="col-auto topToF"><h2 id="nome" class="featurette-heading shadowT">Hasan <span class="text-muted">Abdel Aziz</span></h2>
+        <p id="desc" class="lead shadowT">Mi chiamo Abdel Aziz Hasan. Ho 22 anni. La mia casa è nella parte est di Roma, dove ci sono tutti i criminali, e non sono sposato. Sono uno stundente presso Sapienza e torno a casa ogni giorno al massimo alle 19:30. Non fumo, ma bevo occasionalmente. Sono a letto alle 00:00 e mi assicuro di dormire come minimo 8 ore, qualunque cosa accada. Di solito non ho problemi a dormire fino al mattino. Proprio come una persona stanca, al mattino mi sveglio con fatica o stress. Mi è stato detto che forse non c'erano problemi al mio ultimo controllo. Sto cercando di spiegare che sono una persona che desidera vivere una vita molto tranquilla. Faccio attenzione a non disturbarmi con problemi, come vincere e perdere, che mi farebbero perdere il sonno la notte. È così che mi occupo della società e so che è ciò che mi rende felice.</p></div>
+        
       </div>
-      <div class="col-md-5">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+      <div class="col-md-6 ">
+        <div class="col-auto text-right"><img class="img-md img-hover" src="./assets/brand/h.png" alt=""></div>
+        
       </div>
     </div>
 

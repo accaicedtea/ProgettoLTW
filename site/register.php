@@ -6,6 +6,7 @@
     head($pagina);
     navBar($pagina);
 ?>
+<script src="./assets/js/register_controlli.js"></script>
 <style>
 .radio-inputs {
     display: flex;
@@ -161,6 +162,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
                                           <?php }?>
+                                          <div class="alert-container"></div>
                                         <div class="row-md-3">
                                             <p class="h3 text-center mb-3 mt-3">Registrati</p>
                                         </div>
@@ -169,7 +171,7 @@
                                         </div>
                                         <div class="card-body">
                                             <!-- inizio form-->
-                                            <form action="./register_user.php" id="register-form" method="post" name="formreg" >
+                                            <form action="#" id="register-form" method="post" name="formreg" >
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="form-floating mb-3">
@@ -198,7 +200,7 @@
                                                     <div class="col">
                                                         <div class="form-check ps-2 mb-2 radio-inputs">     
                                                             <label>
-                                                            <label>Sesso</label>
+                                                            <label> <strong>Sesso</strong></label>
                                                                 <input checked=""class="radio-input pe-4" type="radio" id="radio1" name="sesso" value="1">
                                                                     <span class="radio-tile">
                                                                         <span class="radio-icon">
@@ -235,9 +237,7 @@
                                                         <input class="form-control" name="nazionalita" list="selectNazi" id="nazionalita" placeholder="Vedi do cazzo abiti" required>
                                                         <datalist id="selectNazi">
                                                         </datalist>
-                                                        </div>
-                                                        <!-- waring msg per nazionalità-->
-                                                        <div class="requirements" id="requirements_dataN"></div>
+                                                       
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -262,18 +262,23 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
+                                                        <div class="requirements_password"></div>
                                                         <div class="form-floating mb-3">
                                                             <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" required>
                                                             <label for="passw">Password</label>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row">
                                                 <div class="col">
                                                         <div class="form-floating mb-3">
                                                             <input type="password" class="form-control " id="passwordC" name="passwordC" placeholder="passwordC" onchange="validaInput('passwordC','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" required>
                                                             <label for="passwC">Conferma password</label>
                                                         </div>
+                                                        <div class="errors_confirm_password"></div>
                                                     </div>
+                                                </div>
+                                               
                                                     <div class="mb-3 text-center"><button id="submit-button" class="btn btn-primary zoom ">Registrati</button></div>
                                                     </div>
                                                 </form>
@@ -286,6 +291,7 @@
                     </div>
                 </div>
             </div>
+            <!--goto top -->
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
 </body>
@@ -303,10 +309,7 @@
         }
     }
 </script>
-<script>
-    var showVal = document.getElementById("nationalita").value;
-    var value2send = document.querySelector("#selectNazi option[value='"+shownVal+"']").dataset.value;
-</script>
+
 
 <script>
 function validaInput(id,pattern){
@@ -325,25 +328,32 @@ var submitButton = document.getElementById("submit-button");
 
 submitButton.addEventListener("click", function() {
   // Controlla la validità del form
-    if (form.checkValidity()) {
-        form.submit();
+     if (form.checkValidity()) {
+        if (document.formreg.password.value != document.formreg.passwordC.value) {
+           
+            const alertContainer = document.querySelector('#alert-container');
+
+            const alert = document.createElement('div');
+            alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
+            alert.setAttribute('role', 'alert');
+
+            alert.textContent = "Le password non coincidono";
+
+            const closeButton = document.createElement('button');
+            closeButton.classList.add('btn-close');
+            closeButton.setAttribute('type', 'button');
+            closeButton.setAttribute('data-bs-dismiss', 'alert');
+            closeButton.setAttribute('aria-label', 'Chiudi');
+            alert.appendChild(closeButton);
+
+            alertContainer.appendChild(alert);
+        }else{  
+        //form.submit();
+        }
     }else{
-        const alertContainer = document.querySelector('#alert-container');
-
-        const alert = document.createElement('div');
-        alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
-        alert.setAttribute('role', 'alert');
-
-        alert.textContent = 'Inserisci username e password';
-
-        const closeButton = document.createElement('button');
-        closeButton.classList.add('btn-close');
-        closeButton.setAttribute('type', 'button');
-        closeButton.setAttribute('data-bs-dismiss', 'alert');
-        closeButton.setAttribute('aria-label', 'Chiudi');
-        alert.appendChild(closeButton);
-
-        alertContainer.appendChild(alert);
+        var d = document.getElementById("requirements_password");
+    d.className += " alert alert-warning";
+    document.getElementById("requirements_password").innerHTML = "Requisiti password:<ul><li>Lunghezza compresa tra 6 e 20 caratteri</li><li>1 carattere maiuscolo</li><li>1 carattere minuscolo</li><li>1 numero</li><li>1 carattere speciale (!@#$%^&*)</li>"
     }
 });
 </script>
