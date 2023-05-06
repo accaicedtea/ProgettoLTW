@@ -6,27 +6,7 @@
   navBar($pagina);
 ?>
 <style>
-.img-hover{
-  box-shadow: 10px 10px 5px #000000;
-  -moz-box-shadow: 0px 10px 5px #000000;
-  -webkit-box-shadow: 0px 10px 5px #000000; 
-  transition: transform .5s;
-}
-.shadowT {
-  text-shadow: 2px 2px 10PX #7A7A7A;
-}
-.img-hover:hover{
-  transform: scale(1.1);
-  box-shadow: 10px 10px 5px #000000;
-  -moz-box-shadow: 0px 10px 5px #000000;
-  -webkit-box-shadow: 0px 10px 5px #000000; 
-}
-@media only screen and (max-width: 600px) {
-  .img-md {
-    width: 100%;
-    height: auto;
-  }
-}
+
 </style>
 
 

@@ -745,7 +745,7 @@ function navBar($pagina)
                 ]; ?>
                 </a>
                 
-                <a class="btn btn-sm btn-outline-danger" href="./logout.php" role="button">Logout</a>
+                <a class="btn btn-sm btn-outline-danger zoom" href="./logout.php" role="button">Logout</a>
             </div>
             </div>
         </nav>
@@ -804,7 +804,7 @@ function navBar($pagina)
                 } ?>" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION["username"]; ?>
                 </a>
                 
-                <a class="btn btn-sm btn-outline-danger" href="./logout.php" role="button">Logout</a>
+                <a class="btn btn-sm btn-outline-danger zoom" href="./logout.php" role="button">Logout</a>
             </div>
             </div>
         </nav>
@@ -834,8 +834,8 @@ function navBar($pagina)
                     </a>
                 </li>
                 </ul>
-                <a class="btn me-3 btn-success" href="./login.php" role="button">Accedi</a>
-                <a class="btn btn-danger" href="./register.php  " role="button">Registrati</a>
+                <a class="btn me-3 btn-success zoom" href="./login.php" role="button">Accedi</a>
+                <a class="btn btn-danger zoom" href="./register.php  " role="button">Registrati</a>
             </div>
             </div>
         </nav>
@@ -867,7 +867,6 @@ function navBar($pagina)
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         
         <link rel="stylesheet" href="./assets/css/style.css">
-        <link rel="stylesheet" href="./assets/css/animation.css">
 
         
         <script src="./site/asserts/js/scripts.js"></script>
