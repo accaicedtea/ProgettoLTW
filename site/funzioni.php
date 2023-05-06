@@ -764,7 +764,7 @@ function navBar($pagina)
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link <?php if ($pagina == "Dashboard") {
-                        echo "active";
+                        echo "link-active";
                     } ?>" aria-current="page" href="./dashboard.php">Dashboard
                     </a>
                 </li>
@@ -772,7 +772,7 @@ function navBar($pagina)
                     <a class="nav-link <?php if (
                         $pagina == "Visualizza transazioni"
                     ) {
-                        echo "active";
+                        echo "link-active";
                     } ?>" aria-current="page" href="./transazioni.php">Transazioni
                     </a>
                 </li>
@@ -780,18 +780,18 @@ function navBar($pagina)
                     <a class="nav-link <?php if (
                         $pagina == "Visualizza scadenze"
                     ) {
-                        echo "active";
+                        echo "link-active";
                     } ?>" aria-current="page" href="./scadenze.php">Scadenze</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if ($pagina == "Statistiche") {
-                        echo "active";
+                        echo "link-active";
                     } ?>" aria-current="page" href="./statistiche.php">Statistiche</a>
                 </li>
                 
                 <li class="nav-item">
                     <a class="nav-link ms-3 <?php if ($pagina == "Informazioni") {
-                        echo "active";
+                        echo "link-active";
                     } ?>" href="./informazioni.php">Informazioni
                     </a>
                 </li>
@@ -821,16 +821,14 @@ function navBar($pagina)
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand " href="./home.php">4Money</a>
+                <a class="navbar-brand logo-nav" href="./home.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./home.php">Home
+                    <a class="nav-link " aria-current="page" href="./home.php">Home
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php if ($pagina == "Informazioni") {
-                        echo "active";
-                    } ?>" href="./informazioni.php">Informazioni
+                    <a class="nav-link <?php if ($pagina == "Informazioni") { echo "link-active";} ?>" href="./informazioni.php">Informazioni
                     </a>
                 </li>
                 </ul>

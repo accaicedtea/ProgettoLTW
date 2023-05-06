@@ -8,7 +8,7 @@
 ?>
 
 
-<body id="page-top" class="sfondo-animato">
+<body id="page-top" >
     <div id="wrapper" >
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">

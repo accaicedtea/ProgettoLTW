@@ -13,8 +13,8 @@
 <body class="page-top" id="page-top">
   <hr class="featurette-divider">
     <div class="row ">
-      <div class="col-md-6">
-        <div class="col-auto topToF"><h2 id="nome" class="featurette-heading shadowT">Hasan <span class="text-muted">Abdel Aziz</span></h2>
+      <div class="col-md-6 text-start text-justify">
+        <div class="col-auto topToF ms-3"><h2 id="nome" class="featurette-heading shadowT">Hasan <span class="text-muted">Abdel Aziz</span></h2>
         <p id="desc" class="lead shadowT">Mi chiamo Abdel Aziz Hasan. Ho 22 anni. La mia casa è nella parte est di Roma, dove ci sono tutti i criminali, e non sono sposato. Sono uno stundente presso Sapienza e torno a casa ogni giorno al massimo alle 19:30. Non fumo, ma bevo occasionalmente. Sono a letto alle 00:00 e mi assicuro di dormire come minimo 8 ore, qualunque cosa accada. Di solito non ho problemi a dormire fino al mattino. Proprio come una persona stanca, al mattino mi sveglio con fatica o stress. Mi è stato detto che forse non c'erano problemi al mio ultimo controllo. Sto cercando di spiegare che sono una persona che desidera vivere una vita molto tranquilla. Faccio attenzione a non disturbarmi con problemi, come vincere e perdere, che mi farebbero perdere il sonno la notte. È così che mi occupo della società e so che è ciò che mi rende felice.</p></div>
         
       </div>
