@@ -1,3 +1,18 @@
+
+<script>
+    function applicaFiltroPeriodo() {
+        var e = document.getElementById("selectAge");
+        $.ajax({
+            url:"filtered_stats.php",   
+            type: "get",   
+            dataType: 'json',
+            data: {periodo: e.options[e.selectedIndex].text},
+            success:function(result){
+                $('#page-top').html(result);
+            }
+        });
+    }
+</script>
 <?php
     $pagina = "Statistiche";
     require './funzioni.php';
@@ -26,8 +41,25 @@
         <div id="wrapper">
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content">
-                    <div class="container"> 
-                        <div class="row mt-3 card shadow">
+                    <div class="container mt-5"> 
+                        <div class="row mt-3 card">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-auto ">
+                                            <p class=" m-0 fw-bold">Filtra per:</p>
+                                        </div>
+                                        <div class="col-auto ">
+                                            <select id="selectAge" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroPeriodo()">
+                                                <option value="mese" selected>Mese corrente</option>
+                                                <option value="anno">Anno corrente</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3 card">
                             <figure class="highcharts-figure">
                                     <div id="area graph">
                                         <script>
@@ -70,7 +102,7 @@
                             </figure>
                         </div>
                         <div class="row mt-3">
-                            <div class="col card shadow">
+                            <div class="col card">
                             <figure class="highcharts-figure">
                                 <div id="spline graph saldo">
                                     <script>
@@ -123,7 +155,7 @@
                             </figure>
                             </div>
                         </div>
-                        <div class="row card shadow mt-3">
+                        <div class="row card mb-5 mt-3">
                             <figure class="highcharts-figure">
                                 <div id="spline graph risparmio">
                                     <script>

@@ -75,7 +75,7 @@
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <div class="container fluid  mb-5">
+                <div class="container fluid mt-5 mb-5">
                     <div class="card shadow">
                         <?php if(isset($_GET['msg'])){ ?>
                             <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -215,8 +215,8 @@
                                     <thead>
                                         <tr>
                                             <th>Data</th>
-                                            <th>Cate.</th>
-                                            <th>Descr.</th>
+                                            <th>Categoria</th>
+                                            <th>Descrizione</th>
                                             <th>Importo</th>
                                             <th>Tipo</th>
                                             <th>Azioni</th>
