@@ -19,7 +19,7 @@
     <div class="container-fluid ">
         <div class="row justify-content-center mt-3 ">
             <div id="entrate_mensili" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
-                <p class="fs-5 mt-2">Entrate mensili</p>
+                <p class="fs-5 mt-2">Entrate mensili </p>
                 <span class="border-bottom"></span>
                 <!--Entrate mensili da database-->
             </div>

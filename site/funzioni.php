@@ -362,6 +362,7 @@ function histogram($conn)
 {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
+    
     $sql = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(importo),0) as importo 
             from spesa 
             where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) < MONTH('$data_oggi') and spesa.importo < 0 
