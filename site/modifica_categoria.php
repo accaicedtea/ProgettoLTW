@@ -1,5 +1,6 @@
 <?php
-include './db_conn.php';
+require './funzioni.php';
+$conn= db_conn();
 $id = $_POST['id_edit'];
         $nome =  $_POST['nome_edit'];
         $img =  $_POST['img_edit'];
