@@ -7,137 +7,79 @@
         
     $_SESSION['data_oggi'] = date("Y:m:d");
     navBar($pagina);
-    $json_data_piechart = piechart($conn);
-    $json_data_linegraph = entrata_graph($conn);
-    $json_data_histogram = histogram($conn);
-    $json_giorni_mese = giorni_mese();
+
     //echo $json_data_piechart;
 ?>
 
-<style>
-    .highcharts-figure,
-.highcharts-data-table table,.card-high {
-  min-width: 260px;
-  max-width: 800px;
-  margin: 1em auto;
-}
 
-/* Global font */
-@import url("https://fonts.googleapis.com/css?family=Dosis:400,600");
-@import url("../highcharts.css");
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-:root {
-    /* Colors for data series and points. */
-    --highcharts-color-0: #7cb5ec;
-    --highcharts-color-1: #f7a35c;
-    --highcharts-color-2: #90ee7e;
-    --highcharts-color-3: #7798bf;
-    --highcharts-color-4: #aaeeee;
-    --highcharts-color-5: #ff0066;
-    --highcharts-color-6: #eeaaee;
-    --highcharts-color-7: #55bf3b;
-    --highcharts-color-8: #df5353;
-    --highcharts-color-9: #7798bf;
-}
-
-.highcharts-container {
-    font-family: Dosis, arial, helvetica, sans-serif;
-}
-
-.highcharts-title,
-.highcharts-subtitle,
-.highcharts-yaxis .highcharts-axis-title {
-    text-transform: uppercase;
-}
-
-.highcharts-title {
-    font-weight: bold;
-    font-size: 1.3em;
-}
-
-.highcharts-axis-labels {
-    font-size: 1em;
-}
-
-.highcharts-legend-item > text {
-    font-size: 1.1em;
-}
-
-.highcharts-xaxis-grid .highcharts-grid-line {
-    stroke-width: 1px;
-}
-
-.highcharts-tooltip-box {
-    stroke-width: 0;
-    fill: rgb(219, 219, 216);
-}
-    
-</style>
-
-<div class="card border-success mb-3 card-high shadow" >
-  <div class="card-header">Tabella</div>
-    <div class="card-body text-success">        
-    <figure class="highcharts-figure">
-                                        <div id="histogram">
-                                            <script>
-                                                <?php 
-                                                    $title = "Spese durante l'anno";
-                                                    $title = addslashes($title);
-                                                ?>  
-                                            Highcharts.chart('histogram', {
-                                                chart: {
-                                                    type: 'column'
-                                                },
-                                                credits: {
-                                                enabled:false
-                                                },
-                                                title: {
-                                                    align: 'left',
-                                                    text: '<?php echo $title;?>'
-                                                },
-                                                accessibility: {
-                                                    announceNewData: {
-                                                        enabled: true
-                                                    }
-                                                },
-                                                xAxis: {
-                                                    type: 'category',
-                                                    labels: {
-                                                        style: {
-                                                            fontWeight: 'bold'
-                                                        }
-                                                    }
-                                                },
-                                                yAxis: {
-                                                    title: {
-                                                        text: '€'
-                                                    }
-                                                },
-                                                legend: {
-                                                    enabled: false
-                                                },
-                                                plotOptions: {
-                                                    series: {
-                                                        borderWidth: 0,
-                                                        dataLabels: {
-                                                            enabled: true,
-                                                            format: '{y:.2f}€'
-                                                        }
-                                                    }
-                                                },
-                                                tooltip: {
-                                                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                                                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}€<br/>'
-                                                },
-                                            
-                                                series: [{
-                                                    name: 'Spesa del mese',
-                                                    colorByPoint:true,
-                                                    data: <?=$json_data_histogram;?>
-                                                }]
-                                            });
-                                            </script>
-                                        </div>
-                                    </figure>  
+<figure class="highcharts-figure">
+    <div id="container">
+        <script>
+            Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Efficiency Optimization by Branch'
+    },
+    xAxis: {
+        categories: [
+            '15-19',
+            '20-24',
+            '25,29',
+            '30-34',
+            '35-40',
+            '41-45','46-51','52+'
+        ]
+    },
+    yAxis: [{
+        min: 0,
+        title: {
+            text: 'Media Spese'
+        }
+    }, {
+        title: {
+            text: 'Profit (millions)'
+        },
+        opposite: true
+    }],
+    legend: {
+        shadow: false
+    },
+    tooltip: {
+        shared: true
+    },
+    plotOptions: {
+        column: {
+            grouping: false,
+            shadow: false,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Employees',
+        color: 'rgba(165,170,217,1)',
+        data: [150, 73, 20],
+        pointPadding: 0.3,
+        pointPlacement: -0.2
+    }, {
+        name: 'Employees Optimized',
+        color: 'rgba(126,86,134,.9)',
+        data: [140, 90, 40],
+        pointPadding: 0.4,
+        pointPlacement: 0
+    }]
+});
+        </script>
     </div>
-</div>
+    <p class="highcharts-description">
+        Chart showing overlapping placement of columns, using different data
+        series. The chart is also using multiple y-axes, allowing data in
+        different ranges to be visualized on the same chart.
+    </p>
+</figure>
