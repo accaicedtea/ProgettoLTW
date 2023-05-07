@@ -13,7 +13,7 @@
     function applicaFiltroCat() {
         var e = document.getElementById("selectCat");
         $.ajax({
-            url:"filtered_table.php",   
+            url:"filtered_sesso.php",   
             type: "get",   
             dataType: 'json',
             data: {categoria: e.options[e.selectedIndex].text},
@@ -40,25 +40,7 @@
         });
     }
 
-    // gestione modals
-    $(function () {
-        $(document).on("click", ".editForModal", function () {
-            var row = $(this).data('row');
-            $(".modal_edit #description_edit").val(row["descrizione"]);
-            $(".modal_edit #date_edit").val(row["data"]);
-            $(".modal_edit #amount_edit").val(Math.abs(row["importo"]));
-            $(".modal_edit #id_edit").val(row["id"]);
-            $(".modal_edit #tipo_edit").val(row["importo"] > 0 ? "entrata" : "uscita");
-            $(".modal_edit #cat_edit > option[value='"+row['id_categoria']+"']").attr('selected', 'true');
-        })
-    });
-
-    $(function () {
-        $(document).on("click", ".deleteForModal", function () {
-            var id = $(this).data('id');
-            $(".modal_delete #id_delete").val(id);    
-        })
-    });
+    
 </script>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
