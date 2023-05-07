@@ -9,6 +9,10 @@ require "./funzioni.php";
         $importo =  $_POST['amount_new'];
     else $importo = -1 * $_POST['amount_new'];
     $id = rand(); // deve essere diverso dagli altri id
+    
+
+
+
     $categoria = $_POST['cat_new'];
 
     // Performing insert query execution
