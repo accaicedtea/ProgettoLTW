@@ -115,11 +115,11 @@
                                     </div>
                                     
                                     <div class="col"></div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
+                                    <div class="col butt">
+                                        <button type="button" class="btn btn-success btn-sm butt" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
                                     </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
+                                    <div class="col butt">
+                                        <button type="button" class="btn btn-danger btn-sm butt" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
                                     </div>
                                 </div>
                             </div>

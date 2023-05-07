@@ -262,6 +262,9 @@ body {
     .mb{
         margin-bottom: 22px;
     }
+    .butt{
+        float: left;
+    }
 }
 .fade-in {
     animation-name: fade-in;

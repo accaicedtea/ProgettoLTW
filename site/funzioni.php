@@ -132,7 +132,7 @@ function getJsonScadenzaLimitata($conn)
     FROM spesa s join categoria c on c.id=s.categoria 
     WHERE s.utente = '$username' and YEAR(s.data) > YEAR('$data_oggi') and YEAR(s.data)!=0 
     )as vie
-    ORDER BY vie.data DESC
+    ORDER BY vie.data
     LIMIT 9;
     ";
     $result = mysqli_query($conn, $sql);
@@ -595,7 +595,7 @@ function get_euma($conn)
 }
 function entrata_graph($conn) {
     $array_dati = [];
-    $_SESSION['giorni_mese'] = date("t");
+    $_SESSION['giorni_mese'] = date("d");
     $giorni_mese = $_SESSION['giorni_mese'];
     $username = $_SESSION["username"];
     $data_oggi = $_SESSION["data_oggi"];
@@ -802,7 +802,7 @@ function navBar($pagina)
     </div>
     <?php } 
         //utente loggato
-        elseif (isset($_SESSION["log"]) && $_SESSION["log"] == "on") { ?>
+        else if (isset($_SESSION["log"]) && $_SESSION["log"] == "on") { ?>
     <div id="topheader" class="sticky-top ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
