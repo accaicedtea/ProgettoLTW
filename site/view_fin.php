@@ -9,57 +9,7 @@
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
             navBar($pagina);
         ?>
-        <script>
-    function applicaFiltroCat() {
-        var e = document.getElementById("selectCat");
-        $.ajax({
-            url:"filtered_table.php",   
-            type: "get",   
-            dataType: 'json',
-            data: {categoria: e.options[e.selectedIndex].text},
-            success:function(result){
-                dataSet = result;
-                lastPage = Math.round(dataSet.length/perPage);
-                displayAll(1, 15);
-            }
-        });
-    }
 
-    function applicaFiltroTipo() {
-        var e = document.getElementById("selectTipo");
-        $.ajax({
-            url:"filtered_table.php",    
-            type: "get",    
-            dataType: 'json',
-            data: {tipo: e.options[e.selectedIndex].text},
-            success:function(result){
-                dataSet = result;
-                lastPage = Math.round(dataSet.length/perPage);
-                displayAll(1, 15);
-            }
-        });
-    }
-
-    // gestione modals
-    $(function () {
-        $(document).on("click", ".editForModal", function () {
-            var row = $(this).data('row');
-            $(".modal_edit #description_edit").val(row["descrizione"]);
-            $(".modal_edit #date_edit").val(row["data"]);
-            $(".modal_edit #amount_edit").val(Math.abs(row["importo"]));
-            $(".modal_edit #id_edit").val(row["id"]);
-            $(".modal_edit #tipo_edit").val(row["importo"] > 0 ? "entrata" : "uscita");
-            $(".modal_edit #cat_edit > option[value='"+row['id_categoria']+"']").attr('selected', 'true');
-        })
-    });
-
-    $(function () {
-        $(document).on("click", ".deleteForModal", function () {
-            var id = $(this).data('id');
-            $(".modal_delete #id_delete").val(id);    
-        })
-    });
-</script>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content-fluid">
@@ -91,6 +41,7 @@
                                                 <th scope="col">cognome</th>
                                                 <th scope="col">data di nascista</th>
                                                 <th scope="col">sesso</th>
+                                                <th scope="col">nazionalità</th>
                                                 <th scope="col">email</th>
                                                 <th scope="col">blocca utente</th>
                                                 <th scope="col">elimina utente</th>
@@ -124,6 +75,9 @@
                                                 </td>
                                                 <td >
                                                     <p><?php echo ($tuple['sesso']==1) ? "Uomo" : "Donna";?></p>
+                                                </td>
+                                                <td>
+                                                    <p><?php echo $tuple['nazionalita'];?></p>
                                                 </td>
                                                 <td >
                                                     <p><?php echo $tuple['email'];?></p>

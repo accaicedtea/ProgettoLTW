@@ -170,6 +170,18 @@ function getJsonUtente($conn)
     $_SESSION["tipo"] = "Tutti i tipi";
     return json_encode($emparray);
 }
+function getJsonUtenti($conn)
+{
+    $emparray = [];
+    $sql = "SELECT * FROM utente;";
+    $result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $emparray[] = $row;
+    }
+    $_SESSION["sex"] = "Tutti i sessi";
+    
+    return json_encode($emparray);
+}
 function getJsonAdmin($conn)
 {
     $emparray = [];
@@ -799,7 +811,11 @@ function navBar($pagina)
                         echo "active";
                     } ?>" href="./categorie.php">Categorie</a>
                 </li>
-                
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($pagina == "Statistiche") {
+                        echo "active";
+                    } ?>" href="./statistiche_admin.php">Statistiche</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link ms-3 <?php if ($pagina == "Informazioni") {
                         echo "active";
@@ -915,9 +931,7 @@ function navBar($pagina)
     </div>
     <?php } ?>
     <!-- testo ad ogni inizio pagina -->
-    <div class="container-top-text">
-        <span class="text"> <?php echo $pagina;?> </span>
-    </div>
+   
 <?php } ?>
 <?php function head($pagina)
 {
