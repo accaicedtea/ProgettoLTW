@@ -6,7 +6,7 @@ $utente = $_SESSION['username'];
 $descrizione =  $_POST['description_new'];
 $data =  $_POST['date_new'];
 
-if(isset( $_POST['amount_new'])){
+if(isset($_POST['amount_new']) ){
 
 
 if ($_POST['tipo_new'] == 'entrata') $importo =  $_POST['amount_new'];
