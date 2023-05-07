@@ -1,18 +1,3 @@
-
-<script>
-    function applicaFiltroPeriodo() {
-        var e = document.getElementById("selectAge");
-        $.ajax({
-            url:"filtered_stats.php",   
-            type: "get",   
-            dataType: 'json',
-            data: {periodo: e.options[e.selectedIndex].text},
-            success:function(result){
-                $('#page-top').html(result);
-            }
-        });
-    }
-</script>
 <?php
     $pagina = "Statistiche";
     require './funzioni.php';
@@ -31,7 +16,22 @@
         $array_risparmio = json_decode($json_data_risparmio);
         $risparmio_finale = intval($array_risparmio[$ultimo_giorno_mese - 1]);
         $colore_risparmio = saldo_color($risparmio_finale);
+
+        $json_data_linegraph_year = linegraph_year($conn);  
+        $json_data_saldo_year = saldo_year($conn);         
+        $json_data_risparmio_year = risparmio_year($conn);    
+
 ?>
+<script>
+    function applicaFiltroPeriodo(){
+        var e = document.getElementById("selectAge");
+        var age = e.options[e.selectedIndex].text;
+        if (age=="Mese corrente")
+            displayMese();
+        else
+            displayAnno();
+    }
+</script>
 <html>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -41,7 +41,7 @@
         <div id="wrapper">
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content">
-                    <div class="container mt-5"> 
+                    <div id="graphs_container" class="container mt-5"> 
                         <div class="row mt-3 card">
                             <div class="card-body">
                                 <div class="container">
@@ -62,95 +62,13 @@
                         <div class="row mt-3 card">
                             <figure class="highcharts-figure">
                                     <div id="area graph">
-                                        <script>
-                                            Highcharts.chart('area graph', {
-                                                chart: {
-                                                type: 'area'
-                                                },
-                                                title: {
-                                                    text: 'Movimenti di questo mese'
-                                                },
-                                                credits:{
-                                                    enabled: false
-                                                },
-                                                xAxis: {
-                                                    categories: <?=$json_giorni_mese?>
-                                                },
-                                                yAxis: {
-                                                    title: {
-                                                        text: '€'
-                                                    }
-                                                },
-                                                tooltip: {
-                                                    valueDecimals: 2,
-                                                    valueSuffix: "€"
-                                                },
-                                                plotOptions: {
-                                                    line: {
-                                                        dataLabels: {
-                                                            enabled: true,
-                                                            format: '{y:.2f} €'
-                                                        },
-                                                        enableMouseTracking: false
-                                                    }
-                                                },
-                                                series: 
-                                                    <?=$json_data_linegraph?>,
-                                                });
-                                    </script>
-                                </div>
+                                    </div>
                             </figure>
                         </div>
                         <div class="row mt-3">
                             <div class="col card">
                             <figure class="highcharts-figure">
                                 <div id="spline graph saldo">
-                                    <script>
-                                        Highcharts.chart('spline graph saldo', {
-                                            chart: {
-                                                type: 'spline'
-                                            },
-                                            credits: {
-                                                enabled: false
-                                            },
-                                            title: {
-                                                text: 'Saldo di questo mese'
-                                            },
-                                            xAxis: {
-                                                categories: <?=$json_giorni_mese?>,
-                                                accessibility: {
-                                                    description: 'Giorni del mese'
-                                                }
-                                            },
-                                            yAxis: {
-                                                title: {
-                                                text: '€'
-                                                },
-                                                labels: {
-                                                }
-                                            },
-                                            tooltip: {
-                                                crosshairs: true,
-                                                shared: true,
-                                                valueDecimals: 2,
-                                                valueSuffix: "€"
-                                            },
-                                            plotOptions: {
-                                                spline: {
-                                                    marker: {
-                                                        radius: 4,
-                                                        lineColor: '<?=$colore_saldo?>',
-                                                        lineWidth: 1
-                                                    }
-                                                }
-                                            },
-                                            series: [{
-                                                name: 'Saldo',
-                                                data: <?=$json_data_saldo?>,
-                                                color: '<?=$colore_saldo?>'
-                                            }]
-                                            });
-                                    </script>
                                 </div>
                             </figure>
                             </div>
@@ -158,52 +76,6 @@
                         <div class="row card mb-5 mt-3">
                             <figure class="highcharts-figure">
                                 <div id="spline graph risparmio">
-                                    <script>
-                                        Highcharts.chart('spline graph risparmio', {
-                                            chart: {
-                                                type: 'spline'
-                                            },
-                                            credits: {
-                                                enabled: false
-                                            },
-                                            title: {
-                                                text: 'Risparmi di questo mese'
-                                            },
-                                            xAxis: {
-                                                categories: <?=$json_giorni_mese?>,
-                                                accessibility: {
-                                                    description: 'Giorni del mese'
-                                                }
-                                            },
-                                            yAxis: {
-                                                title: {
-                                                text: '€'
-                                                },
-                                                labels: {
-                                                }
-                                            },
-                                            tooltip: {
-                                                crosshairs: true,
-                                                shared: true,
-                                                valueDecimals: 2,
-                                                valueSuffix: "€"
-                                            },
-                                            plotOptions: {
-                                                spline: {
-                                                    marker: {
-                                                        radius: 4,
-                                                        lineColor: '<?=$colore_risparmio?>',
-                                                        lineWidth: 1
-                                                    }
-                                                },
-                                            },
-                                            series: [{
-                                                name: 'Risparmio',
-                                                data: <?=$json_data_risparmio?>,
-                                                color: '<?=$colore_risparmio?>'
-                                            }]
-                                            });
-                                    </script>
                                 </div>
                             </figure>
                         </div>
@@ -213,6 +85,267 @@
         </div>
     </body>
 </html>
+<script>
+    function displayMese(){
+        Highcharts.chart('area graph', {
+            chart: {
+            type: 'area'
+            },
+            title: {
+                text: 'Movimenti di questo mese'
+            },
+            credits:{
+                enabled: false
+            },
+            xAxis: {
+                categories: <?=$json_giorni_mese?>
+            },
+            yAxis: {
+                title: {
+                    text: '€'
+                }
+            },
+            tooltip: {
+                valueDecimals: 2,
+                valueSuffix: "€"
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y:.2f} €'
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: 
+                <?=$json_data_linegraph?>,
+            });
+
+        Highcharts.chart('spline graph saldo', {
+            chart: {
+                type: 'spline'
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: 'Saldo di questo mese'
+            },
+            xAxis: {
+                categories: <?=$json_giorni_mese?>,
+                accessibility: {
+                    description: 'Giorni del mese'
+                }
+            },
+            yAxis: {
+                title: {
+                text: '€'
+                },
+                labels: {
+                }
+            },
+            tooltip: {
+                crosshairs: true,
+                shared: true,
+                valueDecimals: 2,
+                valueSuffix: "€"
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        radius: 4,
+                        lineColor: '<?=$colore_saldo?>',
+                        lineWidth: 1
+                    }
+                }
+            },
+            series: [{
+                name: 'Saldo',
+                data: <?=$json_data_saldo?>,
+                color: '<?=$colore_saldo?>'
+            }]
+            });
+
+        Highcharts.chart('spline graph risparmio', {
+            chart: {
+                type: 'spline'
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: 'Risparmi di questo mese'
+            },
+            xAxis: {
+                categories: <?=$json_giorni_mese?>,
+                accessibility: {
+                    description: 'Giorni del mese'
+                }
+            },
+            yAxis: {
+                title: {
+                text: '€'
+                },
+                labels: {
+                }
+            },
+            tooltip: {
+                crosshairs: true,
+                shared: true,
+                valueDecimals: 2,
+                valueSuffix: "€"
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        radius: 4,
+                        lineColor: '<?=$colore_risparmio?>',
+                        lineWidth: 1
+                    }
+                },
+            },
+            series: [{
+                name: 'Risparmio',
+                data: <?=$json_data_risparmio?>,
+                color: '<?=$colore_risparmio?>'
+            }]
+            });
+
+
+    }
+
+    displayMese();
+
+    function displayAnno(){
+        Highcharts.chart('area graph', {
+                chart: {
+                type: 'area'
+                },
+                title: {
+                    text: 'Movimenti di questo anno'
+                },
+                credits:{
+                    enabled: false
+                },
+                xAxis: {
+                    categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre']
+                },
+                yAxis: {
+                    title: {
+                        text: '€'
+                    }
+                },
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: "€"
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{y:.2f} €'
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: 
+                    <?=$json_data_linegraph_year?>,
+                });
+
+        Highcharts.chart('spline graph saldo', {
+            chart: {
+                type: 'spline'
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: 'Saldo di questo anno'
+            },
+            xAxis: {
+                categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
+                accessibility: {
+                    description: 'Mese'
+                }
+            },
+            yAxis: {
+                title: {
+                text: '€'
+                },
+                labels: {
+                }
+            },
+            tooltip: {
+                crosshairs: true,
+                shared: true,
+                valueDecimals: 2,
+                valueSuffix: "€"
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        radius: 4,
+                        lineColor: '<?=$colore_saldo?>',
+                        lineWidth: 1
+                    }
+                }
+            },
+            series: [{
+                name: 'Saldo',
+                data: <?=$json_data_saldo_year?>,
+                color: '<?=$colore_saldo?>'
+            }]
+            });
+
+        Highcharts.chart('spline graph risparmio', {
+                chart: {
+                    type: 'spline'
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: 'Risparmi di questo anno'
+                },
+                xAxis: {
+                    categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
+                    accessibility: {
+                        description: 'Mese'
+                    }
+                },
+                yAxis: {
+                    title: {
+                    text: '€'
+                    },
+                    labels: {
+                    }
+                },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true,
+                    valueDecimals: 2,
+                    valueSuffix: "€"
+                },
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            radius: 4,
+                            lineColor: '<?=$colore_risparmio?>',
+                            lineWidth: 1
+                        }
+                    },
+                },
+                series: [{
+                    name: 'Risparmio',
+                    data: <?=$json_data_risparmio_year?>,
+                    color: '<?=$colore_risparmio?>'
+                }]
+                });
+
+
+    }
+</script>
 <?php }else{
     header("Location: login.php?error=ma che stavi a provà a fa limortaaaaa");
     } ?>
