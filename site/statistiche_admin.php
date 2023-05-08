@@ -27,6 +27,9 @@ navBar($pagina);
                             text: 'Distribuzione utenti divisi per età',
                             align: 'left'
                         },
+                        credits: {
+                            enabled: false
+                        },
                         accessibility: {
                             point: {
                                 valueDescriptionFormat: '{index}. Età {xDescription}, {value}%.'
@@ -122,6 +125,9 @@ navBar($pagina);
                             },
                             title: {
                                 text: 'Utenti per Nazionalità'
+                            },
+                            credits: {
+                                enabled: false
                             },
                             xAxis: {
                                 type: 'category',

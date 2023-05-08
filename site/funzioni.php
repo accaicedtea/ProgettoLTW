@@ -786,6 +786,88 @@ function risparmio_color($risparmio) {
     else return "#99CBFF";
 }
 
+
+
+function get_json_eta($conn) {
+    $arr = array();
+    $sql ="SELECT 
+    CASE WHEN (age>=14 and age <=19) THEN '15-19' 
+        WHEN (age>=20 and age <=24) THEN '20-24'
+        WHEN (age>=25 and age <=29) THEN '25-29' 
+        WHEN (age>=30 and age <=34) THEN '30-34' 
+        WHEN (age>=35 and age <=40) THEN '35-40' 
+        WHEN (age>=41 and age <=45) THEN '41-45' 
+        WHEN (age>=46 and age <=51) THEN '46-51' 
+        ELSE '52+' 
+    END AS eta_eta FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso FROM utente) as vista
+    GROUP BY eta_eta
+    order by eta_eta;";
+    $result = $conn->query($sql);
+    if ($result->num_rows >= 0) {
+        while ($row = $result->fetch_assoc()) {
+            array_push($arr, $row['eta_eta']);
+        }
+    }
+    return $arr;
+}
+
+function column_sesso($conn,$sesso) {
+    $arr = array();
+    $arr_eta = array();
+    $array_eta = get_json_eta($conn);
+    $array_res = array();
+    $sql = "SELECT avg(vista.importo) as media, 
+    CASE WHEN (age>=15 and age <=19) THEN '15-19' 
+    WHEN (age>=20 and age <=24) THEN '20-24' 
+    WHEN (age>=25 and age <=29) THEN '25-29' 
+    WHEN (age>=30 and age <=34) THEN '30-34' 
+    WHEN (age>=35 and age <=40) THEN '35-40' 
+    WHEN (age>=41 and age <=45) THEN '41-45' 
+    WHEN (age>=46 and age <=51) THEN '46-51' 
+    ELSE '52+' END AS eta_eta 
+    FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso, spesa.importo
+        FROM utente join spesa on spesa.utente=utente.username) as vista
+        where vista.importo<0 and sesso = '$sesso'
+    GROUP BY eta_eta
+    order by eta_eta;";
+    $result = $conn->query($sql);
+    if ($result->num_rows >= 0) {
+        while($row = $result->fetch_assoc()) {
+            array_push($arr, doubleval($row['media']));
+            array_push($arr_eta, $row['eta_eta']);
+        }
+        $i = 0;
+        $j = 0;
+
+        while($i < sizeof($array_eta)) {
+            if (!in_array($array_eta[$i], $arr_eta, false)) {
+                array_push($array_res, doubleval('0'));
+            }
+            else {
+                array_push($array_res, doubleval($arr[$j]));
+                $j++;
+            }
+            $i++;
+        }
+    }
+    return json_encode($array_res);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //TODO: INIZIO TOOLS
 // gli passi la pagina da visualizzare
 function navBar($pagina)
