@@ -527,6 +527,283 @@ function linegraph($conn)
     $serie_array_linegraph_differenza[] = $arr_differenza;
     return json_encode(array_merge($series_array_linegraph_uscite, $series_array_linegraph_entrate, $serie_array_linegraph_differenza));
 }
+function saldo_year($conn) {
+    $username = $_SESSION['username'];
+    $data_oggi = $_SESSION['data_oggi'];
+    $array_dati = array();
+    $array_mese = array();
+    $array_valori = array();
+    $array_saldo = array();
+    //Saldo iniziale
+    $sql_saldo = "SELECT COALESCE(sum(spesa.importo),0) + utente.saldo_ini as saldo
+                  from spesa join utente on utente.username = spesa.utente
+                  where spesa.utente = '$username' and YEAR(spesa.data) < YEAR('$data_oggi')";
+    $result = mysqli_query($conn, $sql_saldo);
+    $saldo = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $saldo = $row['saldo'];
+    }
+    //Variazioni di questo mese
+    $sql = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo), 0) as variazione
+    from spesa join utente on utente.username = spesa.utente
+    where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username'
+    group by MONTH(spesa.data)
+    UNION
+    SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo), 0) as variazione
+    from spesa join utente on utente.username = spesa.utente
+    where MONTH(spesa.data) < MONTH('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username'
+    group by MONTH(spesa.data)
+    order by MONTH(mese)";
+    $result = $conn->query($sql);
+    if ($result->num_rows >= 0) {
+        $i = 1;
+        $j = 0;
+        while($row = $result->fetch_assoc()) {
+            array_push($array_mese, intval($row['mese']));
+        }
+        mysqli_data_seek($result, 0);
+        while($row = $result->fetch_assoc()) {
+            array_push($array_valori, doubleval($row['variazione']));
+        }
+
+        while($i <= 12) {
+            if (!in_array($i, $array_mese,false)) {
+                    array_push($array_dati, doubleval('0'));
+            }
+            else {
+                array_push($array_dati, doubleval($array_valori[$j]));
+                $j++;
+            }
+            $i++;
+        }
+        for($k = 0; $k < 12; $k++) {
+            $saldo += $array_dati[$k];
+            array_push($array_saldo, doubleval($saldo));
+        }
+    }
+    return json_encode($array_saldo);
+}
+
+
+
+
+
+
+
+function risparmio_year($conn) {
+    $username = $_SESSION['username'];
+    $data_oggi = $_SESSION['data_oggi'];
+    $array_dati = array();
+    $array_mese = array();
+    $array_valori = array();
+    $array_risparmio = array();
+    //Risparmio iniziale
+    $sql_risparmio = "SELECT COALESCE(sum(spesa.importo),0) as risparmio
+                  from spesa
+                  where spesa.utente = '$username' and YEAR(spesa.data) < YEAR('$data_oggi') and spesa.categoria = 6";
+    $result = mysqli_query($conn, $sql_risparmio);
+    $risparmio = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $risparmio = $row['risparmio'];
+    }
+    //Variazioni di questo mese
+    $sql = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo),0) as variazione
+    from spesa join utente on utente.username = spesa.utente
+    where MONTH(spesa.data) < MONTH('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username' and spesa.categoria = 6
+    group by MONTH(spesa.data)
+    UNION
+    SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo), 0) as variazione
+    from spesa join utente on utente.username = spesa.utente
+    where MONTH(spesa.data) = MONTH('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') and DAY(spesa.data) = DAY('$data_oggi') AND spesa.utente = '$username' and spesa.categoria = 6
+    group by MONTH(spesa.data)
+    order by MONTH(mese)";
+    $result = $conn->query($sql);
+    if ($result->num_rows >= 0) {
+        $i = 1;
+        $j = 0;
+        while($row = $result->fetch_assoc()) {
+            array_push($array_mese, intval($row['mese']));
+        }
+        mysqli_data_seek($result, 0);
+        while($row = $result->fetch_assoc()) {
+            array_push($array_valori, doubleval($row['variazione']));
+        }
+
+        while($i <= 12) {
+            if (!in_array($i, $array_mese,false)) {
+                    array_push($array_dati, doubleval('0'));
+            }
+            else {
+                array_push($array_dati, doubleval($array_valori[$j]));
+                $j++;
+            }
+            $i++;
+        }
+        for($k = 0; $k < 12; $k++) {
+            $risparmio += $array_dati[$k];
+            array_push($array_risparmio, doubleval($risparmio));
+        }
+    }
+    return json_encode($array_risparmio);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function linegraph_year($conn)
+{
+    $username = $_SESSION['username'];
+    $data_oggi = $_SESSION['data_oggi'];
+    $array_dati_uscite = array();
+    $array_mesi_uscite = array();
+    $array_valori_uscite = array();
+    $array_dati_entrate = array();
+    $array_mesi_entrate = array();
+    $array_valori_entrate = array();
+    $array_dati_differenza = array();
+    $array_mesi_differenza = array();
+    $array_valori_differenza = array();
+    $sql_uscite = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo), 0) as uscite 
+                from spesa
+                where importo < 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') and spesa.utente = '$username'
+                group by MONTH(spesa.data)
+                union
+                SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo), 0) as uscite
+                from spesa
+                where importo < 0 and MONTH(spesa.data) < MONTH('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') and spesa.utente = '$username'
+                group by MONTH(spesa.data)
+                order by mese";
+    $result_uscite = $conn->query($sql_uscite);
+    if ($result_uscite->num_rows >= 0) {
+        $i = 1;
+        $j = 0;
+        while($row_uscite = $result_uscite->fetch_assoc()) {
+            array_push($array_mesi_uscite, intval($row_uscite['mese']));
+        }
+        mysqli_data_seek($result_uscite, 0);
+        while($row_uscite = $result_uscite->fetch_assoc()) {
+            array_push($array_valori_uscite, doubleval($row_uscite['uscite']));
+        }
+        while($i <= 12) {
+            if (!in_array($i, $array_mesi_uscite,false)) {
+                    array_push($array_dati_uscite, doubleval('0'));
+            }
+            else {
+                array_push($array_dati_uscite, doubleval($array_valori_uscite[$j]));
+                $j++;
+            }
+            $i++;
+        }
+    }
+    $sql_entrate = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo), 0) as entrate 
+    from spesa
+    where importo > 0 AND MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') and spesa.utente = '$username'
+    group by MONTH(spesa.data)
+    union
+    SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo), 0) as entrate
+    from spesa
+    where importo > 0 and MONTH(spesa.data) < MONTH('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') and spesa.utente = '$username'
+    group by MONTH(spesa.data)
+    order by mese";
+    $result_entrate = $conn->query($sql_entrate);
+    if ($result_entrate->num_rows >= 0) {
+        $i = 1;
+        $j = 0;
+        while($row_entrate = $result_entrate->fetch_assoc()) {
+            array_push($array_mesi_entrate, intval($row_entrate['mese']));
+        }
+        mysqli_data_seek($result_entrate, 0);
+        while($row_entrate = $result_entrate->fetch_assoc()) {
+            array_push($array_valori_entrate, doubleval($row_entrate['entrate']));
+        }
+
+        while($i <= 12) {
+            if (!in_array($i, $array_mesi_entrate,false)) {
+                    array_push($array_dati_entrate, doubleval('0'));
+            }
+            else {
+                array_push($array_dati_entrate, doubleval($array_valori_entrate[$j]));
+                $j++;
+            }
+            $i++;
+        }
+    }
+    $sql_differenza = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo), 0) as differenza
+    from spesa
+    where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') AND YEAR(spesa.data) = YEAR('$data_oggi') and spesa.utente = '$username'
+    group by MONTH(spesa.data)
+    union
+    SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo), 0) as differenza
+    from spesa
+    where MONTH(spesa.data) < MONTH('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') and spesa.utente = '$username'
+    group by MONTH(spesa.data)
+    order by mese";
+    $result_differenza = $conn->query($sql_differenza);
+    if ($result_differenza->num_rows >= 0) {
+        $i = 1;
+        $j = 0;
+        while($row_differenza = $result_differenza->fetch_assoc()) {
+            array_push($array_mesi_differenza, intval($row_differenza['mese']));
+        }
+        mysqli_data_seek($result_differenza, 0);
+        while($row_differenza = $result_differenza->fetch_assoc()) {
+            array_push($array_valori_differenza, doubleval($row_differenza['differenza']));
+        }
+
+        while($i <= 12) {
+            if (!in_array($i, $array_mesi_differenza,false)) {
+                    array_push($array_dati_differenza, doubleval('0'));
+            }
+            else {
+                array_push($array_dati_differenza, doubleval($array_valori_differenza[$j]));
+                $j++;
+            }
+            $i++;
+        }
+    }
+    $arr_uscite = array(
+                'name' => 'Uscite',
+                'data' => $array_dati_uscite,
+                'color' => '#E65C4F'
+            
+    );
+    $arr_entrate = array(
+                'name' => 'Entrate',
+                'data' => $array_dati_entrate,
+                'color' => '#46A094'
+    );
+    $arr_differenza = array (
+                'name' => 'Differenza',
+                'data' => $array_dati_differenza,
+                'color' => '#4A8DB7',
+                "type" => "line"
+    );
+    $series_array_linegraph_uscite[] = $arr_uscite;
+    $series_array_linegraph_entrate[] = $arr_entrate;
+    $serie_array_linegraph_differenza[] = $arr_differenza;
+    return json_encode(array_merge($series_array_linegraph_uscite, $series_array_linegraph_entrate, $serie_array_linegraph_differenza));
+}
+
 function piechart($conn)
 {
     $username = $_SESSION['username'];
