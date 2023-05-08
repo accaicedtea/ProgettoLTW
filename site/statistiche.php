@@ -40,8 +40,8 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="card border-success mb-3 card-high shadow hi-top" >
-                    <div class="card-header">
+                <div class="card border-success mb-3 card-high shadow hi-top pupup" >
+                    <div class="card-header ">
                         <div class="col-auto ">
                             <p class=" m-0 fw-bold">Filtra per:</p>
                         </div>
@@ -64,7 +64,7 @@
             </div>
             <div class="col-1"></div>
             <div class="col-md-5">
-                <div class="card border-success mb-3 card-high shadow hi-top" >
+                <div class="card border-success mb-3 card-high shadow hi-top leftToF" >
                     <div class="card-body text-success">        
                     <figure class="highcharts-figure">
                         <div id="spline graph saldo">
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <div class="card border-success mb-3 card-high shadow hi-top" >
+                <div class="card border-success mb-3 card-high shadow hi-top leftToF" >
 
                     <div class="card-body text-success">        
                     <figure class="highcharts-figure">
