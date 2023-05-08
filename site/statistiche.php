@@ -32,59 +32,76 @@
             displayAnno();
     }
 </script>
-<html>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <body id="page-top">
-        <div id="wrapper">
-            <div class="d-flex flex-column" id="content-wrapper">
-                <div id="content">
-                    <div id="graphs_container" class="container mt-5"> 
-                        <div class="row mt-3 card">
-                            <div class="card-body">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-auto ">
-                                            <p class=" m-0 fw-bold">Filtra per:</p>
-                                        </div>
-                                        <div class="col-auto ">
-                                            <select id="selectAge" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroPeriodo()">
-                                                <option value="mese" selected>Mese corrente</option>
-                                                <option value="anno">Anno corrente</option>
-                                            </select> 
-                                        </div>
-                                    </div>
-                                </div>
+
+<body>
+    <div class="conteiner">
+        <div class="row">
+            
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-success mb-3 card-high shadow hi-top" >
+                    <div class="card-header">
+                        <div class="col-auto ">
+                            <p class=" m-0 fw-bold">Filtra per:</p>
+                        </div>
+                        <div class="col-6">
+                            <select id="selectAge" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroPeriodo()">
+                                <option value="mese" selected>Mese corrente</option>
+                                <option value="anno">Anno corrente</option>
+                            </select> 
+                        </div>
+
+
+                    </div>
+                    <div class="card-body text-success">        
+                        <figure class="highcharts-figure">
+                            <div id="area graph">
                             </div>
-                        </div>
-                        <div class="row mt-3 card">
-                            <figure class="highcharts-figure">
-                                    <div id="area graph">
-                                    </div>
-                            </figure>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col card">
-                            <figure class="highcharts-figure">
-                                <div id="spline graph saldo">
-                                </div>
-                            </figure>
-                            </div>
-                        </div>
-                        <div class="row card mb-5 mt-3">
-                            <figure class="highcharts-figure">
-                                <div id="spline graph risparmio">
-                                </div>
-                            </figure>
-                        </div>
+                        </figure>
                     </div>
                 </div>
             </div>
+            <div class="col-1"></div>
+            <div class="col-md-5">
+                <div class="card border-success mb-3 card-high shadow hi-top" >
+                    <div class="card-body text-success">        
+                    <figure class="highcharts-figure">
+                        <div id="spline graph saldo">
+                        </div>
+                    </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card border-success mb-3 card-high shadow hi-top" >
+
+                    <div class="card-body text-success">        
+                    <figure class="highcharts-figure">
+                        <div id="spline graph risparmio">
+                        </div>
+                    </figure>
+                    </div>
+                </div>    
+            </div>
         </div>
-    </body>
-</html>
+    </div>
+</body>
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
 <script>
     function displayMese(){
         Highcharts.chart('area graph', {
@@ -346,6 +363,13 @@
 
     }
 </script>
-<?php }else{
+
+
+
+
+
+
+<?php } else{
     header("Location: login.php?error=ma che stavi a provà a fa limortaaaaa");
     } ?>
+
