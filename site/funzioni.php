@@ -411,7 +411,7 @@ function linegraph($conn)
 {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
-    $_SESSION['giorni_mese'] = date("t");
+    $_SESSION['giorni_mese'] = date("d");
     $giorni_mese = $_SESSION['giorni_mese'];
     $array_dati_uscite = array();
     $array_giorni_uscite = array();
@@ -934,7 +934,7 @@ return json_encode($series_array_uscite);
 function saldo($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
-    $_SESSION['giorni_mese'] = date("t");
+    $_SESSION['giorni_mese'] = date("d");
     $giorni_mese = $_SESSION['giorni_mese'];
     $array_dati = array();
     $array_giorni = array();
@@ -993,7 +993,7 @@ function saldo_color($saldo) {
 function risparmio($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
-    $_SESSION['giorni_mese'] = date("t");
+    $_SESSION['giorni_mese'] = date("d");
     $giorni_mese = $_SESSION['giorni_mese'];
     $array_dati = array();
     $array_giorni = array();
