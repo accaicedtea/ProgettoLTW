@@ -23,26 +23,62 @@
 
 ?>
 
-<script>
-    function applicaFiltroPeriodo(){
-        var e = document.getElementById("selectAge");
-        var age = e.options[e.selectedIndex].text;
-        if (age=="Mese corrente")
-            displayMese();
-        else
-            displayAnno();
-    }
-</script>
-
 
 
 <div class="card border-success mb-3 card-high shadow hi-top" >
     <div class="card-header">Tabella</div>
     <div class="card-body text-success">        
-    <figure class="highcharts-figure">
-                                <div id="spline graph risparmio">
-                                </div>
-                            </figure>
+    <figure class="highcharts-figure utenti">
+                <div id="container-nazionalita">
+                    <script>
+                        Highcharts.chart('container-nazionalita', {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Utenti per Nazionalità'
+                            },
+                            xAxis: {
+                                type: 'category',
+                                labels: {
+                                    rotation: -45,
+                                    style: {
+                                        fontSize: '13px',
+                                        fontFamily: 'Verdana, sans-serif'
+                                    }
+                                }
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Numero utenti'
+                                }
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            series: [{
+                                name: 'numero utenti',
+                                data: [
+                                    <?php echo bar90g($conn);?>
+                                ],
+                                dataLabels: {
+                                    enabled: true,
+                                    color: '#FFFFFF',
+                                    align: 'center',
+                                    format: '{point.y:0f}', 
+                                    y: 30, 
+                                    style: {
+                                        fontSize: '13px',
+                                        fontFamily: 'Verdana, sans-serif'
+                                    }
+                                }
+                            }]
+                        });
+                    </script>
+                </div>
+            </figure>
+
     </div>
 </div>
          

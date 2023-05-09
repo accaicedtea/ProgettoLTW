@@ -264,6 +264,7 @@ function get_eta_per_categorie($conn)
 function get_eta_sesso_graph($conn,$sesso)
 {
     //divisione x sesso, gruppati per eta
+    $array_series= array();
     $sql="SELECT count(*) as quanti, 
     CASE WHEN (age>=15 and age <=19) THEN '15-19' 
     WHEN (age>=20 and age <=24) THEN '20-24' 
