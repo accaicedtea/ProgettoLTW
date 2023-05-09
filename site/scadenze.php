@@ -90,14 +90,14 @@
     }, 1000);
 </script>
                         <?php }?>
-                        <p class="h3 text-center mb-3 mt-3">Gestione entrate e uscite</p>
+                        <div class="one"><h3 class="text-center mb-3 mt-3">Gestione Scadenze</h3></div>
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">I tuoi movimenti</p>
+                            <p class="text-primary m-0 fw-bold">Gestisci le tue entrate e uscite future</p>
                         </div>
                         <div class="card-body">
                             <div class="container">
                                 <div class="row">
-                                    <p class=" m-0 fw-bold">filtri</p>
+                                    <p class=" m-0 fw-bold">Filtri</p>
                                 </div>
 
                                 <div class="row">
