@@ -180,7 +180,65 @@ navBar($pagina);
     
                         <div class="col">
 
-                        ehfeifh
+                        
+<div class="card border-success mb-3 card-high shadow hi-top" >
+    <div class="card-header">Tabella</div>
+    <div class="card-body text-success">        
+    <figure class="highcharts-figure">
+                                <div id="column chart">
+                                    <script>
+                                        Highcharts.chart('column chart', {
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: 'Media uscite per età'
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                xAxis: {
+                                    categories: [<?= get_eta_per_categorie($conn);?>]
+                                },
+                                yAxis: [{
+                                    min: 0,
+                                    title: {
+                                        text: 'Media uscite'                                        
+                                    }
+                                }],
+                                legend: {
+                                    shadow: false
+                                },
+                                tooltip: {
+                                    shared: true
+                                },
+                                plotOptions: {
+                                    column: {
+                                        grouping: false,
+                                        shadow: false,
+                                        borderWidth: 0
+                                    }
+                                },
+                                series: [{
+                                    name: 'Uomini',
+                                    color: '#FF7514',
+                                    data: <?=column_sesso($conn,1);?>,
+                                    pointPadding: 0.3,
+                                    pointPlacement: 0
+                                }, {
+                                    name: 'Donne',
+                                    color: '#991199',
+                                    data: <?= column_sesso($conn,0);?>,
+                                    pointPadding: 0.4,
+                                    pointPlacement: 0
+                                }]
+                            });
+                                    </script>
+                                </div>
+                                </figure>
+    </div>
+</div>
+         
                         </div>
         </div>
 

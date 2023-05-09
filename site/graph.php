@@ -28,57 +28,58 @@
 <div class="card border-success mb-3 card-high shadow hi-top" >
     <div class="card-header">Tabella</div>
     <div class="card-body text-success">        
-    <figure class="highcharts-figure utenti">
-                <div id="container-nazionalita">
-                    <script>
-                        Highcharts.chart('container-nazionalita', {
-                            chart: {
-                                type: 'column'
-                            },
-                            title: {
-                                text: 'Utenti per Nazionalità'
-                            },
-                            xAxis: {
-                                type: 'category',
-                                labels: {
-                                    rotation: -45,
-                                    style: {
-                                        fontSize: '13px',
-                                        fontFamily: 'Verdana, sans-serif'
-                                    }
-                                }
-                            },
-                            yAxis: {
-                                min: 0,
+    <figure class="highcharts-figure">
+                                <div id="column chart">
+                                    <script>
+                                        Highcharts.chart('column chart', {
+                                chart: {
+                                    type: 'column'
+                                },
                                 title: {
-                                    text: 'Numero utenti'
-                                }
-                            },
-                            legend: {
-                                enabled: false
-                            },
-                            series: [{
-                                name: 'numero utenti',
-                                data: [
-                                    <?php echo bar90g($conn);?>
-                                ],
-                                dataLabels: {
-                                    enabled: true,
-                                    color: '#FFFFFF',
-                                    align: 'center',
-                                    format: '{point.y:0f}', 
-                                    y: 30, 
-                                    style: {
-                                        fontSize: '13px',
-                                        fontFamily: 'Verdana, sans-serif'
+                                    text: 'Media uscite per età'
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                xAxis: {
+                                    categories: [<?= get_eta_per_categorie($conn);?>]
+                                },
+                                yAxis: [{
+                                    min: 0,
+                                    title: {
+                                        text: 'Media uscite'                                        
                                     }
-                                }
-                            }]
-                        });
-                    </script>
-                </div>
-            </figure>
-
+                                }],
+                                legend: {
+                                    shadow: false
+                                },
+                                tooltip: {
+                                    shared: true
+                                },
+                                plotOptions: {
+                                    column: {
+                                        grouping: false,
+                                        shadow: false,
+                                        borderWidth: 0
+                                    }
+                                },
+                                series: [{
+                                    name: 'Uomini',
+                                    color: '#FF7514',
+                                    data: <?=column_sesso($conn,1);?>,
+                                    pointPadding: 0.3,
+                                    pointPlacement: 0
+                                }, {
+                                    name: 'Donne',
+                                    color: '#991199',
+                                    data: <?= column_sesso($conn,0);?>,
+                                    pointPadding: 0.4,
+                                    pointPlacement: 0
+                                }]
+                            });
+                                    </script>
+                                </div>
+                                </figure>
     </div>
 </div>
          
