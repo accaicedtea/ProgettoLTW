@@ -175,10 +175,11 @@ navBar($pagina);
             </figure>
 
     </div>
-</div>
-
-    
-                        <div class="col-16">
+    </div>
+    </div>
+    </div>
+    <div class="row">
+                            <div class="col-16">
 
                         
 <div class="card border-success mb-3 card-high shadow hi-top" >
@@ -236,13 +237,13 @@ navBar($pagina);
                                     </script>
                                 </div>
                                 </figure>
-    </div>
-</div>
-         
-                        </div>
+        </div>
+        </div>      
+        </div>
+        </div>
         </div>
 
-    </div>
+
 </div>
 
 </body>
