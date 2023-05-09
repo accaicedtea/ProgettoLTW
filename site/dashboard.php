@@ -147,7 +147,7 @@
 
         <div class="row">
             <div class="col-md-6" >
-                <div class="card shadow card-high">
+                <div class="card border-success shadow card-high">
                     <div class="card-header">
                         <p class="text-primary m-0" ><strong>Le prossime scadenze</strong></p>
                     </div>

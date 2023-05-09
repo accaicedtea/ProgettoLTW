@@ -827,6 +827,10 @@ function piechart($conn)
         }
         return json_encode($series_array_piechart);
     }
+    else {
+        $series_array_piechart = array();  
+        return json_encode($series_array_piechart);
+    }
 }
 function giorni_mese()
 {
