@@ -178,7 +178,7 @@ navBar($pagina);
 </div>
 
     
-                        <div class="col">
+                        <div class="col-16">
 
                         
 <div class="card border-success mb-3 card-high shadow hi-top" >
