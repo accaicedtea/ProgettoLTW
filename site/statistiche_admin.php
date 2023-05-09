@@ -5,11 +5,15 @@ $conn = db_conn();
 head($pagina);
 navBar($pagina);
 ?>
-
+<body>
+    
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-6">
-            <figure class="highcharts-figure">
+        <div class="card border-success mb-3 card-high shadow hi-top" >
+    <div class="card-header">Tabella</div>
+    <div class="card-body text-success">        
+    <figure class="highcharts-figure">
                 <div id="grafico-sesso-eta">
                     <script>
                     // Age categories
@@ -74,7 +78,7 @@ navBar($pagina);
                                 borderRadius: '50%'
                             }
                         },
-                    
+                        credits:{enabled:false},
                         tooltip: {
                             formatter: function () {
                                 return '<b>' + this.series.name + ', età ' + this.point.category + '</b><br/>' +
@@ -111,15 +115,21 @@ navBar($pagina);
                     </script>
                 </div>
             </figure>
+    </div>
+</div>
         </div>
         <div class="col-xl-6">
-            <figure class="highcharts-figure utenti">
+        <div class="card border-success mb-3 card-high shadow hi-top" >
+    <div class="card-header">Tabella</div>
+    <div class="card-body text-success">        
+    <figure class="highcharts-figure utenti">
                 <div id="container-nazionalita">
                     <script>
                         Highcharts.chart('container-nazionalita', {
                             chart: {
                                 type: 'column'
                             },
+                            credits:{enabled:false},
                             title: {
                                 text: 'Utenti per Nazionalità'
                             },
@@ -163,6 +173,18 @@ navBar($pagina);
                     </script>
                 </div>
             </figure>
-        </div>
+
     </div>
 </div>
+
+    
+                        <div class="col">
+
+                        ehfeifh
+                        </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
