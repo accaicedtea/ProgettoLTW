@@ -453,3 +453,57 @@ body {
     stroke-width: 0;
     fill: rgb(219, 219, 216);
 }
+
+/* Stile titoli */
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+h3 {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-family: "Raleway", sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    color: #080808;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+  }
+  
+h3 span {
+    display: block;
+    font-size: 0.5em;
+    line-height: 1.3;
+}
+h3 em {
+    font-style: normal;
+    font-weight: 600;
+}
+
+/* === HEADING STYLE #1 === */
+.one h3 {
+    text-align: center;
+    /*text-transform: uppercase;*/
+    padding-bottom: 5px;
+}
+.one h3:before {
+    width: 28px;
+    height: 5px;
+    display: block;
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    margin-left: -14px;
+    background-color: #343a40;
+}
+.one h3:after {
+    width: 100px;
+    height: 1px;
+    display: block;
+    content: "";
+    position: relative;
+    margin-top: 25px;
+    left: 50%;
+    margin-left: -50px;
+    background-color: #343a40;
+}

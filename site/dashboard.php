@@ -45,7 +45,7 @@
         <div class="row">
             <div class=" col-md-6 mt-5 ">
                 <div class="card border-success mb-3 card-high shadow hi-top" >
-                    <div class="card-header">Tabella</div>
+                    <div class="card-header"><p class="text-primary m-0" ><strong>Percentuali uscite di <?php if (date("m") == "01") echo "gennaio";if (date("m") == "02") echo "febbraio";if (date("m") == "03") echo "marzo";if (date("m") == "04") echo "aprile";if (date("m") == "05") echo "maggio";if (date("m") == "06") echo "giugno";if (date("m") == "07") echo "luglio";if (date("m") == "08") echo "agosto";if (date("m") == "09") echo "settembre";if (date("m") == "10") echo "ottobre";if (date("m") == "11") echo "novembre";if (date("m") == "12") echo "dicembre";?></strong></p></div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
                             <div id="pie chart">
@@ -61,7 +61,7 @@
                                             enabled: false
                                         },
                                         title: {
-                                            text: 'Percentuali uscite di <?php if (date("m") == "01") echo "gennaio";if (date("m") == "02") echo "febbraio";if (date("m") == "03") echo "marzo";if (date("m") == "04") echo "aprile";if (date("m") == "05") echo "maggio";if (date("m") == "06") echo "giugno";if (date("m") == "07") echo "luglio";if (date("m") == "08") echo "agosto";if (date("m") == "09") echo "settembre";if (date("m") == "10") echo "ottobre";if (date("m") == "11") echo "novembre";if (date("m") == "12") echo "dicembre";?>',
+                                            text: '',
                                             align: 'left'
                                         },
                                         tooltip: {
@@ -97,7 +97,7 @@
 
             <div class="col-md-6 mt-5 ">
                 <div class="card border-success mb-3 card-high shadow " >
-                    <div class="card-header">Tabella</div>
+                    <div class="card-header"><p class="text-primary m-0" ><strong>Entrate di questo mese</strong></p></div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
                             <div id="area graph">
@@ -107,7 +107,7 @@
                                         type: 'area'
                                     },
                                     title: {
-                                        text: 'Entrate di questo mese'
+                                        text: ''
                                     },
                                     credits:{
                                         enabled: false
@@ -174,15 +174,11 @@
             </div>
             <div class="col-md-6">
                 <div class="card border-success mb-3 card-high shadow" >
-                    <div class="card-header">Tabella</div>
+                    <div class="card-header"><p class="text-primary m-0" ><strong>Spese durante l'anno</strong></p></div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
                             <div id="histogram">
-                                <script>
-                                    <?php 
-                                        $title = "Spese durante l'anno";
-                                        $title = addslashes($title);
-                                    ?>  
+                                <script>  
                                     Highcharts.chart('histogram', {
                                         chart: {
                                             type: 'column'
@@ -192,7 +188,7 @@
                                         },
                                         title: {
                                             align: 'left',
-                                            text: '<?php echo $title;?>'
+                                            text: ''
                                         },
                                         accessibility: {
                                             announceNewData: {
