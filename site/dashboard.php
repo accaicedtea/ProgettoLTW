@@ -147,32 +147,6 @@
 
         <div class="row mb-5">
             <div class="col-md-6" >
-                <div class="card border-success shadow card-high">
-                    <div class="card-header">
-                        <p class="text-dark m-0" ><strong>Le prossime scadenze</strong></p>
-                    </div>
-                    <div class="card-body text-center">
-                        <!-- TABELLA -->
-                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info" >
-                            <table class="table my-0" id="dataTable" >
-                                <thead>
-                                    <tr>
-                                        <th>Data</th>
-                                        <th>Categoria</th>
-                                        <th>Descrizione</th>
-                                        <th>Importo</th>
-                                        <th>Tipo</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody id="tableBody">
-                                </tbody>
-                            </table>                                
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
                 <div class="card border-success mb-3 card-high shadow" >
                     <div class="card-header"><p class="text-dark m-0" ><strong>Spese durante l'anno</strong></p></div>
                     <div class="card-body text-success">        
@@ -235,6 +209,32 @@
                                 </script>
                             </div>
                         </figure>  
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-6">
+                <div class="card border-success shadow card-high">
+                    <div class="card-header">
+                        <p class="text-dark m-0" ><strong>Le prossime scadenze</strong></p>
+                    </div>
+                    <div class="card-body text-center">
+                        <!-- TABELLA -->
+                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info" >
+                            <table class="table my-0" id="dataTable" >
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Categoria</th>
+                                        <th>Descrizione</th>
+                                        <th>Importo</th>
+                                        <th>Tipo</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                </tbody>
+                            </table>                                
+                        </div>
                     </div>
                 </div>  
             </div>

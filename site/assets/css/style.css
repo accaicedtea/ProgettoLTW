@@ -463,7 +463,7 @@ h3 {
     font-family: "Raleway", sans-serif;
     font-weight: 300;
     font-size: 40px;
-    color: #343a40;
+    color: #080808;
     -webkit-transition: all 0.4s ease 0s;
     -o-transition: all 0.4s ease 0s;
     transition: all 0.4s ease 0s;
@@ -506,4 +506,13 @@ h3 em {
     left: 50%;
     margin-left: -50px;
     background-color: #343a40;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+.graph-title {
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #444444;
 }
