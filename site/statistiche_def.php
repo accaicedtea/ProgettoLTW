@@ -116,7 +116,7 @@
             },
             yAxis: {
                 title: {
-                    text: '€'
+                    text: '€',
                 }
             },
             tooltip: {
@@ -134,7 +134,7 @@
             },
             series: 
                 <?=$json_data_linegraph?>,
-            });
+        });
 
         Highcharts.chart('spline graph saldo', {
             chart: {
@@ -154,7 +154,7 @@
             },
             yAxis: {
                 title: {
-                text: '€'
+                    text: '€'
                 },
                 labels: {
                 }
@@ -179,7 +179,7 @@
                 data: <?=$json_data_saldo?>,
                 color: '<?=$colore_saldo?>'
             }]
-            });
+        });
 
         Highcharts.chart('spline graph risparmio', {
             chart: {
@@ -199,7 +199,7 @@
             },
             yAxis: {
                 title: {
-                text: '€'
+                    text: '€'
                 },
                 labels: {
                 }
@@ -224,48 +224,46 @@
                 data: <?=$json_data_risparmio?>,
                 color: '<?=$colore_risparmio?>'
             }]
-            });
-
-
+        });
     }
 
     displayMese();
 
     function displayAnno(){
         Highcharts.chart('area graph', {
-                chart: {
-                type: 'area'
-                },
+            chart: {
+            type: 'area'
+            },
+            title: {
+                text: 'Movimenti di questo anno'
+            },
+            credits:{
+                enabled: false
+            },
+            xAxis: {
+                categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre']
+            },
+            yAxis: {
                 title: {
-                    text: 'Movimenti di questo anno'
-                },
-                credits:{
-                    enabled: false
-                },
-                xAxis: {
-                    categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre']
-                },
-                yAxis: {
-                    title: {
-                        text: '€'
-                    }
-                },
-                tooltip: {
-                    valueDecimals: 2,
-                    valueSuffix: "€"
-                },
-                plotOptions: {
-                    line: {
-                        dataLabels: {
-                            enabled: true,
-                            format: '{y:.2f} €'
-                        },
-                        enableMouseTracking: false
-                    }
-                },
-                series: 
-                    <?=$json_data_linegraph_year?>,
-                });
+                    text: '€'
+                }
+            },
+            tooltip: {
+                valueDecimals: 2,
+                valueSuffix: "€"
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y:.2f} €'
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: 
+                <?=$json_data_linegraph_year?>,
+        });
 
         Highcharts.chart('spline graph saldo', {
             chart: {
@@ -310,65 +308,55 @@
                 data: <?=$json_data_saldo_year?>,
                 color: '<?=$colore_saldo?>'
             }]
-            });
+        });
 
         Highcharts.chart('spline graph risparmio', {
-                chart: {
-                    type: 'spline'
-                },
-                credits: {
-                    enabled: false
-                },
+            chart: {
+                type: 'spline'
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: 'Risparmi di questo anno'
+            },
+            xAxis: {
+                categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
+                accessibility: {
+                    description: 'Mese'
+                }
+            },
+            yAxis: {
                 title: {
-                    text: 'Risparmi di questo anno'
+                text: '€'
                 },
-                xAxis: {
-                    categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
-                    accessibility: {
-                        description: 'Mese'
+                labels: {
+                }
+            },
+            tooltip: {
+                crosshairs: true,
+                shared: true,
+                valueDecimals: 2,
+                valueSuffix: "€"
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        radius: 4,
+                        lineColor: '<?=$colore_risparmio?>',
+                        lineWidth: 1
                     }
                 },
-                yAxis: {
-                    title: {
-                    text: '€'
-                    },
-                    labels: {
-                    }
-                },
-                tooltip: {
-                    crosshairs: true,
-                    shared: true,
-                    valueDecimals: 2,
-                    valueSuffix: "€"
-                },
-                plotOptions: {
-                    spline: {
-                        marker: {
-                            radius: 4,
-                            lineColor: '<?=$colore_risparmio?>',
-                            lineWidth: 1
-                        }
-                    },
-                },
-                series: [{
-                    name: 'Risparmio',
-                    data: <?=$json_data_risparmio_year?>,
-                    color: '<?=$colore_risparmio?>'
-                }]
-                });
-
-
+            },
+            series: [{
+                name: 'Risparmio',
+                data: <?=$json_data_risparmio_year?>,
+                color: '<?=$colore_risparmio?>'
+            }]
+        });
     }
 </script>
-
-
-
-
-
-
-<?php } else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
-?>
-
+<?php } else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){ ?>
 <script>
     function applicaFiltroPeriodo(){
         var e = document.getElementById("selectTipo");
@@ -380,9 +368,7 @@
     }
 </script>
 
-
 <body>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-6">
