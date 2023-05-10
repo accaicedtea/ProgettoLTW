@@ -211,8 +211,8 @@
                             </div>
 
                             <!-- Inizio tabella -->
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTable">
+                            <div class="table-responsive table mt-4" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table table-hover my-0" id="dataTable">
                                     <thead>
                                         <tr>
                                             <th>Data</th>
