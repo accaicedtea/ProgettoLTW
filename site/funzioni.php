@@ -314,25 +314,42 @@ function get_json_eta($conn) {
     return $arr;
 }
 
-function column_sesso($conn,$sesso) {
+function column_sesso($conn,$sesso,$tipo) {
     $arr = array();
     $arr_eta = array();
     $array_eta = get_json_eta($conn);
     $array_res = array();
-    $sql = "SELECT avg(vista.importo) as media, 
-    CASE WHEN (age>=15 and age <=19) THEN '15-19' 
-    WHEN (age>=20 and age <=24) THEN '20-24' 
-    WHEN (age>=25 and age <=29) THEN '25-29' 
-    WHEN (age>=30 and age <=34) THEN '30-34' 
-    WHEN (age>=35 and age <=40) THEN '35-40' 
-    WHEN (age>=41 and age <=45) THEN '41-45' 
-    WHEN (age>=46 and age <=51) THEN '46-51' 
-    ELSE '52+' END AS eta_eta 
-    FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso, spesa.importo
-        FROM utente join spesa on spesa.utente=utente.username) as vista
-        where vista.importo<0 and sesso = '$sesso'
-    GROUP BY eta_eta
-    order by eta_eta;";
+    if($tipo=='entrata'){
+        $sql = "SELECT avg(vista.importo) as media, 
+        CASE WHEN (age>=15 and age <=19) THEN '15-19' 
+        WHEN (age>=20 and age <=24) THEN '20-24' 
+        WHEN (age>=25 and age <=29) THEN '25-29' 
+        WHEN (age>=30 and age <=34) THEN '30-34' 
+        WHEN (age>=35 and age <=40) THEN '35-40' 
+        WHEN (age>=41 and age <=45) THEN '41-45' 
+        WHEN (age>=46 and age <=51) THEN '46-51' 
+        ELSE '52+' END AS eta_eta 
+        FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso, spesa.importo
+            FROM utente join spesa on spesa.utente=utente.username) as vista
+            where vista.importo>0 and sesso = '$sesso'
+        GROUP BY eta_eta
+        order by eta_eta;";
+    }else if($tipo=='uscita'){
+        $sql = "SELECT avg(vista.importo) as media, 
+        CASE WHEN (age>=15 and age <=19) THEN '15-19' 
+        WHEN (age>=20 and age <=24) THEN '20-24' 
+        WHEN (age>=25 and age <=29) THEN '25-29' 
+        WHEN (age>=30 and age <=34) THEN '30-34' 
+        WHEN (age>=35 and age <=40) THEN '35-40' 
+        WHEN (age>=41 and age <=45) THEN '41-45' 
+        WHEN (age>=46 and age <=51) THEN '46-51' 
+        ELSE '52+' END AS eta_eta 
+        FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso, spesa.importo
+            FROM utente join spesa on spesa.utente=utente.username) as vista
+            where vista.importo<0 and sesso = '$sesso'
+        GROUP BY eta_eta
+        order by eta_eta;";
+    }
     $result = $conn->query($sql);
     if ($result->num_rows >= 0) {
         while($row = $result->fetch_assoc()) {
@@ -1136,18 +1153,24 @@ function navBar($pagina)
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link <?php if ($pagina == "Utenti") {
-                        echo "active";
+                        echo "link-active";
                     } ?>" href="./view.php">Utenti</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if ($pagina == "Categorie") {
-                        echo "active";
+                        echo "link-active";
                     } ?>" href="./categorie.php">Categorie</a>
                 </li>
                 
                 <li class="nav-item">
+                    <a class="nav-link <?php if ($pagina == "Statistiche") {
+                        echo "link-active";
+                    } ?>" href="./statistiche.php">Statistiche</a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link ms-3 <?php if ($pagina == "Informazioni") {
-                        echo "active";
+                        echo "link-active";
                     } ?>" href="./informazioni.php">Informazioni
                     </a>
                 </li>

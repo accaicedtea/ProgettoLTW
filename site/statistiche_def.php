@@ -3,8 +3,8 @@
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
+    navBar($pagina);
     if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
-        navBar($pagina);
         $ultimo_giorno_mese = date("d");
         $json_data_linegraph = linegraph($conn);
         $json_giorni_mese = giorni_mese();
@@ -51,8 +51,6 @@
                                 <option value="anno">Anno corrente</option>
                             </select> 
                         </div>
-
-
                     </div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
@@ -66,21 +64,20 @@
             <div class="col-md-5">
                 <div class="card border-success mb-3 card-high shadow hi-top" >
                     <div class="card-body text-success">        
-                    <figure class="highcharts-figure">
-                        <div id="spline graph saldo">
-                        </div>
-                    </figure>
+                        <figure class="highcharts-figure">
+                            <div id="spline graph saldo">
+                            </div>
+                        </figure>
                     </div>
                 </div>
             </div>
             <div class="col-md-5">
                 <div class="card border-success mb-3 card-high shadow hi-top" >
-
                     <div class="card-body text-success">        
-                    <figure class="highcharts-figure">
-                        <div id="spline graph risparmio">
-                        </div>
-                    </figure>
+                        <figure class="highcharts-figure">
+                            <div id="spline graph risparmio">
+                            </div>
+                        </figure>
                     </div>
                 </div>    
             </div>
@@ -369,7 +366,319 @@
 
 
 
-<?php } else{
-    header("Location: login.php?error=ma che stavi a provà a fa limortaaaaa");
+<?php } else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
+?>
+
+<script>
+    function applicaFiltroPeriodo(){
+        var e = document.getElementById("selectTipo");
+        var ue = e.options[e.selectedIndex].text;
+        if (ue=="entrate")
+            displayEntrate();
+        else
+            displayUscite();
+    }
+</script>
+
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card border-success mb-3 card-high shadow hi-top" >
+                    <div class="card-header graph-title">Distribuzione utenti divisi per età e sesso</div>
+                    <div class="card-body text-success">        
+                        <figure class="highcharts-figure">
+                            <div id="grafico-sesso-eta">
+                                <script>
+                                    // Age categories
+                                    var categories = [
+                                        <?php echo get_eta_per_categorie($conn);?>
+                                    ];
+                                    
+                                    Highcharts.chart('grafico-sesso-eta', {
+                                        chart: {
+                                            type: 'bar'
+                                        },
+                                        accessibility: {
+                                            point: {
+                                                valueDescriptionFormat: '{index}. Età {xDescription}, {value}%.'
+                                            }
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        xAxis: [{
+                                            categories: categories,
+                                            reversed: false,
+                                            labels: {
+                                                step: 1
+                                            },
+                                            accessibility: {
+                                                description: 'Età (uomo)'
+                                            }
+                                        }, { // mirror axis on right side
+                                            opposite: true,
+                                            reversed: false,
+                                            categories: categories,
+                                            linkedTo: 0,
+                                            labels: {
+                                                step: 1
+                                            },
+                                            accessibility: {
+                                                description: 'Età (donna)'
+                                            }
+                                        }],
+                                        yAxis: {
+                                            title: {
+                                                text: null
+                                            },
+                                            labels: {
+                                                formatter: function () {
+                                                    return Math.abs(this.value) + '%';
+                                                }
+                                            },
+                                            accessibility: {
+                                                description: 'Percentuale utenti',
+                                                rangeDescription: 'Range: 0 to 100%'
+                                            }
+                                        },
+                                    
+                                        plotOptions: {
+                                            series: {
+                                                stacking: 'normal',
+                                                borderRadius: '50%'
+                                            }
+                                        },
+                                        credits:{enabled:false},
+                                        tooltip: {
+                                            formatter: function () {
+                                                return '<b>' + this.series.name + ', età ' + this.point.category + '</b><br/>' +
+                                                    'Utenti: ' + Highcharts.numberFormat(Math.abs(this.point.y), 1) + '%';
+                                            }
+                                        },
+                                    
+                                        series: [{
+                                            name: 'Uomo',
+                                            data: [
+                                                <?php 
+                                                    $sesso=1;
+                                                    $totali= get_eta_graph($conn);
+                                                    $sesso_uomo = get_eta_sesso_graph($conn,$sesso);
+                                                    $frazione_test=get_array_sesso($totali,$sesso_uomo,$sesso);
+                                                    echo $frazione_test; 
+                                                ?>
+                                            ]
+                                        }, {
+                                            name: 'Donna',
+                                            data: [
+                                            
+                                                <?php 
+                                                    $sesso=0;
+                                                    $totali= get_eta_graph($conn);
+                                                    $sesso_donna = get_eta_sesso_graph($conn,$sesso);
+                                                    $frazione_test=get_array_sesso($totali,$sesso_donna,$sesso);
+                                                    echo $frazione_test; 
+                                                ?>
+                                            ]
+                                        }]
+                                    });
+                            
+                                </script>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card border-success mb-3 card-high shadow hi-top" >
+                    <div class="card-header graph-title">Utenti per Nazionalità</div>
+                        <div class="card-body text-success">        
+                            <figure class="highcharts-figure utenti">
+                                <div id="container-nazionalita">
+                                    <script>
+                                        Highcharts.chart('container-nazionalita', {
+                                            chart: {
+                                                type: 'column'
+                                            },
+                                            title:{text:null},
+                                            credits:{enabled:false},
+                                            xAxis: {
+                                                type: 'category',
+                                                labels: {
+                                                    rotation: -45,
+                                                    style: {
+                                                        fontSize: '13px',
+                                                        fontFamily: 'Verdana, sans-serif'
+                                                    }
+                                                }
+                                            },
+                                            yAxis: {
+                                                min: 0,
+                                                title: {
+                                                    text: 'Numero utenti'
+                                                }
+                                            },
+                                            legend: {
+                                                enabled: false
+                                            },
+                                            series: [{
+                                                name: 'numero utenti',
+                                                data: [
+                                                    <?php echo bar90g($conn);?>
+                                                ],
+                                                dataLabels: {
+                                                    enabled: true,
+                                                    color: '#FFFFFF',
+                                                    align: 'center',
+                                                    format: '{point.y:0f}', 
+                                                    y: 30, 
+                                                    style: {
+                                                        fontSize: '13px',
+                                                        fontFamily: 'Verdana, sans-serif'
+                                                    }
+                                                }
+                                            }]
+                                        });
+                                    </script>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-16">                
+                <div class="card border-success mb-3 card-high shadow hi-top" >
+                <div class="card-header">
+                        <div class="col-auto ">
+                            <p class=" m-0 fw-bold">Filtra per:</p>
+                        </div>
+                        <div class="col-6">
+                            <select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroPeriodo()">
+                                <option value="entrate" selected>Entrate</option>
+                                <option value="uscite">Uscite</option>
+                            </select> 
+                        </div>
+                    </div>
+                        <div class="card-body text-success">        
+                            <figure class="highcharts-figure">
+                                <div id="column chart">
+                                </div>
+                            </figure>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<script>
+    window.onload = displayUscite();
+
+    function displayEntrate(){
+        Highcharts.chart('column chart', {
+            chart: {
+                type: 'column'
+            },
+            title:{
+                text: null
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: [<?= get_eta_per_categorie($conn);?>]
+            },
+            yAxis: [{
+                min: 0,
+                title: {
+                    text: 'Media uscite'                                        
+                }
+            }],
+            legend: {
+                shadow: false
+            },
+            tooltip: {
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    grouping: false,
+                    shadow: false,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Uomini',
+                color: '#FF7514',
+                data: <?=column_sesso($conn,1,'entrata');?>,
+                pointPadding: 0.3,
+                pointPlacement: 0
+            }, {
+                name: 'Donne',
+                color: '#991199',
+                data: <?= column_sesso($conn,0,'entrata');?>,
+                pointPadding: 0.4,
+                pointPlacement: 0
+            }]
+        });
+
+        
+    }
+    function displayUscite(){
+        Highcharts.chart('column chart', {
+            chart: {
+                type: 'column'
+            },
+            title:{
+                text: null
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: [<?= get_eta_per_categorie($conn);?>]
+            },
+            yAxis: [{
+                min: 0,
+                title: {
+                    text: 'Media uscite'                                        
+                }
+            }],
+            legend: {
+                shadow: false
+            },
+            tooltip: {
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    grouping: false,
+                    shadow: false,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Uomini',
+                color: '#FF7514',
+                data: <?=column_sesso($conn,1,'uscita');?>,
+                pointPadding: 0.3,
+                pointPlacement: 0
+            }, {
+                name: 'Donne',
+                color: '#991199',
+                data: <?= column_sesso($conn,0,'uscita');?>,
+                pointPadding: 0.4,
+                pointPlacement: 0
+            }]
+        });
+    }
+</script>
+<?php }else{
+    header("Location: login.php?error=ma che stavi a provà a fa Accedi va");
     } ?>
 

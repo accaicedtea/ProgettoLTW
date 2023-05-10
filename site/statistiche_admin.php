@@ -7,15 +7,7 @@ navBar($pagina);
 ?>
 <body>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
-</style>
-<style>
-.graph-title {
-    font-family: 'Quicksand', sans-serif;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: #444444;
-}
+ 
 </style>
 <div class="container-fluid">
     <div class="row">
