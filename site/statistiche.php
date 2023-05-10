@@ -51,8 +51,6 @@
                                 <option value="anno">Anno corrente</option>
                             </select> 
                         </div>
-
-
                     </div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
@@ -66,21 +64,20 @@
             <div class="col-md-5">
                 <div class="card border-success mb-3 card-high shadow hi-top" >
                     <div class="card-body text-success">        
-                    <figure class="highcharts-figure">
-                        <div id="spline graph saldo">
-                        </div>
-                    </figure>
+                        <figure class="highcharts-figure">
+                            <div id="spline graph saldo">
+                            </div>
+                        </figure>
                     </div>
                 </div>
             </div>
             <div class="col-md-5">
                 <div class="card border-success mb-3 card-high shadow hi-top" >
-
                     <div class="card-body text-success">        
-                    <figure class="highcharts-figure">
-                        <div id="spline graph risparmio">
-                        </div>
-                    </figure>
+                        <figure class="highcharts-figure">
+                            <div id="spline graph risparmio">
+                            </div>
+                        </figure>
                     </div>
                 </div>    
             </div>
@@ -119,7 +116,7 @@
             },
             yAxis: {
                 title: {
-                    text: '€'
+                    text: '€',
                 }
             },
             tooltip: {
@@ -137,7 +134,7 @@
             },
             series: 
                 <?=$json_data_linegraph?>,
-            });
+        });
 
         Highcharts.chart('spline graph saldo', {
             chart: {
@@ -157,7 +154,7 @@
             },
             yAxis: {
                 title: {
-                text: '€'
+                    text: '€'
                 },
                 labels: {
                 }
@@ -182,7 +179,7 @@
                 data: <?=$json_data_saldo?>,
                 color: '<?=$colore_saldo?>'
             }]
-            });
+        });
 
         Highcharts.chart('spline graph risparmio', {
             chart: {
@@ -202,7 +199,7 @@
             },
             yAxis: {
                 title: {
-                text: '€'
+                    text: '€'
                 },
                 labels: {
                 }
@@ -227,48 +224,46 @@
                 data: <?=$json_data_risparmio?>,
                 color: '<?=$colore_risparmio?>'
             }]
-            });
-
-
+        });
     }
 
     displayMese();
 
     function displayAnno(){
         Highcharts.chart('area graph', {
-                chart: {
-                type: 'area'
-                },
+            chart: {
+            type: 'area'
+            },
+            title: {
+                text: 'Movimenti di questo anno'
+            },
+            credits:{
+                enabled: false
+            },
+            xAxis: {
+                categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre']
+            },
+            yAxis: {
                 title: {
-                    text: 'Movimenti di questo anno'
-                },
-                credits:{
-                    enabled: false
-                },
-                xAxis: {
-                    categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre']
-                },
-                yAxis: {
-                    title: {
-                        text: '€'
-                    }
-                },
-                tooltip: {
-                    valueDecimals: 2,
-                    valueSuffix: "€"
-                },
-                plotOptions: {
-                    line: {
-                        dataLabels: {
-                            enabled: true,
-                            format: '{y:.2f} €'
-                        },
-                        enableMouseTracking: false
-                    }
-                },
-                series: 
-                    <?=$json_data_linegraph_year?>,
-                });
+                    text: '€'
+                }
+            },
+            tooltip: {
+                valueDecimals: 2,
+                valueSuffix: "€"
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y:.2f} €'
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: 
+                <?=$json_data_linegraph_year?>,
+        });
 
         Highcharts.chart('spline graph saldo', {
             chart: {
@@ -313,67 +308,67 @@
                 data: <?=$json_data_saldo_year?>,
                 color: '<?=$colore_saldo?>'
             }]
-            });
+        });
 
         Highcharts.chart('spline graph risparmio', {
-                chart: {
-                    type: 'spline'
-                },
-                credits: {
-                    enabled: false
-                },
+            chart: {
+                type: 'spline'
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: 'Risparmi di questo anno'
+            },
+            xAxis: {
+                categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
+                accessibility: {
+                    description: 'Mese'
+                }
+            },
+            yAxis: {
                 title: {
-                    text: 'Risparmi di questo anno'
+                text: '€'
                 },
-                xAxis: {
-                    categories: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
-                    accessibility: {
-                        description: 'Mese'
+                labels: {
+                }
+            },
+            tooltip: {
+                crosshairs: true,
+                shared: true,
+                valueDecimals: 2,
+                valueSuffix: "€"
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        radius: 4,
+                        lineColor: '<?=$colore_risparmio?>',
+                        lineWidth: 1
                     }
                 },
-                yAxis: {
-                    title: {
-                    text: '€'
-                    },
-                    labels: {
-                    }
-                },
-                tooltip: {
-                    crosshairs: true,
-                    shared: true,
-                    valueDecimals: 2,
-                    valueSuffix: "€"
-                },
-                plotOptions: {
-                    spline: {
-                        marker: {
-                            radius: 4,
-                            lineColor: '<?=$colore_risparmio?>',
-                            lineWidth: 1
-                        }
-                    },
-                },
-                series: [{
-                    name: 'Risparmio',
-                    data: <?=$json_data_risparmio_year?>,
-                    color: '<?=$colore_risparmio?>'
-                }]
-                });
-
-
+            },
+            series: [{
+                name: 'Risparmio',
+                data: <?=$json_data_risparmio_year?>,
+                color: '<?=$colore_risparmio?>'
+            }]
+        });
+    }
+</script>
+<?php } else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){ ?>
+<script>
+    function applicaFiltroPeriodo(){
+        var e = document.getElementById("selectTipo");
+        var ue = e.options[e.selectedIndex].text;
+        if (ue=="entrate")
+            displayEntrate();
+        else
+            displayUscite();
     }
 </script>
 
-
-
-
-
-
-<?php } else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
-?>
-
 <body>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-6">
@@ -542,58 +537,20 @@
         <div class="row">
             <div class="col-16">                
                 <div class="card border-success mb-3 card-high shadow hi-top" >
-                    <div class="card-header graph-title">Media uscite per età e sesso</div>
+                <div class="card-header">
+                        <div class="col-auto">
+                            <p class=" m-0 fw-bold">Filtra per:</p>
+                        </div>
+                        <div class="col-6">
+                            <select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroPeriodo()">
+                                <option value="entrate" selected>Entrate</option>
+                                <option value="uscite">Uscite</option>
+                            </select> 
+                        </div>
+                    </div>
                         <div class="card-body text-success">        
                             <figure class="highcharts-figure">
                                 <div id="column chart">
-                                    <script>
-                                        Highcharts.chart('column chart', {
-                                            chart: {
-                                                type: 'column'
-                                            },
-                                            title:{
-                                                text: null
-                                            },
-                                            credits: {
-                                                enabled: false
-                                            },
-                                            xAxis: {
-                                                categories: [<?= get_eta_per_categorie($conn);?>]
-                                            },
-                                            yAxis: [{
-                                                min: 0,
-                                                title: {
-                                                    text: 'Media uscite'                                        
-                                                }
-                                            }],
-                                            legend: {
-                                                shadow: false
-                                            },
-                                            tooltip: {
-                                                shared: true
-                                            },
-                                            plotOptions: {
-                                                column: {
-                                                    grouping: false,
-                                                    shadow: false,
-                                                    borderWidth: 0
-                                                }
-                                            },
-                                            series: [{
-                                                name: 'Uomini',
-                                                color: '#FF7514',
-                                                data: <?=column_sesso($conn,1);?>,
-                                                pointPadding: 0.3,
-                                                pointPlacement: 0
-                                            }, {
-                                                name: 'Donne',
-                                                color: '#991199',
-                                                data: <?= column_sesso($conn,0);?>,
-                                                pointPadding: 0.4,
-                                                pointPlacement: 0
-                                            }]
-                                        });
-                                    </script>
                                 </div>
                             </figure>
                         </div>
@@ -603,6 +560,107 @@
         </div>
     </div>
 </body>
+<script>
+    window.onload = displayUscite();
+    function displayEntrate(){
+        Highcharts.chart('column chart', {
+            chart: {
+                type: 'column'
+            },
+            title:{
+                text: "Media entrate"
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: [<?= get_eta_per_categorie($conn);?>]
+            },
+            yAxis: [{
+                min: 0,
+                title: {
+                    text: 'Media uscite'                                        
+                }
+            }],
+            legend: {
+                shadow: false
+            },
+            tooltip: {
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    grouping: false,
+                    shadow: false,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Uomini',
+                color: '#FF7514',
+                data: <?=column_sesso($conn,1,'entrata');?>,
+                pointPadding: 0.3,
+                pointPlacement: 0
+            }, {
+                name: 'Donne',
+                color: '#991199',
+                data: <?= column_sesso($conn,0,'entrata');?>,
+                pointPadding: 0.4,
+                pointPlacement: 0
+            }]
+        });
+
+        
+    }
+    function displayUscite(){
+        Highcharts.chart('column chart', {
+            chart: {
+                type: 'column'
+            },
+            title:{
+                text: "Media uscite"
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: [<?= get_eta_per_categorie($conn);?>]
+            },
+            yAxis: [{
+                min: 0,
+                title: {
+                    text: 'Media uscite'                                        
+                }
+            }],
+            legend: {
+                shadow: false
+            },
+            tooltip: {
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    grouping: false,
+                    shadow: false,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Uomini',
+                color: '#FF7514',
+                data: <?=column_sesso($conn,1,'uscita');?>,
+                pointPadding: 0.3,
+                pointPlacement: 0
+            }, {
+                name: 'Donne',
+                color: '#991199',
+                data: <?= column_sesso($conn,0,'uscita');?>,
+                pointPadding: 0.4,
+                pointPlacement: 0
+            }]
+        });
+    }
+</script>
 <?php }else{
     header("Location: login.php?error=ma che stavi a provà a fa Accedi va");
     } ?>

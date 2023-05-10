@@ -1262,7 +1262,7 @@ function navBar($pagina)
                 <a class="navbar-brand logo-nav" href="./home.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="./home.php">Home
+                    <a class="nav-link <?php if ($pagina == "Home") { echo "link-active";} ?>" aria-current="page" href="./home.php">Home
                     </a>
                 </li>
                 <li class="nav-item">
