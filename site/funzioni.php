@@ -319,6 +319,8 @@ function column_sesso($conn,$sesso,$tipo) {
     $arr_eta = array();
     $array_eta = get_json_eta($conn);
     $array_res = array();
+    $sql ="";
+    echo $tipo;
     if($tipo=='entrata'){
         $sql = "SELECT avg(vista.importo) as media, 
         CASE WHEN (age>=15 and age <=19) THEN '15-19' 
@@ -331,10 +333,10 @@ function column_sesso($conn,$sesso,$tipo) {
         ELSE '52+' END AS eta_eta 
         FROM (SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),dataN)), '%Y') + 0 AS age, sesso, spesa.importo
             FROM utente join spesa on spesa.utente=utente.username) as vista
-            where vista.importo>0 and sesso = '$sesso'
+            where vista.importo>=0 and sesso = '$sesso'
         GROUP BY eta_eta
         order by eta_eta;";
-    }else if($tipo=='uscita'){
+    }else {
         $sql = "SELECT avg(vista.importo) as media, 
         CASE WHEN (age>=15 and age <=19) THEN '15-19' 
         WHEN (age>=20 and age <=24) THEN '20-24' 
