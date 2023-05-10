@@ -254,19 +254,19 @@ function populateVal() {
     let ele = document.getElementById('entrate_mensili');
 
     ele.innerHTML = ele.innerHTML +
-        '<p class="fs-4 fw-bolder text-success mt-2" value="' + data[0]+ '"><i class="bi bi-arrow-up-short"></i>' + data[0]+ '</p>';
+        '<p class="fs-4 fw-bolder text-success mt-2" value="' + data[0] + '"><i class="bi bi-arrow-up-short"></i>' + data[0]+ '</p>';
     
     ele = document.getElementById('uscite_mensili');
     ele.innerHTML = ele.innerHTML +
-        '<p class="fs-4 fw-bolder text-danger mt-2" value="' + data[1]+ '"><i class="bi bi-arrow-down-short"></i>' + data[1]+ '</p>';
+        '<p class="fs-4 fw-bolder text-danger mt-2" value="' + data[1] + '"><i class="bi bi-arrow-down-short"></i>' + data[1]+ '</p>';
 
     ele = document.getElementById('entrate_annuali');
     ele.innerHTML = ele.innerHTML +
-        '<p class="fs-4 fw-bolder text-success mt-2" value="' + data[2]+ '"><i class="bi bi-arrow-up-short"></i>' + data[2]+ '</p>';
+        '<p class="fs-4 fw-bolder text-success mt-2" value="' + data[2] + '"><i class="bi bi-arrow-up-short"></i>' + data[2]+ '</p>';
         
     ele = document.getElementById('uscite_annuali');
     ele.innerHTML = ele.innerHTML +
-        '<p class="fs-4 fw-bolder text-danger mt-2" value="' + data[3]+ '"><i class="bi bi-arrow-down-short"></i>' + data[3]+ '</p>';
+        '<p class="fs-4 fw-bolder text-danger mt-2" value="' + data[3] + '"><i class="bi bi-arrow-down-short"></i>' + data[3]+ '</p>';
     
 }
 </script>
