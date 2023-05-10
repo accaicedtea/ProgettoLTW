@@ -215,7 +215,7 @@
             <div class="col-md-6">
                 <div class="card border-success shadow card-high">
                     <div class="card-header">
-                        <p class="text-dark m-0" ><strong>Le prossime scadenze</strong></p>
+                        <p class="text-dark m-0" ><strong>Le prossime scadenze </strong></p>
                     </div>
                     <div class="card-body text-center">
                         <!-- TABELLA -->
@@ -274,12 +274,12 @@ function populateVal() {
     // attenzione
     dataSet = <?= getJsonScadenzaLimitata($conn);?>;
     for (var i in dataSet){
-        var html = `<tr class="table-${( dataSet[i].importo>0)? 'success': 'danger'}">
-        <td>${dataSet[i].data}</td>
-        <td>${dataSet[i].categoria}</td>
-        <td>${dataSet[i].descrizione}</td>
-        <td>${Math.abs(dataSet[i].importo)} &euro;</td>
-        <td>${(dataSet[i].importo>0)? "Entrata": "Uscita"}</td>
+        var html = `<tr>
+        <td data-label="Data">${dataSet[i].data}</td>
+        <td class="table-light" data-label="Categoria">${dataSet[i].categoria}</td>
+        <td data-label="Descrizione">${dataSet[i].descrizione}</td>
+        <td class="table-light" data-label="Importo">${Math.abs(dataSet[i].importo)} &euro;</td>
+        <td data-label="Tipo">${(dataSet[i].importo>0)? "<i class='fa-lg text-success bi bi-graph-up-arrow'></i>": "<i class='fa-lg text-danger bi bi-graph-down-arrow'></i>"}</td>
     </tr>`
     
     
