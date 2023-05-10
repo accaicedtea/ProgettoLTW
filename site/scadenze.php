@@ -76,7 +76,7 @@
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <div class="container fluid mt-5 mb-5">
-                    <div class="card shadow">
+                    <div class="card shadow border-success">
                         <?php if(isset($_GET['msg'])){ ?>
                             <div class="alert alert-info alert-dismissible fade show" role="alert">
                             <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>

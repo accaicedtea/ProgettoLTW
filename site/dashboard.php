@@ -36,7 +36,7 @@
             <div id="uscite_annuali" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Uscite annuali</p>
                 <span class="border-bottom"></span>
-                <!--uscote annuali da database-->
+                <!--uscite annuali da database-->
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
         <div class="row">
             <div class=" col-md-6 mt-5 ">
                 <div class="card border-success mb-3 card-high shadow hi-top" >
-                    <div class="card-header"><p class="text-primary m-0" ><strong>Percentuali uscite di <?php if (date("m") == "01") echo "gennaio";if (date("m") == "02") echo "febbraio";if (date("m") == "03") echo "marzo";if (date("m") == "04") echo "aprile";if (date("m") == "05") echo "maggio";if (date("m") == "06") echo "giugno";if (date("m") == "07") echo "luglio";if (date("m") == "08") echo "agosto";if (date("m") == "09") echo "settembre";if (date("m") == "10") echo "ottobre";if (date("m") == "11") echo "novembre";if (date("m") == "12") echo "dicembre";?></strong></p></div>
+                    <div class="card-header"><p class="text-dark m-0" ><strong>Percentuali uscite di <?php if (date("m") == "01") echo "gennaio";if (date("m") == "02") echo "febbraio";if (date("m") == "03") echo "marzo";if (date("m") == "04") echo "aprile";if (date("m") == "05") echo "maggio";if (date("m") == "06") echo "giugno";if (date("m") == "07") echo "luglio";if (date("m") == "08") echo "agosto";if (date("m") == "09") echo "settembre";if (date("m") == "10") echo "ottobre";if (date("m") == "11") echo "novembre";if (date("m") == "12") echo "dicembre";?></strong></p></div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
                             <div id="pie chart">
@@ -97,7 +97,7 @@
 
             <div class="col-md-6 mt-5 ">
                 <div class="card border-success mb-3 card-high shadow " >
-                    <div class="card-header"><p class="text-primary m-0" ><strong>Entrate di questo mese</strong></p></div>
+                    <div class="card-header"><p class="text-dark m-0" ><strong>Entrate di questo mese</strong></p></div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
                             <div id="area graph">
@@ -145,11 +145,11 @@
 
 
 
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-md-6" >
                 <div class="card border-success shadow card-high">
                     <div class="card-header">
-                        <p class="text-primary m-0" ><strong>Le prossime scadenze</strong></p>
+                        <p class="text-dark m-0" ><strong>Le prossime scadenze</strong></p>
                     </div>
                     <div class="card-body text-center">
                         <!-- TABELLA -->
@@ -174,7 +174,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card border-success mb-3 card-high shadow" >
-                    <div class="card-header"><p class="text-primary m-0" ><strong>Spese durante l'anno</strong></p></div>
+                    <div class="card-header"><p class="text-dark m-0" ><strong>Spese durante l'anno</strong></p></div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
                             <div id="histogram">
@@ -254,19 +254,19 @@ function populateVal() {
     let ele = document.getElementById('entrate_mensili');
 
     ele.innerHTML = ele.innerHTML +
-        '<p class="fs-4 fw-bolder mt-2" value="' + data[0]+ '">' + data[0]+ '</p>';
+        '<p class="fs-4 fw-bolder text-success mt-2" value="' + data[0]+ '"><i class="bi bi-arrow-up-short"></i>' + data[0]+ '</p>';
     
     ele = document.getElementById('uscite_mensili');
     ele.innerHTML = ele.innerHTML +
-        '<p class="fs-4 fw-bolder mt-2" value="' + data[1]+ '">' + data[1]+ '</p>';
+        '<p class="fs-4 fw-bolder text-danger mt-2" value="' + data[1]+ '"><i class="bi bi-arrow-down-short"></i>' + data[1]+ '</p>';
 
     ele = document.getElementById('entrate_annuali');
     ele.innerHTML = ele.innerHTML +
-        '<p class="fs-4 fw-bolder mt-2" value="' + data[2]+ '">' + data[2]+ '</p>';
+        '<p class="fs-4 fw-bolder text-success mt-2" value="' + data[2]+ '"><i class="bi bi-arrow-up-short"></i>' + data[2]+ '</p>';
         
     ele = document.getElementById('uscite_annuali');
     ele.innerHTML = ele.innerHTML +
-        '<p class="fs-4 fw-bolder mt-2" value="' + data[3]+ '">' + data[3]+ '</p>';
+        '<p class="fs-4 fw-bolder text-danger mt-2" value="' + data[3]+ '"><i class="bi bi-arrow-down-short"></i>' + data[3]+ '</p>';
     
 }
 </script>
