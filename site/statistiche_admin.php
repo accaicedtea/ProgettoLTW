@@ -6,18 +6,26 @@ head($pagina);
 navBar($pagina);
 ?>
 <body>
-    
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+</style>
+<style>
+.graph-title {
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #444444;
+}
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-6">
         <div class="card border-success mb-3 card-high shadow hi-top" >
-    <div class="card-header">Tabella</div>
+    <div class="card-header graph-title">Distribuzione utenti divisi per età e sesso</div>
     <div class="card-body text-success">        
     <figure class="highcharts-figure">
                 <div id="grafico-sesso-eta">
                     <script>
-                    // Age categories
-                    
                     // Age categories
                     var categories = [
                         <?php echo get_eta_per_categorie($conn);?>
@@ -27,14 +35,13 @@ navBar($pagina);
                         chart: {
                             type: 'bar'
                         },
-                        title: {
-                            text: 'Distribuzione utenti divisi per età',
-                            align: 'left'
-                        },
                         accessibility: {
                             point: {
                                 valueDescriptionFormat: '{index}. Età {xDescription}, {value}%.'
                             }
+                        },
+                        title: {
+                            text: ''
                         },
                         xAxis: [{
                             categories: categories,
@@ -120,7 +127,7 @@ navBar($pagina);
         </div>
         <div class="col-xl-6">
         <div class="card border-success mb-3 card-high shadow hi-top" >
-    <div class="card-header">Tabella</div>
+    <div class="card-header graph-title">Utenti per Nazionalità</div>
     <div class="card-body text-success">        
     <figure class="highcharts-figure utenti">
                 <div id="container-nazionalita">
@@ -129,10 +136,8 @@ navBar($pagina);
                             chart: {
                                 type: 'column'
                             },
+                            title:{text:null},
                             credits:{enabled:false},
-                            title: {
-                                text: 'Utenti per Nazionalità'
-                            },
                             xAxis: {
                                 type: 'category',
                                 labels: {
@@ -183,7 +188,7 @@ navBar($pagina);
 
                         
 <div class="card border-success mb-3 card-high shadow hi-top" >
-    <div class="card-header">Tabella</div>
+    <div class="card-header graph-title">Media uscite per età e sesso</div>
     <div class="card-body text-success">        
     <figure class="highcharts-figure">
                                 <div id="column chart">
@@ -192,8 +197,8 @@ navBar($pagina);
                                 chart: {
                                     type: 'column'
                                 },
-                                title: {
-                                    text: 'Media uscite per età'
+                                title:{
+                                    text: null
                                 },
                                 credits: {
                                     enabled: false

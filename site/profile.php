@@ -468,7 +468,7 @@ submitButton.addEventListener("click", function() {
                     </div>
 
                     <div class="card-body">
-                        <img src="./assets/img/person-circle.svg" class="rounded-circle fade-in" width="100" height="100">
+                        <img src="./assets/img/avatars/icons8-anime-sama.svg" class="rounded-circle fade-in" width="100" height="100">
                         <p class="h4 fw-bold text-center text-danger" >Profilo amministratore</p>
                     </div>
                  
