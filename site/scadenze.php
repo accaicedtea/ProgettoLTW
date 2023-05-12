@@ -363,7 +363,7 @@
             <td class="table-light" data-label="Categoria">${item.categoria}</td>
             <td data-label="Descrizione">${item.descrizione}</td>
             <td class="table-light" data-label="Importo">${Math.abs(item.importo)} &euro;</td>
-            <td class="table-${(item.importo>0)? 'success': 'danger'}" data-label="Tipo">${(item.importo>0)? "Entrata": "Uscita"}</td>
+            <td  data-label="Tipo">${(item.importo>0)? "<i class='fa-lg text-success bi bi-graph-up-arrow'></i>": "<i class='fa-lg text-danger bi bi-graph-down-arrow'></i>"}</td>
             <td data-label="Azione"><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
                     <i class="bi bi-pencil-square"></i>
                 </button>

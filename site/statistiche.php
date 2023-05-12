@@ -116,7 +116,8 @@
             },
             yAxis: {
                 title: {
-                    text: '€',
+                    rotation:0,
+                    text: '€'
                 }
             },
             tooltip: {
@@ -154,6 +155,7 @@
             },
             yAxis: {
                 title: {
+                    rotation:0,
                     text: '€'
                 },
                 labels: {
@@ -199,6 +201,7 @@
             },
             yAxis: {
                 title: {
+                    rotation:0,
                     text: '€'
                 },
                 labels: {
