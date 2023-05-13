@@ -13,12 +13,13 @@ function db_conn()
     }
     return $conn;
 }
+
 function log_out($conn)
 {
     session_destroy();
     
 }
-    function check($conn)
+function check($conn)
 {
     $uname = $_SESSION['username'];
     $passw = $_SESSION['password'];
@@ -44,10 +45,6 @@ function controlla_immagine($img){
     }
     return true;
 }
-
-
-
-
 
 function getJsonCat($conn)
 {

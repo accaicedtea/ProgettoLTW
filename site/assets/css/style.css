@@ -1,54 +1,24 @@
+:root {
+    /* colori carini */
+    --highcharts-color-0: #7cb5ec;
+    --highcharts-color-1: #f7a35c;
+    --highcharts-color-2: #90ee7e;
+    --highcharts-color-3: #7798bf;
+    --highcharts-color-4: #aaeeee;
+    --highcharts-color-5: #ff0066;
+    --highcharts-color-6: #eeaaee;
+    --highcharts-color-7: #55bf3b;
+    --highcharts-color-8: #df5353;
+    --highcharts-color-9: #7798bf;
+}
+
+
 body {
     animation: cambia-colore 10s ease-in-out infinite;
 }
 
-.text-dark {
-    margin-top: 24px;
-    text-align: center;
-}
 
-.cnt-b {
-    text-align: center;
-}
-
-.edit {
-    margin-right : 2px;
-}
-
-.buttons {
-    text-align: right;
-}
-
-.hidden {
-    display: none;
-}
-/* HIDE RADIO */
-[type=radio] { 
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/* IMAGE STYLES */
-[type=radio] + img {
-    cursor: pointer;
-}
-
-/* CHECKED STYLES */
-[type=radio]:checked + img {
-    outline: 4px solid #0275d8;
-}
-
-.enc {
-    background-color: greenyellow;
-}
-
-.usc {
-    background-color: red;
-}
-
-/* PAGINATION STYLE */
+/* paginazione */
 .pagination > li > a
 {
     background-color: white;
@@ -78,53 +48,49 @@ body {
     border: solid 1px #2F2F2F;
 }
 
-@media (max-width: 768px){
-    .table thead{
-        display: none;
-    }
-    .table, .table tr, .table tbody, .table td{
-        display: block;
-        width: 100%;
-    }
-    .table tr{
-        margin-bottom: 15px;
-    }
-    .table tbody tr td{
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-    }
-    .table td:before{
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 50%;
-        padding-left: 15px;
-        font-weight: 600;
-        font-size: 14px;
-        text-align: left;
-    }
-}
 
-
+/* immgine zoomata */
 .zoom {
-    transition: transform .2s; /* Animation */
+    transition: transform .2s; 
 }
 .zoom:hover {
-    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: scale(1.1); 
     filter: drop-shadow(5px 10px 2px rgba(0, 0, 0, 0.4));
 }
 
 
 .card-log-effect{
-    animation: 0.3s skew-x-shakeng;
+    animation: 0.3s shake;
 }
 
-@keyframes skew-x-shakeng{
+@keyframes shake{
     50% { transform: scale(1.1); }
    
     100% { transform: scale(1); }
 }
+
+
+
+
+/* radio per profilo */
+[type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + img {
+    cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + img {
+    outline: 4px solid #0275d8;
+}
+
+/* radio button sesso */
 .radio-inputs {
     display: flex;
     justify-content: left;
@@ -227,6 +193,10 @@ body {
     width: 1px;
 }
 
+
+
+
+/* animazioni per le varie pagina */
 .leftToF {
     animation-name: left;
     animation-duration: .5s;
@@ -249,6 +219,46 @@ body {
     0%  {left:-800px; }
     100% {left:0px; }
 }
+
+
+
+/* tabella in piccolo */
+@media (max-width: 768px){
+    .table thead{
+        display: none;
+    }
+    .table, .table tr, .table tbody, .table td{
+        display: block;
+        width: 100%;
+    }
+    .table tr{
+        margin-bottom: 15px;
+    }
+    .table tbody tr td{
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    .table td:before{
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 600;
+        font-size: 14px;
+        text-align: left;
+    }
+    .img-md{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 88%;
+    }
+}
+
+
+/* grande */
 @media screen and (min-width: 800px) {
     .minno{
                 top:-414px;
@@ -266,6 +276,7 @@ body {
         float: left;
     }
 }
+
 .fade-in {
     animation-name: fade-in;
     animation-duration: 0.7s;
@@ -279,46 +290,38 @@ body {
 
 
   
-  .giga-big{
-      width:170px;
-          height:170px;
-  }
+.giga-big{
+    width:170px;
+    height:170px;
+}
 
-  .img-hover{
+.img-hover{
     box-shadow: 10px 10px 5px #000000;
     -moz-box-shadow: 0px 10px 5px #000000;
     -webkit-box-shadow: 0px 10px 5px #000000; 
     transition: transform .5s;
-  }
-  .shadowT {
+}
+.shadowT {
     text-shadow: 2px 2px 10PX #7A7A7A;
-  }
-  .img-hover:hover{
+}
+.img-hover:hover{
     transform: scale(1.1);
     box-shadow: 10px 10px 5px #000000;
     -moz-box-shadow: 0px 10px 5px #000000;
     -webkit-box-shadow: 0px 10px 5px #000000; 
-  }
-  @media only screen and (max-width: 600px) {
-    .img-md {
-      width: 100%;
-      height: auto;
-    }
-  }
-  * {
+}
+
+* {
     padding: 0;
     margin:0;
     font-family: sans-serif;
 }
 
 .container-top-text {
-    
     text-align:center;
-
 }
 
 .container-top-text span {
-
     text-transform: uppercase;
     display: block;
 }
@@ -333,8 +336,6 @@ body {
     background: transparent;
     animation: text 1s 1;
 }
-  
-  
 @keyframes text {
     0% {
         color: #262626;
@@ -346,6 +347,7 @@ body {
         letter-spacing:8px;
     }
 }
+
 @keyframes cambia-colore {
     0% {
         background-color: #4bcfcb;
@@ -358,16 +360,6 @@ body {
     }
 }
 
-.card-log-effect{
-    animation: 0.3s skew-x-shakeng;
-}
-
-@keyframes skew-x-shakeng{
-    50% { transform: scale(1.1); }
-   
-    100% { transform: scale(1); }
-}
-
 .logo-nav{ 
     text-shadow: 1px 1px 1px #2c918c;
 
@@ -376,11 +368,13 @@ body {
 .link-active{
     color: #fffff9;
     text-shadow: 1px 1px 2px #4bcfcb;
+    text-decoration: underline;
 }
 
 .pupup {
     animation: pupup 1s cubic-bezier(0.61, 1, 0.88, 1) 0s 1 normal forwards;
 }
+
 @keyframes pupup {
 	0% {
         opacity: 0;
@@ -397,8 +391,7 @@ body {
 	}
 }
 
-.highcharts-figure,
-.highcharts-data-table table,.card-high {
+.highcharts-figure,.highcharts-data-table table,.card-high {
   min-width: 260px;
   max-width: 900px;
   margin: 1em auto;
@@ -408,19 +401,6 @@ body {
 @import url("https://fonts.googleapis.com/css?family=Dosis:400,600");
 @import url("../highcharts.css");
 
-:root {
-    /* Colors for data series and points. */
-    --highcharts-color-0: #7cb5ec;
-    --highcharts-color-1: #f7a35c;
-    --highcharts-color-2: #90ee7e;
-    --highcharts-color-3: #7798bf;
-    --highcharts-color-4: #aaeeee;
-    --highcharts-color-5: #ff0066;
-    --highcharts-color-6: #eeaaee;
-    --highcharts-color-7: #55bf3b;
-    --highcharts-color-8: #df5353;
-    --highcharts-color-9: #7798bf;
-}
 
 .highcharts-container {
     font-family: Dosis, arial, helvetica, sans-serif;
@@ -479,7 +459,7 @@ h3 em {
     font-weight: 600;
 }
 
-/* === HEADING STYLE #1 === */
+
 .one h3 {
     text-align: center;
     /*text-transform: uppercase;*/
