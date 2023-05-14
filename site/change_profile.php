@@ -128,7 +128,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
             if ($flag != 0) echo "<script>window.location.href=' profile.php?msg=Profilo aggiornato correttemente correttamente'</script>";
             else echo "<script>window.location.href=' profile.php?msg=Nulla è stato cambiato gg'</script>";
         } else {
-            header("Location: home.php");
+            header("Location: index.php");
         }
 ?>
 

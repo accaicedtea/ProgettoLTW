@@ -7,7 +7,7 @@
 <body id="page-top">
     <?php 
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
-            navBar($pagina);
+            navBar($pagina,"Area admin");
         ?>
 
     <div id="wrapper">
