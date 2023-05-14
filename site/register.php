@@ -4,7 +4,7 @@
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
-    navBar($pagina);
+    navBar($pagina,"");
 ?>
 <script src="./assets/js/register_controlli.js"></script>
 

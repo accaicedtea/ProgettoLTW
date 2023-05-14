@@ -12,11 +12,70 @@
     --highcharts-color-9: #7798bf;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.logo-nav{ 
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    font-size: x-large;
+    text-transform: uppercase;
+ 
+}
 
 body {
     animation: cambia-colore 10s ease-in-out infinite;
 }
 
+.link-active{
+    font-family: 'Anton', sans-serif;
+    font-weight: bold;
+    font-size: large;
+    color: hwb(76 49% 0%);
+    padding: 0 0 5px 0;
+    text-decoration: line-through;
+    pointer-events: none;
+    cursor: default;
+    
+}
+.link-navbar {
+    text-decoration: none;
+    display: inline-block;
+    font-size: large;
+    position: relative;
+    font-family: 'Anton', sans-serif;
+    font-weight: bold;
+    padding: 0 0 5px 0;
+    color: hsl(120, 19%, 92%);
+  }
+.link-navbar:hover{
+    transition: all 0.3s ease;  
+    color: hwb(76 49% 0%);
+}
+
+.link-navbar:after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    visibility: hidden;
+    background-color: hwb(76 49% 0%);
+    -webkit-transition: all .1s ease;
+    transition: all 0.3s ease;  
+    -webkit-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+  }
+  
+.link-navbar:hover:after {
+    color: hwb(76 49% 0%);
+    visibility: visible;
+    -webkit-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+  }
 
 /* paginazione */
 .pagination > li > a
@@ -360,16 +419,7 @@ body {
     }
 }
 
-.logo-nav{ 
-    text-shadow: 1px 1px 1px #2c918c;
 
-}
-
-.link-active{
-    color: #fffff9;
-    text-shadow: 1px 1px 2px #4bcfcb;
-    text-decoration: underline;
-}
 
 .pupup {
     animation: pupup 1s cubic-bezier(0.61, 1, 0.88, 1) 0s 1 normal forwards;

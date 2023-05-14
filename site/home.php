@@ -3,7 +3,7 @@ $pagina = "Home";
 require './funzioni.php';
 $conn = db_conn();
 head($pagina);
-navBar($pagina);
+navBar($pagina,"mimmo");
 ?>
 
 <div class="conteiner">

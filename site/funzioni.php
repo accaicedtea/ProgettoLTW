@@ -23,7 +23,7 @@ function check($conn)
 {
     $uname = $_SESSION['username'];
     $passw = $_SESSION['password'];
-    $sql = "SELECT * FROM utente WHERE username='$uname' AND password='$passw'";;
+    $sql = "SELECT * FROM utente WHERE username='$uname' AND password='$passw'";
     $result = mysqli_query($conn,$sql);
     if($row = mysqli_fetch_assoc($result) != 1){
         $_SESSION['log']='off';
@@ -666,11 +666,6 @@ function saldo_year($conn) {
 }
 
 
-
-
-
-
-
 function risparmio_year($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
@@ -1071,6 +1066,7 @@ function saldo($conn) {
     }
     return json_encode($array_saldo);
 }
+
 function saldo_color($saldo) {
     if ($saldo < 0) return "#E65C4F";
     else return "#46A094";
@@ -1137,7 +1133,7 @@ function risparmio_color($risparmio) {
 
 //TODO: INIZIO TOOLS
 // gli passi la pagina da visualizzare
-function navBar($pagina)
+function navBar($pagina,$txt)
 {
     //admin
     if (isset($_SESSION["adminLog"]) && $_SESSION["adminLog"] == "daje") { ?>
@@ -1151,26 +1147,18 @@ function navBar($pagina)
                 <a class="navbar-brand " href="./home.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link <?php if ($pagina == "Utenti") {
-                        echo "link-active";
-                    } ?>" href="./view.php">Utenti</a>
+                    <a class="<?php echo ($pagina == "Utenti")? "link-active": "link-navbar"; ?>" href="./view.php">Utenti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php if ($pagina == "Categorie") {
-                        echo "link-active";
-                    } ?>" href="./categorie.php">Categorie</a>
+                    <a class="<?php echo ($pagina == "Categorie")? "link-active": "link-navbar"; ?>" href="./categorie.php">Categorie</a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link <?php if ($pagina == "Statistiche") {
-                        echo "link-active";
-                    } ?>" href="./statistiche.php">Statistiche</a>
+                    <a class="<?php echo ($pagina == "Statistiche")? "link-active": "link-navbar"; ?>" href="./statistiche.php">Statistiche</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link ms-3 <?php if ($pagina == "Informazioni") {
-                        echo "link-active";
-                    } ?>" href="./informazioni.php">Informazioni
+                    <a class="nav-link ms-3 <?php echo ($pagina == "Informazioni")? "link-active": "link-navbar"; ?>" href="./informazioni.php">Informazioni
                     </a>
                 </li>
                 </ul>
@@ -1197,37 +1185,23 @@ function navBar($pagina)
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="navbar-brand " href="./home.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link <?php if ($pagina == "Dashboard") {
-                        echo "link-active";
-                    } ?>" aria-current="page" href="./dashboard.php">Dashboard
+                <li class="nav-item mt-2 ms-3">
+                    <a class="<?php echo ($pagina == "Dashboard")? "link-active": "link-navbar"; ?>" aria-current="page" href="./dashboard.php">Dashboard
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php if (
-                        $pagina == "Visualizza transazioni"
-                    ) {
-                        echo "link-active";
-                    } ?>" aria-current="page" href="./transazioni.php">Transazioni
+                <li class="nav-item mt-2 ms-3">
+                    <a class="<?php echo ($pagina == "Visualizza transazioni")? "link-active": "link-navbar"; ?>" aria-current="page" href="./transazioni.php">Transazioni
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php if (
-                        $pagina == "Visualizza scadenze"
-                    ) {
-                        echo "link-active";
-                    } ?>" aria-current="page" href="./scadenze.php">Scadenze</a>
+                <li class="nav-item mt-2 ms-3">
+                    <a class="<?php echo ($pagina == "Visualizza scadenze")? "link-active": "link-navbar"; ?>" aria-current="page" href="./scadenze.php">Scadenze</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php if ($pagina == "Statistiche") {
-                        echo "link-active";
-                    } ?>" aria-current="page" href="./statistiche.php">Statistiche</a>
+                <li class="nav-item mt-2 ms-3">
+                    <a class="<?php echo ($pagina == "Statistiche")? "link-active": "link-navbar"; ?>" aria-current="page" href="./statistiche.php">Statistiche</a>
                 </li>
                 
-                <li class="nav-item">
-                    <a class="nav-link ms-3 <?php if ($pagina == "Informazioni") {
-                        echo "link-active";
-                    } ?>" href="./informazioni.php">Informazioni
+                <li class="nav-item mt-2 ms-5">
+                    <a class="<?php echo ($pagina == "Informazioni")? "link-active": "link-navbar"; ?>" href="./informazioni.php">Informazioni
                     </a>
                 </li>
                 </ul>
@@ -1258,12 +1232,12 @@ function navBar($pagina)
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="navbar-brand logo-nav" href="./home.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link <?php if ($pagina == "Home") { echo "link-active";} ?>" aria-current="page" href="./home.php">Home
+                <li class="nav-item mt-2 ms-3">
+                    <a class=" <?php echo ($pagina == "Home")? "link-active": "link-navbar"; ?>" aria-current="page" href="./home.php">HOME
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php if ($pagina == "Informazioni") { echo "link-active";} ?>" href="./informazioni.php">Informazioni
+                <li class="nav-item mt-2 ms-3">
+                    <a class="<?php echo ($pagina == "Informazioni")? "link-active": "link-navbar"; ?>" href="./informazioni.php">INFORMAZIONI
                     </a>
                 </li>
                 </ul>
@@ -1275,8 +1249,12 @@ function navBar($pagina)
     </div>
     <?php } ?>
     <!-- testo ad ogni inizio pagina -->
-    <div class="container-top-text">
-        <span class="text">  </span>
+    <div class="container mt-5 popup">
+    <div class="card shadow">
+        <div class="one">
+            <h3 class="text-center mb-3 mt-3"><?php echo $txt;?></h3>
+        </div>
+    </div>
     </div>
 <?php } ?>
 <?php function head($pagina)
@@ -1314,6 +1292,6 @@ function navBar($pagina)
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script><!-- jquery-->
-    </head>
+    </head>   
 <?php
 } ?>

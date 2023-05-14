@@ -10,7 +10,7 @@
 
 <?php if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
         head($pagina);
-        navBar($pagina);
+        navBar($pagina,"PROFILO");
     ?>
 <body id="page-top ">
 
@@ -429,7 +429,7 @@ submitButton.addEventListener("click", function() {
 </script>
 <?php }else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
             head($pagina);
-            navBar($pagina);
+            navBar($pagina,"PROFILO");
     ?>
 <body id="page-top ">
     <div class="container-fluid sfondo-animato">

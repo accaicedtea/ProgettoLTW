@@ -3,7 +3,7 @@
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
-    navBar($pagina);
+    navBar($pagina,"Gestisci le tue entrate e uscite passate");
 ?>
 
 
