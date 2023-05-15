@@ -10,7 +10,7 @@
 
 <?php if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
         head($pagina);
-        navBar($pagina,"PROFILO");
+        navBar($pagina,"Gestisci Profilo");
     ?>
 <body id="page-top ">
 
@@ -48,7 +48,7 @@
                                         </script>
                                     <?php }?>
                                    
-                                        <p class="text-primary m-0 fw-bold text-start">Profilo <i class="bi bi-person-bounding-box"></i></p>
+                                        <p class="text-primary m-0 fw-bold text-start">Profilo <i class="bi bi-person-circle"></i></p>
                                     
                     </div>
                     <div>
@@ -157,7 +157,7 @@
 
                 <div class="card shadow mb-3 leftToF-3">
                     <div class="card-header py-3">
-                        <p class="text-primary m-0 fw-bold text-start">Dati utente <i class="bi bi-person-bounding-box"></i></p>
+                        <p class="text-primary m-0 fw-bold text-start">Esporta <i class="bi bi-file-earmark-arrow-down"></i></p>
                     </div>
                     <div class="card-body">
                         
@@ -209,7 +209,7 @@ function esportaCSV() {
             <div class="col mt-5 ">
                 <div class="card shadow mb-3 topToF">
                     <div class="card-header py-3">
-                        <p class="text-primary m-0 fw-bold text-start">Cambia informazioni utente <i class="bi bi-person-bounding-box"></i></p>
+                        <p class="text-primary m-0 fw-bold text-start">Informazioni personali <i class="bi bi-person-fill"></i></i></p>
                     </div>
                     <div class="card-body ">
                         <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
@@ -279,7 +279,7 @@ function esportaCSV() {
 
                 <div class="card shadow mb-3 topToF">
                     <div class="card-header py-3">
-                        <p class="text-primary m-0 fw-bold text-start">Accesso utente <i class="bi bi-person-bounding-box"></i></p>
+                        <p class="text-primary m-0 fw-bold text-start">Dati di accesso <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div class="card-body">
                         

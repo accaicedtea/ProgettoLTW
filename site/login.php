@@ -4,7 +4,7 @@
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
-    navBar($pagina,"");
+    navBar($pagina,"Accedi");
 ?>
 
 
@@ -24,11 +24,8 @@
                                     
                                       <div row class="text-center">
                                       <div id="alert-container"></div>
-                                        <img class="mt-3 text-center" src="./assets/brand/4M-cropped.svg" alt="" width="200" height="200">
+                                        <img class="mt-3 text-center" src="./assets/brand/4M-cropped.svg" alt="" width="300" height="300">
                                       </div>
-                                        <div class="row-md-3">
-                                            <p class="h3 text-center mb-3 mt-3">Accedi</p>
-                                        </div>
                                         <div class="card-body">
                                           <!-- form -->
                                           <?php if(isset($_GET['error'])){ ?>

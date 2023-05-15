@@ -4,7 +4,7 @@
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
-    navBar($pagina,"");
+    navBar($pagina,"Registrati");
 ?>
 <script src="./assets/js/register_controlli.js"></script>
 
@@ -25,11 +25,8 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
                                           <?php }?>
-                                        <div class="row-md-3">
-                                            <p class="h3 text-center mb-3 mt-3">Registrati</p>
-                                        </div>
                                         <div class="card-header py-3">
-                                            <p class="h6 text-primary m-0 fw-bold ">Crea la tua fantastica utenza</p>
+                                            <p class="h6 text-primary m-0 fw-bold ">Crea il tuo account</p>
                                         </div>
                                         <div class="card-body">
                                             <!-- inizio form-->

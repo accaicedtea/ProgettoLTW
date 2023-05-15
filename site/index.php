@@ -4,7 +4,7 @@ $pagina = "Home";
 require './funzioni.php';
 $conn = db_conn();
 head($pagina);
-navBar($pagina, "");
+navBar($pagina, "Home");
 
 
 
@@ -19,13 +19,10 @@ navBar($pagina, "");
   <div class="container">
     <div class="card shadow">
       <div class="card-body">
-        <h1 class="mt-3"><strong>HOME PAGE</strong></h1>
-        <img class="mt-3 mb-3 text-center" src="./assets/brand/4M-cropped.svg" alt="" width="200" height="200">
-        <p class="lead">Ciao se hai un account puoi <a class=" zoom" href="./login.php" role="button">accedere</a> 
-
-        altrimenti puoi crare un account <a class="zoom" href="./register.php  " role="button"> clicca qui per registrati</a></p>
-        
-        <button class="btn1 btn btn-lg text-white btn-secondary fw-bold border-white bg-dark zoom">SCOPRI DI PIU'</button>
+        <!-- <h1 class="mt-3"><strong>HOME PAGE</strong></h1> -->
+        <img class="mt-3 mb-3 text-center" src="./assets/brand/4M-cropped.svg" alt="" width="300" height="300">
+        <p class="lead italics">Gestisci il tuo portafoglio in maniera smart</p>
+        <button class="btn1 btn btn-lg mt-3 text-white btn-secondary fw-bold border-white bg-dark zoom">SCOPRI LE FUNZIONALITÁ</button>
       </div>
     </div> 
   </div>

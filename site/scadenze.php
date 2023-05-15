@@ -3,7 +3,7 @@
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
-    navBar($pagina,"Visualizza spese o entrate future");
+    navBar($pagina,"Gestione scadenze");
 ?>
 
 

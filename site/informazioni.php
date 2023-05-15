@@ -3,7 +3,7 @@
   require './funzioni.php';
   $conn = db_conn();
   head($pagina);
-  navBar($pagina,"INFORMAZIONI");
+  navBar($pagina,"Chi siamo");
 ?>
 <style>
 

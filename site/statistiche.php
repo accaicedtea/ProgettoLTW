@@ -3,7 +3,7 @@
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
-    navBar($pagina,"Visualizza le tue belle statistiche");
+    navBar($pagina,"Le tue statistiche");
     if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
         $ultimo_giorno_mese = date("d");
         $json_data_linegraph = linegraph($conn);

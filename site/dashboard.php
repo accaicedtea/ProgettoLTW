@@ -8,7 +8,7 @@
         
     $_SESSION['data_oggi'] = date("Y:m:d");
     if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
-        navBar($pagina,"In generale il tuo profilo");
+        navBar($pagina,"Dashboard");
         $json_data_piechart = piechart($conn);
         $json_data_linegraph = entrata_graph($conn);
         $json_data_histogram = histogram($conn);

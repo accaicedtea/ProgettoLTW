@@ -3,7 +3,7 @@
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
-    navBar($pagina,"Gestisci le tue entrate e uscite passate");
+    navBar($pagina,"Gestione transazioni effettuate");
 ?>
 
 
@@ -86,6 +86,7 @@
 </script>
 
                         <?php }?>
+                        <!--<div class="one"><h3 class="text-center mb-3 mt-3">Gestione Transazioni</h3></div>-->
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">Tabella delle transazioni</p>
                         </div>  
