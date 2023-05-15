@@ -552,3 +552,12 @@ h3 em {
 .img-example{
     border-radius: 55%;
 }
+
+@media (max-width: 1000px){
+    .example{
+        display: none;
+    }
+    .info{
+        width: 100%;
+    } 
+}

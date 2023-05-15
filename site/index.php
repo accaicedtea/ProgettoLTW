@@ -44,11 +44,11 @@ navBar($pagina, "Home");
     
     <hr class="featurette-divider">
     <div class="row featurette">
-          <div class="col-md-7">
+          <div class="info col-md-7">
             <h2 class="featurette-heading">Organizza le tue spese e i tuoi guadagni.</h2>
             <p class="lead">Inserisci, modifica ed elimina le tue transazioni.</p>
           </div>
-          <div class="col-md-5">  <!-- div vuoto quando diminuisco grandezza schermo -->
+          <div class="example col-md-5">  <!-- div vuoto quando diminuisco grandezza schermo -->
             <img class="img-example" src="./assets/img/esempio1.png" alt="illustrazione" width="400" height="400">
           </div>
         </div>
@@ -56,11 +56,11 @@ navBar($pagina, "Home");
         <hr class="featurette-divider">
     
         <div class="row featurette">
-          <div class="col-md-7 order-md-2">
+          <div class="info col-md-7 order-md-2">
             <h2 class="featurette-heading">Aggiungi spese e guadagni futuri in scadenze.</h2>
             <p class="lead">Nella Dashboard saranno visibili le spese e i guadagni che hanno scadenza imminente.</p>
           </div>
-          <div class="col-md-5 order-md-1">
+          <div class="example col-md-5 order-md-1">
             <img class="img-example" src="./assets/img/esempio2.png" alt="illustrazione" width="400" height="400">    
           </div>
         </div>
@@ -68,11 +68,11 @@ navBar($pagina, "Home");
         <hr class="featurette-divider">
     
         <div class="row featurette">
-          <div class="col-md-7">
+          <div class="info col-md-7">
             <h2 class="featurette-heading">Gestisci il tuo risparmio.</h2>
             <p class="lead">Selezionando "Risparmio" come categoria quando aggiungi o modifichi una transazione, questa sarà aggiunta (o sottratta) al conto risparmio</p>
           </div>
-          <div class="col-md-5">
+          <div class="example col-md-5">
             <img class="img-example" src="./assets/img/esempio3.png" alt="illustrazione" width="400" height="400">
     
           </div>
@@ -81,11 +81,11 @@ navBar($pagina, "Home");
         <hr class="featurette-divider">
 
         <div class="row featurette">
-          <div class="col-md-7 order-md-2">
+          <div class="info col-md-7 order-md-2">
             <h2 class="featurette-heading">Consulta l'andamento delle tue entrate e uscite.</h2>
             <p class="lead">Nella sezione Scadenze puoi visualizzare i grafici sull'andamento del saldo e del risparmio, oltre ai movimenti effettuati.</p>
           </div>
-          <div class="col-md-5 order-md-1">
+          <div class="example col-md-5 order-md-1">
             <img class="img-example" src="./assets/img/esempio4.png" alt="illustrazione" width="400" height="400">    
           </div>
         </div>
