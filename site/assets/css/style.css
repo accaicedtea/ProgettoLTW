@@ -546,3 +546,9 @@ h3 em {
     font-weight: bold;
     color: #444444;
 }
+
+
+/* Stile Home */
+.img-example{
+    border-radius: 55%;
+}

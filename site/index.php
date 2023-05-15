@@ -30,42 +30,71 @@ navBar($pagina, "Home");
 </div>
 
 
-<div id="sipario" class="text-center mt-5">
+<div id="sipario" class="text-light mt-5">
 
-  <button class="btn2 btn btn-lg text-dark btn-secondary fw-bold border-white bg-white">HOME</button>
-
-  <!-- Marketing messaging and featurettes
-  ================================================== -->
-  <!-- Wrap the rest of the page in another container to center all the content. -->
+  <div class="text-center">
+    <button class="btn2 btn btn-lg text-dark btn-secondary fw-bold border-white bg-white">HOME</button>
+  </div>
 
   <div class="container marketing">
 
-    
-    <!-- START THE FEATURETTES -->
 
     <hr class="featurette-divider">
 
     
     <hr class="featurette-divider">
-
     <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-        <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
-      </div>
-      <div class="col-md-5 order-md-1">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+          <div class="col-md-7">
+            <h2 class="featurette-heading">Organizza le tue spese e i tuoi guadagni.</h2>
+            <p class="lead">Inserisci, modifica ed elimina le tue transazioni.</p>
+          </div>
+          <div class="col-md-5">  <!-- div vuoto quando diminuisco grandezza schermo -->
+            <img class="img-example" src="./assets/img/esempio1.png" alt="illustrazione" width="400" height="400">
+          </div>
+        </div>
+    
+        <hr class="featurette-divider">
+    
+        <div class="row featurette">
+          <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Aggiungi spese e guadagni futuri in scadenze.</h2>
+            <p class="lead">Nella Dashboard saranno visibili le spese e i guadagni che hanno scadenza imminente.</p>
+          </div>
+          <div class="col-md-5 order-md-1">
+            <img class="img-example" src="./assets/img/esempio2.png" alt="illustrazione" width="400" height="400">    
+          </div>
+        </div>
+    
+        <hr class="featurette-divider">
+    
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">Gestisci il tuo risparmio.</h2>
+            <p class="lead">Selezionando "Risparmio" come categoria quando aggiungi o modifichi una transazione, questa sarà aggiunta (o sottratta) al conto risparmio</p>
+          </div>
+          <div class="col-md-5">
+            <img class="img-example" src="./assets/img/esempio3.png" alt="illustrazione" width="400" height="400">
+    
+          </div>
+        </div>
+    
+        <hr class="featurette-divider">
 
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <hr class="featurette-divider">
-
-    <!-- /END THE FEATURETTES -->
-
-  </div><!-- /.container -->
+        <div class="row featurette">
+          <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Consulta l'andamento delle tue entrate e uscite.</h2>
+            <p class="lead">Nella sezione Scadenze puoi visualizzare i grafici sull'andamento del saldo e del risparmio, oltre ai movimenti effettuati.</p>
+          </div>
+          <div class="col-md-5 order-md-1">
+            <img class="img-example" src="./assets/img/esempio4.png" alt="illustrazione" width="400" height="400">    
+          </div>
+        </div>
+    
+        <hr class="featurette-divider">
+    
+        <!-- /END THE FEATURETTES -->
+    
+      </div><!-- /.container -->
 
   
 </div>

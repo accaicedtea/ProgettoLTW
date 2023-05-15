@@ -125,12 +125,12 @@
                             </div>
 
                             <!-- Modal NUOVA ENTRATA-->
-                            <div class="modal fade" id="modalNuovaEntrata" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="modalNuovaEntrata" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-d-none="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
                                         <form action="./register_entry.php" method="post" name="insert_form">
-                                            <div class="hidden"><input type="" name="tipo_new" value="entrata"></div>
+                                            <div class="d-none"><input type="" name="tipo_new" value="entrata"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
                                             </div>
@@ -168,12 +168,12 @@
                             </div>
 
                             <!-- Modal NUOVA USCITA-->
-                            <div class="modal fade" id="modalNuovaUscita" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="modalNuovaUscita" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-d-none="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
                                         <form action="./register_entry.php" method="post" name="insert_form">
-                                            <div class="hidden"><input type="" name="tipo_new" value="uscita"></div>
+                                            <div class="d-none"><input type="" name="tipo_new" value="uscita"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
                                             </div>
@@ -236,7 +236,7 @@
 
                             <!-- MODALS -->
                             <!-- Modal per MODIFICA-->
-                            <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-d-none="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
@@ -245,8 +245,8 @@
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                             </div>
                                             <div class="modal-body left-labels modal_edit">
-                                                <div class="hidden"><input type="" name="id_edit" id="id_edit" value=""></div> 
-                                                <div class="hidden"><input type="" name="tipo_edit" id="tipo_edit" value=""></div> 
+                                                <div class="d-none"><input type="" name="id_edit" id="id_edit" value=""></div> 
+                                                <div class="d-none"><input type="" name="tipo_edit" id="tipo_edit" value=""></div> 
                                                 <div class="row">
                                                     <div class="col">
                                                         <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label><select id="cat_edit" class="d-inline-block form-select form-select-sm" name="cat_edit" >
@@ -280,7 +280,7 @@
                             </div>
 
                             <!-- Modal per ELIMINA-->
-                            <div class="modal fade" id="modalDeleteEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="modalDeleteEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-d-none="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -289,7 +289,7 @@
                                         <div class="modal-body left-labels modal_delete">
                                             Sei sicuro di voler eliminare la transazione?
                                             <form action="./delete_entry.php" method="post" name="delete_form">
-                                                <div class="hidden"><input type="" name="id_delete" id="id_delete" value=""></div> 
+                                                <div class="d-none"><input type="" name="id_delete" id="id_delete" value=""></div> 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                                                     <input type="submit" class="btn btn-danger" value="Si">
