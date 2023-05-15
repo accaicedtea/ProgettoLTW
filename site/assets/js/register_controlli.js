@@ -1,39 +1,3 @@
-function show_requirements_username() {
-    var d = document.getElementById("requirements_username");
-    d.className += " alert alert-warning";
-    document.getElementById("requirements_username").innerHTML = "L'username deve essere lungo al massimo 50 caratteri";
-}
-
-function remove_requirements_username() {
-    var d = document.getElementById("requirements_username");
-    d.className = "mb-3 ";
-    document.getElementById("requirements_username").innerHTML = "";
-}
-
-function show_requirements_password() {
-    var d = document.getElementById("requirements_password");
-    d.className += " alert alert-warning";
-    document.getElementById("requirements_password").innerHTML = "Requisiti password:<ul><li>Lunghezza compresa tra 6 e 20 caratteri</li><li>1 carattere maiuscolo</li><li>1 carattere minuscolo</li><li>1 numero</li><li>1 carattere speciale (!@#$%^&*)</li>"
-}
-
-function remove_requirements_password() {
-    var d = document.getElementById("requirements_password");
-    d.className = "mb-3 ";
-    document.getElementById("requirements_password").innerHTML = "";
-}
-
-function show_requirements_dataN() {
-    var d = document.getElementById("requirements_dataN");
-    d.className += " alert alert-warning";
-    document.getElementById("requirements_dataN").innerHTML = "Devi avere più di 14 anni";
-}
-
-function remove_requirements_dataN() {
-    var d = document.getElementById("requirements_dataN");
-    d.className = "mb-3 ";
-    document.getElementById("requirements_dataN").innerHTML = "";
-}
-
 function validaForm() {
     var password_regex = RegExp("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&])(?=.*[a-zA-Z0-9]).{6,20}")
     var password = document.formreg.password.value;
@@ -41,9 +5,9 @@ function validaForm() {
     var dataN = new Date(document.formreg.dataN.value);
 
     if(document.formreg.username.value=="") {
-        var d = document.getElementById("errors_username");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_username").innerHTML = "Errore! Inserisci username";
+        document.getElementById("username").classList.add("is-invalid");
+        document.getElementById("test").innerHTML("porcodio")
+        console.log("porcodio")
         return false;
     }
     if(document.formreg.nome.value=="") {
@@ -110,44 +74,8 @@ function validaForm() {
         document.getElementById("errors_confirm_password").innerHTML = "Errore! Le password non coincidono";
         return false;
     }
-    return true;
+    form.submit();
 }
-function remove_error_username() {
-    var d = document.getElementById("errors_username");
-    d.className = "mb-3 ";
-    document.getElementById("errors_username").innerHTML = "";
-}
-function remove_error_name() {
-    var d = document.getElementById("errors_name");
-    d.className = "mb-3 ";
-    document.getElementById("errors_name").innerHTML = "";
-}
-function remove_error_cognome() {
-    var d = document.getElementById("errors_cognome");
-    d.className = "mb-3 ";
-    document.getElementById("errors_cognome").innerHTML = "";
-}
-function remove_error_dataN() {
-    var d = document.getElementById("errors_dataN");
-    d.className = "mb-3 ";
-    document.getElementById("errors_dataN").innerHTML = "";
-}
-function remove_error_email() {
-    var d = document.getElementById("errors_email");
-    d.className = "mb-3 ";
-    document.getElementById("errors_email").innerHTML = "";
-}
-function remove_error_password() {
-    var d = document.getElementById("errors_password");
-    d.className = "mb-3 ";
-    document.getElementById("errors_password").innerHTML = "";
-}
-function remove_error_passwordC() {
-    var d = document.getElementById("errors_confirm_password");
-    d.className = "mb-3 ";
-    document.getElementById("errors_confirm_password").innerHTML = "";
-}
-
 function reset_password(){
     document.querySelectorAll('input[type=password]');
 

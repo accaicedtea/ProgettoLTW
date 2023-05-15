@@ -90,9 +90,8 @@
     }, 1000);
 </script>
                         <?php }?>
-                        <div class="one"><h3 class="text-center mb-3 mt-3">Gestione Scadenze</h3></div>
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Gestisci le tue entrate e uscite future</p>
+                            <p class="text-primary m-0 fw-bold">Tabella delle scadenze</p>
                         </div>
                         <div class="card-body">
                             <div class="container">
