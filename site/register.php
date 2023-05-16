@@ -86,19 +86,17 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="errors mb-3" id="errors_dataN"></div>
-                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" onfocus="show_requirements_dataN()" onblur="remove_requirements_dataN()" onchange="remove_error_dataN()" required></div>
+                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" required></div>
                                                         <!-- waring msg per data nascita-->
-                                                        <div class="requirements" id="requirements_dataN"></div>
+                                                        <p class= "form-text requirements">Devi avere più di 14 anni per registrati</p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="errors mb-3" id="errors_nazionalità"></div>
-                                                        <div id="selectNazionalita" class="form-outline mb-3"><label class="form-label" for="dataN"><strong >Nazionalità</strong></label>
-                                                        <input class="form-control" name="nazionalita" list="selectNazi" id="nazionalita" placeholder="Vedi do cazzo abiti" required>
+                                                        <div id="selectNazionalita" class="form-outline mb-3"><label class="form-label" for="nationalita"><strong >Nazionalità</strong></label>
+                                                        <input class="form-control " name="nazionalita" list="selectNazi" id="nazionalita" placeholder="Nationalità" onchange="validaNazionalita()" required>
                                                         <datalist id="selectNazi">
                                                         </datalist>
-                                                       
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -115,7 +113,7 @@
                                                     <div class="col">
                                                       
                                                         <div class="form-floating mb-3">
-                                                            <input type="number" class="form-control " id="saldo" name="saldo" placeholder="saldo"   required>
+                                                            <input type="number" class="form-control " id="saldo" name="saldo" placeholder="saldo" onchange = "validaInput('saldo', '[0-9]+')" required>
                                                             <label for="email">Saldo iniziale</label>
                                                         </div>
 
@@ -127,6 +125,7 @@
                                                             <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" required>
                                                             <label for="passw">Password</label>
                                                         </div>
+                                                        <p class= "form-text requirements">La password deve essere composta da almeno una lettera minuscola, una lettera minuscola, un numero, un carattere speciale tra !@#$%^& e una lunghezza compresa tra 6 e 20 caratteri</p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -165,7 +164,7 @@
         for (let i = 0; i < birds.length; i++) {
             // POPULATE SELECT ELEMENT WITH JSON.
             ele.innerHTML = ele.innerHTML +
-                '<option value="' + birds[i]['nome_stati'] + '">' + birds[i]['nome_stati'] + '</option>';
+                '<option value="' + birds[i]['nome'] + '">' + birds[i]['nome'] + '</option>';
         }
     }
 </script>
@@ -185,88 +184,80 @@ function validaInput(id,pattern){
     input.classList.remove("is-invalid");
     return true;
 }
+function validaNazionalita() {
+    if (document.formreg.nazionalita.classList.contains("is-invalid")) document.formreg.nazionalita.classList.remove("is-invalid");
+    return true;
+}
 
 var form = document.getElementById("register-form");
 var submitButton = document.getElementById("submit-button");
 
 submitButton.addEventListener("click", function() {
   // Controlla la validità del form
-  var password_regex = RegExp("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&])(?=.*[a-zA-Z0-9]).{6,20}")
+    var password_regex = RegExp("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&])(?=.*[a-zA-Z0-9]).{6,20}")
     var password = document.formreg.password.value;
     var today = new Date();
     var dataN = new Date(document.formreg.dataN.value);
+    var passed = true;
 
     if(document.formreg.username.value=="") {
         document.getElementById("username").classList.add("is-invalid");
-        document.getElementById("test").innerHTML("porcodio")
-        console.log("porcodio")
-        return false;
+        passed = false;
     }
     if(document.formreg.nome.value=="") {
-        var d = document.getElementById("errors_name");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_name").innerHTML = "Errore! Inserisci un nome";
-        return false;
+        document.getElementById("nome").classList.add("is-invalid");
+        passed =  false;
     }
     if(document.formreg.cognome.value=="") {
-        var d = document.getElementById("errors_cognome");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_cognome").innerHTML = "Errore! Inserisci un cognome";
-        return false;
+        document.getElementById("cognome").classList.add("is-invalid");
+        passed =  false;
     }
     if (document.formreg.dataN.value== "") {
-        var d = document.getElementById("errors_dataN");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_dataN").innerHTML = "Errore! Inserisci una data di nascita";
-        return false;
+        document.getElementById("dataN").classList.add("is-invalid");
+        passed =  false;
     }
     if (today.getFullYear() - dataN.getFullYear() < 14) {
-        var d = document.getElementById("errors_dataN");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_dataN").innerHTML = "Errore! Data non valida";
-        return false;
+        document.getElementById("dataN").classList.add("is-invalid");
+        passed =  false;
     }
     if (today.getFullYear() - dataN.getFullYear() == 14) {
-        var d = document.getElementById("errors_dataN");
-        d.className += " alert alert-danger";
         if(today.getMonth() < dataN.getMonth()) {
-            document.getElementById("errors_dataN").innerHTML = "Errore! Data non valida";
-            return false;
+            document.getElementById("dataN").classList.add("is-invalid");
+            passed =  false;
         }
         if(today.getMonth() == dataN.getMonth()) {
-            var d = document.getElementById("errors_dataN");
-            d.className += " alert alert-danger";
             if (today.getDate() < dataN.getDate()) {
-                document.getElementById("errors_dataN").innerHTML = "Errore! Data non valida";
-                return false;
+                document.getElementById("dataN").classList.add("is-invalid");
+                passed =  false;
             }
         }
     }
+    if (document.formreg.nazionalita.value == "") {
+        document.getElementById("nazionalita").classList.add("is-invalid");
+        passed =  false;
+    }
     if (document.formreg.email.value == "") {
-        var d = document.getElementById("errors_email");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_email").innerHTML = "Errore! Inserisci una email";
-        return false;
+        document.getElementById("email").classList.add("is-invalid");
+        passed =  false;
+    }
+    if (document.formreg.saldo.value == "" || isNaN(document.formreg.saldo.value)) {
+        document.getElementById("saldo").classList.add("is-invalid");
+        passed =  false;
     }
     if (password==""){
-        var d = document.getElementById("errors_password");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_password").innerHTML = "Errore! Inserisci una password";
-        return false;
+        document.getElementById("password").classList.add("is-invalid");
+        passed =  false;
     }
     if (!password.match(password_regex)) {
-        var d = document.getElementById("errors_password");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_password").innerHTML = "Errore! Formato password non valido";
-        return false;
+        document.getElementById("password").classList.add("is-invalid");
+        passed =  false;
     }
-    if (document.formreg.password.value != document.formreg.passwordC.value) {
-        var d = document.getElementById("errors_confirm_password");
-        d.className += " alert alert-danger";
-        document.getElementById("errors_confirm_password").innerHTML = "Errore! Le password non coincidono";
-        return false;
+    if (document.formreg.password.value != document.formreg.passwordC.value || document.formreg.passwordC.value == "") {
+        document.getElementById("passwordC").classList.add("is-invalid");
+        passed =  false;
     }
-    form.submit();
+    if (passed) form.submit();
+    else return false;
 });
 </script>
 
