@@ -1206,11 +1206,7 @@ function navBar($pagina,$txt)
                 </li>
                 </ul>
                 
-                <a class="h5 text-white me-3 mt-1 <?php if (
-                    $pagina != "Profilo"
-                ) {
-                    echo "fw-normal";
-                } ?>" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION["username"]; ?>
+                <a class="nav-item <?php echo ($pagina == "Profilo")? "link-active": "link-navbar" ?> me-3 mt-2 text-uppercase" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION["username"]; ?>
                 </a>
                 
                 <a class="btn btn-sm btn-outline-danger zoom" href="./logout.php" role="button">Logout</a>
