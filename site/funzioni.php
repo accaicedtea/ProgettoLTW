@@ -1146,24 +1146,24 @@ function navBar($pagina,$txt)
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="navbar-brand logo-nav" href="./index.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li class="nav-item mt-2 ms-3">
                     <a class="<?php echo ($pagina == "Utenti")? "link-active": "link-navbar"; ?>" href="./view.php">Utenti</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mt-2 ms-3">
                     <a class="<?php echo ($pagina == "Categorie")? "link-active": "link-navbar"; ?>" href="./categorie.php">Categorie</a>
                 </li>
                 
-                <li class="nav-item">
+                <li class="nav-item mt-2 ms-3">
                     <a class="<?php echo ($pagina == "Statistiche")? "link-active": "link-navbar"; ?>" href="./statistiche.php">Statistiche</a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item mt-2 ms-3">
                     <a class="nav-link ms-3 <?php echo ($pagina == "Informazioni")? "link-active": "link-navbar"; ?>" href="./informazioni.php">Informazioni
                     </a>
                 </li>
                 </ul>
                 
-                <a class=" h5 text-white me-3 mt-1" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION[
+                <a class=" nav-item <?php echo ($pagina == "Profilo")? "link-active": "link-navbar" ?> me-3 mt-2 text-uppercase" href="./profile.php" style="text-decoration: none"><?php echo $_SESSION[
                     "nome"
                 ]; ?>
                 </a>
