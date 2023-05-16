@@ -359,15 +359,18 @@
         });
     }
 </script>
+
+
+<!-- SE L'UTENTE è ADMIN -->
 <?php } else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){ ?>
 <script>
-    function applicaFiltroPeriodo(){
-        var e = document.getElementById("selectTipo");
+    function applicaFiltroAdmin(){
+        var e = document.getElementById("selectTipoAdmin");
         var ue = e.options[e.selectedIndex].text;
-        if (ue=="entrate")
-            displayEntrate();
+        if (ue=="Entrate")
+            displayEntrateAdmin();
         else
-            displayUscite();
+            displayUsciteAdmin();
     }
 </script>
 
@@ -545,7 +548,7 @@
                             <p class=" m-0 fw-bold">Filtra per:</p>
                         </div>
                         <div class="col-6">
-                            <select id="selectTipo" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroPeriodo()">
+                            <select id="selectTipoAdmin" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroAdmin()">
                                 <option value="entrate" selected>Entrate</option>
                                 <option value="uscite">Uscite</option>
                             </select> 
@@ -564,8 +567,7 @@
     </div>
 </body>
 <script>
-    window.onload = displayUscite();
-    function displayEntrate(){
+    function displayEntrateAdmin(){
         Highcharts.chart('column chart', {
             chart: {
                 type: 'column'
@@ -582,7 +584,7 @@
             yAxis: [{
                 min: 0,
                 title: {
-                    text: 'Media uscite'                                        
+                    text: 'Media entrate'                                        
                 }
             }],
             legend: {
@@ -601,13 +603,13 @@
             series: [{
                 name: 'Uomini',
                 color: '#FF7514',
-                data: <?=column_sesso($conn,1,'entrata');?>,
+                data: <?= column_sesso($conn,1);?>,
                 pointPadding: 0.3,
                 pointPlacement: 0
             }, {
                 name: 'Donne',
                 color: '#991199',
-                data: <?= column_sesso($conn,0,'entrata');?>,
+                data: <?= column_sesso($conn,0);?>,
                 pointPadding: 0.4,
                 pointPlacement: 0
             }]
@@ -615,7 +617,10 @@
 
         
     }
-    function displayUscite(){
+
+    displayEntrateAdmin();
+
+    function displayUsciteAdmin(){
         Highcharts.chart('column chart', {
             chart: {
                 type: 'column'
@@ -651,13 +656,13 @@
             series: [{
                 name: 'Uomini',
                 color: '#FF7514',
-                data: <?=column_sesso($conn,1,'uscita');?>,
+                data: <?=column_sesso_uscite($conn,1);?>,
                 pointPadding: 0.3,
                 pointPlacement: 0
             }, {
                 name: 'Donne',
                 color: '#991199',
-                data: <?= column_sesso($conn,0,'uscita');?>,
+                data: <?= column_sesso_uscite($conn,0);?>,
                 pointPadding: 0.4,
                 pointPlacement: 0
             }]
@@ -665,6 +670,6 @@
     }
 </script>
 <?php }else{
-    header("Location: login.php?error=ma che stavi a provà a fa Accedi va");
+    header("Location: login.php?error=Devi prima accedere");
     } ?>
 

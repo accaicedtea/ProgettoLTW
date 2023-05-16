@@ -14,7 +14,7 @@ if (mysqli_num_rows($result) === 1) {
         //echo "ok1";
         header("Location: view.php?msg= bloccato l'utente ");
     }else{
-        header("Location: view.php?error=qualcosa è andato storto");
+        header("Location: view.php?error=Qualcosa è andato storto");
     }
 }
 ?>

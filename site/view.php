@@ -26,9 +26,9 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <?php }?>
-                        <p class="h3 text-center mb-3 mt-3">Visualizzazione utenti inscritti</p>
+                        <p class="h3 text-center mb-3 mt-3">Visualizzazione utenti registrati</p>
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">I miei pagurini</p>
+                            <p class="text-primary m-0 fw-bold">Tabella utenti</p>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -36,15 +36,15 @@
                                     <table class="table  table-bordered">
                                         <thead class="table-secondary">
                                             <tr>
-                                                <th scope="col">username</th>
-                                                <th scope="col">nome</th>
-                                                <th scope="col">cognome</th>
-                                                <th scope="col">data di nascista</th>
-                                                <th scope="col">sesso</th>
-                                                <th scope="col">nazionalità</th>
-                                                <th scope="col">email</th>
-                                                <th scope="col">blocca utente</th>
-                                                <th scope="col">elimina utente</th>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Cognome</th>
+                                                <th scope="col">Data di nascista</th>
+                                                <th scope="col">Sesso</th>
+                                                <th scope="col">Nazionalità</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Blocca utente</th>
+                                                <th scope="col">Elimina utente</th>
                                             </tr>
                                         </thead>
                                         <tbody>

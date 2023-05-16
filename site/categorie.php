@@ -22,13 +22,13 @@
                         </div>
                         <?php }else if(isset($_GET['msg'])){?>
                         <div class="alert alert-info alert-dismissible fade show" role="alert">
-                            <strong>Operazione esegiuta! hai correttamente: </strong><?php echo $_GET['msg']; ?>
+                            <strong>Operazione eseguita! hai correttamente</strong><?php echo $_GET['msg']; ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <?php }?>
                         <p class="h3 text-center mb-3 mt-3">Visualizzazione categorie registrate</p>
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">I miei pagurini</p>
+                            <p class="text-primary m-0 fw-bold">Tabella categorie</p>
                         </div>
                         <div class="card-body">
                             <div class="row">
