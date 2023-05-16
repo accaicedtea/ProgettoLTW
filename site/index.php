@@ -33,7 +33,7 @@ navBar($pagina, "Home");
 <div id="sipario" class="text-light mt-5">
 
   <div class="text-center">
-    <button class="btn2 btn btn-lg text-dark btn-secondary fw-bold border-white bg-white">HOME</button>
+    <button class="btn2 btn btn-lg text-dark btn-secondary fw-bold border-white bg-white zoom">HOME</button>
   </div>
 
   <div class="container marketing">
