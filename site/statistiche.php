@@ -43,7 +43,7 @@
                 <div class="card border-success mb-3 card-high shadow hi-top" >
                     <div class="card-header">
                         <div class="col-auto ">
-                            <p class=" m-0 fw-bold">Filtra per:</p>
+                            <p class=" m-0 fw-bold">Visualizza statistiche per:</p>
                         </div>
                         <div class="col-6">
                             <select id="selectAge" class="d-inline-block form-select form-select-sm" onchange="applicaFiltroPeriodo()">

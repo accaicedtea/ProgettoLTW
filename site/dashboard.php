@@ -18,6 +18,11 @@
 <body>
     <div class="container-fluid ">
         <div class="row justify-content-center mt-3 ">
+            <div id="saldo_attuale" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
+                <p class="fs-5 mt-2"><strong>Saldo attuale </strong></p>
+                <span class="border-bottom"></span>
+                <!--Entrate mensili da database-->
+            </div>
             <div id="entrate_mensili" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Entrate mensili </p>
                 <span class="border-bottom"></span>
@@ -267,6 +272,15 @@ function populateVal() {
     ele = document.getElementById('uscite_annuali');
     ele.innerHTML = ele.innerHTML +
         '<p class="fs-4 fw-bolder text-danger mt-2" value="' + data[3] + '"><i class="bi bi-arrow-down-short"></i>' + data[3]+ '</p>';
+
+    ele = document.getElementById('saldo_attuale');
+    if (data[4]>0)
+        str = '<p class="fs-4 fw-bolder text-success mt-2" value="' + data[4] + '"><i class="bi bi-arrow-up-short"></i>' + data[4]+ '€</p>'
+    else if (data[4]<0)  
+        str = '<p class="fs-4 fw-bolder text-danger mt-2" value="' + data[4] + '"><i class="bi bi-arrow-down-short"></i>' + data[4]+ '€</p>';
+    else
+        str = '<p class="fs-4 fw-bolder text-primary mt-2" value="' + data[4] + '">= ' + data[4]+ '€</p>'
+    ele.innerHTML = ele.innerHTML + str;
     
 }
 </script>

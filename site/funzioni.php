@@ -923,8 +923,13 @@ function giorni_mese()
 function get_euma($conn)
 {
     $array_dati = [];
+    $ultimo_giorno_mese = date("d");
     $username = $_SESSION["username"];
     $data_oggi = $_SESSION["data_oggi"];
+    $json_data_saldo = saldo($conn);
+    $array_saldo = json_decode($json_data_saldo);
+    $saldo_finale = intval($array_saldo[$ultimo_giorno_mese - 1]);
+
     $query = "SELECT COALESCE(sum(spesa.importo),0) as somma
     from spesa
     where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) = MONTH('$data_oggi') and importo > 0 and DAY(spesa.data) <= DAY('$data_oggi')";
@@ -965,6 +970,7 @@ function get_euma($conn)
         $str = abs($row["somma"]) . "€";
         array_push($array_dati, $str);
     }
+    array_push($array_dati, $saldo_finale);
     return json_encode($array_dati);
 }
 function entrata_graph($conn) {
