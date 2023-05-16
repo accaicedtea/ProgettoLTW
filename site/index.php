@@ -46,7 +46,9 @@ navBar($pagina, "Home");
     <div class="row featurette">
           <div class="info col-md-7">
             <h2 class="featurette-heading">Organizza le tue spese e i tuoi guadagni.</h2>
-            <p class="lead">Inserisci, modifica ed elimina le tue transazioni.</p>
+            <p class="lead">Organizza con sapienza le tue finanze, bilanciando con cura le spese e massimizzando i guadagni.
+Scegli tu la partitura delle tue transazioni, personalizzando, aggiornando e eliminando con facilità.
+Gestisci le tue entrate e uscite come un vero maestro, dirigendo l'armonia del tuo bilancio con maestria.</p>
           </div>
           <div class="example col-md-5">  <!-- div vuoto quando diminuisco grandezza schermo -->
             <img class="img-example" src="./assets/img/esempio1.png" alt="illustrazione" width="400" height="400">
@@ -58,7 +60,10 @@ navBar($pagina, "Home");
         <div class="row featurette">
           <div class="info col-md-7 order-md-2">
             <h2 class="featurette-heading">Aggiungi spese e guadagni futuri in scadenze.</h2>
-            <p class="lead">Nella Dashboard saranno visibili le spese e i guadagni che hanno scadenza imminente.</p>
+            <p class="lead">Nella tua Dashboard avrai un'istantanea delle tue finanze, mostrando in modo chiaro e immediato le spese e i guadagni in scadenza prossima.
+Avrai una panoramica dettagliata delle transazioni finanziarie imminenti, permettendoti di prendere decisioni tempestive e strategiche.
+La Dashboard ti fornirà una visione d'insieme delle tue spese e guadagni imminenti, offrendoti un quadro completo per mantenere un equilibrio finanziario stabile.
+</p>
           </div>
           <div class="example col-md-5 order-md-1">
             <img class="img-example" src="./assets/img/esempio2.png" alt="illustrazione" width="400" height="400">    
@@ -70,7 +75,9 @@ navBar($pagina, "Home");
         <div class="row featurette">
           <div class="info col-md-7">
             <h2 class="featurette-heading">Gestisci il tuo risparmio.</h2>
-            <p class="lead">Selezionando "Risparmio" come categoria quando aggiungi o modifichi una transazione, questa sarà aggiunta (o sottratta) al conto risparmio</p>
+            <p class="lead">Quando selezioni la categoria "Risparmio" durante l'aggiunta o la modifica di una transazione, questa verrà automaticamente inclusa (o detratta) dal tuo conto risparmio.
+            Puoi gestire facilmente il tuo conto risparmio selezionando la categoria "Risparmio" durante l'aggiunta o la modifica delle transazioni, in modo che l'importo venga aggiunto o sottratto direttamente dal tuo fondo risparmi.
+            </p>
           </div>
           <div class="example col-md-5">
             <img class="img-example" src="./assets/img/esempio3.png" alt="illustrazione" width="400" height="400">
@@ -83,7 +90,7 @@ navBar($pagina, "Home");
         <div class="row featurette">
           <div class="info col-md-7 order-md-2">
             <h2 class="featurette-heading">Consulta l'andamento delle tue entrate e uscite.</h2>
-            <p class="lead">Nella sezione Scadenze puoi visualizzare i grafici sull'andamento del saldo e del risparmio, oltre ai movimenti effettuati.</p>
+            <p class="lead">Nella sezione Scadenze, avrai accesso a una tabella dettagliata che ti mostrerà in modo chiaro e organizzato le tue spese future. Potrai visualizzare le scadenze imminenti e le relative informazioni, consentendoti di pianificare con cura le tue finanze. La tabella ti offrirà una panoramica completa delle spese programmate, fornendoti una visione chiara delle prossime scadenze finanziarie.</p>
           </div>
           <div class="example col-md-5 order-md-1">
             <img class="img-example" src="./assets/img/esempio4.png" alt="illustrazione" width="400" height="400">    
