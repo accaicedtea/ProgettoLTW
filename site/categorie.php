@@ -6,7 +6,7 @@
     ?>   
 <body id="page-top">
     <?php 
-        navBar($pagina,"Gestisci Categorie");
+        navBar($pagina,"Gestisci le categorie");
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
            
         ?>
@@ -88,7 +88,6 @@
                                             <tr>
                                                 <th scope="col">Nome</th>
                                                 <th scope="col">Colore</th>
-                                                <th scope="col">Immagine</th>
                                                 <th scope="col">Azioni categoria</th>
                                             </tr>
                                         </thead>
@@ -112,7 +111,6 @@
                                                 <td style="background-color: <?php echo $tuple['colore'];?>">
                                                     <p><?php echo $tuple['colore'];?></p>
                                                 </td>
-                                                <td ><p class="text-center h2"><i class="<?php echo $tuple['img'];?>"></i></p></td>
                                                 <!-- td della modifica -->
                                                 <td class="text-center" >
                                                         <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry<?php echo $i?>">
