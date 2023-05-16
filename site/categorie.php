@@ -6,7 +6,7 @@
     ?>   
 <body id="page-top">
     <?php 
-        navBar($pagina);
+        navBar($pagina,"Gestisci Categorie");
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
            
         ?>
