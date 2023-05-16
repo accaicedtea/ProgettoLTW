@@ -10,6 +10,8 @@
     --highcharts-color-7: #55bf3b;
     --highcharts-color-8: #df5353;
     --highcharts-color-9: #7798bf;
+    --sfondo-oro-rosa: #f0ffff;
+    --sfondo-bluino: #f0f8ff;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
@@ -31,12 +33,11 @@ body {
     font-family: 'Anton', sans-serif;
     font-weight: bold;
     font-size: large;
-    color: hwb(76 49% 0%);
+    color: var(--highcharts-color-1);
     padding: 0 0 5px 0;
-    text-decoration: line-through;
-    pointer-events: none;
-    cursor: default;
-    
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 3px;
 }
 .link-navbar {
     text-decoration: none;
@@ -50,7 +51,8 @@ body {
   }
 .link-navbar:hover{
     transition: all 0.3s ease;  
-    color: hwb(76 49% 0%);
+    color: var(--highcharts-color-1);
+    
 }
 
 .link-navbar:after {
@@ -61,20 +63,22 @@ body {
     left: 0;
     bottom: 0;
     visibility: hidden;
-    background-color: hwb(76 49% 0%);
+    background-color: var(--highcharts-color-1);
     -webkit-transition: all .1s ease;
     transition: all 0.3s ease;  
     -webkit-transform: scaleX(0);
     -ms-transform: scaleX(0);
     transform: scaleX(0);
+    
   }
   
 .link-navbar:hover:after {
-    color: hwb(76 49% 0%);
+    color: var(--highcharts-color-1);
     visibility: visible;
     -webkit-transform: scaleX(1);
     -ms-transform: scaleX(1);
     transform: scaleX(1);
+    
   }
 
 /* paginazione */
@@ -409,13 +413,13 @@ body {
 
 @keyframes cambia-colore {
     0% {
-        background-color: #4bcfcb;
+        background-color: var(--sfondo-oro-rosa);
     }
     50% {
-        background-color: #2c918c;
+        background-color: var(--sfondo-bluino);
     }
     100% {
-        background-color: #4bcfcb;
+        background-color: var(--sfondo-oro-rosa);
     }
 }
 
