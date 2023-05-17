@@ -164,7 +164,7 @@
         for (let i = 0; i < birds.length; i++) {
             // POPULATE SELECT ELEMENT WITH JSON.
             ele.innerHTML = ele.innerHTML +
-                '<option value="' + birds[i]['nome'] + '">' + birds[i]['nome'] + '</option>';
+                '<option value="' + birds[i] + '">' + birds[i] + '</option>';
         }
     }
 </script>
@@ -199,7 +199,7 @@ submitButton.addEventListener("click", function() {
     var today = new Date();
     var dataN = new Date(document.formreg.dataN.value);
     var passed = true;
-
+    let nazioni = <?=getJsonStati($conn);?>;
     if(document.formreg.username.value=="") {
         document.getElementById("username").classList.add("is-invalid");
         passed = false;
@@ -232,7 +232,7 @@ submitButton.addEventListener("click", function() {
             }
         }
     }
-    if (document.formreg.nazionalita.value == "") {
+    if (document.formreg.nazionalita.value == "" || nazioni.indexOf(document.formreg.nazionalita.value) == -1) {
         document.getElementById("nazionalita").classList.add("is-invalid");
         passed =  false;
     }

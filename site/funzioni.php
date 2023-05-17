@@ -186,10 +186,10 @@ function getJsonAdmin($conn)
 function getJsonStati($conn)
 {
     $sql =
-        "SELECT stati.nome_stati as id, stati.nome_stati as nome from stati order by stati.nome_stati";
+        "SELECT stati.nome_stati as nome from stati order by stati.nome_stati";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
-        $array[] = $row;
+        $array[] = $row['nome'];
     }
     return json_encode($array);
 }
