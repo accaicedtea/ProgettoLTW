@@ -379,7 +379,7 @@ function placeH() {
         let stati = <?=getJsonStati($conn);?>;
         //console.log(stati);
         for (var i = 0; i < stati.length; i++) {
-            options += '<option value="' + stati[i]['nome_stati'] + '" />';
+            options += '<option value="' + stati[i] + '" />';
         }
 
         document.getElementById('selectNazi').innerHTML = options;
