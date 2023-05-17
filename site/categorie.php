@@ -65,9 +65,7 @@
                                                                             <div class="col">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="immagine">
-                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_add" name="img_add">
-                                                                                        <a href="https://icons.getbootstrap.com/" target="_blank">Info <i class="bi bi-info-circle-fill"></i></a>
-                                                                                </div>
+                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_add" name="img_add">                                                                                </div>
                                                                             </div>
 
                                                                         </div>
@@ -145,9 +143,7 @@
                                                                             <div class="col">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="immagine">
-                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_edit" value="<?php echo $tuple['img'];?>" name="img_edit">
-                                                                                        <a href="https://icons.getbootstrap.com/" target="_blank">Info <i class="bi bi-info-circle-fill"></i></a>
-                                                                                </div>
+                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_edit" value="<?php echo $tuple['img'];?>" name="img_edit">                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>

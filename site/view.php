@@ -39,7 +39,7 @@
                                                 <th scope="col">Username</th>
                                                 <th scope="col">Nome</th>
                                                 <th scope="col">Cognome</th>
-                                                <th scope="col">Data di nascista</th>
+                                                <th scope="col">Data di nascita</th>
                                                 <th scope="col">Sesso</th>
                                                 <th scope="col">Nazionalità</th>
                                                 <th scope="col">Email</th>
