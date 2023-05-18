@@ -323,6 +323,7 @@ body {
 
 /* grande */
 @media screen and (min-width: 800px) {
+
     .minno{
                 top:-414px;
     }
