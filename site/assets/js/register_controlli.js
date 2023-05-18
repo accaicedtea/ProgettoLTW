@@ -6,8 +6,7 @@ function validaForm() {
 
     if(document.formreg.username.value=="") {
         document.getElementById("username").classList.add("is-invalid");
-        document.getElementById("test").innerHTML("porcodio")
-        console.log("porcodio")
+        document.getElementById("test").innerHTML("")
         return false;
     }
     if(document.formreg.nome.value=="") {

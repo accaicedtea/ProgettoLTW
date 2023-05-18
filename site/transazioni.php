@@ -6,7 +6,7 @@
     navBar($pagina,"Gestione transazioni effettuate");
 ?>
 
-
+<script src="./assets/js/transazioni_controlli.js"></script>
 
 <?php 
     if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
@@ -129,7 +129,7 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
-                                        <form action="./register_entry.php" method="post" name="insert_form">
+                                        <form action="./register_entry.php" method="post" name="insert_form" id="insert_form_e">
                                             <div class="d-none"><input type="" name="tipo_new" value="entrata"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
@@ -144,17 +144,17 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description" placeholder="Inserisci descrizione" name="description_new"></div>
+                                                            <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description" placeholder="Inserisci descrizione" name="description_new" onchange="validaInput('description', '^[A-Za-z0-9.,; /()@_%=*+-]+$')" pattern="^[A-Za-z0-9.,; /()@_%=*+-]+$" required></div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date" name="date_new"></div>
+                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date" name="date_new" required></div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount" name="amount_new" step="0.01" min="0" pattern="^\d*(\.\d{0,2})$"></div>
+                                                            <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount" name="amount_new" step="0.01" min="0" onchange="validaInput('amount', '[0-9]+')" pattern="^\d*(\.\d{0,2})$" required></div>
                                                         </div>
                                                     </div>
                                             </div>
@@ -187,17 +187,17 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_new" placeholder="Inserisci descrizione" name="description_new"></div>
+                                                            <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_new" placeholder="Inserisci descrizione" name="description_new" onchange="validaInput('description_new', '^[A-Za-z0-9.,; /()@_%=*+-]+$')" pattern="^[A-Za-z0-9.,; /()@_%=*+-]+$" required></div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_new" name="date_new"></div>
+                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_new" name="date_new" required></div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_new" name="amount_new" step="0.01" min="0" pattern="^\d*(\.\d{0,2})$"></div>
+                                                            <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_new" name="amount_new" step="0.01" min="0" onchange="validaInput('amount_new', '[0-9]+')" pattern="^\d*(\.\d{0,2})$" required ></div>
                                                         </div>
                                                     </div>
                                             </div>
@@ -256,17 +256,17 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit"></div>
+                                                        <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit" onchange="validaInput('description_edit', '^[A-Za-z0-9.,; /()@_%=*+-]+$')" pattern="^[A-Za-z0-9.,; /()@_%=*+-]+$" required></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit"></div>
+                                                        <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit" required></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value="" name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                        <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value="" name="amount_edit" step="0.01" onchange="validaInput('amount_edit', '[0-9]+')" pattern="^\d*(\.\d{0,2})$" required></div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -29,7 +29,7 @@
     <div class="row featurette">
       <div class="col-md-7 order-md-2">
         <h2 class="featurette-heading">Riccardo <span class="text-muted">Ebene</span></h2>
-        <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+        <p class="lead">Sono Riccardo Ebene, un individuo unico e straordinario. Sono un vero e proprio mistero avvolto nell'aura dell'incertezza. Le persone si chiedono chi sia veramente Riccardo Ebene, eppure la risposta sembra sfuggire costantemente. La mia sensibilità è profonda, ma preferisco nascondere le mie emozioni dietro un velo di riservatezza. Sono un ascoltatore attento e riesco a cogliere sfumature e dettagli che sfuggono alla maggior parte delle persone. Ricorda che le caratteristiche che fanno di te una persona speciale e interessante non sono determinate da un'IA, ma da chi sei realmente. Sii fiero di te stesso e continua ad essere il protagonista della tua storia unica.</p>
       </div>
       <div class="col-md-5 order-md-1">
         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>

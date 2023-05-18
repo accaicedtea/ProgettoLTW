@@ -93,8 +93,8 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div id="selectNazionalita" class="form-outline mb-3"><label class="form-label" for="nationalita"><strong >Nazionalità</strong></label>
-                                                        <input class="form-control " name="nazionalita" list="selectNazi" id="nazionalita" placeholder="Nationalità" onchange="validaNazionalita()" required>
+                                                        <div id="selectNazionalita" class="form-outline mb-3"><label class="form-label" for="nazionalita"><strong >Nazionalità</strong></label>
+                                                        <input class="form-control " name="nazionalita" list="selectNazi" id="nazionalita" placeholder="Nazionalità" onchange="validaNazionalita()" required>
                                                         <datalist id="selectNazi">
                                                         </datalist>
                                                     </div>
