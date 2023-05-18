@@ -1319,6 +1319,50 @@ function navBar($pagina,$txt)
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script><!-- jquery-->
-    </head>   
+    </head> 
+<style>
+    #topButton {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        background-color: #555555;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 4px;
+        transition: 0.4s;
+    }
+    
+    #topButton:hover {  
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        background-color: var(--highcharts-color-1);
+        
+    }
+</style>  
+    <button onclick="topFunction()" id="topButton" title="Go to top"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("topButton").style.display = "block";
+  } else {
+    document.getElementById("topButton").style.display = "none";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
+
 <?php
 } ?>

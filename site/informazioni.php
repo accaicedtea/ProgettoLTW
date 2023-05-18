@@ -5,9 +5,7 @@
   head($pagina);
   navBar($pagina,"Chi siamo");
 ?>
-<style>
 
-</style>
 
 
 <body class="page-top" id="page-top">
@@ -53,10 +51,9 @@
     <hr class="featurette-divider">
 <footer class="container">
 <p>&copy; 2023–2023 4Money, Inc. &middot; <a href="./assets/vid/get rickrolled lol.mp4">Privacy</a> &middot; <a href="./assets/vid/1 Hour Of Silence occasionally broken up by Lego Yoda death sound..mp4">Terms</a></p>
-<!-- TODO: FIXARE STA COSA -->
-<a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top " role="button"><i class="fas fa-chevron-up"></i></a>
 </footer>
   
 </body>
 
-    
+
+
