@@ -329,7 +329,7 @@
 </script>
 <script>
     // attenzione
-    dataSet = <?= getJsonSpese($conn);?>;
+    dataSet = <?= getJsonSpese($conn); ?>;
     let perPage = 15;
     lastPage = Math.ceil(dataSet.length/perPage);
 
@@ -369,6 +369,7 @@
         document.querySelector('#tableBody').innerHTML = html.join('');
 
     }
+    
     const displayAll = ( page = 1, perPage = 2 ) => {
         displayItems(page, perPage)
         displayPageNav(page, perPage)
