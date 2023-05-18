@@ -51,7 +51,7 @@ Scegli tu la partitura delle tue transazioni, personalizzando, aggiornando e eli
 Gestisci le tue entrate e uscite come un vero maestro, dirigendo l'armonia del tuo bilancio con maestria.</p>
           </div>
           <div class="example col-md-5">  <!-- div vuoto quando diminuisco grandezza schermo -->
-            <img class="img-example" src="./assets/img/esempio1.png" alt="illustrazione" width="400" height="400">
+            <img class="img-example img-hover" src="./assets/img/esempio1.png" alt="illustrazione" width="400" height="400">
           </div>
         </div>
     
@@ -66,7 +66,7 @@ La Dashboard ti fornirà una visione d'insieme delle tue spese e guadagni immine
 </p>
           </div>
           <div class="example col-md-5 order-md-1">
-            <img class="img-example" src="./assets/img/esempio.png" alt="illustrazione" width="370" height="370">    
+            <img class="img-example img-hover" src="./assets/img/esempio.png" alt="illustrazione" width="370" height="370">    
           </div>
         </div>
     
@@ -80,7 +80,7 @@ La Dashboard ti fornirà una visione d'insieme delle tue spese e guadagni immine
             </p>
           </div>
           <div class="example col-md-5">
-            <img class="img-example" src="./assets/img/esempio3.png" alt="illustrazione" width="400" height="400">
+            <img class="img-example img-hover" src="./assets/img/esempio3.png" alt="illustrazione" width="400" height="400">
     
           </div>
         </div>
@@ -93,7 +93,7 @@ La Dashboard ti fornirà una visione d'insieme delle tue spese e guadagni immine
             <p class="lead text-dark">Nella sezione Scadenze, avrai accesso a una tabella dettagliata che ti mostrerà in modo chiaro e organizzato le tue spese future. Potrai visualizzare le scadenze imminenti e le relative informazioni, consentendoti di pianificare con cura le tue finanze. La tabella ti offrirà una panoramica completa delle spese programmate, fornendoti una visione chiara delle prossime scadenze finanziarie.</p>
           </div>
           <div class="example col-md-5 order-md-1">
-            <img class="img-example" src="./assets/img/esempio4.png" alt="illustrazione" width="400" height="400">    
+            <img class="img-example img-hover" src="./assets/img/esempio4.png" alt="illustrazione" width="400" height="400">    
           </div>
         </div>
     
