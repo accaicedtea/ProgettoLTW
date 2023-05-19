@@ -84,7 +84,6 @@
                                                 
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="errors mb-3" id="errors_dataN"></div>
                                                         <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" required></div>
                                                         <!-- waring msg per data nascita-->
                                                         <p class= "form-text requirements">Devi avere più di 14 anni per registrati</p>
