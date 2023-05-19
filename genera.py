@@ -19,7 +19,7 @@ users = [user[0] for user in users]
 
 # Genera spese casuali per gli utenti
 for user in users:
-    num_expenses = random.randint(1, 5)  # Numero casuale di spese per ogni utente
+    num_expenses = random.randint(1, 50)  # Numero casuale di spese per ogni utente
     
     for _ in range(num_expenses):
         expense_id = random.randint(1, 1000)  # ID casuale della spesa

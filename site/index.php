@@ -55,7 +55,7 @@ Gestisci le tue entrate e uscite come un vero maestro, dirigendo l'armonia del t
           </div>
         </div>
     
-        <hr class="featurette-divider">
+        <hr class="featurette-divider mt-4 mb-4">
     
         <div class="row featurette">
           <div class="info col-md-7 order-md-2">
@@ -66,11 +66,11 @@ La Dashboard ti fornirà una visione d'insieme delle tue spese e guadagni immine
 </p>
           </div>
           <div class="example col-md-5 order-md-1">
-            <img class="img-example img-hover" src="./assets/img/esempio.png" alt="illustrazione" width="370" height="370">    
+            <img class="img-example img-hover" src="./assets/img/esempio2.png" alt="illustrazione" width="370" height="370">    
           </div>
         </div>
     
-        <hr class="featurette-divider">
+        <hr class="featurette-divider mt-4 mb-4">
     
         <div class="row featurette">
           <div class="info col-md-7">
@@ -85,7 +85,7 @@ La Dashboard ti fornirà una visione d'insieme delle tue spese e guadagni immine
           </div>
         </div>
     
-        <hr class="featurette-divider">
+        <hr class="featurette-divider mt-4 mb-4">
 
         <div class="row featurette">
           <div class="info col-md-7 order-md-2">
@@ -97,7 +97,7 @@ La Dashboard ti fornirà una visione d'insieme delle tue spese e guadagni immine
           </div>
         </div>
     
-        <hr class="featurette-divider">
+        <hr class="featurette-divider mt-4 mb-4">
     
         <!-- /END THE FEATURETTES -->
     
