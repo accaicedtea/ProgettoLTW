@@ -6,7 +6,6 @@
     head($pagina);
     navBar($pagina,"Registrati");
 ?>
-<script src="./assets/js/register_controlli.js"></script>
 
 <body id="page-top" class="sfondo-animato">
 <div id="wrapper">
