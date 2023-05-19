@@ -17,7 +17,7 @@ navBar($pagina, "Home");
 <body>
 <div id="conenuto" class="text-center mt-5">
   <div class="container">
-    <div class="card shadow">
+    <div class="card shadow border-secondary">
       <div class="card-body">
         <!-- <h1 class="mt-3"><strong>HOME PAGE</strong></h1> -->
         <img class="mt-3 mb-3 text-center" src="./assets/brand/4M-cropped.svg" alt="" width="300" height="300">
@@ -33,7 +33,7 @@ navBar($pagina, "Home");
 <div id="sipario" class="text-light mt-5">
 
   <div class="text-center">
-    <button class="btn2 btn btn-lg text-dark btn-secondary fw-bold border-white bg-white zoom">HOME</button>
+    <button class="btn2 btn btn-lg text-dark btn-secondary fw-bold border-white bg-white zoom border-secondary">HOME</button>
   </div>
 
   <div class="container marketing">

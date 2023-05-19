@@ -17,7 +17,7 @@
     <div class="container-fluid sfondo-animato">
         <div class="row row-cols-1  row-cols-md-2 ">
             <div class="col mt-5 " id="div1">
-                <div class="card text-center shadow mb-3 leftToF">
+                <div class="card text-center shadow border-secondary mb-3 leftToF">
                     <div class="card-header py-3">
                     <?php if(isset($_GET['msg'])){ ?>
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -155,7 +155,7 @@
                     </div>
                 </div>
 
-                <div class="card shadow mb-3 leftToF-3">
+                <div class="card shadow mb-3 leftToF-3 border-secondary">
                     <div class="card-header py-3">
                         <p class="text-primary m-0 fw-bold text-start">Esporta <i class="bi bi-file-earmark-arrow-down"></i></p>
                     </div>
@@ -207,7 +207,7 @@ function esportaCSV() {
 }
 </script>
             <div class="col mt-5 ">
-                <div class="card shadow mb-3 topToF">
+                <div class="card shadow mb-3 topToF border-secondary">
                     <div class="card-header py-3">
                         <p class="text-primary m-0 fw-bold text-start">Informazioni personali <i class="bi bi-person-fill"></i></i></p>
                     </div>
@@ -277,7 +277,7 @@ function esportaCSV() {
                 </div>
                 
 
-                <div class="card shadow mb-3 topToF">
+                <div class="card shadow mb-3 topToF border-secondary">
                     <div class="card-header py-3">
                         <p class="text-primary m-0 fw-bold text-start">Dati di accesso <i class="bi bi-person-bounding-box"></i></p>
                     </div>
@@ -435,7 +435,7 @@ submitButton.addEventListener("click", function() {
     <div class="container-fluid sfondo-animato">
         <div class="row row-cols-1  row-cols-md-2 ">
             <div class="col mt-5 " >
-                <div class="card text-center shadow mb-3 leftToF">
+                <div class="card text-center shadow mb-3 leftToF border-secondary">
                     <div class="card-header">
                     <?php if(isset($_GET['msg'])){ ?>
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -478,7 +478,7 @@ submitButton.addEventListener("click", function() {
 
 
             <div class="col mt-5">
-                <div class="card shadow mb-3 topToF">
+                <div class="card shadow mb-3 topToF border-secondary">
                     <div class="card-header py-3">
                         <div id="alert-container"></div>
                         <p class="text-primary m-0 fw-bold text-start">Cambia informazioni utente <i class="bi bi-person-bounding-box"></i></p>
