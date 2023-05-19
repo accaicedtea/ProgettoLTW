@@ -248,6 +248,7 @@
             },
             yAxis: {
                 title: {
+                    rotation:0,
                     text: '€'
                 }
             },
@@ -286,7 +287,8 @@
             },
             yAxis: {
                 title: {
-                text: '€'
+                    rotation:0,
+                    text: '€'
                 },
                 labels: {
                 }
@@ -331,7 +333,8 @@
             },
             yAxis: {
                 title: {
-                text: '€'
+                    rotation:0,
+                    text: '€'
                 },
                 labels: {
                 }
