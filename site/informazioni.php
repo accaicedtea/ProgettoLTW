@@ -42,7 +42,7 @@
     <div class="row ">
       <div class="col-md-6 info">
         <div class="col-auto topToF ms-3 me-3"><h2 id="nome" class="featurette-heading shadowT">Cristian Andrei <span class="text-muted"></span></h2>
-        <p id="desc" class="lead shadowT justify">Il mio nome è Cristian Andrei Mai Mihai, ci sono molte cose che non mi piacciono, ma poche che mi piacciano in particolare. Nella vita direi di non poter ridurre le mie aspirazioni a solo un sogno, ma posso affermare di avere delle vere ambizioni. Quelle di diventare un ottimo programmatore e senza fallire divenatare un maestro di scacchi. Oltre alla programmazione e agli scacchi, mi appassiono anche alla musica e ai manga. La musica mi permette di esprimere la creatività e trovare ispirazione, mentre i manga mi trasportano in mondi fantastici e stimolano la mia immaginazione. Queste passioni arricchiscono la mia vita e mi aiutano a crescere come individuo.</p></div>
+        <p id="desc" class="lead shadowT justify">Il mio nome è Cristian Andrei Mai Mihai, ci sono molte cose che non mi piacciono, ma poche che mi piacciano in particolare. Nella vita direi di non poter ridurre le mie aspirazioni a solo un sogno, ma posso affermare di avere delle vere ambizioni. Quelle di diventare un ottimo programmatore e senza fallire raggiungere il rango di maestro di scacchi. Oltre alla programmazione e agli scacchi, mi appassiono anche alla musica e ai manga. La musica mi permette di esprimere la creatività e trovare ispirazione, mentre i manga mi trasportano in mondi fantastici e stimolano la mia immaginazione. Queste passioni arricchiscono la mia vita e mi aiutano a crescere come individuo.</p></div>
         
       </div>
       <div class="col-md-6 example">
