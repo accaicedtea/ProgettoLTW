@@ -1,28 +1,143 @@
+:root {
+    /* colori carini */
+    --highcharts-color-0: #7cb5ec;
+    --highcharts-color-1: #f7a35c;
+    --highcharts-color-2: #90ee7e;
+    --highcharts-color-3: #7798bf;
+    --highcharts-color-4: #aaeeee;
+    --highcharts-color-5: #ff0066;
+    --highcharts-color-6: #eeaaee;
+    --highcharts-color-7: #55bf3b;
+    --highcharts-color-8: #df5353;
+    --highcharts-color-9: #7798bf;
+    --sfondo-oro-rosa: #f0ffff;
+    --sfondo-bluino: #96c4ed;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.logo-nav{ 
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    font-size: x-large;
+    text-transform: uppercase;
+ 
+}
+
 body {
-    background-color:#e9e9e9;
+    animation: cambia-colore 10s ease-in-out infinite;
+    overflow-x: hidden;
 }
 
-.text-dark {
-    margin-top: 24px;
-    text-align: center;
+
+.link-active{
+    font-family: 'Anton', sans-serif;
+    font-weight: bold;
+    font-size: large;
+    color: var(--highcharts-color-1);
+    padding: 0 0 5px 0;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 3px;
+}
+.link-navbar {
+    text-decoration: none;
+    display: inline-block;
+    font-size: large;
+    position: relative;
+    font-family: 'Anton', sans-serif;
+    font-weight: bold;
+    padding: 0 0 5px 0;
+    color: hsl(120, 19%, 92%);
+  }
+.link-navbar:hover{
+    transition: all 0.3s ease;  
+    color: var(--highcharts-color-1);
+    
 }
 
-.cnt-b {
-    text-align: center;
+.link-navbar:after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    visibility: hidden;
+    background-color: var(--highcharts-color-1);
+    -webkit-transition: all .1s ease;
+    transition: all 0.3s ease;  
+    -webkit-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    
+  }
+  
+.link-navbar:hover:after {
+    color: var(--highcharts-color-1);
+    visibility: visible;
+    -webkit-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+    
+  }
+
+/* paginazione */
+.pagination > li > a
+{
+    background-color: white;
+    color: #2F2F2F;
 }
 
-.edit {
-    margin-right : 2px;
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
 }
 
-.buttons {
-    text-align: right;
+.pagination > .active > a
+{
+    color: white;
+    background-color: #5a5a5a !Important;
+    border: solid 1px #5a5a5a !Important;
 }
 
-.hidden {
-    display: none;
+.pagination > .active > a:hover
+{
+    background-color: #2F2F2F !Important;
+    border: solid 1px #2F2F2F;
 }
-/* HIDE RADIO */
+
+
+/* immgine zoomata */
+.zoom {
+    transition: transform .2s; 
+}
+.zoom:hover {
+    transform: scale(1.1); 
+    filter: drop-shadow(5px 10px 2px rgba(0, 0, 0, 0.4));
+}
+
+
+.card-log-effect{
+    animation: 0.3s shake;
+}
+
+@keyframes shake{
+    50% { transform: scale(1.1); }
+   
+    100% { transform: scale(1); }
+}
+
+
+
+
+/* radio per profilo */
 [type=radio] { 
     position: absolute;
     opacity: 0;
@@ -40,13 +155,423 @@ body {
     outline: 4px solid #0275d8;
 }
 
-.enc {
-    background-color: greenyellow;
+/* radio button sesso */
+.radio-inputs {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    max-width: 350px;
 }
 
-.usc {
-    background-color: red;
+.radio-inputs > * {
+    margin: 6px;
 }
-.bottone-download{
-    font-size: .75rem;
+
+.radio-input:checked + .radio-tile {
+    border-color: #2260ff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #2260ff;
+}
+
+.radio-input:checked + .radio-tile:before {
+    transform: scale(1);
+    opacity: 1;
+    background-color: #2260ff;
+    border-color: #2260ff;
+}
+
+.radio-input:checked + .radio-tile .radio-icon svg {
+    fill: #2260ff;
+}
+
+.radio-input:checked + .radio-tile .radio-label {
+    color: #2260ff;
+}
+
+.radio-input:focus + .radio-tile {
+    border-color: #2260ff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+}
+
+.radio-input:focus + .radio-tile:before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.radio-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    min-height: 60px;
+    border-radius: 0.9rem;
+    border: 3px solid #b5bfd9;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.15s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.radio-tile:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 2px solid #b5bfd9;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 0.25rem;
+    left: 0.25rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.25s ease;
+}
+
+.radio-tile:hover {
+    border-color: #2260ff;
+}
+
+.radio-tile:hover:before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+.radio-label {
+    color: #707070;
+    transition: 0.375s ease;
+    text-align: left;
+    font-size: 13px;
+}
+
+.radio-input {
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    height: 1px;
+    overflow: hidden;
+    position: left;
+    white-space: nowrap;
+    width: 1px;
+}
+
+
+
+
+/* animazioni per le varie pagina */
+.leftToF {
+    animation-name: left;
+    animation-duration: .5s;
+}
+.leftToF-3{
+    animation-name: left;
+    animation-duration: 1.5s;
+}
+.topToF {
+    animation-name: top;
+    animation-duration: 1s;
+}
+@keyframes top {
+    0%  {top:-1200px;}
+    100% {top:0px;}
+}
+
+
+@keyframes left {
+    0%  {left:-800px; }
+    100% {left:0px; }
+}
+
+
+
+/* tabella in piccolo */
+@media (max-width: 768px){
+    .table thead{
+        display: none;
+    }
+    .table, .table tr, .table tbody, .table td{
+        display: block;
+        width: 100%;
+    }
+    .table tr{
+        margin-bottom: 15px;
+    }
+    .table tbody tr td{
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    .table td:before{
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 600;
+        font-size: 14px;
+        text-align: left;
+    }
+    .img-md{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 88%;
+    }
+}
+
+
+/* grande */
+@media screen and (min-width: 800px) {
+
+    .minno{
+                top:-414px;
+    }
+    .icon{
+        width:170px;
+        height:170px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .mb{
+        margin-bottom: 22px;
+    }
+    .butt{
+        float: left;
+    }
+}
+
+.fade-in {
+    animation-name: fade-in;
+    animation-duration: 0.7s;
+}
+
+@keyframes fade-in {
+    0%{opacity: 0;}
+    30%{opacity: .5;}
+    100% {opacity: 1;}
+}
+
+
+  
+.giga-big{
+    width:170px;
+    height:170px;
+}
+
+.img-hover{
+    box-shadow: 10px 10px 5px #000000;
+    -moz-box-shadow: 0px 10px 5px #000000;
+    -webkit-box-shadow: 0px 10px 5px #000000; 
+    transition: transform .5s;
+}
+.shadowT {
+    text-shadow: 2px 2px 10PX #7A7A7A;
+}
+.img-hover:hover{
+    transform: scale(1.1);
+    box-shadow: 10px 10px 5px #000000;
+    -moz-box-shadow: 0px 10px 5px #000000;
+    -webkit-box-shadow: 0px 10px 5px #000000; 
+}
+
+* {
+    padding: 0;
+    margin:0;
+    font-family: sans-serif;
+}
+
+.container-top-text {
+    text-align:center;
+}
+
+.container-top-text span {
+    text-transform: uppercase;
+    display: block;
+}
+  
+.text {
+    color: 	#008000;
+    font-size:30px;
+    font-weight:700;
+    letter-spacing: 10px;
+    margin-bottom:20px;
+    margin-top: 5px;
+    background: transparent;
+    animation: text 1s 1;
+}
+@keyframes text {
+    0% {
+        color: #262626;
+    }
+    30% {
+        letter-spacing: 40px;
+    }
+    85% {
+        letter-spacing:8px;
+    }
+}
+
+@keyframes cambia-colore {
+    0% {
+        background-color: var(--sfondo-oro-rosa);
+    }
+    50% {
+        background-color: var(--sfondo-bluino);
+    }
+    100% {
+        background-color: var(--sfondo-oro-rosa);
+    }
+}
+
+
+
+.pupup {
+    animation: pupup 1s cubic-bezier(0.61, 1, 0.88, 1) 0s 1 normal forwards;
+}
+
+@keyframes pupup {
+	0% {
+        opacity: 0;
+		transform: scale(1);
+	}
+
+	50% {
+        opacity: 0.5;
+		transform: scale(1.1);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+.highcharts-figure,.highcharts-data-table table,.card-high {
+  min-width: 260px;
+  max-width: 900px;
+  margin: 1em auto;
+}
+
+/* Global font */
+@import url("https://fonts.googleapis.com/css?family=Dosis:400,600");
+@import url("../highcharts.css");
+
+
+.highcharts-container {
+    font-family: Dosis, arial, helvetica, sans-serif;
+}
+
+.highcharts-title,
+.highcharts-subtitle,
+.highcharts-yaxis .highcharts-axis-title {
+    text-transform: uppercase;
+}
+
+.highcharts-title {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.highcharts-axis-labels {
+    font-size: 1em;
+}
+
+.highcharts-legend-item > text {
+    font-size: 1.1em;
+}
+
+.highcharts-xaxis-grid .highcharts-grid-line {
+    stroke-width: 1px;
+}
+
+.highcharts-tooltip-box {
+    stroke-width: 0;
+    fill: rgb(219, 219, 216);
+}
+
+/* Stile titoli */
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+h3 {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-family: "Raleway", sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    color: #080808;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+  }
+  
+h3 span {
+    display: block;
+    font-size: 0.5em;
+    line-height: 1.3;
+}
+h3 em {
+    font-style: normal;
+    font-weight: 600;
+}
+.requirements {
+    font-size: 12px;
+}
+
+
+.one h3 {
+    text-align: center;
+    /*text-transform: uppercase;*/
+    padding-bottom: 5px;
+}
+.one h3:before {
+    width: 28px;
+    height: 5px;
+    display: block;
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    margin-left: -14px;
+    background-color: #343a40;
+}
+.one h3:after {
+    width: 100px;
+    height: 1px;
+    display: block;
+    content: "";
+    position: relative;
+    margin-top: 25px;
+    left: 50%;
+    margin-left: -50px;
+    background-color: #343a40;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+.graph-title {
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #444444;
+}
+
+
+/* Stile Home */
+.img-example{
+    border-radius: 55%;
+}
+
+@media (max-width: 1000px){
+    .example{
+        display: none;
+    }
+    .info{
+        width: 100%;
+    } 
+}
+
+.justify {
+    text-align: justify;
 }

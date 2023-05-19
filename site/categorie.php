@@ -6,7 +6,7 @@
     ?>   
 <body id="page-top">
     <?php 
-        navBar($pagina);
+        navBar($pagina,"Gestisci le categorie");
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
            
         ?>
@@ -22,13 +22,12 @@
                         </div>
                         <?php }else if(isset($_GET['msg'])){?>
                         <div class="alert alert-info alert-dismissible fade show" role="alert">
-                            <strong>Operazione esegiuta! hai correttamente: </strong><?php echo $_GET['msg']; ?>
+                            <strong>Operazione eseguita! hai correttamente</strong><?php echo $_GET['msg']; ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <?php }?>
-                        <p class="h3 text-center mb-3 mt-3">Visualizzazione categorie registrate</p>
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">I miei pagurini</p>
+                            <p class="text-primary m-0 fw-bold">Tabella categorie registrate</p>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -65,9 +64,7 @@
                                                                             <div class="col">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="immagine">
-                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_add" name="img_add">
-                                                                                        <a href="https://icons.getbootstrap.com/" target="_blank">Info <i class="bi bi-info-circle-fill"></i></a>
-                                                                                </div>
+                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_add" name="img_add">                                                                                </div>
                                                                             </div>
 
                                                                         </div>
@@ -88,7 +85,6 @@
                                             <tr>
                                                 <th scope="col">Nome</th>
                                                 <th scope="col">Colore</th>
-                                                <th scope="col">Immagine</th>
                                                 <th scope="col">Azioni categoria</th>
                                             </tr>
                                         </thead>
@@ -106,15 +102,14 @@
                                                 foreach ($tuples as $tuple) { 
                                                     ?>
                                             <tr class="table" >
-                                                <td scope="row">
+                                                <td scope="row" data-label="Nome">
                                                     <p><?php echo $tuple['nome'];?></p>
                                                 </td>
-                                                <td style="background-color: <?php echo $tuple['colore'];?>">
+                                                <td style="background-color: <?php echo $tuple['colore'];?>" data-label="Colore">
                                                     <p><?php echo $tuple['colore'];?></p>
                                                 </td>
-                                                <td ><p class="text-center h2"><i class="<?php echo $tuple['img'];?>"></i></p></td>
                                                 <!-- td della modifica -->
-                                                <td class="text-center" >
+                                                <td class="text-center" data-label="Azione">
                                                         <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry<?php echo $i?>">
                                                             Modifica
                                                         </button>
@@ -147,9 +142,7 @@
                                                                             <div class="col">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="immagine">
-                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_edit" value="<?php echo $tuple['img'];?>" name="img_edit">
-                                                                                        <a href="https://icons.getbootstrap.com/" target="_blank">Info <i class="bi bi-info-circle-fill"></i></a>
-                                                                                </div>
+                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_edit" value="<?php echo $tuple['img'];?>" name="img_edit">                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>

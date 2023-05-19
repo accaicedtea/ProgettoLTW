@@ -3,10 +3,10 @@
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
-    navBar($pagina);
+    navBar($pagina,"Gestione transazioni effettuate");
 ?>
 
-
+<script src="./assets/js/transazioni_controlli.js"></script>
 
 <?php 
     if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
@@ -18,10 +18,10 @@
             url:"filtered_table.php",   
             type: "get",   
             dataType: 'json',
-            data: {categoria: e.options[e.selectedIndex].text},
+            data: {categoria: e.options[e.selectedIndex].text, pagina: "transazioni"},
             success:function(result){
                 dataSet = result;
-                lastPage = Math.round(dataSet.length/perPage);
+                lastPage = Math.ceil(dataSet.length/perPage);
                 displayAll(1, 15);
             }
         });
@@ -33,10 +33,10 @@
             url:"filtered_table.php",    
             type: "get",    
             dataType: 'json',
-            data: {tipo: e.options[e.selectedIndex].text},
+            data: {tipo: e.options[e.selectedIndex].text, pagina: "transazioni"},
             success:function(result){
                 dataSet = result;
-                lastPage = Math.round(dataSet.length/perPage);
+                lastPage = Math.ceil(dataSet.length/perPage);
                 displayAll(1, 15);
             }
         });
@@ -63,34 +63,37 @@
     });
 </script>
 
-<style>
-    .bottone-download{
-        --bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;
-}
-    
-</style>
+
 <!-- INIZIO PAGINA HTML -->
 
-<body id="page-top">
+<body id="page-top" style="background-color:#e9e9e9;">
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <div class="container fluid  mb-5">
-                    <div class="card shadow">
+                <div class="container fluid mt-5 mb-5">
+                    <div class="card shadow border-secondary">
                         <?php if(isset($_GET['msg'])){ ?>
                             <div class="alert alert-info alert-dismissible fade show" role="alert">
                             <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
+<script>
+    setTimeout(function() {
+        var alert = document.querySelector('.alert');
+        var bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+    }, 1000);
+</script>
+
                         <?php }?>
-                        <p class="h3 text-center mb-3 mt-3">Gestione entrate e uscite</p>
+                        <!--<div class="one"><h3 class="text-center mb-3 mt-3">Gestione Transazioni</h3></div>-->
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">I tuoi movimenti</p>
-                        </div>
+                            <p class="text-primary m-0 fw-bold">Tabella delle transazioni</p>
+                        </div>  
                         <div class="card-body">
                             <div class="container">
                                 <div class="row">
-                                    <p class=" m-0 fw-bold">filtri</p>
+                                    <p class=" m-0 fw-bold">Filtri</p>
                                 </div>
 
                                 <div class="row">
@@ -108,26 +111,26 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col">
-                                        <a id="exportJSON" onclick="exportJson(this);" class="btn btn-outline-dark btn-sm bottone-download"><i class="bi bi-download bi-sm"></i>Esporta tabella</a>
+                                        
                                     </div>
                                     
                                     <div class="col"></div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
+                                    <div class="col butt">
+                                        <button type="button" class="btn btn-success btn-sm butt" data-bs-toggle="modal" data-bs-target="#modalNuovaEntrata">Aggiungi entrata</button>
                                     </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
+                                    <div class="col butt">
+                                        <button type="button" class="btn btn-danger btn-sm butt" data-bs-toggle="modal" data-bs-target="#modalNuovaUscita">Aggiungi uscita</button>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Modal NUOVA ENTRATA-->
-                            <div class="modal fade" id="modalNuovaEntrata" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="modalNuovaEntrata" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-d-none="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
-                                        <form action="./register_entry.php" method="post" name="insert_form">
-                                            <div class="hidden"><input type="" name="tipo_new" value="entrata"></div>
+                                        <form action="./register_entry.php" method="post" name="insert_form" id="insert_form_e">
+                                            <div class="d-none"><input type="" name="tipo_new" value="entrata"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
                                             </div>
@@ -141,17 +144,17 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description" placeholder="Inserisci descrizione" name="description_new"></div>
+                                                            <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description" placeholder="Inserisci descrizione" name="description_new" onchange="validaInput('description', '^[A-Za-z0-9.,; /()@_%=*+-]+$')" pattern="^[A-Za-z0-9.,; /()@_%=*+-]+$" required></div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date" name="date_new"></div>
+                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date" name="date_new" required></div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount" name="amount_new" step="0.01" min="0" pattern="^\d*(\.\d{0,2})$"></div>
+                                                            <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount" name="amount_new" step="0.01" min="0" onchange="validaInput('amount', '[0-9]+')" pattern="^\d*(\.\d{0,2})$" required></div>
                                                         </div>
                                                     </div>
                                             </div>
@@ -165,12 +168,12 @@
                             </div>
 
                             <!-- Modal NUOVA USCITA-->
-                            <div class="modal fade" id="modalNuovaUscita" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="modalNuovaUscita" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-d-none="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
                                         <form action="./register_entry.php" method="post" name="insert_form">
-                                            <div class="hidden"><input type="" name="tipo_new" value="uscita"></div>
+                                            <div class="d-none"><input type="" name="tipo_new" value="uscita"></div>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Nuova transazione</h5>
                                             </div>
@@ -184,17 +187,17 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_new" placeholder="Inserisci descrizione" name="description_new"></div>
+                                                            <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_new" placeholder="Inserisci descrizione" name="description_new" onchange="validaInput('description_new', '^[A-Za-z0-9.,; /()@_%=*+-]+$')" pattern="^[A-Za-z0-9.,; /()@_%=*+-]+$" required></div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_new" name="date_new"></div>
+                                                            <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_new" name="date_new" required></div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_new" name="amount_new" step="0.01" min="0" pattern="^\d*(\.\d{0,2})$"></div>
+                                                            <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_new" name="amount_new" step="0.01" min="0" onchange="validaInput('amount_new', '[0-9]+')" pattern="^\d*(\.\d{0,2})$" required ></div>
                                                         </div>
                                                     </div>
                                             </div>
@@ -208,50 +211,32 @@
                             </div>
 
                             <!-- Inizio tabella -->
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTable">
+                            <div class="table-responsive table mt-4" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table table-hover my-0" id="dataTable">
                                     <thead>
                                         <tr>
                                             <th>Data</th>
-                                            <th>Cate.</th>
-                                            <th>Descr.</th>
+                                            <th>Categoria</th>
+                                            <th>Descrizione</th>
                                             <th>Importo</th>
                                             <th>Tipo</th>
-                                            <th>Azioni</th>
+                                            <th>Azione</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tableBody">
                                     </tbody>
                                 </table>
-                                
-                                    
-                                    <div class="col ps-5">
-                                        <nav aria-label="...">
-                                            <ul id="pagination"  class="pagination justify-content-center pagination-sm">
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                
+                                <div class="col ps-5">
+                                    <nav aria-label="...">
+                                        <ul id="pagination"  class="pagination justify-content-center pagination-sm">
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
-                            
-
-
-                                        <script>
-function exportJson(el) {
-
-var obj = <?= getJsonSpese($conn);?>;
-var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
-// what to return in order to show download window?
-
-el.setAttribute("href", "data:"+data);
-el.setAttribute("download", "data.json");    
-}
-
-</script>
 
                             <!-- MODALS -->
                             <!-- Modal per MODIFICA-->
-                            <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="modalEditEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-d-none="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <!-- INIZIO FORM -->
@@ -260,8 +245,8 @@ el.setAttribute("download", "data.json");
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Modifica transazione</h5>
                                             </div>
                                             <div class="modal-body left-labels modal_edit">
-                                                <div class="hidden"><input type="" name="id_edit" id="id_edit" value=""></div> 
-                                                <div class="hidden"><input type="" name="tipo_edit" id="tipo_edit" value=""></div> 
+                                                <div class="d-none"><input type="" name="id_edit" id="id_edit" value=""></div> 
+                                                <div class="d-none"><input type="" name="tipo_edit" id="tipo_edit" value=""></div> 
                                                 <div class="row">
                                                     <div class="col">
                                                         <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><strong>Categoria</strong></label><select id="cat_edit" class="d-inline-block form-select form-select-sm" name="cat_edit" >
@@ -271,17 +256,17 @@ el.setAttribute("download", "data.json");
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit"></div>
+                                                        <div class="mb-3"><label class="form-label" for="description"><strong >Descrizione</strong></label><input class="form-control" type="text" id="description_edit" value="" name="description_edit" onchange="validaInput('description_edit', '^[A-Za-z0-9.,; /()@_%=*+-]+$')" pattern="^[A-Za-z0-9.,; /()@_%=*+-]+$" required></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit"></div>
+                                                        <div class="mb-3"><label class="form-label" for="date"><strong >Data</strong></label><input class="form-control" type="date" id="date_edit" value="" name="date_edit" required></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value="" name="amount_edit" step="0.01" pattern="^\d*(\.\d{0,2})$"></div>
+                                                        <div class="mb-3"><label class="form-label" for="amount"><strong >Importo</strong></label><input class="form-control" type="number" id="amount_edit" value="" name="amount_edit" step="0.01" onchange="validaInput('amount_edit', '[0-9]+')" pattern="^\d*(\.\d{0,2})$" required></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -295,7 +280,7 @@ el.setAttribute("download", "data.json");
                             </div>
 
                             <!-- Modal per ELIMINA-->
-                            <div class="modal fade" id="modalDeleteEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="modalDeleteEntry" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-d-none="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -304,7 +289,7 @@ el.setAttribute("download", "data.json");
                                         <div class="modal-body left-labels modal_delete">
                                             Sei sicuro di voler eliminare la transazione?
                                             <form action="./delete_entry.php" method="post" name="delete_form">
-                                                <div class="hidden"><input type="" name="id_delete" id="id_delete" value=""></div> 
+                                                <div class="d-none"><input type="" name="id_delete" id="id_delete" value=""></div> 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                                                     <input type="submit" class="btn btn-danger" value="Si">
@@ -321,6 +306,8 @@ el.setAttribute("download", "data.json");
         </div>
     </div>
 </body>
+
+
 <script>
     window.onload = populateSelect();
     function populateSelect() {
@@ -342,7 +329,7 @@ el.setAttribute("download", "data.json");
 </script>
 <script>
     // attenzione
-    dataSet = <?= getJsonSpese($conn);?>;
+    dataSet = <?= getJsonSpese($conn); ?>;
     let perPage = 15;
     lastPage = Math.ceil(dataSet.length/perPage);
 
@@ -364,17 +351,17 @@ el.setAttribute("download", "data.json");
 
         const slicedItems = dataSet.slice(index, offSet);
         const html = slicedItems.map(item => 
-        `<tr class="table-${(item.importo>0)? 'success': 'danger'}">
-            <td>${item.data}</td>
-            <td>${item.categoria}</td>
-            <td>${item.descrizione}</td>
-            <td>${Math.abs(item.importo)} &euro;</td>
-            <td>${(item.importo>0)? "Entrata": "Uscita"}</td>
-            <td><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
-                    Modifica
+        `<tr">
+            <td data-label="Data">${item.data}</td>
+            <td class="table-light" data-label="Categoria">${item.categoria}</td>
+            <td data-label="Descrizione">${item.descrizione}</td>
+            <td class="table-light" data-label="Importo">${Math.abs(item.importo)} &euro;</td>
+            <td class="" data-label="Tipo">${(item.importo>0)? "<i class='fa-lg text-success bi bi-graph-up-arrow'></i>": "<i class='fa-lg text-danger bi bi-graph-down-arrow'></i>"}</td>
+            <td data-label="Azione"><button type="button" class="editForModal btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry" data-row=`+`'${JSON.stringify(item)}'`+`>  
+                    <i class="bi bi-pencil-square"></i>
                 </button>
                 <button type="button" class="deleteForModal btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteEntry" data-id=${item.id}>
-                    Elimina
+                    <i class="bi bi-trash"></i>
                 </button>
             </td>
         </tr>`);
@@ -382,6 +369,7 @@ el.setAttribute("download", "data.json");
         document.querySelector('#tableBody').innerHTML = html.join('');
 
     }
+    
     const displayAll = ( page = 1, perPage = 2 ) => {
         displayItems(page, perPage)
         displayPageNav(page, perPage)
@@ -391,22 +379,26 @@ el.setAttribute("download", "data.json");
 
         let pagination = ""
         const totalItems = dataSet.length
-        perPage = perPage ? perPage : 1
-        const pages = Math.ceil(totalItems/perPage)
+        if (totalItems != 0){
+            perPage = perPage ? perPage : 1
+            const pages = Math.ceil(totalItems/perPage)
 
-        if (page!=1){
-            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(1,${perPage})" ><<</a></li>`
-            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page-1},${perPage})" >Precedente</a></li>`
-            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page-1},${perPage})" >${page-1}</a></li>`
-        }
-        pagination += `<li class="page-item active"><a class="page-link" href="#" onClick="displayAll(${page},${perPage})" >${page}</a></li>`
-        if (page!=lastPage){
-            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page+1},${perPage})" >${page+1}</a></li>`
-            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page+1},${perPage})" >Successivo</a></li>`
-            pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${lastPage},${perPage})" >>></a></li>`
-        }
+            if (page!=1){
+                pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(1,${perPage})" ><<</a></li>`
+                pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page-1},${perPage})" >Precedente</a></li>`
+                pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page-1},${perPage})" >${page-1}</a></li>`
+            }
+            pagination += `<li class="page-item active"><a class="page-link" href="#" onClick="displayAll(${page},${perPage})" >${page}</a></li>`
+            if (page!=lastPage){
+                pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page+1},${perPage})" >${page+1}</a></li>`
+                pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${page+1},${perPage})" >Successivo</a></li>`
+                pagination += `<li class="page-item"><a class="page-link" href="#" onClick="displayAll(${lastPage},${perPage})" >>></a></li>`
+            }
 
-        document.getElementById('pagination').innerHTML = pagination
+            document.getElementById('pagination').innerHTML = pagination
+        }
+        else
+            document.getElementById('pagination').innerHTML = "Nessuna transazione trovata"
     }
 
     displayAll(1, perPage);
@@ -418,10 +410,9 @@ el.setAttribute("download", "data.json");
 </script>
 
 
-
 <?php 
 }
 else{
-    header("Location: login.php?error=E tu chi sei?");
+    header("Location: login.php?error=E tu chi cazzo sei");
 }
 ?>

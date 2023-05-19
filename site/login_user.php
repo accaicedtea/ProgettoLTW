@@ -8,7 +8,8 @@ if(isset($_POST['username']) && isset($_POST['password'])){
    
     $uname = validate($_POST['username']);
     $passw = validate($_POST['password']);
-    if(empty($uname)){
+    //controlli che i campi non siano vuoti
+   if(empty($uname)){
         header("Location: login.php?error=Inserisci un username per accedere");
         exit();
     }else if(empty($passw)){
@@ -35,6 +36,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 $_SESSION['sesso'] = $row['sesso'];
                 $_SESSION['nazi'] = $row['nazionalita'];
                 $_SESSION['password'] = $row['password'];
+                $_SESSION['saldo'] = $row['saldo_ini'];
                 $_SESSION['log'] = 'on';
                 header("Location: dashboard.php");       
                 exit();

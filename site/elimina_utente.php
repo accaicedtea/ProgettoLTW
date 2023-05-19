@@ -10,7 +10,7 @@
     if((mysqli_query($conn, $sql))){
         $sql = "DELETE FROM utente WHERE utente.username = '$dropThis'";
         if((mysqli_query($conn, $sql))){
-            cheader("Location: view.php?msg=eliminato l'utente");
+            header("Location: view.php?msg=eliminato l'utente");
         }
     }else{
         header("Location: view.php?error=qualcosa è andato storto");

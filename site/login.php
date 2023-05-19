@@ -4,10 +4,12 @@
     require './funzioni.php';
     $conn = db_conn();
     head($pagina);
-    navBar($pagina);
+    navBar($pagina,"Accedi");
 ?>
-<body id="page-top">
-    <div id="wrapper">
+
+
+<body id="page-top" >
+    <div id="wrapper" >
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- per farlo più piccolino se levi fluid -->
@@ -18,13 +20,12 @@
                         <div class="col-lg-6">
                             <div class="row">
                                 <div class="col">
-                                    <div class="card shadow mt-5 mb-3">
+                                    <div class="card card-log-effect shadow mt-5 mb-3">
+                                    
                                       <div row class="text-center">
-                                        <img class="mt-3 text-center" src="./assets/brand/4M-cropped.svg" alt="" width="200" height="200">
+                                      <div id="alert-container"></div>
+                                        <img class="mt-3 text-center" src="./assets/brand/4M-cropped.svg" alt="" width="300" height="300">
                                       </div>
-                                        <div class="row-md-3">
-                                            <p class="h3 text-center mb-3 mt-3">Accedi</p>
-                                        </div>
                                         <div class="card-body">
                                           <!-- form -->
                                           <?php if(isset($_GET['error'])){ ?>
@@ -40,18 +41,28 @@
                                             
                                             <?php }?> 
 
-                                            <form action="./login_user.php" method="post" name="form-signin" class="form-signin">
+                                            <form action="./login_user.php" id="login-form" method="post" name="form-signin" class="form-signin">
                                                   <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong >Username</strong></label><input class="form-control" type="text" id="username" placeholder="username" name="username"></div>
+                                                       
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control " id="username" name="username" placeholder="username" onchange="validaInput('username','([0-9]*[A-Za-z ]*[0-9]*)*')" pattern="([0-9]*[A-Za-z ]*[0-9]*)*" required>
+                                                            <label for="username">Username</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-5"><label class="form-label" for="password"><strong >Password</strong></label><input class="form-control" type="password" id="passord" placeholder="************" name="password"></div>
+                                                        <div class="form-floating mb-3">
+                                                            <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" required>
+                                                            <label for="passw">Password</label>
+                                                        </div>
                                                     </div>
+
+                                                    
+
                                                 </div>
-                                                    <div class="text-center mb-3"><button class="btn btn-lg btn-primary btn-block" type="submit">Accedi</button></div>
+                                                    <div class="text-center mb-3 "><button class="btn btn-lg btn-primary btn-block zoom" id="submit-button">Accedi</button></div>
                                                     </div>
                                                     <div class="mb-4 text-center">  <span class="h6 text-center">  Non hai un account? </span>
                                                       <a href="./register.php">Registrati</a>
@@ -71,3 +82,44 @@
 </body>
 
 </html>
+
+
+<script>
+function validaInput(id,pattern){
+    var input = document.getElementById(id);
+    var regex = new RegExp(pattern);
+    if (!regex.test(input.value)) {
+        input.classList.add("is-invalid");
+        return false;
+    }
+    input.classList.remove("is-invalid");
+    return true;
+}
+
+var form = document.getElementById("login-form");
+var submitButton = document.getElementById("submit-button");
+
+submitButton.addEventListener("click", function() {
+  // Controlla la validità del form
+    if (form.checkValidity()) {
+        form.submit();
+    }else{
+        const alertContainer = document.querySelector('#alert-container');
+
+        const alert = document.createElement('div');
+        alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
+        alert.setAttribute('role', 'alert');
+
+        alert.textContent = 'Inserisci username e password';
+
+        const closeButton = document.createElement('button');
+        closeButton.classList.add('btn-close');
+        closeButton.setAttribute('type', 'button');
+        closeButton.setAttribute('data-bs-dismiss', 'alert');
+        closeButton.setAttribute('aria-label', 'Chiudi');
+        alert.appendChild(closeButton);
+
+        alertContainer.appendChild(alert);
+    }
+});
+</script>

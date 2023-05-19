@@ -22,7 +22,7 @@ if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
 
     if($query){
         
-        header("Location: categorie.php?msg=Transazione inserita correttamente");
+        header("Location: categorie.php?msg= inserito una nuova categoria");
     } else{
         header("Location: categorie.php?error=Qualcosa è andato storto :(");
     }
@@ -47,7 +47,7 @@ if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
 
     if($query){
         
-        header("Location: categorie.php?msg=Transazione inserita correttamente");
+        header("Location: categorie.php?msg= inserito una nuova categoria");
     } else{
         header("Location: categorie.php?error=Qualcosa è andato storto :(");
     }
