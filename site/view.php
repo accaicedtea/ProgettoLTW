@@ -17,7 +17,7 @@
                     <div class="card shadow">
                         <?php if(isset($_GET['error'])){ ?>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>Non grandioso! </strong><?php echo $_GET['error']; ?>
+                            <strong>Errore </strong><?php echo $_GET['error']; ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <?php }else if(isset($_GET['msg'])){?>
@@ -26,9 +26,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <?php }?>
-                        <p class="h3 text-center mb-3 mt-3">Visualizzazione utenti registrati</p>
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Tabella utenti</p>
+                            <p class="text-primary m-0 fw-bold">Tabella utenti registrati</p>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -61,28 +60,28 @@
                                                 foreach ($tuples as $tuple) { 
                                                     ?>
                                             <tr class="table-<?php if($tuple['sesso']==0) echo 'dark';?>">
-                                                <td scope="row">
+                                                <td scope="row" data-label="Username">
                                                     <p><?php echo $tuple['username'];?></p>
                                                 </td>
-                                                <td >
+                                                <td data-label="Nome">
                                                     <p><?php echo $tuple['nome'];?></p>
                                                 </td>
-                                                <td >
+                                                <td data-label="Cognome">
                                                     <p><?php echo $tuple['cognome'];?></p>
                                                 </td>
-                                                <td >
+                                                <td data-label="Data di nascita">
                                                     <p><?php echo $tuple['dataN'];?></p>
                                                 </td>
-                                                <td >
+                                                <td data-label="Sesso">
                                                     <p><?php echo ($tuple['sesso']==1) ? "Uomo" : "Donna";?></p>
                                                 </td>
-                                                <td>
+                                                <td data-label="Nazionalità">
                                                     <p><?php echo $tuple['nazionalita'];?></p>
                                                 </td>
-                                                <td >
+                                                <td data-label="Email">
                                                     <p><?php echo $tuple['email'];?></p>
                                                 </td>
-                                                <td class="text-center ">
+                                                <td class="text-center" data-label="Blocca utente">
                                                     <?php 
                                                         $un = $tuple['username'];
                                                         $sql = "SELECT password from utente WHERE username='$un'";
@@ -103,7 +102,7 @@
                                                     </form>
                                                     <?php }?>
                                                 </td>
-                                                <td class="text-center ">
+                                                <td class="text-center" data-label="Elimina utente">
                                                     <button type="button" name="<?php echo $tuple['username'];?>" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteUser<?php echo $i?>">Elimina utente</button>
 
                                                     <!-- Modal elimina utente -->

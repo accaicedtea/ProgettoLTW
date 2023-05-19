@@ -570,3 +570,7 @@ h3 em {
         width: 100%;
     } 
 }
+
+.justify {
+    text-align: justify;
+}

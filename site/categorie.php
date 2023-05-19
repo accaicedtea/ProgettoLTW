@@ -26,9 +26,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <?php }?>
-                        <p class="h3 text-center mb-3 mt-3">Visualizzazione categorie registrate</p>
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Tabella categorie</p>
+                            <p class="text-primary m-0 fw-bold">Tabella categorie registrate</p>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -103,14 +102,14 @@
                                                 foreach ($tuples as $tuple) { 
                                                     ?>
                                             <tr class="table" >
-                                                <td scope="row">
+                                                <td scope="row" data-label="Nome">
                                                     <p><?php echo $tuple['nome'];?></p>
                                                 </td>
-                                                <td style="background-color: <?php echo $tuple['colore'];?>">
+                                                <td style="background-color: <?php echo $tuple['colore'];?>" data-label="Colore">
                                                     <p><?php echo $tuple['colore'];?></p>
                                                 </td>
                                                 <!-- td della modifica -->
-                                                <td class="text-center" >
+                                                <td class="text-center" data-label="Azione">
                                                         <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditEntry<?php echo $i?>">
                                                             Modifica
                                                         </button>

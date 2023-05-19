@@ -31,7 +31,7 @@ function p($data,$patt){
 
     $saldo =$_POST['saldo'];
     $saldo= p($saldo,"/[0-9]{1,32}/");
-    if($password==md5($_POST['passwordC'])){
+    if($encrypted_pwd==md5($_POST['passwordC'])){
         $sql = "INSERT INTO utente  VALUES ('$username', '$nome', '$cognome','$sesso','$nazionalita','$dataN', '$email' ,'$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg','$saldo')";
 
         if(mysqli_query($conn, $sql)){   
