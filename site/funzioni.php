@@ -1152,7 +1152,7 @@ function risparmio($conn) {
         }
         for($k = 0; $k < $giorni_mese; $k++) {
             $risparmio += $array_dati[$k];
-            array_push($array_risparmio, doubleval($risparmio));
+            array_push($array_risparmio, doubleval(-1*$risparmio));
         }
     }
     return json_encode($array_risparmio);
