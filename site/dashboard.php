@@ -18,27 +18,27 @@
 <body>
     <div class="container-fluid ">
         <div class="row justify-content-center mt-3 ">
-            <div id="saldo_attuale" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
+            <div id="saldo_attuale" class="col-auto lg-3 card shadow border-secondary me-2 mt-2 pupup">
                 <p class="fs-5 mt-2"><strong>Saldo attuale </strong></p>
                 <span class="border-bottom"></span>
                 <!--Entrate mensili da database-->
             </div>
-            <div id="entrate_mensili" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
+            <div id="entrate_mensili" class="col-auto lg-3 card shadow border-secondary me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Entrate mensili </p>
                 <span class="border-bottom"></span>
                 <!--Entrate mensili da database-->
             </div>
-            <div id="uscite_mensili" class="col-auto  lg-3 card shadow me-2 mt-2 pupup">
+            <div id="uscite_mensili" class="col-auto  lg-3 card shadow border-secondary me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Uscite mensili</p>
                 <span class="border-bottom"></span>
                 <!--Uscite mensili da database-->
             </div>
-            <div id="entrate_annuali" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
+            <div id="entrate_annuali" class="col-auto lg-3 card shadow border-secondary me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Entrate annuali</p>
                 <span class="border-bottom"></span>
                 <!--Entrate annuali da database-->
             </div>
-            <div id="uscite_annuali" class="col-auto lg-3 card shadow me-2 mt-2 pupup">
+            <div id="uscite_annuali" class="col-auto lg-3 card shadow border-secondary me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Uscite annuali</p>
                 <span class="border-bottom"></span>
                 <!--uscite annuali da database-->
@@ -49,7 +49,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class=" col-md-6 mt-5 ">
-                <div class="card border-success mb-3 card-high shadow hi-top" >
+                <div class="card border-secondary mb-3 card-high shadow hi-top" >
                     <div class="card-header"><p class="text-dark m-0" ><strong>Percentuali uscite di <?php if (date("m") == "01") echo "gennaio";if (date("m") == "02") echo "febbraio";if (date("m") == "03") echo "marzo";if (date("m") == "04") echo "aprile";if (date("m") == "05") echo "maggio";if (date("m") == "06") echo "giugno";if (date("m") == "07") echo "luglio";if (date("m") == "08") echo "agosto";if (date("m") == "09") echo "settembre";if (date("m") == "10") echo "ottobre";if (date("m") == "11") echo "novembre";if (date("m") == "12") echo "dicembre";?></strong></p></div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
@@ -101,7 +101,7 @@
 
 
             <div class="col-md-6 mt-5 ">
-                <div class="card border-success mb-3 card-high shadow " >
+                <div class="card border-secondary mb-3 card-high shadow " >
                     <div class="card-header"><p class="text-dark m-0" ><strong>Entrate di questo mese</strong></p></div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
@@ -152,7 +152,7 @@
 
         <div class="row mb-5">
             <div class="col-md-6" >
-                <div class="card border-success mb-3 card-high shadow" >
+                <div class="card border-secondary mb-3 card-high shadow" >
                     <div class="card-header"><p class="text-dark m-0" ><strong>Spese durante l'anno</strong></p></div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
@@ -218,7 +218,7 @@
                 </div> 
             </div>
             <div class="col-md-6">
-                <div class="card border-success shadow card-high">
+                <div class="card border-secondary shadow card-high">
                     <div class="card-header">
                         <p class="text-dark m-0" ><strong>Le prossime scadenze </strong></p>
                     </div>

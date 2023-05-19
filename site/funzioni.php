@@ -1277,7 +1277,7 @@ function navBar($pagina,$txt)
     <?php } ?>
     <!-- testo ad ogni inizio pagina -->
     <div class="container mt-5 popup">
-    <div class="card shadow">
+    <div class="card shadow border-secondary">
         <div class="one">
             <h3 class="text-center mb-3 mt-3"><?php echo $txt;?></h3>
         </div>
