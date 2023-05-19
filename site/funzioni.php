@@ -1344,7 +1344,7 @@ function navBar($pagina,$txt)
         
     }
 </style>  
-    <button onclick="topFunction()" id="topButton" title="Go to top"><i class="fas fa-chevron-up"></i></button>
+    <button onclick="topFunction()" id="topButton" title="Vai su"><i class="fas fa-chevron-up"></i></button>
 
 <script>
 window.onscroll = function() {scrollFunction()};
