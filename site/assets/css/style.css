@@ -27,6 +27,7 @@
 
 body {
     animation: cambia-colore 10s ease-in-out infinite;
+    overflow-x: hidden;
 }
 
 

@@ -377,7 +377,7 @@ function column_sesso_uscite($conn, $sesso){
     $result = $conn->query($sql);
     if ($result->num_rows >= 0) {
         while($row = $result->fetch_assoc()) {
-            array_push($arr, round(doubleval($row['media']),2));
+            array_push($arr, abs(round(doubleval($row['media']),2)));
             array_push($arr_eta, $row['eta_eta']);
         }
         $i = 0;
@@ -388,7 +388,7 @@ function column_sesso_uscite($conn, $sesso){
                 array_push($array_res, doubleval('0'));
             }
             else {
-                array_push($array_res, round(doubleval($arr[$j]),2));
+                array_push($array_res, abs(round(doubleval($arr[$j]),2)));
                 $j++;
             }
             $i++;
