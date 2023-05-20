@@ -91,44 +91,47 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
             goto Error;
         }
     }
+        if ($flag != 0) echo "<script>window.location.href=' profile.php?msg=Profilo aggiornato correttemente correttamente'</script>";
+        else echo "<script>window.location.href=' profile.php?msg=Nulla è stato cambiato gg'</script>";
+        A:
+            echo "<script>window.location.href=' Login.php?msg=Password aggiornata correttamente. Devi accedere di nuovo'</script>";
+        Error:
+            echo "<script>window.location.href=' profile.php?error=Qualcosa è andato storto'</script>";
+} else if (isset($_SESSION['adminLog']) && $_SESSION['adminLog'] == 'daje') {
+    echo "sono dentro";
+    print_r($_POST);
+    $nome = validate($_POST['nome']);
+    $pasw = validate($_POST['password']);
+    $paswC = validate($_POST['passwordC']);
+    $sus = $_SESSION['username'];
+    $spw = $_SESSION['password'];
+    $flag = 0;
+    if (!empty($nome) && $nome != $_SESSION['nome']) {
+        echo "il nome non è vuoto e != dal nome di sessione";
+        $nome = p($nome, "/[A-Za-z ]{1,32}/");
+        $sql = "UPDATE admin SET nome='$nome' WHERE id='$sus' AND password='$spw'";
+        if ((mysqli_query($conn, $sql))) {
+            $_SESSION['nome'] = $nome;
+            $flag+= 1;
+        } else goto Error;
+    }
+    if (!empty($pasw) && !empty($paswC) && $pasw == $paswC && md5($pasw)!=$spw) {
+        $pasw = p($pasw, "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
+        $password = md5($pasw);
+        $sql = "UPDATE admin SET password='$password' WHERE id='$sus' AND password='$spw'";
+        if ((mysqli_query($conn, $sql))) {
+            $_SESSION['password'] = $password;
+            $flag+= 1;
+            log_out($conn); 
+            goto A;
+        } else {
+            goto Error;
+        }
+    }
     if ($flag != 0) echo "<script>window.location.href=' profile.php?msg=Profilo aggiornato correttemente correttamente'</script>";
     else echo "<script>window.location.href=' profile.php?msg=Nulla è stato cambiato gg'</script>";
-    A:
-        echo "<script>window.location.href=' Login.php?msg=Password aggiornata correttamente DEVI RIACCEDERE'</script>";
-    Error:
-        echo "<script>window.location.href=' profile.php?error=Qualcosa è andato storto'</script>";
-    } else if (isset($_SESSION['adminLog']) && $_SESSION['adminLog'] == 'daje') {
-            $nome = validate($_POST['nome']);
-            $pasw = validate($_POST['password']);
-            $paswC = validate($_POST['passwordC']);
-            $sus = $_SESSION['username'];
-            $spw = $_SESSION['password'];
-            $flag = 0;
-            if (!empty($nome) && $nome != $_SESSION['nome']) {
-                $nome = p($nome, "/[A-Za-z ]{1,32}/");
-                $sql = "UPDATE admin SET nome='$nome' WHERE id='$sus' AND password='$spw'";
-                if ((mysqli_query($conn, $sql))) {
-                    $_SESSION['nome'] = $nome;
-                    $flag+= 1;
-                } else goto Error;
-            }
-            if (!empty($pasw) && !empty($paswC) && md5($pasw) != $_SESSION['password'] && $pasw == $paswC) {
-                $pasw = p($pasw, "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
-                $password = md5($pasw);
-                $sql = "UPDATE admin SET password='$password' WHERE username='$sus' AND password='$spw'";
-                if ((mysqli_query($conn, $sql))) {
-                    $_SESSION['password'] = $password;
-                    $flag+= 1;
-                    log_out($conn);
-                    goto A;
-                } else {
-                    goto Error;
-                }
-            }
-            if ($flag != 0) echo "<script>window.location.href=' profile.php?msg=Profilo aggiornato correttemente correttamente'</script>";
-            else echo "<script>window.location.href=' profile.php?msg=Nulla è stato cambiato gg'</script>";
-        } else {
-            header("Location: index.php");
-        }
+} else {
+    header("Location: index.php");
+}
 ?>
 
