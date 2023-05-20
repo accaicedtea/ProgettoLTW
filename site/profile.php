@@ -212,7 +212,7 @@ function esportaCSV() {
                         <p class="text-primary m-0 fw-bold text-start">Informazioni personali <i class="bi bi-person-fill"></i></i></p>
                     </div>
                     <div class="card-body ">
-                        <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
+                        <form action="./change_profile.php" method="post" id="my-form" name="form-change-profile" class="form-change-profile">
                             <div class="row">
                                 <div class="col">
                                     
@@ -266,7 +266,7 @@ function esportaCSV() {
                                     </div>
 
                                     <div>
-                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                        <button  id="submit-button-info" class="btn btn-primary btn-sm">Salva cambiamenti</button>
                                     </div>  
 
                                         
@@ -287,7 +287,7 @@ function esportaCSV() {
                                 <div class="col">
                                     
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control " id="saldo" name="saldo" onchange="validaInput('saldo','[0-9]{1,32}')" pattern="[0-9]]{1,32}">
+                                        <input type="text" class="form-control " id="saldo" name="saldo" onchange="validaInput('saldo','[0-9]{1,32}')" pattern="[0-9]{1,32}">
                                         <label for="saldo">Saldo</label>
                                     </div>
 
@@ -308,7 +308,7 @@ function esportaCSV() {
                                     </div> 
                                     
                                     <div>
-                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                        <button id="submit-button-data" class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
                                     </div>       
                                 </div>
                             </div>
@@ -401,30 +401,47 @@ function validaInput(id,pattern){
 }
 
 var form = document.getElementById("my-form");
-var submitButton = document.getElementById("submit-button");
+var submitButtonInfo = document.getElementById("submit-button-info");
+var submitButtonData = document.getElementById("submit-button-data");
 
-submitButton.addEventListener("click", function() {
+submitButtonInfo.addEventListener("click", function() {
   // Controlla la validità del form
-    if (form.checkValidity()) {
-        form.submit();
-    }else{
-        const alertContainer = document.querySelector('#alert-container');
-
-        const alert = document.createElement('div');
-        alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
-        alert.setAttribute('role', 'alert');
-
-        alert.textContent = 'Le password devono essere uguali';
-
-        const closeButton = document.createElement('button');
-        closeButton.classList.add('btn-close');
-        closeButton.setAttribute('type', 'button');
-        closeButton.setAttribute('data-bs-dismiss', 'alert');
-        closeButton.setAttribute('aria-label', 'Chiudi');
-        alert.appendChild(closeButton);
-
-        alertContainer.appendChild(alert);
+    var passed = true;
+    let nazioni = <?=getJsonStati($conn);?>;
+    var dataN = new Date(document.getElementById("dataN").value);
+    if (document.getElementById("nome").value == "") {
+        console.log("daje");
+        passed = false;
     }
+    if (document.getElementById("cognome").value == "") {
+        passed = false;
+    }
+    if (document.getElementById("nazionalita").value == "" || nazioni.indexOf(document.getElementById("nazionalita").value) == -1) {
+        document.getElementById("nazionalita").classList.add("is-invalid");
+        passed =  false;
+    }
+    if (document.getElementById("dataN").value== "") {
+        document.getElementById("dataN").classList.add("is-invalid");
+        passed =  false;
+    }
+    if (today.getFullYear() - dataN.getFullYear() < 14) {
+        document.getElementById("dataN").classList.add("is-invalid");
+        passed =  false;
+    }
+    if (today.getFullYear() - dataN.getFullYear() == 14) {
+        if(today.getMonth() < dataN.getMonth()) {
+            document.getElementById("dataN").classList.add("is-invalid");
+            passed =  false;
+        }
+        if(today.getMonth() == dataN.getMonth()) {
+            if (today.getDate() < dataN.getDate()) {
+                document.getElementById("dataN").classList.add("is-invalid");
+                passed =  false;
+            }
+        }
+    }
+    if (passed) form.submit();
+    else return false;
 });
 </script>
 <?php }else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){

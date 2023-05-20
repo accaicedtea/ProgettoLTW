@@ -120,7 +120,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
                     $_SESSION['password'] = $password;
                     $flag+= 1;
                     log_out($conn);
-                    gotoA;
+                    goto A;
                 } else {
                     goto Error;
                 }

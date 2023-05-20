@@ -251,7 +251,7 @@ function esportaCSV() {
 
                                     <div class="mb-3">    
                                         <label><strong>Nazionalità</strong> </label>
-                                        <input class="form-control " list="selectNazi" name="nazionalita"  id="nazionalita" >
+                                        <input class="form-control " list="selectNazi" name="nazionalita"  id="nazionalita" onchange="validaNazionalita();">
                                         
                                         <datalist id="selectNazi">
                                         
@@ -266,7 +266,7 @@ function esportaCSV() {
                                     </div>
 
                                     <div>
-                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                        <button class="btn btn-primary btn-sm" id="submit-button-info">Salva cambiamenti</button>
                                     </div>  
 
                                         
@@ -287,7 +287,7 @@ function esportaCSV() {
                                 <div class="col">
                                     
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control " id="saldo" name="saldo" onchange="validaInput('saldo','[0-9]{1,32}')" pattern="[0-9]]{1,32}">
+                                        <input type="text" class="form-control " id="saldo" name="saldo" onchange="validaInput('saldo','[0-9]{1,32}\.[0-9]{2}')" pattern="[0-9]{1,32}\.[0-9]{2}">
                                         <label for="saldo">Saldo</label>
                                     </div>
 
@@ -298,17 +298,17 @@ function esportaCSV() {
                                         
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
-                                        <label for="cognome">Password</label>
+                                        <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
+                                        <label for="password">Password</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="password" class="form-control " id="passwordC" name="passwordC" placeholder="passwordC" onchange="validaInput('passwordC','[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
-                                        <label for="cognome">Conferma password</label>
+                                        <input type="password" class="form-control " id="passwordC" name="passwordC" placeholder="passwordC" onchange="validaInput('passwordC','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
+                                        <label for="passwordC">Conferma password</label>
                                     </div> 
                                     
                                     <div>
-                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                        <button class="btn btn-primary btn-sm" id="submit-button-data">Salva cambiamenti</button>
                                     </div>       
                                 </div>
                             </div>
@@ -399,32 +399,79 @@ function validaInput(id,pattern){
     input.classList.remove("is-invalid");
     return true;
 }
+function validaNazionalita() {
+    if (document.getElementById("nazionalita").classList.contains("is-invalid")) document.getElementById("nazionalita").classList.remove("is-invalid");
+    return true;
+}
 
 var form = document.getElementById("my-form");
-var submitButton = document.getElementById("submit-button");
+var submitButtonInfo = document.getElementById("submit-button-info");
+var submitButtonData = document.getElementById("submit-button-data");
 
-submitButton.addEventListener("click", function() {
+submitButtonInfo.addEventListener("click", function() {
   // Controlla la validità del form
-    if (form.checkValidity()) {
-        form.submit();
-    }else{
-        const alertContainer = document.querySelector('#alert-container');
-
-        const alert = document.createElement('div');
-        alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
-        alert.setAttribute('role', 'alert');
-
-        alert.textContent = 'Le password devono essere uguali';
-
-        const closeButton = document.createElement('button');
-        closeButton.classList.add('btn-close');
-        closeButton.setAttribute('type', 'button');
-        closeButton.setAttribute('data-bs-dismiss', 'alert');
-        closeButton.setAttribute('aria-label', 'Chiudi');
-        alert.appendChild(closeButton);
-
-        alertContainer.appendChild(alert);
+    var passed_info = true;
+    let nazioni = <?=getJsonStati($conn);?>;
+    var dataN = new Date(document.getElementById("dataN").value);
+    var today = new Date();
+    var password = document.getElementById("password");
+    var password_regex = RegExp("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+    if (document.getElementById("nome").value == "") {
+        document.getElementById("nome").classList.add("is-invalid");
+        passed_info = false;
     }
+    if (document.getElementById("cognome").value == "") {
+        document.getElementById("cognome").classList.add("is-invalid");
+        passed_info = false;
+    }
+    if (document.getElementById("nazionalita").value == "" || nazioni.indexOf(document.getElementById("nazionalita").value) == -1) {
+        document.getElementById("nazionalita").classList.add("is-invalid");
+        passed_info =  false;
+    }
+    if (document.getElementById("dataN").value== "") {
+        document.getElementById("dataN").classList.add("is-invalid");
+        passed_info =  false;
+    }
+    if (today.getFullYear() - dataN.getFullYear() < 14) {
+        document.getElementById("dataN").classList.add("is-invalid");
+        passed_info =  false;
+    }
+    if (today.getFullYear() - dataN.getFullYear() == 14) {
+        if(today.getMonth() < dataN.getMonth()) {
+            document.getElementById("dataN").classList.add("is-invalid");
+            passed_info =  false;
+        }
+        if(today.getMonth() == dataN.getMonth()) {
+            if (today.getDate() < dataN.getDate()) {
+                document.getElementById("dataN").classList.add("is-invalid");
+                passed_info =  false;
+            }
+        }
+    }
+    if (passed_info) form.submit();
+    else return false;
+});
+submitButtonData.addEventListener("click", function() {
+  // Controlla la validità del form
+    var passed_data = true;
+    if (document.getElementById("saldo").value == "" || isNan(document.getElementById("saldo").value)) {
+        document.getElementById("saldo").classList.add("is-invalid");
+        passed_data = false;
+    }
+    if (document.getElementById("email").value == "") {
+        document.getElementById("email").classList.add("is-invalid");
+        passed_data = false;
+    }
+    if (!password.match(password_regex)) {
+        document.getElementById("password").classList.add("is-invalid");
+        passed_data =  false;
+    }
+    if (document.getElementById("password").value != document.getElementById("passwordC").value || document.getElementById("passwordC").value == "") {
+        document.getElementById("passwordC").classList.add("is-invalid");
+        passed_data =  false;
+    }
+    if (passed_data) form.submit();
+    else return false;
 });
 </script>
 <?php }else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){

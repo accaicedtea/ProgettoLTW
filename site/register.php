@@ -192,7 +192,7 @@ var submitButton = document.getElementById("submit-button");
 
 submitButton.addEventListener("click", function() {
   // Controlla la validità del form
-    var password_regex = RegExp("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
+    var password_regex = RegExp("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
     var password = document.formreg.password.value;
     var today = new Date();
     var dataN = new Date(document.formreg.dataN.value);
