@@ -552,7 +552,7 @@ submitButton.addEventListener("click", function() {
     var password = form.password.value;
     var passwordC = form.passwordC.value;
     var passed = true;
-   
+   // da sistemare
     if (password==""){
         document.getElementById("password").classList.add("is-invalid");
         passed =  false;
