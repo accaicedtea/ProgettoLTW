@@ -17,7 +17,7 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col">
-                                    <div class="card shadow mb-3 mt-4 card-log-effect">
+                                    <div class="card shadow mb-3 mt-4  border-secondary card-log-effect">
                                         <?php if(isset($_GET['error'])){ ?>
                                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             <strong>Cavolini! </strong><?php echo $_GET['error']; ?>

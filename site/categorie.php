@@ -14,10 +14,10 @@
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content-fluid">
                 <div class="container-fluid mt-5">
-                    <div class="card shadow">
+                    <div class="card shadow border-secondary">
                         <?php if(isset($_GET['error'])){ ?>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>Non grandioso! </strong><?php echo $_GET['error']; ?>
+                            <strong>Errore! </strong><?php echo $_GET['error']; ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <?php }else if(isset($_GET['msg'])){?>

@@ -15,7 +15,7 @@ if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         $query2 = mysqli_query($conn, $sql);
         if($query2){
-            header("Location: categorie.php?msg=modificato la categoria");
+            header("Location: categorie.php?msg=cancellato la categoria");
         }else{
             header("Location: categorie.php?error=Qualcosa è andato storto :(");
         }

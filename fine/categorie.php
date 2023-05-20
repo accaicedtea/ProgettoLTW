@@ -14,7 +14,7 @@
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content-fluid">
                 <div class="container-fluid mt-5">
-                    <div class="card shadow">
+                    <div class="card shadow border-secondary">
                         <?php if(isset($_GET['error'])){ ?>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <strong>Non grandioso! </strong><?php echo $_GET['error']; ?>
@@ -59,14 +59,6 @@
                                                                             <div class="col">
                                                                                 <div class="mb-3"><label class="form-label" for="color"><strong>Colore</strong></label><input class="form-control form-control-color" type="color" id="colore_add"  name="colore_add" ></div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label" for="immagine">
-                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_add" name="img_add">                                                                                </div>
-                                                                            </div>
-
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -138,15 +130,7 @@
                                                                             <div class="col">
                                                                                 <div class="mb-3"><label class="form-label" for="color"><strong>Colore</strong></label><input class="form-control form-control-color" type="color" id="colore_edit" value="<?php echo $tuple['colore'];?>" name="colore_edit" ></div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label" for="immagine">
-                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_edit" value="<?php echo $tuple['img'];?>" name="img_edit">                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                        </div>                                                                    </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                                                                         <input type="submit" class="btn btn-primary" value="Salva modifiche">
@@ -157,14 +141,14 @@
                                                     </div>
                                                     </td>
                                                     <td class="text-center" data-label="Elimina categoira">
-                                                    <button type="button" name="<?php echo $tuple['id'];?>" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteUser<?php echo $i?>">Elimina utente</button>
+                                                    <button type="button" name="<?php echo $tuple['id'];?>" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteUser<?php echo $i?>">Elimina categoria</button>
 
-                                                    <!-- Modal elimina utente -->
+                                                    <!-- Modal Elimina categoria -->
                                                     <div class="modal fade" id="modalDeleteUser<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Elimina definitivamente un utente</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Elimina definitivamente una categoria</h5>
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <!-- INIZIO FORM -->
