@@ -6,9 +6,9 @@
     ?>   
 <body id="page-top">
     <?php 
-        navBar($pagina,"Gestisci le categorie");
+        
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
-           
+            navBar($pagina,"Gestisci le categorie");
         ?>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
@@ -199,10 +199,8 @@
         </div>
     </div>
 </body>
-<?php }else {
-        log_out($conn);
-        header("Location: login.php?error=ma che stavi a provà a fa limortaaaaa");
-        
+<?php } else {
+        header("Location: login.php?error=Devi prima accedere");     
     } ?>
 
 

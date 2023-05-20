@@ -108,14 +108,14 @@ La Dashboard ti fornirà una visione d'insieme delle tue spese e guadagni immine
 </body>
 
 <script>
-$(document).ready(function(){
-  $(".btn1").click(function(){
-    $("#conenuto").slideToggle();
-    $("#sipario").slideToggle();
+  $(document).ready(function(){
+    $(".btn1").click(function(){
+      $("#conenuto").slideToggle();
+      $("#sipario").slideToggle();
+    });
+    $(".btn2").click(function(){
+      $("#conenuto").slideToggle();
+      $("#sipario").slideToggle();
+    });
   });
-  $(".btn2").click(function(){
-    $("#conenuto").slideToggle();
-    $("#sipario").slideToggle();
-  });
-});
 </script>
