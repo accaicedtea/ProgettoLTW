@@ -484,7 +484,7 @@ submitButton.addEventListener("click", function() {
                         <p class="text-primary m-0 fw-bold text-start">Cambia informazioni utente <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div class="card-body ">
-                        <form id="my-form" action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
+                        <form id="my-form" action="#" method="post" name="form-change-profile" class="form-change-profile">
                             <div class="row">
                                 <div class="col">
                                     
@@ -501,7 +501,7 @@ submitButton.addEventListener("click", function() {
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="password" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC" >
+                                        <input type="password" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC">
                                         <label id="msgErrore"for="cognome">Conferma password</label>
                                     </div> 
 
@@ -541,34 +541,34 @@ function validaInput(id,pattern){
     return true;
 }
 
+
 </script>
 <script>
 var form = document.getElementById("my-form");
 var submitButton = document.getElementById("submit-button");
-
 submitButton.addEventListener("click", function() {
   // Controlla la validità del form
-    if (form.checkValidity()) {
-        form.submit();
-    }else{
-        const alertContainer = document.querySelector('#alert-container');
-
-        const alert = document.createElement('div');
-        alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
-        alert.setAttribute('role', 'alert');
-
-        alert.textContent = 'Le password devono essere uguali';
-
-        const closeButton = document.createElement('button');
-        closeButton.classList.add('btn-close');
-        closeButton.setAttribute('type', 'button');
-        closeButton.setAttribute('data-bs-dismiss', 'alert');
-        closeButton.setAttribute('aria-label', 'Chiudi');
-        alert.appendChild(closeButton);
-
-        alertContainer.appendChild(alert);
+    var password_regex = RegExp("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
+    var password = form.password.value;
+    var passwordC = form.passwordC.value;
+    var passed = true;
+   // da sistemare
+    if (password==""){
+        document.getElementById("password").classList.add("is-invalid");
+        passed =  false;
     }
+    if (!password.match(password_regex)) {
+        document.getElementById("password").classList.add("is-invalid");
+        passed =  false;
+    }
+    if (password != passwordC || passwordC == "") {
+        document.getElementById("passwordC").classList.add("is-invalid");
+        passed =  false;
+    }
+    //if (passed) form.submit();
+    else return false;
 });
+
 </script>
   <?php
     }else{
