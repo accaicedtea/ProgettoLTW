@@ -95,9 +95,9 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     else echo "<script>window.location.href=' profile.php?msg=Nulla è stato cambiato gg'</script>";
     A:
         echo "<script>window.location.href=' Login.php?msg=Password aggiornata correttamente DEVI RIACCEDERE'</script>";
-        Error:
-            echo "<script>window.location.href=' profile.php?error=Qualcosa è andato storto'</script>";
-        } else if (isset($_SESSION['adminLog']) && $_SESSION['adminLog'] == 'daje') {
+    Error:
+        echo "<script>window.location.href=' profile.php?error=Qualcosa è andato storto'</script>";
+    } else if (isset($_SESSION['adminLog']) && $_SESSION['adminLog'] == 'daje') {
             $nome = validate($_POST['nome']);
             $pasw = validate($_POST['password']);
             $paswC = validate($_POST['passwordC']);

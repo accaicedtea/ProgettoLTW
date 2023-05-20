@@ -484,7 +484,7 @@ submitButton.addEventListener("click", function() {
                         <p class="text-primary m-0 fw-bold text-start">Cambia informazioni utente <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div class="card-body ">
-                        <form id="my-form" action="#" method="post" name="form-change-profile" class="form-change-profile">
+                        <form id="my-form" action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
                             <div class="row">
                                 <div class="col">
                                     
@@ -501,7 +501,7 @@ submitButton.addEventListener("click", function() {
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC" >
+                                        <input type="password" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC" >
                                         <label id="msgErrore"for="cognome">Conferma password</label>
                                     </div> 
 
