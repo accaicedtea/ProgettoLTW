@@ -2,6 +2,7 @@
 
 require './funzioni.php';
 $conn = db_conn();
+print_r($_POST);
 if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
     $id = $_POST['id_rmw'];
 

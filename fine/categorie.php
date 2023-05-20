@@ -85,7 +85,8 @@
                                             <tr>
                                                 <th scope="col">Nome</th>
                                                 <th scope="col">Colore</th>
-                                                <th scope="col">Azioni categoria</th>
+                                                <th scope="col">Modifica categoria</th>
+                                                <th scope="col">Elimina categoria</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -154,9 +155,34 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                
                                                     </td>
+                                                    <td class="text-center" data-label="Elimina categoira">
+                                                    <button type="button" name="<?php echo $tuple['id'];?>" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteUser<?php echo $i?>">Elimina utente</button>
+
+                                                    <!-- Modal elimina utente -->
+                                                    <div class="modal fade" id="modalDeleteUser<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Elimina definitivamente un utente</h5>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <!-- INIZIO FORM -->
+                                                                    <form action="./categoria_elimina.php" method="post" name="edit_form">
+                                                                        <div class="row">
+                                                                            <p>Vuoi davvero eliminare <strong><?php echo $tuple['nome'];?></strong>?</p>
+                                                                            <input class="visually-hidden" type="text" name="id_rmw" value="<?php echo $tuple['id'];?>" readonly>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rinuncio</button>
+                                                                            <button type="submit" class="btn btn-danger">Si sono proprio sicuro di volere eliminare definitivamente questa categoria</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             <?php 
                                                 
