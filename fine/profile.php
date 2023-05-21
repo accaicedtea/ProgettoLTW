@@ -527,7 +527,7 @@ submitButtonData.addEventListener("click", function() {
                         <p class="text-primary m-0 fw-bold text-start">Cambia informazioni utente <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div class="card-body ">
-                        <form id="my-form" action="#" method="post" name="form-change-profile" class="form-change-profile">
+                        <form id="my-form" action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
                             <div class="row">
                                 <div class="col">
                                     
@@ -550,7 +550,7 @@ submitButtonData.addEventListener("click", function() {
 
                                     
                                     <div>
-                                        <button type="button" id="submit-button" class="btn btn-primary btn-sm">Salva cambiamenti</button>
+                                        <input type="button" id="submit-button" class="btn btn-primary btn-sm" value="Salva cambiamenti">
                                     </div>  
                                         
                                 </div>
@@ -596,19 +596,11 @@ submitButton.addEventListener("click", function() {
     var passwordC = form.passwordC.value;
     var passed = true;
    // da sistemare
-    if (password==""){
-        document.getElementById("password").classList.add("is-invalid");
-        passed =  false;
-    }
-    if (!password.match(password_regex)) {
-        document.getElementById("password").classList.add("is-invalid");
-        passed =  false;
-    }
-    if (password != passwordC || passwordC == "") {
+    if (password != passwordC) {
         document.getElementById("passwordC").classList.add("is-invalid");
         passed =  false;
     }
-    //if (passed) form.submit();
+    if (passed) form.submit();
     else return false;
 });
 
