@@ -212,7 +212,7 @@ function esportaCSV() {
                         <p class="text-primary m-0 fw-bold text-start">Informazioni personali <i class="bi bi-person-fill"></i></i></p>
                     </div>
                     <div class="card-body ">
-                        <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
+                        <form action="./change_profile.php" method="post" id="form-change" name="form-change-profile" class="form-change-profile needs-validation">
                             <div class="row">
                                 <div class="col">
                                     
@@ -404,7 +404,7 @@ function validaNazionalita() {
     return true;
 }
 
-var form = document.getElementById("my-form");
+var form = document.getElementById("form-change");
 var submitButtonInfo = document.getElementById("submit-button-info");
 var submitButtonData = document.getElementById("submit-button-data");
 
