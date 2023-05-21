@@ -123,7 +123,7 @@
                                                             <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" required>
                                                             <label for="passw">Password</label>
                                                         </div>
-                                                        <p class= "form-text requirements">La password deve essere composta da almeno una lettera minuscola, una lettera minuscola, un numero, un carattere speciale tra !@#$%^& e una lunghezza compresa tra 6 e 20 caratteri</p>
+                                                        <p class= "form-text requirements">La password deve essere composta da almeno una lettera minuscola, una lettera minuscola, un numero, un carattere speciale tra !@#$%^& e una lunghezza minima di 8 caratteri</p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
