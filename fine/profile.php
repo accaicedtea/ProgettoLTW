@@ -453,7 +453,7 @@ submitButtonData.addEventListener("click", function() {
   // Controlla la validità del form
     var passed_data = true;
     console.log(document.getElementById("saldo").value);
-    if (document.getElementById("saldo").value == "" || isNan(document.getElementById("saldo").value)) {
+    if (document.getElementById("saldo").value == "" || isNaN(document.getElementById("saldo").value)) {
         document.getElementById("saldo").classList.add("is-invalid");
         passed_data = false;
     }
@@ -466,8 +466,14 @@ submitButtonData.addEventListener("click", function() {
         document.getElementById("passwordC").classList.add("is-invalid");
         passed_data =  false;
     }
-    if (passed_data) formData.submit();
-    else return false;
+    if (passed_data){
+        console.log("PASSED");
+        formData.submit();
+    }
+    else{
+        console.log("NOT PASSED");
+        return false;
+    }
 });
 </script>
 <?php }else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
