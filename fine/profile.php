@@ -212,7 +212,7 @@ function esportaCSV() {
                         <p class="text-primary m-0 fw-bold text-start">Informazioni personali <i class="bi bi-person-fill"></i></i></p>
                     </div>
                     <div class="card-body ">
-                        <form action="./change_profile.php" method="post" id="form-change" name="form-change-profile" class="form-change-profile needs-validation">
+                        <form action="./change_profile.php" method="post" id="form-info" name="form-change-profile" class="form-change-profile needs-validation">
                             <div class="row">
                                 <div class="col"> 
                                     <div class="form-floating mb-3">
@@ -259,9 +259,9 @@ function esportaCSV() {
                                         <input type="date" class="form-control " id="dataN" name="dataN" required>
                                             
                                     </div>
-
+                                    <input type="text" class="d-none" name="butn" value="primo" >
                                     <div>
-                                        <button class="btn btn-primary btn-sm" id="submit-button-info">Salva cambiamenti</button>
+                                        <button type="button" class="btn btn-primary btn-sm" id="submit-button-info">Salva cambiamenti</button>
                                     </div>  
 
                                         
@@ -277,7 +277,7 @@ function esportaCSV() {
                         <p class="text-primary m-0 fw-bold text-start">Dati di accesso <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div class="card-body">
-                        <form action="./change_profile.php" method="post" id="form-change" name="form-change-profile" class="form-change-profile needs-validation">
+                        <form action="./change_profile.php" method="post" id="form-data" name="form-change-profile" class="form-change-profile needs-validation">
                             <div class="row">
                                 <div class="col">
                                     
@@ -301,7 +301,7 @@ function esportaCSV() {
                                         <input type="password" class="form-control " id="passwordC" name="passwordC" placeholder="passwordC" onchange="validaInput('passwordC','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
                                         <label for="passwordC">Conferma password</label>
                                     </div> 
-                                    
+                                    <input type="text" class="d-none" name="butn" value="mimmo" >
                                     <div>
                                         <button class="btn btn-primary btn-sm" id="submit-button-data">Salva cambiamenti</button>
                                     </div>       
@@ -339,7 +339,7 @@ function placeH() {
     document.getElementById("cognome").value = data[0]['cognome'];
     document.getElementById("dataN").value = data[0]['dataN'];
 
-    document.getElementById("nazionalita").placeholder = data[0]['nome_stati'];
+    document.getElementById("nazionalita").value = data[0]['nome_stati'];
     document.getElementById("saldo").value = data[0]["saldo_ini"];
     if(data[0]['sesso']==0){
         
@@ -398,7 +398,8 @@ function validaNazionalita() {
     return true;
 }
 
-var form = document.getElementById("form-change");
+var formInfo = document.getElementById("form-info");
+var formData = document.getElementById("form-data");
 var submitButtonInfo = document.getElementById("submit-button-info");
 var submitButtonData = document.getElementById("submit-button-data");
 
@@ -409,7 +410,6 @@ submitButtonInfo.addEventListener("click", function() {
     var dataN = new Date(document.getElementById("dataN").value);
     var today = new Date();
     var password = document.getElementById("password");
-    var password_regex = RegExp("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
     if (document.getElementById("nome").value == "") {
         document.getElementById("nome").classList.add("is-invalid");
         passed_info = false;
@@ -442,12 +442,13 @@ submitButtonInfo.addEventListener("click", function() {
             }
         }
     }
-    if (passed_info) form.submit();
+    if (passed_info) formInfo.submit();
     else return false;
 });
 submitButtonData.addEventListener("click", function() {
   // Controlla la validità del form
     var passed_data = true;
+    console.log(document.getElementById("saldo").value);
     if (document.getElementById("saldo").value == "" || isNan(document.getElementById("saldo").value)) {
         document.getElementById("saldo").classList.add("is-invalid");
         passed_data = false;
@@ -456,15 +457,12 @@ submitButtonData.addEventListener("click", function() {
         document.getElementById("email").classList.add("is-invalid");
         passed_data = false;
     }
-    if (!password.match(password_regex)) {
-        document.getElementById("password").classList.add("is-invalid");
-        passed_data =  false;
-    }
-    if (document.getElementById("password").value != document.getElementById("passwordC").value || document.getElementById("passwordC").value == "") {
+    
+    if (document.getElementById("password").value != document.getElementById("passwordC").value ) {
         document.getElementById("passwordC").classList.add("is-invalid");
         passed_data =  false;
     }
-    if (passed_data) form.submit();
+    if (passed_data) formData.submit();
     else return false;
 });
 </script>
@@ -548,7 +546,7 @@ submitButtonData.addEventListener("click", function() {
 
                                     
                                     <div>
-                                        <button id="submit-button" class="btn btn-primary btn-sm">Salva cambiamenti</button>
+                                        <button type="button" id="submit-button" class="btn btn-primary btn-sm">Salva cambiamenti</button>
                                     </div>  
                                         
                                 </div>
