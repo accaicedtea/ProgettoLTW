@@ -84,7 +84,7 @@
                                                 
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" required></div>
+                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" onchange="validaDataN()" required></div>
                                                         <!-- waring msg per data nascita-->
                                                         <p class= "form-text requirements">Devi avere più di 14 anni per registrati</p>
                                                     </div>
@@ -184,6 +184,10 @@ function validaInput(id,pattern){
 }
 function validaNazionalita() {
     if (document.formreg.nazionalita.classList.contains("is-invalid")) document.formreg.nazionalita.classList.remove("is-invalid");
+    return true;
+}
+function validaDataN() {
+    if (document.getElementById("dataN").classList.contains("is-invalid")) document.getElementById("dataN").classList.remove("is-invalid");
     return true;
 }
 

@@ -256,7 +256,7 @@ function esportaCSV() {
 
                                     <div class="mb-3">  
                                         <label for="dataN pb-2"><strong>Data di nascita</strong> </label>
-                                        <input type="date" class="form-control " id="dataN" name="dataN" required>
+                                        <input type="date" class="form-control " id="dataN" name="dataN" onchange="validaDataN()" required>
                                             
                                     </div>
                                     <input type="text" class="d-none" name="butn" value="primo" >
@@ -395,6 +395,10 @@ function validaInput(id,pattern){
 }
 function validaNazionalita() {
     if (document.getElementById("nazionalita").classList.contains("is-invalid")) document.getElementById("nazionalita").classList.remove("is-invalid");
+    return true;
+}
+function validaDataN() {
+    if (document.getElementById("dataN").classList.contains("is-invalid")) document.getElementById("dataN").classList.remove("is-invalid");
     return true;
 }
 
