@@ -214,20 +214,16 @@ function esportaCSV() {
                     <div class="card-body ">
                         <form action="./change_profile.php" method="post" id="form-change" name="form-change-profile" class="form-change-profile needs-validation">
                             <div class="row">
-                                <div class="col">
-                                    
+                                <div class="col"> 
                                     <div class="form-floating mb-3">
-                                        
-                                        <input type="text" class="form-control " name="nome" id="nome" placeholder="nome" onchange="validaInput('nome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}">
+                                        <input type="text" class="form-control " name="nome" id="nome" placeholder="nome" onchange="validaInput('nome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}" required>
                                         <label for="nome">Nome</label>
-                                        
                                     </div>
                                     <div class="form-floating pb-1">
-                                        <input type="text" class="form-control " name="cognome" id="cognome" placeholder="cognome" onchange="validaInput('cognome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}">
+                                        <input type="text" class="form-control " name="cognome" id="cognome" placeholder="cognome" onchange="validaInput('cognome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}" required>
                                         <label for="cognome">Cognome</label>
                                     </div> 
-                                    <div class="form-check ps-2 mb-2 radio-inputs">
-                                        
+                                    <div class="form-check ps-2 mb-2 radio-inputs"> 
                                         <label>
                                         <label><strong>Sesso</strong> </label>
                                             <input checked=""class="radio-input " type="radio" id="radio1" name="sesso" value="1">
@@ -248,10 +244,9 @@ function esportaCSV() {
                                             </span>
                                         </label>
                                     </div>
-
                                     <div class="mb-3">    
                                         <label><strong>Nazionalità</strong> </label>
-                                        <input class="form-control " list="selectNazi" name="nazionalita"  id="nazionalita" onchange="validaNazionalita();">
+                                        <input class="form-control " list="selectNazi" name="nazionalita"  id="nazionalita" onchange="validaNazionalita();" required>
                                         
                                         <datalist id="selectNazi">
                                         
@@ -261,7 +256,7 @@ function esportaCSV() {
 
                                     <div class="mb-3">  
                                         <label for="dataN pb-2"><strong>Data di nascita</strong> </label>
-                                        <input type="date" class="form-control " id="dataN" name="dataN" >
+                                        <input type="date" class="form-control " id="dataN" name="dataN" required>
                                             
                                     </div>
 
@@ -272,7 +267,7 @@ function esportaCSV() {
                                         
                                 </div>
                             </div>
-                        
+                        </form>
                     </div>
                 </div>
                 
@@ -282,7 +277,7 @@ function esportaCSV() {
                         <p class="text-primary m-0 fw-bold text-start">Dati di accesso <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div class="card-body">
-                        
+                        <form action="./change_profile.php" method="post" id="form-change" name="form-change-profile" class="form-change-profile needs-validation">
                             <div class="row">
                                 <div class="col">
                                     
@@ -315,7 +310,6 @@ function esportaCSV() {
                         </form>
                     </div>
                 </div>
-                
             </div>
             
 
@@ -559,7 +553,7 @@ submitButtonData.addEventListener("click", function() {
                                         
                                 </div>
                             </div>
-                        
+                        </form>
                     </div>
                 </div>
             </div>
