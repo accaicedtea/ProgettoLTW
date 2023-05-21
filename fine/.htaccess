@@ -3,10 +3,6 @@ DirectoryIndex index.php
 RewriteEngine On
 RewriteBase /
 
-# Rimuovi l'estensione .php e mostra altre pagine
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
 # Reindirizza a index.php quando non viene trovata una pagina
 RewriteCond %{REQUEST_FILENAME} !-f
