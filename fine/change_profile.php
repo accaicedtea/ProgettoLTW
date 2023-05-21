@@ -74,6 +74,15 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
         $paswC = validate($_POST['passwordC']);
         $saldo = validate($_POST['saldo']);
 
+        if (!empty($saldo) && $saldo != $_SESSION['saldo']) {
+            $saldo = p($saldo, "/[0-9]{1,32}/");
+            $sql = "UPDATE utente SET saldo_ini='$saldo' WHERE username='$sus' AND password='$spw'";
+            if ((mysqli_query($conn, $sql))) {
+                $_SESSION['saldo'] = $saldo;
+                $flag+= 1;
+            } else goto Error;
+        }
+
         if (!empty($email) && $email != $_SESSION['email']) {
             $email = p($email, "/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/");
             $sql = "UPDATE utente SET email='$email' WHERE username='$sus' AND password='$spw'";
@@ -83,15 +92,9 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
             } else goto Error;
         }
         
-        if (!empty($saldo) && $saldo != $_SESSION['saldo']) {
-            $saldo = p($saldo, "/[0-9]{1,32}/");
-            $sql = "UPDATE utente SET saldo_ini='$saldo' WHERE username='$sus' AND password='$spw'";
-            if ((mysqli_query($conn, $sql))) {
-                $_SESSION['saldo'] = $saldo;
-                $flag+= 1;
-            } else goto Error;
-        }
-        if (!empty($pasw) && !empty($paswC) && md5($pasw) != $_SESSION['password'] && $pasw == $paswC) {
+        
+        if (!empty($pasw) && !empty($paswC)  ) {
+            if(md5($pasw) != $_SESSION['password'] && $pasw == $paswC){
             $pasw = p($pasw, "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
             $password = md5($pasw);
             $sql = "UPDATE utente SET password='$password' WHERE username='$sus' AND password='$spw'";
@@ -103,11 +106,11 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
             } else {
                 goto Error;
             }
-        }else goto Error;
+            }
+        }
 
     }
 
-    
     if ($flag != 0) echo "<script>window.location.href=' profile.php?msg=Profilo aggiornato correttemente correttamente'</script>";
     else echo "<script>window.location.href=' profile.php?msg=Nulla è stato cambiato gg'</script>";
     A:
@@ -150,4 +153,3 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     header("Location: index.php");
 }
 ?>
-
