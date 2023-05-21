@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Mag 19, 2023 alle 18:37
+-- Creato il: Mag 20, 2023 alle 16:12
 -- Versione del server: 8.0.31
 -- Versione PHP: 8.0.26
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`id`, `nome`, `password`) VALUES
-('1941255', 'hasan', '0975af2aa2d9a0dc37610668371e9d05'),
+('1941255', 'hasan', 'd4901f64f4b3c29adafd1b257c6aa476'),
 ('1942925', 'Cristian', '0975af2aa2d9a0dc37610668371e9d05'),
 ('1957756', 'riccardo', '0975af2aa2d9a0dc37610668371e9d05');
 
@@ -55,23 +55,22 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `id` smallint NOT NULL,
   `nome` varchar(30) NOT NULL,
   `colore` varchar(7) NOT NULL,
-  `img` varchar(40) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `nome` (`nome`,`colore`,`img`)
+  UNIQUE KEY `nome` (`nome`,`colore`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dump dei dati per la tabella `categoria`
 --
 
-INSERT INTO `categoria` (`id`, `nome`, `colore`, `img`) VALUES
-(0, 'Altro', '#b5b5b3', 'hfeifhefhei'),
-(1, 'Casa', '#d77186', './img/'),
-(3, 'Cibo', '#61a2da', ''),
-(6, 'Risparmio', '#e68156', ''),
-(4, 'Salute e Cura Personale', '#dec23b', ''),
-(5, 'Stipendio', '#d5f5c3', ''),
-(2, 'Trasporti', '#A878CD', '');
+INSERT INTO `categoria` (`id`, `nome`, `colore`) VALUES
+(0, 'Altro', '#b5b5b3'),
+(1, 'Casa', '#d77186'),
+(3, 'Cibo', '#61a2da'),
+(6, 'Risparmio', '#e68156'),
+(4, 'Salute e Cura Personale', '#dec23b'),
+(5, 'Stipendio', '#d5f5c3'),
+(2, 'Trasporti', '#A878CD');
 
 -- --------------------------------------------------------
 
