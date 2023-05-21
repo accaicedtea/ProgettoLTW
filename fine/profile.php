@@ -261,7 +261,7 @@ function esportaCSV() {
                                     </div>
                                     <input type="text" class="d-none" name="butn" value="primo" >
                                     <div>
-                                        <button type="button" class="btn btn-primary btn-sm" id="submit-button-info">Salva cambiamenti</button>
+                                        <input type="button" class="btn btn-primary btn-sm" id="submit-button-info" value="Salva cambiamenti">
                                     </div>  
 
                                         
@@ -303,7 +303,7 @@ function esportaCSV() {
                                     </div> 
                                     <input type="text" class="d-none" name="butn" value="mimmo" >
                                     <div>
-                                        <button class="btn btn-primary btn-sm" id="submit-button-data">Salva cambiamenti</button>
+                                    <input type="button" class="btn btn-primary btn-sm" id="submit-button-data" value="Salva cambiamenti">
                                     </div>       
                                 </div>
                             </div>

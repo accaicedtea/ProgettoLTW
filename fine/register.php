@@ -255,10 +255,7 @@ submitButton.addEventListener("click", function() {
         passed =  false;
     }
     if (passed) form.submit();
-    else{
-        console.log("NOT PASSED");
-        return false;
-    }
+    else return false;
 });
 </script>
 
