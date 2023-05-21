@@ -91,7 +91,7 @@
                                                             $pass = $row['password'];
                                                         } 
                                                         if(substr($pass, -10)!='adminBlock'){?>
-                                                    <form action="./blocca_utente" method="post" name="form-block-user" class="form-block-user">
+                                                    <form action="./blocca_utente.php" method="post" name="form-block-user" class="form-block-user">
                                                         <input class="visually-hidden" type="text" id="username" name="blockthis" value="<?php echo $tuple['username'];?>" readonly>
                                                         <button type="submit"  class="btn btn-warning btn-sm">Blocca utente</button>
                                                     </form>

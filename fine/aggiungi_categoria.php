@@ -13,9 +13,9 @@ if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
     }   
 
     $nome =  $_POST['nome_add'];
-    $img =  $_POST['img_add'];
+   
     $colore =  $_POST['colore_add'];
-    $sql = "INSERT INTO categoria (id, nome, colore, img) VALUES ($id, '$nome', '$colore', '$img');";
+    $sql = "INSERT INTO categoria (id, nome, colore) VALUES ($id, '$nome', '$colore');";
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $query = mysqli_query($conn, $sql);
