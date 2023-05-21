@@ -136,7 +136,7 @@
                                                     </div>
                                                 </div>
                                                
-                                                    <div class="mb-3 text-center"><button id="submit-button" class="btn btn-primary zoom ">Registrati</button></div>
+                                                    <div class="mb-3 text-center"><input type="button" id="submit-button" class="btn btn-primary zoom " value="Registrati"></div>
                                                     </div>
                                                 </form>
                                         </div>
@@ -255,7 +255,10 @@ submitButton.addEventListener("click", function() {
         passed =  false;
     }
     if (passed) form.submit();
-    else return false;
+    else{
+        console.log("NOT PASSED");
+        return false;
+    }
 });
 </script>
 
