@@ -17,7 +17,7 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col">
-                                    <div class="card shadow mb-3 mt-4 card-log-effect">
+                                    <div class="card shadow mb-3 mt-4  border-secondary card-log-effect">
                                         <?php if(isset($_GET['error'])){ ?>
                                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             <strong>Cavolini! </strong><?php echo $_GET['error']; ?>
@@ -84,7 +84,7 @@
                                                 
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" required></div>
+                                                        <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" onchange="validaDataN()" required></div>
                                                         <!-- waring msg per data nascita-->
                                                         <p class= "form-text requirements">Devi avere più di 14 anni per registrati</p>
                                                     </div>
@@ -123,7 +123,7 @@
                                                             <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" required>
                                                             <label for="passw">Password</label>
                                                         </div>
-                                                        <p class= "form-text requirements">La password deve essere composta da almeno una lettera minuscola, una lettera minuscola, un numero, un carattere speciale tra !@#$%^& e una lunghezza compresa tra 6 e 20 caratteri</p>
+                                                        <p class= "form-text requirements">La password deve essere composta da almeno una lettera minuscola, una lettera minuscola, un numero, un carattere speciale tra !@#$%^& e una lunghezza minima di 8 caratteri</p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -136,7 +136,7 @@
                                                     </div>
                                                 </div>
                                                
-                                                    <div class="mb-3 text-center"><button id="submit-button" class="btn btn-primary zoom ">Registrati</button></div>
+                                                    <div class="mb-3 text-center"><input type="button" id="submit-button" class="btn btn-primary zoom " value="Registrati"></div>
                                                     </div>
                                                 </form>
                                         </div>
@@ -149,7 +149,7 @@
                 </div>
             </div>
             <!--goto top -->
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
     </div>
 </body>
 <script>
@@ -186,10 +186,15 @@ function validaNazionalita() {
     if (document.formreg.nazionalita.classList.contains("is-invalid")) document.formreg.nazionalita.classList.remove("is-invalid");
     return true;
 }
+function validaDataN() {
+    if (document.getElementById("dataN").classList.contains("is-invalid")) document.getElementById("dataN").classList.remove("is-invalid");
+    return true;
+}
 
 var form = document.getElementById("register-form");
 var submitButton = document.getElementById("submit-button");
 
+// inizio
 submitButton.addEventListener("click", function() {
   // Controlla la validità del form
     var password_regex = RegExp("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")

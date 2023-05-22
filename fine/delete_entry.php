@@ -1,36 +1,30 @@
 <?php
 
-    require './funzioni.php';
-    $conn = db_conn();
-    
+require './funzioni.php';
+$conn = db_conn();
+if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     $utente = $_SESSION['username'];
-    $id = $_POST['id_edit'];
-    $descrizione =  validate($_POST['description_edit']);
-    $data =  $_POST['date_edit'];
-    
-    if ($_POST['tipo_edit'] == 'entrata')
-        $importo =  validate($_POST['amount_edit']);
-    else $importo = -1 * validate($_POST['amount_edit']);
-    $categoria = validate($_POST['cat_edit']);
+    $id = $_POST['id_delete'];
 
-    $sql = "UPDATE spesa SET importo = '$importo', descrizione = '$descrizione', data = '$data', categoria = '$categoria' WHERE utente = '$utente' AND id = '$id'";
+    $sql = "select data FROM spesa WHERE id = '$id' AND utente = '$utente'";
+    $sql_data = mysqli_query($conn, $sql);
+    $data = mysqli_fetch_assoc($sql_data);
+    $sql = "DELETE FROM spesa WHERE id = '$id' AND utente = '$utente'";
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $query = mysqli_query($conn, $sql);
 
     if($query){
-        if($data<=date("Y-m-d")){
-            $msg="Transazione modificata correttamente";
+        //allora è una transazione normali
+        if($data['data']<=date("Y-m-d")){
+            $msg="Transazione eliminata correttamente";
             echo "<script>window.location.href=' transazioni.php?msg=$msg'</script>";
         }else{
         //allora è una scadenza
-            $msg="Scadenza modificata correttamente";
+            $msg="Scadenza eliminata correttamente";
             echo "<script>window.location.href=' scadenze.php?msg=$msg'</script>";
         }
-
-
-        //header("Location: transazioni.php?msg=$msg");
-    } else{
+    }else{
         //allora è una transazione normali
         if($data<=date("Y-m-d")){
             $msg="Qualcosa è andato storto";
@@ -40,7 +34,8 @@
             $msg="Qualcosa è andato storto";
             echo "<script>window.location.href=' scadenze.php?msg=$msg'</script>";
         }
-
     }
-
+}else{
+    header("Location: index.php");
+}
 ?>

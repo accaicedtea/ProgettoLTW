@@ -6,15 +6,15 @@
     ?>   
 <body id="page-top">
     <?php 
-        navBar($pagina,"Gestisci le categorie");
+        
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
-           
+            navBar($pagina,"Gestisci le categorie");
         ?>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content-fluid">
                 <div class="container-fluid mt-5">
-                    <div class="card shadow">
+                    <div class="card shadow border-secondary">
                         <?php if(isset($_GET['error'])){ ?>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <strong>Non grandioso! </strong><?php echo $_GET['error']; ?>
@@ -22,7 +22,7 @@
                         </div>
                         <?php }else if(isset($_GET['msg'])){?>
                         <div class="alert alert-info alert-dismissible fade show" role="alert">
-                            <strong>Operazione eseguita! hai correttamente</strong><?php echo $_GET['msg']; ?>
+                            <strong>Operazione eseguita! hai correttamente </strong><?php echo $_GET['msg']; ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <?php }?>
@@ -60,14 +60,6 @@
                                                                                 <div class="mb-3"><label class="form-label" for="color"><strong>Colore</strong></label><input class="form-control form-control-color" type="color" id="colore_add"  name="colore_add" ></div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label" for="immagine">
-                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_add" name="img_add">                                                                                </div>
-                                                                            </div>
-
-                                                                        </div>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
@@ -85,7 +77,8 @@
                                             <tr>
                                                 <th scope="col">Nome</th>
                                                 <th scope="col">Colore</th>
-                                                <th scope="col">Azioni categoria</th>
+                                                <th scope="col">Modifica categoria</th>
+                                                <th scope="col">Elimina categoria</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -137,15 +130,7 @@
                                                                             <div class="col">
                                                                                 <div class="mb-3"><label class="form-label" for="color"><strong>Colore</strong></label><input class="form-control form-control-color" type="color" id="colore_edit" value="<?php echo $tuple['colore'];?>" name="colore_edit" ></div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label" for="immagine">
-                                                                                        <strong>Immagine</strong></label><input class="form-control" type="text" id="img_edit" value="<?php echo $tuple['img'];?>" name="img_edit">                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                        </div>                                                                    </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                                                                         <input type="submit" class="btn btn-primary" value="Salva modifiche">
@@ -154,9 +139,34 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                
                                                     </td>
+                                                    <td class="text-center" data-label="Elimina categoira">
+                                                    <button type="button" name="<?php echo $tuple['id'];?>" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteUser<?php echo $i?>">Elimina categoria</button>
+
+                                                    <!-- Modal Elimina categoria -->
+                                                    <div class="modal fade" id="modalDeleteUser<?php echo $i; $i++;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Elimina definitivamente una categoria</h5>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <!-- INIZIO FORM -->
+                                                                    <form action="./categoria_elimina.php" method="post" name="edit_form">
+                                                                        <div class="row">
+                                                                            <p>Vuoi davvero eliminare <strong><?php echo $tuple['nome'];?></strong>?</p>
+                                                                            <input class="visually-hidden" type="text" name="id_rmw" value="<?php echo $tuple['id'];?>" readonly>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rinuncio</button>
+                                                                            <button type="submit" class="btn btn-danger">Si sono proprio sicuro di volere eliminare definitivamente questa categoria</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             <?php 
                                                 
@@ -173,10 +183,8 @@
         </div>
     </div>
 </body>
-<?php }else {
-        log_out($conn);
-        header("Location: login.php?error=ma che stavi a provà a fa limortaaaaa");
-        
+<?php } else {
+        header("Location: login.php?error=Devi prima accedere");     
     } ?>
 
 

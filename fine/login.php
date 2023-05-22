@@ -20,7 +20,7 @@
                         <div class="col-lg-6">
                             <div class="row">
                                 <div class="col">
-                                    <div class="card card-log-effect shadow mt-5 mb-3">
+                                    <div class="card card-log-effect shadow border-secondary mt-5 mb-3">
                                     
                                       <div row class="text-center">
                                       <div id="alert-container"></div>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
     </div>
 </body>
 

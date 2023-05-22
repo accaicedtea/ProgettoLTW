@@ -157,7 +157,7 @@
 
                 <div class="card shadow mb-3 leftToF-3 border-secondary">
                     <div class="card-header py-3">
-                        <p class="text-primary m-0 fw-bold text-start">Esporta <i class="bi bi-file-earmark-arrow-down"></i></p>
+                        <p class="text-primary m-0 fw-bold text-start">Esporta transazioni effettuate <i class="bi bi-file-earmark-arrow-down"></i></p>
                     </div>
                     <div class="card-body">
                         
@@ -177,57 +177,49 @@
                     </div>
                 </div>
             </div>
+    <script>
+        function exportJson(el) {
+            var obj = <?= getJsonSpese($conn);?>;
+            // Converti l'oggetto in un json in modo tale da portelo scaricare
+            var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
 
-<script>
-    function exportJson(el) {
-        var obj = <?= getJsonSpese($conn);?>;
-        //formattato
-        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj, null, 4));
+            // Aggiungi link x download al bottone
+            el.setAttribute("href", "data:"+data);
+            el.setAttribute("download", "tabellaJSON.json");    
+        }
+    </script>
+    <script>
+    function esportaCSV() {
+        const jsonData = <?= getJsonSpese($conn);?>;
+        ;
+        // Converti il JSON in CSV utilizzando Papa Parse
+        const csv = Papa.unparse(jsonData);
         
-        el.setAttribute("href", "data:"+data);
-        el.setAttribute("download", "tabellaJSON.json");    
+        // Crea un oggetto Blob dal contenuto CSV
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+        
+        // Salva il file CSV utilizzando FileSaver.js
+        saveAs(blob, 'tabellaCSV.csv');
     }
-</script>
-<script>
-function esportaCSV() {
-  // Seleziona la tabella
-  const jsonData = <?= getJsonSpese($conn);?>;
-;
-  
-  // Crea l'intestazione CSV
-    // Converti il JSON in CSV utilizzando Papa Parse
-    const csv = Papa.unparse(jsonData);
-  
-  // Crea un oggetto Blob dal contenuto CSV
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-  
-  // Salva il file CSV utilizzando FileSaver.js
-  saveAs(blob, 'tabellaCSV.csv');
-
-}
-</script>
+    </script>
             <div class="col mt-5 ">
                 <div class="card shadow mb-3 topToF border-secondary">
                     <div class="card-header py-3">
                         <p class="text-primary m-0 fw-bold text-start">Informazioni personali <i class="bi bi-person-fill"></i></i></p>
                     </div>
                     <div class="card-body ">
-                        <form action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
+                        <form action="./change_profile.php" method="post" id="form-info" name="form-change-profile" class="form-change-profile needs-validation">
                             <div class="row">
-                                <div class="col">
-                                    
+                                <div class="col"> 
                                     <div class="form-floating mb-3">
-                                        
-                                        <input type="text" class="form-control " name="nome" id="nome" placeholder="nome" onchange="validaInput('nome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}">
+                                        <input type="text" class="form-control " name="nome" id="nome" placeholder="nome" onchange="validaInput('nome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}" required>
                                         <label for="nome">Nome</label>
-                                        
                                     </div>
                                     <div class="form-floating pb-1">
-                                        <input type="text" class="form-control " name="cognome" id="cognome" placeholder="cognome" onchange="validaInput('cognome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}">
+                                        <input type="text" class="form-control " name="cognome" id="cognome" placeholder="cognome" onchange="validaInput('cognome','[A-Za-z ]{1,32}')" pattern="[A-Za-z ]{1,32}" required>
                                         <label for="cognome">Cognome</label>
                                     </div> 
-                                    <div class="form-check ps-2 mb-2 radio-inputs">
-                                        
+                                    <div class="form-check ps-2 mb-2 radio-inputs"> 
                                         <label>
                                         <label><strong>Sesso</strong> </label>
                                             <input checked=""class="radio-input " type="radio" id="radio1" name="sesso" value="1">
@@ -248,10 +240,9 @@ function esportaCSV() {
                                             </span>
                                         </label>
                                     </div>
-
                                     <div class="mb-3">    
                                         <label><strong>Nazionalità</strong> </label>
-                                        <input class="form-control " list="selectNazi" name="nazionalita"  id="nazionalita" >
+                                        <input class="form-control " list="selectNazi" name="nazionalita"  id="nazionalita" onchange="validaNazionalita();" required>
                                         
                                         <datalist id="selectNazi">
                                         
@@ -261,18 +252,18 @@ function esportaCSV() {
 
                                     <div class="mb-3">  
                                         <label for="dataN pb-2"><strong>Data di nascita</strong> </label>
-                                        <input type="date" class="form-control " id="dataN" name="dataN" >
+                                        <input type="date" class="form-control " id="dataN" name="dataN" onchange="validaDataN()" required>
                                             
                                     </div>
-
+                                    <input type="text" class="d-none" name="butn" value="primo" >
                                     <div>
-                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                        <input type="button" class="btn btn-primary btn-sm" id="submit-button-info" value="Salva cambiamenti">
                                     </div>  
 
                                         
                                 </div>
                             </div>
-                        
+                        </form>
                     </div>
                 </div>
                 
@@ -282,12 +273,12 @@ function esportaCSV() {
                         <p class="text-primary m-0 fw-bold text-start">Dati di accesso <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div class="card-body">
-                        
+                        <form action="./change_profile.php" method="post" id="form-data" name="form-change-profile" class="form-change-profile needs-validation">
                             <div class="row">
                                 <div class="col">
                                     
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control " id="saldo" name="saldo" onchange="validaInput('saldo','[0-9]{1,32}')" pattern="[0-9]]{1,32}">
+                                        <input type="text" class="form-control " id="saldo" name="saldo" onchange="validaInput('saldo','[0-9]{1,32}\.[0-9]{2}')" pattern="[0-9]{1,32}\.[0-9]{2}">
                                         <label for="saldo">Saldo</label>
                                     </div>
 
@@ -298,24 +289,23 @@ function esportaCSV() {
                                         
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
-                                        <label for="cognome">Password</label>
+                                        <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
+                                        <label for="password">Password</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="password" class="form-control " id="passwordC" name="passwordC" placeholder="passwordC" onchange="validaInput('passwordC','[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
-                                        <label for="cognome">Conferma password</label>
+                                        <input type="password" class="form-control " id="passwordC" name="passwordC" placeholder="passwordC" onchange="validaInput('passwordC','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$">
+                                        <label for="passwordC">Conferma password</label>
                                     </div> 
-                                    
+                                    <input type="text" class="d-none" name="butn" value="mimmo" >
                                     <div>
-                                        <button class="btn btn-primary btn-sm" type="submit">Salva cambiamenti</button>
+                                    <input type="button" class="btn btn-primary btn-sm" id="submit-button-data" value="Salva cambiamenti">
                                     </div>       
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                
             </div>
             
 
@@ -345,7 +335,7 @@ function placeH() {
     document.getElementById("cognome").value = data[0]['cognome'];
     document.getElementById("dataN").value = data[0]['dataN'];
 
-    document.getElementById("nazionalita").placeholder = data[0]['nome_stati'];
+    document.getElementById("nazionalita").value = data[0]['nome_stati'];
     document.getElementById("saldo").value = data[0]["saldo_ini"];
     if(data[0]['sesso']==0){
         
@@ -399,31 +389,86 @@ function validaInput(id,pattern){
     input.classList.remove("is-invalid");
     return true;
 }
+function validaNazionalita() {
+    if (document.getElementById("nazionalita").classList.contains("is-invalid")) document.getElementById("nazionalita").classList.remove("is-invalid");
+    return true;
+}
+function validaDataN() {
+    if (document.getElementById("dataN").classList.contains("is-invalid")) document.getElementById("dataN").classList.remove("is-invalid");
+    return true;
+}
 
-var form = document.getElementById("my-form");
-var submitButton = document.getElementById("submit-button");
+var formInfo = document.getElementById("form-info");
+var formData = document.getElementById("form-data");
+var submitButtonInfo = document.getElementById("submit-button-info");
+var submitButtonData = document.getElementById("submit-button-data");
 
-submitButton.addEventListener("click", function() {
+submitButtonInfo.addEventListener("click", function() {
   // Controlla la validità del form
-    if (form.checkValidity()) {
-        form.submit();
-    }else{
-        const alertContainer = document.querySelector('#alert-container');
-
-        const alert = document.createElement('div');
-        alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
-        alert.setAttribute('role', 'alert');
-
-        alert.textContent = 'Le password devono essere uguali';
-
-        const closeButton = document.createElement('button');
-        closeButton.classList.add('btn-close');
-        closeButton.setAttribute('type', 'button');
-        closeButton.setAttribute('data-bs-dismiss', 'alert');
-        closeButton.setAttribute('aria-label', 'Chiudi');
-        alert.appendChild(closeButton);
-
-        alertContainer.appendChild(alert);
+    var passed_info = true;
+    let nazioni = <?=getJsonStati($conn);?>;
+    var dataN = new Date(document.getElementById("dataN").value);
+    var today = new Date();
+    var password = document.getElementById("password");
+    if (document.getElementById("nome").value == "") {
+        document.getElementById("nome").classList.add("is-invalid");
+        passed_info = false;
+    }
+    if (document.getElementById("cognome").value == "") {
+        document.getElementById("cognome").classList.add("is-invalid");
+        passed_info = false;
+    }
+    if (document.getElementById("nazionalita").value == "" || nazioni.indexOf(document.getElementById("nazionalita").value) == -1) {
+        document.getElementById("nazionalita").classList.add("is-invalid");
+        passed_info =  false;
+    }
+    if (document.getElementById("dataN").value== "") {
+        document.getElementById("dataN").classList.add("is-invalid");
+        passed_info =  false;
+    }
+    if (today.getFullYear() - dataN.getFullYear() < 14) {
+        document.getElementById("dataN").classList.add("is-invalid");
+        passed_info =  false;
+    }
+    if (today.getFullYear() - dataN.getFullYear() == 14) {
+        if(today.getMonth() < dataN.getMonth()) {
+            document.getElementById("dataN").classList.add("is-invalid");
+            passed_info =  false;
+        }
+        if(today.getMonth() == dataN.getMonth()) {
+            if (today.getDate() < dataN.getDate()) {
+                document.getElementById("dataN").classList.add("is-invalid");
+                passed_info =  false;
+            }
+        }
+    }
+    if (passed_info) formInfo.submit();
+    else return false;
+});
+submitButtonData.addEventListener("click", function() {
+  // Controlla la validità del form
+    var passed_data = true;
+    console.log(document.getElementById("saldo").value);
+    if (document.getElementById("saldo").value == "" || isNaN(document.getElementById("saldo").value)) {
+        document.getElementById("saldo").classList.add("is-invalid");
+        passed_data = false;
+    }
+    if (document.getElementById("email").value == "") {
+        document.getElementById("email").classList.add("is-invalid");
+        passed_data = false;
+    }
+    
+    if (document.getElementById("password").value != document.getElementById("passwordC").value ) {
+        document.getElementById("passwordC").classList.add("is-invalid");
+        passed_data =  false;
+    }
+    if (passed_data){
+        console.log("PASSED");
+        formData.submit();
+    }
+    else{
+        console.log("NOT PASSED");
+        return false;
     }
 });
 </script>
@@ -484,7 +529,7 @@ submitButton.addEventListener("click", function() {
                         <p class="text-primary m-0 fw-bold text-start">Cambia informazioni utente <i class="bi bi-person-bounding-box"></i></p>
                     </div>
                     <div class="card-body ">
-                        <form id="my-form" action="#" method="post" name="form-change-profile" class="form-change-profile">
+                        <form id="my-form" action="./change_profile.php" method="post" name="form-change-profile" class="form-change-profile">
                             <div class="row">
                                 <div class="col">
                                     
@@ -501,18 +546,18 @@ submitButton.addEventListener("click", function() {
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC" >
+                                        <input type="password" class="form-control" id="passwordC" name="passwordC" placeholder="passwordC">
                                         <label id="msgErrore"for="cognome">Conferma password</label>
                                     </div> 
 
                                     
                                     <div>
-                                        <button id="submit-button" class="btn btn-primary btn-sm">Salva cambiamenti</button>
+                                        <input type="button" id="submit-button" class="btn btn-primary btn-sm" value="Salva cambiamenti">
                                     </div>  
                                         
                                 </div>
                             </div>
-                        
+                        </form>
                     </div>
                 </div>
             </div>
@@ -541,34 +586,26 @@ function validaInput(id,pattern){
     return true;
 }
 
+
 </script>
 <script>
 var form = document.getElementById("my-form");
 var submitButton = document.getElementById("submit-button");
-
 submitButton.addEventListener("click", function() {
   // Controlla la validità del form
-    if (form.checkValidity()) {
-        form.submit();
-    }else{
-        const alertContainer = document.querySelector('#alert-container');
-
-        const alert = document.createElement('div');
-        alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
-        alert.setAttribute('role', 'alert');
-
-        alert.textContent = 'Le password devono essere uguali';
-
-        const closeButton = document.createElement('button');
-        closeButton.classList.add('btn-close');
-        closeButton.setAttribute('type', 'button');
-        closeButton.setAttribute('data-bs-dismiss', 'alert');
-        closeButton.setAttribute('aria-label', 'Chiudi');
-        alert.appendChild(closeButton);
-
-        alertContainer.appendChild(alert);
+    var password_regex = RegExp("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
+    var password = form.password.value;
+    var passwordC = form.passwordC.value;
+    var passed = true;
+   // da sistemare
+    if (password != passwordC) {
+        document.getElementById("passwordC").classList.add("is-invalid");
+        passed =  false;
     }
+    if (passed) form.submit();
+    else return false;
 });
+
 </script>
   <?php
     }else{

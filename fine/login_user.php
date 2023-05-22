@@ -21,6 +21,17 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         //cifro la password
         $passw = md5($passw);
         
+        $sql = "SELECT password FROM utente WHERE username='$uname'";
+        $result = mysqli_query($conn,$sql);
+        if(mysqli_num_rows($result) === 1){
+            $row = mysqli_fetch_assoc($result);
+            if(substr($row['password'], -10)=="adminBlock"){
+                header("Location: login.php?error= Utente bloccato");
+                exit();
+            }
+        }
+        
+
         $sql = "SELECT * FROM utente WHERE username='$uname' AND password='$passw'";
         
         $result = mysqli_query($conn,$sql);

@@ -8,7 +8,7 @@ function db_conn()
     $_SESSION["data_oggi"] = date("Y:m:d");
     if (!$conn) {
         /* Use your preferred error logging method here */
-        header("Location: ./error.php?error=405");
+        header("Location: index.php");
         exit();
     }
     return $conn;

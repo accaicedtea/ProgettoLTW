@@ -295,17 +295,17 @@ function populateVal() {
         <td class="table-light" data-label="Importo">${Math.abs(dataSet[i].importo)} &euro;</td>
         <td data-label="Tipo">${(dataSet[i].importo>0)? "<i class='fa-lg text-success bi bi-graph-up-arrow'></i>": "<i class='fa-lg text-danger bi bi-graph-down-arrow'></i>"}</td>
     </tr>`
-    
-    
+            
+            
 
-   var table = $('#tableBody');
-   table.append(html);
+        var table = $('#tableBody');
+        table.append(html);
     } 
 
     
 </script>
 <?php
     }else{
-        header("Location: login.php?error=ma che stavi a provà a fa limortaaaaa");
+        header("Location: login.php?error=Devi prima accedere!");
     }
 ?>

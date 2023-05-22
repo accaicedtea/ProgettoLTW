@@ -3,7 +3,7 @@
 require './funzioni.php';
 $conn = db_conn();
 
-function getDataFromDatabaseAndConvertToXml($conn) {
+function getXml($conn) {
     $us = $_SESSION['username'];
     // Recupera i dati dal database
     $sql = "SELECT * FROM spesa WHERE '$us'=utente";
@@ -29,25 +29,19 @@ function getDataFromDatabaseAndConvertToXml($conn) {
 }
 
 // Ottieni il documento XML come stringa
-$xmlString = getDataFromDatabaseAndConvertToXml($conn);
-
+$xmlString = getXml($conn);
 // Crea un nuovo oggetto DOMDocument
 $dom = new DOMDocument();
-
 // Carica il documento XML dalla stringa
 $dom->loadXML($xmlString);
-
 // Imposta la formattazione del documento XML
 $dom->formatOutput = true;
-
 // Ottieni la stringa formattata del documento XML
 $formattedXml = $dom->saveXML();
 
-// Imposta gli header HTTP per il download del file
 header('Content-Type: application/xml');
 header('Content-Disposition: attachment; filename="tabellaXML.xml"');
 
-// Stampa il documento XML
 echo $formattedXml;
 
 ?>
