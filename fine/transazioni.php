@@ -328,7 +328,6 @@
     }
 </script>
 <script>
-    // attenzione
     dataSet = <?= getJsonSpese($conn); ?>;
     let perPage = 15;
     lastPage = Math.ceil(dataSet.length/perPage);

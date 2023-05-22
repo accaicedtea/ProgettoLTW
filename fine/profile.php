@@ -157,7 +157,7 @@
 
                 <div class="card shadow mb-3 leftToF-3 border-secondary">
                     <div class="card-header py-3">
-                        <p class="text-primary m-0 fw-bold text-start">Esporta <i class="bi bi-file-earmark-arrow-down"></i></p>
+                        <p class="text-primary m-0 fw-bold text-start">Esporta transazioni effettuate <i class="bi bi-file-earmark-arrow-down"></i></p>
                     </div>
                     <div class="card-body">
                         
