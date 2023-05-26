@@ -419,6 +419,6 @@
 <?php 
 }
 else{
-    header("Location: login.php?error=E tu chi sei?");
+    header("Location: login.php?error=Devi prima accedere");
 }
 ?>

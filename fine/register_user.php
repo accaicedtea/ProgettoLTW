@@ -39,7 +39,6 @@ function p($data,$patt){
         } else{
             header("Location: register.php?error=Ups Qualcosa è andato storto");
         }
-        $conn.close();
     }else{
         echo "<script>window.location.href=' register.php?error=Qualcosa è andato storto controlla le credenziali'</script>";
         

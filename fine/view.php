@@ -146,5 +146,5 @@
     </div>
 </body>
 <?php }else{
-    header("Location: login.php?error=ma che stavi a provà a fa limortaaaaa");
+    header("Location: login.php?error=Prima devi accedere");
     } ?>
