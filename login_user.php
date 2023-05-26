@@ -17,10 +17,12 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         exit();
     }else{
         //qui si accede se sono validi gli input
-
+        echo $uname;
+        echo $passw;
         //cifro la password
         $passw = md5($passw);
         
+        //controlla se un utente è bloccato
         $sql = "SELECT password FROM utente WHERE username='$uname'";
         $result = mysqli_query($conn,$sql);
         if(mysqli_num_rows($result) === 1){
@@ -30,8 +32,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 exit();
             }
         }
-        
-
+        //controlla se esiste un utente
         $sql = "SELECT * FROM utente WHERE username='$uname' AND password='$passw'";
         
         $result = mysqli_query($conn,$sql);
@@ -53,27 +54,23 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 exit();
             }
         }else{
+            //controlla se è admin
             //echo 'username: '.$uname.'      password:'.$passw;
             $sql = "SELECT * FROM admin WHERE id='$uname' AND password='$passw'";
             $result = mysqli_query($conn,$sql);
             if(mysqli_num_rows($result) === 1){
                 $row = mysqli_fetch_assoc($result);
-            if($row['id']=== $uname && $row['password']=== $passw ){
-                $_SESSION['username'] = $row['id'];
-                $_SESSION['nome'] = $row['nome'];
-                $_SESSION['password'] = $row['password'];
-                $_SESSION['adminLog'] = 'daje';
-                header('Location: view.php');
-                exit();
+                if($row['id']=== $uname && $row['password']=== $passw ){
+                    $_SESSION['username'] = $row['id'];
+                    $_SESSION['nome'] = $row['nome'];
+                    $_SESSION['password'] = $row['password'];
+                    $_SESSION['adminLog'] = 'daje';
+                    header('Location: view.php');
+                    exit();
+                }
             }
-            }else{
-                header('Location: login.php?error=Username o password errati');
-            }
-
         }
-
     }
-
 }
-
+header('Location: login.php?error=Username o password errati');
 ?>

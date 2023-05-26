@@ -20,9 +20,9 @@ navBar($pagina, "Home");
     <div class="card shadow border-secondary">
       <div class="card-body">
         <!-- <h1 class="mt-3"><strong>HOME PAGE</strong></h1> -->
-        <img class="mt-3 mb-3 text-center" src="./assets/brand/4M-cropped.svg" alt="" width="300" height="300">
+        <img class="mt-3 mb-3 text-center img-bg" src="./assets/brand/4M-cropped.svg" >
         <p class="lead italics">Gestisci il tuo portafoglio in maniera smart</p>
-        <button class="btn1 btn btn-lg mt-3 text-white btn-secondary fw-bold border-white bg-dark zoom">SCOPRI LE FUNZIONALITÁ</button>
+        <button class="btn1 btn btn-lg mt-3 text-white btn-secondary fw-bold border-white bg-dark zoom btn-min">SCOPRI LE FUNZIONALITÁ</button>
       </div>
     </div> 
   </div>

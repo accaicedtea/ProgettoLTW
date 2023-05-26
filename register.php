@@ -136,7 +136,7 @@
                                                     </div>
                                                 </div>
                                                
-                                                    <div class="mb-3 text-center"><input type="button" id="submit-button" class="btn btn-primary zoom " value="Registrati"></div>
+                                                    <div class="mb-3 text-center"><input type="button" id="submit-button" class="btn btn-primary zoom btn-min" value="Registrati"></div>
                                                     </div>
                                                 </form>
                                         </div>

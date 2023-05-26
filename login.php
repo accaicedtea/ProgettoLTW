@@ -24,7 +24,7 @@
                                     
                                       <div row class="text-center">
                                       <div id="alert-container"></div>
-                                        <img class="mt-3 text-center" src="./assets/brand/4M-cropped.svg" alt="" width="300" height="300">
+                                        <img class="mt-3 text-center img-bg" src="./assets/brand/4M-cropped.svg">
                                       </div>
                                         <div class="card-body">
                                           <!-- form -->
@@ -62,7 +62,7 @@
                                                     
 
                                                 </div>
-                                                    <div class="text-center mb-3 "><button class="btn btn-lg btn-primary btn-block zoom" id="submit-button">Accedi</button></div>
+                                                    <div class="text-center mb-3 "><button class="btn btn-lg btn-primary btn-block zoom btn-min" id="submit-button">Accedi</button></div>
                                                     </div>
                                                     <div class="mb-4 text-center">  <span class="h6 text-center">  Non hai un account? </span>
                                                       <a href="./register.php">Registrati</a>

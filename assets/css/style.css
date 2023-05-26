@@ -320,6 +320,9 @@ body {
         margin-right: auto;
         width: 88%;
     }
+    .btn-min{
+        width: 100%;
+    }
 }
 
 
@@ -341,6 +344,11 @@ body {
     .butt{
         float: left;
     }
+
+}
+.img-bg{
+    width:30%;
+    height:30%;
 }
 
 .fade-in {
