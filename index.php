@@ -10,6 +10,7 @@ navBar($pagina, "Home");
 
 ?>
 <style>
+/* inizialmente il sipario è chiuso */
 #sipario{
   display: none;
 }
@@ -29,7 +30,7 @@ navBar($pagina, "Home");
   </p> 
 </div>
 
-
+<!-- sipario -->
 <div id="sipario" class="text-light mt-5">
 
   <div class="text-center">
@@ -98,8 +99,7 @@ La Dashboard ti fornirà una visione d'insieme delle tue spese e guadagni immine
         </div>
     
         <hr class="featurette-divider mt-4 mb-4">
-    
-        <!-- /END THE FEATURETTES -->
+  
     
       </div><!-- /.container -->
 
@@ -108,6 +108,7 @@ La Dashboard ti fornirà una visione d'insieme delle tue spese e guadagni immine
 </body>
 
 <script>
+  // effetto sipario apri/chiudi
   $(document).ready(function(){
     $(".btn1").click(function(){
       $("#conenuto").slideToggle();

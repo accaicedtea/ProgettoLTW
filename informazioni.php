@@ -7,7 +7,7 @@
 ?>
 
 
-
+<!-- informazioni niente di che-->
 <body class="page-top" id="page-top">
   <hr class="featurette-divider">
     <div class="row ">
