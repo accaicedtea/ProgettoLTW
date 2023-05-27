@@ -5,18 +5,19 @@
     head($pagina);
     navBar($pagina,"Le tue statistiche");
     if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
-        $ultimo_giorno_mese = date("d");
-        $json_data_linegraph = linegraph($conn);
-        $json_giorni_mese = giorni_mese();
-        $json_data_saldo = saldo($conn);
-        $json_data_risparmio = risparmio($conn);
+        $ultimo_giorno_mese = date("d");    // giorno corrente
+        $json_data_linegraph = linegraph($conn);    // i dati da passare al grafico delle entrate, uscite e differenza
+        $json_giorni_mese = giorni_mese();  
+        $json_data_saldo = saldo($conn);    // i dati da passare al grafico del saldo 
+        $json_data_risparmio = risparmio($conn);  // i dati da passare al grafico del risparmio  
         $array_saldo = json_decode($json_data_saldo);
-        $saldo_finale = intval($array_saldo[$ultimo_giorno_mese - 1]);
-        $colore_saldo = saldo_color($saldo_finale);
+        $saldo_finale = intval($array_saldo[$ultimo_giorno_mese - 1]);  // saldo attuale
+        $colore_saldo = saldo_color($saldo_finale); // definisce il colore del grafico in base al segno del saldo attuale
         $array_risparmio = json_decode($json_data_risparmio);
-        $risparmio_finale = intval($array_risparmio[$ultimo_giorno_mese - 1]);
-        $colore_risparmio = saldo_color($risparmio_finale);
+        $risparmio_finale = intval($array_risparmio[$ultimo_giorno_mese - 1]);  // risparmio attuale
+        $colore_risparmio = saldo_color($risparmio_finale);     // definisce il colore del grafico in base al segno del risparmio attuale
 
+        // calcolano i dati dei tre grafici nell'anno attuale
         $json_data_linegraph_year = linegraph_year($conn);  
         $json_data_saldo_year = saldo_year($conn);         
         $json_data_risparmio_year = risparmio_year($conn);    
@@ -99,7 +100,7 @@
 
 
 
-
+<!-- Se l'utente non è admin -->
 <script>
     // chiama la funzione di highcharts
     function displayMese(){
@@ -573,6 +574,7 @@
     </div>
 </body>
 <script>
+    // unico grafico con filtri applicabili nella sezione admin
     function displayEntrateAdmin(){
         Highcharts.chart('column chart', {
             chart: {

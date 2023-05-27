@@ -13,7 +13,6 @@
         $json_data_linegraph = entrata_graph($conn);
         $json_data_histogram = histogram($conn);
         $json_giorni_mese = giorni_mese();
-        //echo $json_data_piechart;
 ?>
 <body>
     <div class="container-fluid ">

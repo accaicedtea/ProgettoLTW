@@ -7,7 +7,9 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
         $sus = $_SESSION['username'];
         $spw = $_SESSION['password'];
         if (!empty($icon) && $_SESSION['pfp'] != $icon) {
+            // controlla che l'immagine selezionata sia tra le disponibili
             if (controlla_immagine($icon)) {
+                // effettua la query di aggiornamento icona profilo
                 $sql = "UPDATE utente SET pfp='$icon' WHERE username='$sus' AND password='$spw'";
                 if ((mysqli_query($conn, $sql))) {
                     $_SESSION['pfp'] = $_POST['test'];
