@@ -85,7 +85,7 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="dataN"><strong >Data di nascita</strong></label><input class="form-control" type="date" id="dataN" name="dataN" onchange="validaDataN()" required></div>
-                                                        <!-- waring msg per data nascita-->
+                                                        <!-- mostra le richieste per data nascita-->
                                                         <p class= "form-text requirements">Devi avere più di 14 anni per registrati</p>
                                                     </div>
                                                 </div>
@@ -123,6 +123,7 @@
                                                             <input type="password" class="form-control " id="password" name="password" placeholder="password" onchange="validaInput('password','(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" required>
                                                             <label for="passw">Password</label>
                                                         </div>
+                                                        <!-- mostra le richieste per la password-->
                                                         <p class= "form-text requirements">La password deve essere composta da almeno una lettera minuscola, una lettera minuscola, un numero, un carattere speciale tra !@#$%^& e una lunghezza minima di 8 caratteri</p>
                                                     </div>
                                                 </div>
@@ -153,6 +154,7 @@
     </div>
 </body>
 <script>
+    // funzione che popola il datalist di nazionalità
     window.onload = populateSelectNazionalita();
     function populateSelectNazionalita() {
         // THE JSON ARRAY.
@@ -166,12 +168,9 @@
         }
     }
 </script>
-<script>
-    var showVal = document.getElementById("nationalita").value;
-    var value2send = document.querySelector("#selectNazi option[value='"+shownVal+"']").dataset.value;
-</script>
 
 <script>
+    // funzione che fa la verifica dei campi e ne cambia la classe aggiungendo is-invalid all'evento onchange
 function validaInput(id,pattern){
     var input = document.getElementById(id);
     var regex = new RegExp(pattern);
@@ -182,6 +181,7 @@ function validaInput(id,pattern){
     input.classList.remove("is-invalid");
     return true;
 }
+// funzioni che rimuovono dai relativi campi la classe is-invalid all'evento onchange
 function validaNazionalita() {
     if (document.formreg.nazionalita.classList.contains("is-invalid")) document.formreg.nazionalita.classList.remove("is-invalid");
     return true;

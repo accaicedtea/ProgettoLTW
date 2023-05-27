@@ -84,6 +84,7 @@
 
 
 <script>
+// funzione che fa la verifica dei campi e ne cambia la classe aggiungendo is-invalid all'evento onchange
 function validaInput(id,pattern){
     var input = document.getElementById(id);
     var regex = new RegExp(pattern);
