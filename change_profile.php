@@ -102,7 +102,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
             if ((mysqli_query($conn, $sql))) {
                 $_SESSION['password'] = $password;
                 $flag+= 1;
-                log_out($conn);
+                log_out();
                 goto A;
             } else {
                 goto Error;
@@ -146,7 +146,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
         if ((mysqli_query($conn, $sql))) {
             $_SESSION['password'] = $password;
             $flag+= 1;
-            log_out($conn); 
+            log_out(); 
             goto A;
         } else {
             goto Error;

@@ -14,21 +14,12 @@ function db_conn()
     return $conn;
 }
 
-function log_out($conn)
+function log_out()
 {
     session_destroy();
     
 }
-function check($conn)
-{
-    $uname = $_SESSION['username'];
-    $passw = $_SESSION['password'];
-    $sql = "SELECT * FROM utente WHERE username='$uname' AND password='$passw'";
-    $result = mysqli_query($conn,$sql);
-    if($row = mysqli_fetch_assoc($result) != 1){
-        $_SESSION['log']='off';
-    }
-}
+//controlla se il parametro $img sia nell'array delle icone
 function controlla_immagine($img){
     $imaginin_disponibili = 
     [
@@ -45,7 +36,7 @@ function controlla_immagine($img){
     }
     return true;
 }
-
+//crea un JSON con tutte le categorie
 function getJsonCat($conn)
 {
     $emparray = [];
@@ -57,6 +48,7 @@ function getJsonCat($conn)
     }
     return json_encode($emparray);
 }
+//crea un JSON con tutte le spese (entrate e uscite)
 function getJsonSpese($conn)
 {
     $username = $_SESSION["username"];
@@ -84,6 +76,7 @@ function getJsonSpese($conn)
     $_SESSION["tipo"] = "Tutti i tipi";
     return json_encode($emparray);
 }
+//crea un JSON con tutte le spese future (entrate e uscite)
 function getJsonScadenze($conn)
 {
     $username = $_SESSION["username"];
@@ -111,6 +104,7 @@ function getJsonScadenze($conn)
     $_SESSION["tipo"] = "Tutti i tipi";
     return json_encode($emparray);
 }
+//crea un JSON con tutte le spese future limitate a 9 (entrate e uscite)
 function getJsonScadenzaLimitata($conn)
 {
     $username = $_SESSION["username"];
@@ -140,23 +134,7 @@ function getJsonScadenzaLimitata($conn)
     $_SESSION["tipo"] = "Tutti i tipi";
     return json_encode($emparray);
 }
-function getJsonBuffi($conn)
-{
-    $username = $_SESSION["username"];
-    $emparray = [];
-    $sql = "SELECT s.id as id, s.utente as utente, s.descrizione as descrizione, c.nome as categoria, c.id as id_categoria,s.importo as importo 
-    FROM spesa s join categoria c on c.id=s.categoria 
-    WHERE s.utente = '$username' AND data is NULL 
-    ORDER BY id;";
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    $result = mysqli_query($conn, $sql);
-    while ($row = mysqli_fetch_assoc($result)) {
-        $emparray[] = $row;
-    }
-    $_SESSION["categoria"] = "Tutte le categorie";
-    $_SESSION["tipo"] = "Tutti i tipi";
-    return json_encode($emparray);
-}
+// JSON dei dati dell'utente
 function getJsonUtente($conn)
 {
     $emparray = [];
@@ -171,6 +149,7 @@ function getJsonUtente($conn)
     $_SESSION["tipo"] = "Tutti i tipi";
     return json_encode($emparray);
 }
+// JSON dei dati dell'admin
 function getJsonAdmin($conn)
 {
     $emparray = [];
@@ -183,6 +162,7 @@ function getJsonAdmin($conn)
     }
     return json_encode($emparray);
 }
+// JSON di tutti gli stati
 function getJsonStati($conn)
 {
     $sql =
@@ -193,6 +173,7 @@ function getJsonStati($conn)
     }
     return json_encode($array);
 }
+// funzione che rende i dati salvabili nel database
 function validate($data)
 {
     $data = trim($data);
@@ -200,7 +181,9 @@ function validate($data)
     $data = htmlspecialchars($data);
     return $data;
 }
-//TODO: INIZIO GRAFICI
+//INIZIO GRAFICI
+
+// funzione che crea un array che ha come dati il numero di utenti per nazionalità
 function bar90g($conn)
 {  
 
@@ -209,7 +192,6 @@ function bar90g($conn)
             GROUP by nazionalita;";
     
     $array = "";
-    $i = 0;
     $arr ="";
     
     $result = $conn->query($sql);
@@ -226,9 +208,10 @@ function bar90g($conn)
     return $array;
     
 }
+// funzione che crea un array che ha come dati le fasce d'età che contengono almeno un utente
 function get_eta_per_categorie($conn)
 {
-    //categoria gra_fico
+    //categoria grafico
     $sql ="SELECT 
     CASE WHEN (age>=14 and age <=19) THEN '15-19' 
         WHEN (age>=20 and age <=24) THEN '20-24'
@@ -242,7 +225,6 @@ function get_eta_per_categorie($conn)
     GROUP BY eta_eta
     order by eta_eta;";
     $array = "";
-    $i = 0;
     $arr ="";
      
     $result = $conn->query($sql);
@@ -258,6 +240,7 @@ function get_eta_per_categorie($conn)
     }
     return $array;
 }
+//JSON del numero di utenti per fascia d'età e sesso
 function get_eta_sesso_graph($conn,$sesso)
 {
     //divisione x sesso, gruppati per eta
@@ -288,6 +271,7 @@ function get_eta_sesso_graph($conn,$sesso)
     return json_encode($array_series);
 
 }
+// funzione che calcola un'array con le fasce d'età
 function get_json_eta($conn) {
     $arr = array();
     $sql ="SELECT 
@@ -310,7 +294,7 @@ function get_json_eta($conn) {
     }
     return $arr;
 }
-
+// JSON delle medie delle entrate per sesso ed'età degli utenti
 function column_sesso($conn,$sesso) {
     $arr = array();
     $arr_eta = array();
@@ -354,6 +338,7 @@ function column_sesso($conn,$sesso) {
     }
     return json_encode($array_res);
 }
+// JSON delle medie delle uscite per sesso ed'età degli utenti
 function column_sesso_uscite($conn, $sesso){
     $arr = array();
     $arr_eta = array();
@@ -463,7 +448,7 @@ function get_array_sesso($json_totali,$json_sesso_s,$sesso)
     }
     return $array;
 }
-
+// JSON dei dati dell'istogramma, ovvero le spese durante l'anno per mese fino al giorno attuale
 function histogram($conn)
 {
     $username = $_SESSION['username'];
@@ -513,6 +498,7 @@ function histogram($conn)
         }
         return json_encode($series_array_histogram);
 }
+// JSON dei dati del linegraph; contiene tre diversi array (uscite, entrate e differenza) unite in uno unico
 function linegraph($conn)
 {
     $username = $_SESSION['username'];
@@ -537,13 +523,17 @@ function linegraph($conn)
     if ($result_uscite->num_rows >= 0) {
         $i = 1;
         $j = 0;
+        // prende i giorni i cui vi è una uscita
         while($row_uscite = $result_uscite->fetch_assoc()) {
             array_push($array_giorni_uscite, intval($row_uscite['giorno']));
         }
+        // resetta il puntatore della tabella risultato delle query
         mysqli_data_seek($result_uscite, 0);
+        // prende tutte le uscite
         while($row_uscite = $result_uscite->fetch_assoc()) {
             array_push($array_valori_uscite, doubleval($row_uscite['uscite']));
         }
+        // inserisce in un array i dat delle uscite nella posizione corrispondente al giorno in cui è avvenuta, 0 se non c'è nessun uscita per quel giorno
         while($i <= $giorni_mese) {
             if (!in_array($i, $array_giorni_uscite,false)) {
                     array_push($array_dati_uscite, doubleval('0'));
@@ -611,6 +601,7 @@ function linegraph($conn)
             $i++;
         }
     }
+    //crea i vari array dei dati
     $arr_uscite = array(
                 'name' => 'Uscite',
                 'data' => $array_dati_uscite,
@@ -633,6 +624,7 @@ function linegraph($conn)
     $serie_array_linegraph_differenza[] = $arr_differenza;
     return json_encode(array_merge($series_array_linegraph_uscite, $series_array_linegraph_entrate, $serie_array_linegraph_differenza));
 }
+// JSON dell'andamento del saldo lungo l'anno attuale per mese 
 function saldo_year($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
@@ -649,7 +641,7 @@ function saldo_year($conn) {
     while ($row = mysqli_fetch_assoc($result)) {
         $saldo = $row['saldo'];
     }
-    //Variazioni di questo mese
+    //Variazioni per mese
     $sql = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo), 0) as variazione
     from spesa join utente on utente.username = spesa.utente
     where MONTH(spesa.data) = MONTH('$data_oggi') and DAY(spesa.data) <= DAY('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username'
@@ -690,7 +682,7 @@ function saldo_year($conn) {
     return json_encode($array_saldo);
 }
 
-
+// JSON dell'andamento del risparmio lungo l'anno attuale per mese 
 function risparmio_year($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
@@ -707,7 +699,7 @@ function risparmio_year($conn) {
     while ($row = mysqli_fetch_assoc($result)) {
         $risparmio = $row['risparmio'];
     }
-    //Variazioni di questo mese
+    //Variazioni per mese
     $sql = "SELECT MONTH(spesa.data) as mese, COALESCE(sum(spesa.importo),0) as variazione
     from spesa join utente on utente.username = spesa.utente
     where MONTH(spesa.data) < MONTH('$data_oggi') and YEAR(spesa.data) = YEAR('$data_oggi') AND spesa.utente = '$username' and spesa.categoria = 6
@@ -748,29 +740,7 @@ function risparmio_year($conn) {
     return json_encode($array_risparmio);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// JSON con i dati del linegraph dell'anno attuale per mese
 function linegraph_year($conn)
 {
     $username = $_SESSION['username'];
@@ -905,6 +875,7 @@ function linegraph_year($conn)
     return json_encode(array_merge($series_array_linegraph_uscite, $series_array_linegraph_entrate, $serie_array_linegraph_differenza));
 }
 
+// JSON con i dati del piechart, ovvero le percentuali delle uscite per categoria di questo mese, con anche colore delle varie categorie
 function piechart($conn)
 {
     $username = $_SESSION['username'];
@@ -933,6 +904,8 @@ function piechart($conn)
         return json_encode($series_array_piechart);
     }
 }
+
+// JSON con tutti i giorni di questo mese fino a quello attuale, serve per definire le categorie nei grafici in cui viene chiamata
 function giorni_mese()
 {
     $_SESSION["giorni"] = date("t");
@@ -945,6 +918,8 @@ function giorni_mese()
     }
     return json_encode($array_giorni_mese);
 }
+
+// JSON con i dati delle spese mensili e annuali (entrate e uscite)
 function get_euma($conn)
 {
     $array_dati = [];
@@ -998,8 +973,9 @@ function get_euma($conn)
     array_push($array_dati, $saldo_finale);
     return json_encode($array_dati);
 }
+
+// JSON con i dati delle entrate di questo mese
 function entrata_graph($conn) {
-    $array_dati = [];
     $_SESSION['giorni_mese'] = date("d");
     $giorni_mese = $_SESSION['giorni_mese'];
     $username = $_SESSION["username"];
@@ -1038,10 +1014,12 @@ function entrata_graph($conn) {
         'name' => 'Entrate',
         'data' => $array_dati_entrate,
         'color' => '#46A094'
-);
+    );
 $series_array_uscite[] = $arr_uscite;
 return json_encode($series_array_uscite);
 }
+
+// JSON con i dati delle variazioni del saldo lungo il mese attuale
 function saldo($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
@@ -1098,10 +1076,13 @@ function saldo($conn) {
     return json_encode($array_saldo);
 }
 
+// definisce il colore del grafico in base al segno del parametro passato
 function saldo_color($saldo) {
     if ($saldo < 0) return "#E65C4F";
     else return "#46A094";
 }
+
+// JSON con i dati delle variazioni del risparmio lungo il mese attuale
 function risparmio($conn) {
     $username = $_SESSION['username'];
     $data_oggi = $_SESSION['data_oggi'];
@@ -1157,6 +1138,7 @@ function risparmio($conn) {
     }
     return json_encode($array_risparmio);
 }
+// definisce il colore del grafico in base al segno del parametro passato
 function risparmio_color($risparmio) {
     if ($risparmio < 0) return "#E65C4F";
     else return "#99CBFF";

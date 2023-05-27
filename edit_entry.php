@@ -2,7 +2,7 @@
 
     require './funzioni.php';
     $conn = db_conn();
-# se l'utente è loggato
+// se l'utente è loggato
 if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {    
     $utente = $_SESSION['username'];
     $id = $_POST['id_edit'];
@@ -19,7 +19,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $query = mysqli_query($conn, $sql);
 
-    # reindirizzamento sulla base della data della spesa (passata->transazione, futura->scadenze)
+    // reindirizzamento sulla base della data della spesa (passata->transazione, futura->scadenze)
     if($query){
         if($data<=date("Y-m-d")){
             $msg="Transazione modificata correttamente";

@@ -2,6 +2,7 @@
 
 require './funzioni.php';
 $conn = db_conn();
+// viene eseguito il tutto solo se l'utente è loggato
 if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     $utente = $_SESSION['username'];
     $id = $_POST['id_delete'];

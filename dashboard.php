@@ -9,10 +9,10 @@
     $_SESSION['data_oggi'] = date("Y:m:d");
     if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
         navBar($pagina,"Dashboard");
-        $json_data_piechart = piechart($conn);
-        $json_data_linegraph = entrata_graph($conn);
-        $json_data_histogram = histogram($conn);
-        $json_giorni_mese = giorni_mese();
+        $json_data_piechart = piechart($conn); // i dati del piechart
+        $json_data_linegraph = entrata_graph($conn); // i dati del linegraph delle entrate
+        $json_data_histogram = histogram($conn); // i dati dell'istogramma
+        $json_giorni_mese = giorni_mese(); // calcola i giorni di questo mese fino a data attuale
 ?>
 <body>
     <div class="container-fluid ">
@@ -20,7 +20,7 @@
             <div id="saldo_attuale" class="col-auto lg-3 card shadow border-secondary me-2 mt-2 pupup">
                 <p class="fs-5 mt-2"><strong>Saldo attuale </strong></p>
                 <span class="border-bottom"></span>
-                <!--Entrate mensili da database-->
+                <!--Saldo attaule da database-->
             </div>
             <div id="entrate_mensili" class="col-auto lg-3 card shadow border-secondary me-2 mt-2 pupup">
                 <p class="fs-5 mt-2">Entrate mensili </p>
@@ -252,7 +252,7 @@
 <script>
 window.onload = populateVal();
 function populateVal() {
-    // JSON ARRAY
+    // JSON ARRAY che inserisce nelle rispettive div i valori di saldo, entrate e uscite
     let data = <?= get_euma($conn);?>;
     
     let ele = document.getElementById('entrate_mensili');
@@ -284,7 +284,7 @@ function populateVal() {
 }
 </script>
 <script>
-    // ATTENZIOONE DATI DELLA TABELLA PROSSIME SCADENZE
+    //  DATI DELLA TABELLA PROSSIME SCADENZE
 
     dataSet = <?= getJsonScadenzaLimitata($conn);?>;
     for (var i in dataSet){
