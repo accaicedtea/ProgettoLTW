@@ -86,20 +86,6 @@
     </div>
 </body>
 
-
-
-
-
-   
-
-
-
-
-
-
-
-
-
 <script>
     // chiama la funzione di highcharts
     function displayMese(){
@@ -365,6 +351,11 @@
         });
     }
 </script>
+
+
+
+
+
 
 
 <!-- SE L'UTENTE è ADMIN -->
