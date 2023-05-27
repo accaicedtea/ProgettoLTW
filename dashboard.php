@@ -252,7 +252,7 @@
 <script>
 window.onload = populateVal();
 function populateVal() {
-    // THE JSON ARRAY.
+    // JSON ARRAY
     let data = <?= get_euma($conn);?>;
     
     let ele = document.getElementById('entrate_mensili');
@@ -284,7 +284,8 @@ function populateVal() {
 }
 </script>
 <script>
-    // attenzione
+    // ATTENZIOONE DATI DELLA TABELLA PROSSIME SCADENZE
+
     dataSet = <?= getJsonScadenzaLimitata($conn);?>;
     for (var i in dataSet){
         var html = `<tr>
@@ -296,7 +297,7 @@ function populateVal() {
     </tr>`
             
             
-
+        //AGGIUNGE LA RIGA ALLA TABELLA
         var table = $('#tableBody');
         table.append(html);
     } 

@@ -3,13 +3,15 @@
 
     require "./funzioni.php";
     $conn = db_conn();
-function p($data,$patt){
-    if(!preg_match($patt, $data)){
-        echo "<script>window.location.href=' register.php?error=Qualcosa è andato storto controlla le credenziali'</script>";
-        return null;
-    } 
-    return $data;
-}   
+    //funzione che controlla se il valore sia regolare
+    function p($data,$patt){
+        if(!preg_match($patt, $data)){
+            echo "<script>window.location.href=' register.php?error=Qualcosa è andato storto controlla le credenziali'</script>";
+            return null;
+        } 
+        return $data;
+    }
+    //controllo viariabili lato server
     $username = validate($_POST['username']);
     
     $nome =  validate($_POST['nome']);
@@ -32,6 +34,7 @@ function p($data,$patt){
     $saldo =$_POST['saldo'];
     $saldo= p($saldo,"/[0-9]{1,32}/");
     if($encrypted_pwd==md5($_POST['passwordC'])){
+        
         $sql = "INSERT INTO utente  VALUES ('$username', '$nome', '$cognome','$sesso','$nazionalita','$dataN', '$email' ,'$encrypted_pwd', './assets/img/avatars/icons8-anime-sama.svg','$saldo')";
 
         if(mysqli_query($conn, $sql)){   
@@ -40,7 +43,6 @@ function p($data,$patt){
             header("Location: register.php?error=Ups Qualcosa è andato storto");
         }
     }else{
-        echo "<script>window.location.href=' register.php?error=Qualcosa è andato storto controlla le credenziali'</script>";
-        
+        echo "<script>window.location.href=' register.php?error=Qualcosa è andato storto controlla le credenziali'</script>";   
     }
 ?>

@@ -17,7 +17,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     //controlla se il valrore del bottone è primo
     if($_POST['butn']=="primo"){
         $flag = 0; // se è 0 allora non ha cambiato niente
-
+        
         $nome = validate($_POST['nome']);
         $cognome = validate($_POST['cognome']);
         $dataN = validate($_POST['dataN']);
@@ -113,6 +113,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     }
     //allora è stato cambiato qualcosa
     if ($flag != 0) echo "<script>window.location.href=' profile.php?msg=Profilo aggiornato correttemente correttamente'</script>";
+    //se non cambia nulla
     else echo "<script>window.location.href=' profile.php?msg=Nulla è stato cambiato gg'</script>";
     // se cambia la password
     A:
