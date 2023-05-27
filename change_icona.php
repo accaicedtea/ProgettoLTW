@@ -1,6 +1,7 @@
 <?php
 require './funzioni.php';
 $conn = db_conn();
+//se e solo se utente è loggato allora puoi cambiare icona altrimeni non è loggato e invia a index
 if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     $icon = $_POST['test'];
     if (!empty($_SESSION['username']) && !empty($_SESSION['password'])) {

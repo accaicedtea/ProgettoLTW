@@ -1,7 +1,7 @@
 <?php
 require "./funzioni.php";
 $conn = db_conn();
-//se e solo se admin è loggato allora aggiungi categoria altrimenti non è loggato e rinvia a login
+//se e solo se admin è loggato allora puoi sbloccare utente altrimenti non è loggato e invia a index
 if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
     // id utente da sbloccare
     $sblockThis = $_POST["sblockthis"];

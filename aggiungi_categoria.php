@@ -2,7 +2,7 @@
 <?php
 require './funzioni.php';
 $conn = db_conn();
-//se e solo se admin è loggato allora aggiungi categoria altrimeni non è loggato e rinvia a login
+//se e solo se admin è loggato allora aggiungi categoria altrimeni non è loggato e invia a index
 if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
     // prende il massimo id della spesa
     $sql = "SELECT max(id) as id from categoria";

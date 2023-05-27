@@ -1,7 +1,7 @@
 <?php
 require './funzioni.php';
 $conn= db_conn();
-//se e solo se admin è loggato allora aggiungi categoria altrimeni non è loggato e rinvia a login
+//se e solo se admin è loggato allora modifica categoria altrimeni non è loggato e rinvia a login
 if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
     $id = $_POST['id_edit'];
     $nome =  $_POST['nome_edit'];

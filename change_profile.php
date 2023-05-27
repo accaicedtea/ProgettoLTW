@@ -1,6 +1,7 @@
 <?php
 require './funzioni.php';
 $conn = db_conn();
+//se il pattern non è quello allora ritorna a profile con un errore
 function p($data, $patt) {
     if (!preg_match($patt, $data)) {
         echo "<script>window.location.href=' profile.php?error=Qualcosa è andato storto controlla le credenziali'</script>";
@@ -8,14 +9,14 @@ function p($data, $patt) {
     }
     return $data;
 }
-
+//se e solo se utete è loggato
 if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
 
     $sus = $_SESSION['username'];
     $spw = $_SESSION['password'];
-
+    //controlla se il valrore del bottone è primo
     if($_POST['butn']=="primo"){
-        $flag = 0;
+        $flag = 0; // se è 0 allora non ha cambiato niente
 
         $nome = validate($_POST['nome']);
         $cognome = validate($_POST['cognome']);
@@ -110,14 +111,17 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
         }
 
     }
-
+    //allora è stato cambiato qualcosa
     if ($flag != 0) echo "<script>window.location.href=' profile.php?msg=Profilo aggiornato correttemente correttamente'</script>";
     else echo "<script>window.location.href=' profile.php?msg=Nulla è stato cambiato gg'</script>";
+    // se cambia la password
     A:
        echo "<script>window.location.href=' Login.php?msg=Password aggiornata correttamente. Devi accedere di nuovo'</script>";
     Error:
        echo "<script>window.location.href=' profile.php?error=Qualcosa è andato storto'</script>";
-} else if (isset($_SESSION['adminLog']) && $_SESSION['adminLog'] == 'daje') {
+} else 
+    //se e solo se admin è loggato, altrimeni non è loggato e rinvia a index
+    if (isset($_SESSION['adminLog']) && $_SESSION['adminLog'] == 'daje') {
    
     $nome = validate($_POST['nome']);
     $pasw = validate($_POST['password']);

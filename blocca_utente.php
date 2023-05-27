@@ -1,7 +1,7 @@
 <?php
 require "./funzioni.php";
 $conn = db_conn();
-//se e solo se admin è loggato allora aggiungi categoria altrimeni non è loggato e rinvia a login
+//se e solo se admin è loggato allora puoi bloccare altrimeni non è loggato e invia a index
 if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
     // prende id della persona grzie al modal
     $blockThis = $_POST["blockthis"];

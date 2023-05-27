@@ -6,7 +6,7 @@
     ?>   
 <body id="page-top">
     <?php 
-        //se e solo se admin è loggato allora aggiungi categoria altrimeni non è loggato e rinvia a login
+        //se e solo se admin è loggato allora vedere e gestire le categorie altrimeni non è loggato e invia a login
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
             navBar($pagina,"Gestisci le categorie");
         ?>
