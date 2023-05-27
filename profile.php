@@ -321,6 +321,7 @@
 
 
 <script>
+// inserisce i dati dell'utente nei rispettivi campi
 window.onload= function(){
     placeH();
     populateSelectNazionalita();
@@ -379,6 +380,7 @@ function placeH() {
 </script>
 
 <script>
+// controlla al ricevimento dell'evento onchange che il pattern sia rispettato
 function validaInput(id,pattern){
     var input = document.getElementById(id);
     var regex = new RegExp(pattern);
@@ -389,6 +391,7 @@ function validaInput(id,pattern){
     input.classList.remove("is-invalid");
     return true;
 }
+// funzioni che rimuovono la classe is-invalid dai rispettivi campi al ricevimento dell'evento onchange
 function validaNazionalita() {
     if (document.getElementById("nazionalita").classList.contains("is-invalid")) document.getElementById("nazionalita").classList.remove("is-invalid");
     return true;
@@ -472,6 +475,7 @@ submitButtonData.addEventListener("click", function() {
     }
 });
 </script>
+<!-- controlla se l'utente loggato sia un utente normale oppure admin -->
 <?php }else if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
             head($pagina);
             navBar($pagina,"PROFILO");
@@ -482,34 +486,34 @@ submitButtonData.addEventListener("click", function() {
             <div class="col mt-5 " >
                 <div class="card text-center shadow mb-3 leftToF border-secondary">
                     <div class="card-header">
-                    <?php if(isset($_GET['msg'])){ ?>
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
-<script>
-    setTimeout(function() {
-        var alert = document.querySelector('.alert');
-        var bsAlert = new bootstrap.Alert(alert);
-        bsAlert.close();
-    }, 1000);
-</script>
-                                    <?php }?>
-                                    <?php if(isset($_GET['error'])){ ?>
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>UPS! </strong><?php echo $_GET['error']; ?>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
-<script>
-    setTimeout(function() {
-        var alert = document.querySelector('.alert');
-        var bsAlert = new bootstrap.Alert(alert);
-        bsAlert.close();
-    }, 1000);
-</script>
-                                    <?php }?>
-                        <p class="text-primary m-0 fw-bold h3" >Profilo</p>
-                        <p class="m-0 h5 fw-bold text-center" id="username"></p>
+                        <?php if(isset($_GET['msg'])){ ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Congratulazioni! </strong><?php echo $_GET['msg']; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <script>
+                                setTimeout(function() {
+                                    var alert = document.querySelector('.alert');
+                                    var bsAlert = new bootstrap.Alert(alert);
+                                    bsAlert.close();
+                                }, 1000);
+                            </script>
+                        <?php }?>
+                        <?php if(isset($_GET['error'])){ ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>UPS! </strong><?php echo $_GET['error']; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <script>
+                                setTimeout(function() {
+                                    var alert = document.querySelector('.alert');
+                                    var bsAlert = new bootstrap.Alert(alert);
+                                    bsAlert.close();
+                                }, 1000);
+                            </script>
+                        <?php }?>
+                            <p class="text-primary m-0 fw-bold h3" >Profilo</p>
+                            <p class="m-0 h5 fw-bold text-center" id="username"></p>
                     </div>
 
                     <div class="card-body">
