@@ -4,7 +4,9 @@
     $conn = db_conn();
     head($pagina);
     navBar($pagina,"Le tue statistiche");
+    //entra se un utente è loggato
     if (isset($_SESSION['log']) && $_SESSION['log']== 'on'){
+        //variabili per i grafici
         $ultimo_giorno_mese = date("d");
         $json_data_linegraph = linegraph($conn);
         $json_giorni_mese = giorni_mese();
@@ -66,7 +68,7 @@
                 <div class="card border-secondary mb-3 card-high shadow hi-top" >
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
-                            <div id="spline graph saldo">
+                            <div id="spline graph saldo"><!-- grafico saldo highcharts -->
                             </div>
                         </figure>
                     </div>
@@ -76,7 +78,7 @@
                 <div class="card border-secondary mb-3 card-high shadow hi-top" >
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
-                            <div id="spline graph risparmio">
+                            <div id="spline graph risparmio"><!-- grafico risparimio highcharts -->
                             </div>
                         </figure>
                     </div>
@@ -407,7 +409,7 @@
                                             accessibility: {
                                                 description: 'Età (uomo)'
                                             }
-                                        }, { // mirror axis on right side
+                                        }, {
                                             opposite: true,
                                             reversed: false,
                                             categories: categories,
