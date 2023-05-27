@@ -1,3 +1,4 @@
+//se scrive sbagliato l'input diventa rosso
 function validaInput(id,pattern){
     console.log("sto controllando");
     var input = document.getElementById(id);
