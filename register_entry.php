@@ -1,7 +1,8 @@
 <?php
-//TODO: da modificare per rendere id incrementale e aggiustare la query per aggiungere l'id categoria
 require "./funzioni.php";
 $conn = db_conn();
+
+// se l'utente è loggato
 if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     $utente = $_SESSION['username'];
     $descrizione =  $_POST['description_new'];
@@ -20,7 +21,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     if(mysqli_num_rows($result) === 1){
         $row = mysqli_fetch_assoc($result);
         $id=$row['id'];
-        $id+=1;
+        $id+=1; // assegna incrementalmente l'id della nuova spesa
         
     }else{
         $id= rand();
@@ -31,7 +32,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
     $categoria = $_POST['cat_new']; 
 
 
-    // Performing insert query execution
+    // query di inserimento della spesa
     $sql = "INSERT INTO spesa VALUES ('$id', '$utente', '$importo', '$data', '$descrizione', '$categoria')";
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -39,7 +40,7 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
 
 
     if($query){
-        //allora è una transazione normali
+        //allora è una transazione normale
         if($data<=date("Y-m-d")){
             $msg="Transazione inserita correttamente";
             echo "<script>window.location.href=' transazioni.php?msg=$msg'</script>";
@@ -49,8 +50,6 @@ if (isset($_SESSION['log']) && $_SESSION['log'] == 'on') {
             echo "<script>window.location.href=' scadenze.php?msg=$msg'</script>";
         }
         
-
-        //header("Location: transazioni.php?msg=$msg");
     } else{
         header("Location: transazioni.php?error=Qualcosa è andato storto :(");
     }

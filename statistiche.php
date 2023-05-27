@@ -23,6 +23,7 @@
 
 ?>
 <script>
+    // filtra per periodo sulla base del valore della select
     function applicaFiltroPeriodo(){
         var e = document.getElementById("selectAge");
         var age = e.options[e.selectedIndex].text;
@@ -54,7 +55,7 @@
                     </div>
                     <div class="card-body text-success">        
                         <figure class="highcharts-figure">
-                            <div id="area graph">
+                            <div id="area graph">  <!-- vuoto, viene riempito con js -->
                             </div>
                         </figure>
                     </div>
@@ -100,6 +101,7 @@
 
 
 <script>
+    // chiama la funzione di highcharts
     function displayMese(){
         Highcharts.chart('area graph', {
             chart: {
@@ -112,7 +114,7 @@
                 enabled: false
             },
             xAxis: {
-                categories: <?=$json_giorni_mese?>
+                categories: <?=$json_giorni_mese?> 
             },
             yAxis: {
                 title: {
@@ -230,7 +232,8 @@
         });
     }
 
-    displayMese();
+    // di default sono mostrate le statistiche del mese corrente
+    displayMese(); 
 
     function displayAnno(){
         Highcharts.chart('area graph', {

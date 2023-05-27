@@ -11,17 +11,14 @@
     $categoria = ((!isset($_GET["categoria"]) || $_GET["categoria"]=="") ? $categoria_prec : $_GET["categoria"]);
     $tipo = ((!isset($_GET["tipo"]) || $_GET["tipo"]=="") ? $tipo_prec : $_GET["tipo"]);
 
-    $catQuery = $conn->query("SELECT nome FROM categoria");
-    if($catQuery->num_rows> 0){
-        $options= mysqli_fetch_all($catQuery, MYSQLI_ASSOC);
-    }
 
+    // salva nella sessione i filtri selezionati
     $_SESSION['categoria'] = $categoria;
     $_SESSION['tipo'] = $tipo;
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-    if ($pagina == "transazioni")
+    if ($pagina == "transazioni") // se sono in transazioni, query che prende dalla base di dati le spese passate filtrate
         $query = "select *
         from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria, c.id as id_categoria,s.importo as importo 
         FROM spesa s join categoria c on c.id=s.categoria
@@ -35,7 +32,7 @@
         FROM spesa s join categoria c on c.id=s.categoria 
         WHERE s.utente = '$username' and YEAR(s.data) < YEAR('$data_oggi')
         )as vie";
-    else
+    else    // se sono in scadenza, query che prende dalla base di dati le spese future filtrate
         $query = "select *
         from (SELECT s.id as id, s.utente as utente, s.data as data, s.descrizione as descrizione, c.nome as categoria, c.id as id_categoria,s.importo as importo 
         FROM spesa s join categoria c on c.id=s.categoria

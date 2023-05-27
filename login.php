@@ -12,7 +12,6 @@
     <div id="wrapper" >
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <!-- per farlo più piccolino se levi fluid -->
                 <div class="container-fluid">
                     <div class="row mb-3">
                         <!-- lg -3 col-->

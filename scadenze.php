@@ -8,18 +8,22 @@
 
 <script src="./assets/js/transazioni_controlli.js"></script>
 
+<!-- se l'utente è loggato -->  
 <?php 
     if(isset($_SESSION['log']) && $_SESSION['log']== 'on'){
 ?>
 <script>
     function applicaFiltroCat() {
         var e = document.getElementById("selectCat");
+
+        // chiamata asincrona che restituisce le spese filtrate
         $.ajax({
             url:"filtered_table.php",   
             type: "get",   
             dataType: 'json',
             data: {categoria: e.options[e.selectedIndex].text, pagina: "scadenze"},
             success:function(result){
+                // la variabile globale dataset, che contiene le righe da mostrare, è aggiornata
                 dataSet = result;
                 lastPage = Math.ceil(dataSet.length/perPage);
                 displayAll(1, 15);
@@ -42,7 +46,7 @@
         });
     }
 
-    // gestione modals
+    // riempie i modals con i dati della relativa transazione
     $(function () {
         $(document).on("click", ".editForModal", function () {
             var row = $(this).data('row');
@@ -55,6 +59,7 @@
         })
     });
 
+    // associa al modal di eliminazione l'id della riga da eliminare
     $(function () {
         $(document).on("click", ".deleteForModal", function () {
             var id = $(this).data('id');
@@ -316,8 +321,9 @@
 </body>
 <script>
     window.onload = populateSelect();
+
+    // riempie tutte le select della categoria con le categorie disponibili
     function populateSelect() {
-        // THE JSON ARRAY.
         let data = <?= getJsonCat($conn)?>;
         
         let ele1 = document.getElementById('selectCat');
@@ -328,17 +334,17 @@
         list = [ele1, ele2, ele3, ele4];
         for (let i = 0; i < data.length; i++) {
             for (element of list)
-                // POPULATE SELECT ELEMENT WITH JSON.
                 element.innerHTML = element.innerHTML + '<option value="' + data[i]['id'] + '">' + data[i]['nome'] + '</option>';
         }
     }
 </script>
 <script>
-    // attenzione
+    // prende tutte le spese dell'utente
     dataSet = <?= getJsonScadenze($conn);?>;
     let perPage = 15;
     lastPage = Math.ceil(dataSet.length/perPage);
 
+    // mostra tutte le righe memorizzate in dataSet
     const displayItems = ( page , perPage , dataset ) => {
 
         let index, offSet;
@@ -380,6 +386,7 @@
         displayPageNav(page, perPage)
     }
 
+    // mostra la barra di paginazione
     const displayPageNav = (page, perPage) => {
 
         let pagination = ""

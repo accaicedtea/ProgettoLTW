@@ -17,8 +17,6 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         exit();
     }else{
         //qui si accede se sono validi gli input
-        echo $uname;
-        echo $passw;
         //cifro la password
         $passw = md5($passw);
         
