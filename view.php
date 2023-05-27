@@ -6,6 +6,7 @@
     ?>   
 <body id="page-top">
     <?php 
+        //se e solo se admin è loggato allora aggiungi categoria altrimeni non è loggato e rinvia a login
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
             navBar($pagina,"Area admin");
         ?>
@@ -32,6 +33,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="table-responsive">
+                                    <!-- tabella admin -->
                                     <table class="table  table-bordered">
                                         <thead class="table-secondary">
                                             <tr>
@@ -59,6 +61,7 @@
                                                 $i=0;
                                                 foreach ($tuples as $tuple) { 
                                                     ?>
+                                            <!-- se un utente è donna allora la riga è nera -->
                                             <tr class="table-<?php if($tuple['sesso']==0) echo 'dark';?>">
                                                 <td scope="row" data-label="Username">
                                                     <p><?php echo $tuple['username'];?></p>
@@ -82,7 +85,8 @@
                                                     <p><?php echo $tuple['email'];?></p>
                                                 </td>
                                                 <td class="text-center" data-label="Blocca utente">
-                                                    <?php 
+                                                    <?php
+                                                        // se la password finisce con adminblock allora fai vedere il bottone sblocca altrimenti fai vedere il bottone blocca 
                                                         $un = $tuple['username'];
                                                         $sql = "SELECT password from utente WHERE username='$un'";
                                                         $result = mysqli_query($conn,$sql);
