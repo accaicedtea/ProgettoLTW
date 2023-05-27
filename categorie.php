@@ -6,7 +6,7 @@
     ?>   
 <body id="page-top">
     <?php 
-        
+        //se e solo se admin è loggato allora aggiungi categoria altrimeni non è loggato e rinvia a login
         if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']== 'daje'){
             navBar($pagina,"Gestisci le categorie");
         ?>
@@ -17,9 +17,11 @@
                     <div class="card shadow border-secondary">
                         <?php if(isset($_GET['error'])){ ?>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <!-- MESSAGIO DI ERRORE SOLO IN CASO DI ERRORE -->
                             <strong>Non grandioso! </strong><?php echo $_GET['error']; ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
+                        <!-- MESSAGIO DI INFO SOLO IN CASO DI INFO -->
                         <?php }else if(isset($_GET['msg'])){?>
                         <div class="alert alert-info alert-dismissible fade show" role="alert">
                             <strong>Operazione eseguita! hai correttamente </strong><?php echo $_GET['msg']; ?>
@@ -41,7 +43,7 @@
                                                     <div class="modal fade" id="modalAddCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
-                                                                <!-- INIZIO FORM -->
+                                                                <!-- INIZIO FORM per l'aggiunta della categoria-->
                                                                 <form class="text-start" action="aggiungi_categoria.php" method="post" name="edit_form">
                                                                     <div class="visually-hidden"><input type="" name="id_edit" value=""></div>
                                                                     
@@ -72,6 +74,7 @@
 
                                 </div>
                                 <div class="table-responsive">
+                                    <!-- TABELLA -->     
                                     <table class="table  table-bordered">
                                         <thead class="table-secondary">
                                             <tr>
@@ -114,6 +117,7 @@
                                                             <div class="modal-content">
                                                                 <!-- INIZIO FORM -->
                                                                 <form class="text-start" action="modifica_categoria.php" method="post" name="edit_form">
+                                                                    <!-- ID della spesa da modificare -->
                                                                     <div class="visually-hidden"><input type="" name="id_edit" value=<?php echo $tuple['id']?>></div>
                                                                     
                                                                     <div class="modal-header">
@@ -141,6 +145,7 @@
                                                     </div>
                                                     </td>
                                                     <td class="text-center" data-label="Elimina categoira">
+                                                    <!-- BOTTONE PER ELIMINARE APRE MODAL DI CONFERMA -->
                                                     <button type="button" name="<?php echo $tuple['id'];?>" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDeleteUser<?php echo $i?>">Elimina categoria</button>
 
                                                     <!-- Modal Elimina categoria -->
@@ -151,7 +156,7 @@
                                                                     <h5 class="modal-title" id="exampleModalLongTitle">Elimina definitivamente una categoria</h5>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <!-- INIZIO FORM -->
+                                                                    <!-- INIZIO FORM  -->
                                                                     <form action="./categoria_elimina.php" method="post" name="edit_form">
                                                                         <div class="row">
                                                                             <p>Vuoi davvero eliminare <strong><?php echo $tuple['nome'];?></strong>?</p>

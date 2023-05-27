@@ -1,8 +1,9 @@
 <?php
-//TODO: Gestione errori
 require "./funzioni.php";
 $conn = db_conn();
+//se e solo se admin è loggato allora aggiungi categoria altrimeni non è loggato e rinvia a login
 if(isset($_SESSION['adminLog']) && $_SESSION['adminLog']=='daje'){
+    // id utente da sbloccare
     $sblockThis = $_POST["sblockthis"];
     $sql = "SELECT password from utente WHERE username='$sblockThis'";
     $result = mysqli_query($conn, $sql);
