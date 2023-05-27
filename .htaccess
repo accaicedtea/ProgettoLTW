@@ -1,5 +1,6 @@
 DirectoryIndex index.php
 
+# Attiva wengine e wbase
 RewriteEngine On
 RewriteBase /
 

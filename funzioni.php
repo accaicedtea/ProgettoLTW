@@ -1144,11 +1144,11 @@ function risparmio_color($risparmio) {
     else return "#99CBFF";
 }
 
-//TODO: INIZIO TOOLS
-// gli passi la pagina da visualizzare
+// INIZIO TOOLS
+// gli passi la pagina da visualizzare e il messaggio -- cambia in base alla connessione sabilita
 function navBar($pagina,$txt)
 {
-    //admin
+    // se admin è connesso
     if (isset($_SESSION["adminLog"]) && $_SESSION["adminLog"] == "daje") { ?>
     <div id="topheader" class="sticky-top ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -1156,6 +1156,7 @@ function navBar($pagina,$txt)
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <!-- rileva in che pagina è, e rende il link attivo e non cliccabile -->
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="navbar-brand logo-nav" href="./index.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -1196,6 +1197,7 @@ function navBar($pagina,$txt)
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <!-- rileva in che pagina è, e rende il link attivo e non cliccabile -->
                 <a class="navbar-brand logo-nav" href="./index.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item mt-2 ms-3">
@@ -1229,7 +1231,7 @@ function navBar($pagina,$txt)
         
     </div>
     <?php } elseif 
-        //random
+        //persona random 
         (!isset($_SESSION["adminLog"]) || !isset($_SESSION["log"])) 
     { ?>
     <div id="topheader" class="sticky-top ">
@@ -1239,6 +1241,7 @@ function navBar($pagina,$txt)
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <!-- rileva in che pagina è, e rende il link attivo e non cliccabile -->
                 <a class="navbar-brand logo-nav" href="./index.php">4Money</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item mt-2 ms-3">
@@ -1266,7 +1269,10 @@ function navBar($pagina,$txt)
     </div>
     </div>
 <?php } ?>
-<?php function head($pagina)
+
+<?php 
+// funzione esegiuta in ogni pagina con i vari css e js importati
+function head($pagina)
 {
     ?>
     <!DOCTYPE html>
@@ -1303,32 +1309,33 @@ function navBar($pagina,$txt)
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script><!-- jquery-->
     </head> 
 <style>
-    #topButton {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 99;
-        font-size: 18px;
-        border: none;
-        outline: none;
-        background-color: #555555;
-        color: white;
-        cursor: pointer;
-        padding: 15px;
-        border-radius: 4px;
-        transition: 0.4s;
-    }
+#topButton {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #555555;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+    transition: 0.4s;
+}
+
+#topButton:hover {  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: var(--highcharts-color-1);
     
-    #topButton:hover {  
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        background-color: var(--highcharts-color-1);
-        
-    }
+}
 </style>  
     <button onclick="topFunction()" id="topButton" title="Vai su"><i class="fas fa-chevron-up"></i></button>
 
 <script>
+// funzione che vede se la finestra è stata scrollata e fa apparire il bottone go top
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
