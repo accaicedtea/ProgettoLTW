@@ -1030,15 +1030,26 @@ function saldo($conn) {
     $array_valori = array();
     $array_saldo = array();
     //Saldo iniziale
-    $sql_saldo = "SELECT COALESCE(sum(spesa.importo),0) + utente.saldo_ini + (SELECT COALESCE(sum(spesa.importo),0)
+    $sql_saldo = "SELECT COALESCE(sum(spesa.importo),0) + (SELECT COALESCE(sum(spesa.importo),0)
                                                                              from spesa
                                                                              where spesa.utente = '$username' and YEAR(spesa.data) = YEAR('$data_oggi') and MONTH(spesa.data) < MONTH('$data_oggi')) as saldo
                   from spesa join utente on utente.username = spesa.utente
                   where spesa.utente = '$username' and YEAR(spesa.data) < YEAR('$data_oggi')";
     $result = mysqli_query($conn, $sql_saldo);
     $saldo = 0;
-    while ($row = mysqli_fetch_assoc($result)) {
-        $saldo = $row['saldo'];
+    if ($result->num_rows > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $saldo = $row['saldo'];
+        }
+    }
+    $sql_saldo_ini = "SELECT saldo_ini as saldo
+                      from utente
+                      where username = '$username'";
+    $result = mysqli_query($conn, $sql_saldo_ini);
+    if ($result->num_rows > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $saldo += $row['saldo'];
+        }
     }
     //Variazioni di questo mese
     $sql = "SELECT DAY(spesa.data) as giorno, sum(spesa.importo) as variazione
